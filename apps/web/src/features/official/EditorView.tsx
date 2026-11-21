@@ -1,45 +1,21 @@
 "use client";
 
-
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import {
-  Button,
-  Card,
-  Checkbox,
-  Fieldset,
-  Input,
-  Label,
-  ListBox,
-  Select,
-  Tabs,
-  TextArea,
-  TextField,
-} from "@heroui/react";
+import { useMemo, useState } from "react";
+import { Button, Card, Tabs } from "@heroui/react";
 import { api } from "@/api";
-import { Breadcrumbs, DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from "@/components/Feedback";
+import { Breadcrumbs, DraftStatusBadge, ErrorBox, Loading } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
-import { FlagCard } from "@/components/FlagCard";
-import { canPublish, countOpen, isHandled, sortFlags } from "@/lib/lint";
+import { canPublish, isHandled } from "@/lib/lint";
 import { errorMessage } from "@/lib/format";
 import { useAsync } from "@/lib/useAsync";
-import { FIELD_TYPES, type Field, type FieldType, type FormDraft, type LintFlag, type StatuteChunk } from "@/types";
+import type { Field, FormDraft, LintFlag, StatuteChunk } from "@/types";
+import { CoiJsonPanel } from "./editor/CoiJsonPanel";
+import { FieldEditor } from "./editor/FieldEditor";
+import { LintPanel } from "./editor/LintPanel";
+import { StructureNav } from "./editor/StructureNav";
 
 type Tab = "field" | "preview" | "json";
-
-const FIELD_TYPE_LABELS: Record<FieldType, string> = {
-  text: "Tekst",
-  textarea: "Tekst długi",
-  number: "Liczba",
-  date: "Data",
-  select: "Lista rozwijana",
-  radio: "Jednokrotny wybór",
-  checkbox: "Pole wyboru",
-  pesel: "PESEL",
-  postalCode: "Kod pocztowy",
-  phone: "Telefon",
-  email: "E-mail",
-};
 
 interface Loaded {
   draft: FormDraft;
@@ -64,20 +40,6 @@ export function EditorView({ draftId }: { draftId: string }) {
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  const [coi, setCoi] = useState<unknown>(null);
-  const updatedAt = data?.draft.updatedAt;
-  useEffect(() => {
-    if (tab !== "json") return;
-    let live = true;
-    api.getCoiJson(draftId).then(
-      (value) => live && setCoi(value),
-      (e: unknown) => live && setActionError(errorMessage(e)),
-    );
-    return () => {
-      live = false;
-    };
-  }, [tab, draftId, updatedAt]);
-
   const allFields = useMemo(() => data?.draft.schema.pages.flatMap((p) => p.fields) ?? [], [data]);
   const selected = allFields.find((f) => f.id === selectedId) ?? null;
 
@@ -88,8 +50,6 @@ export function EditorView({ draftId }: { draftId: string }) {
   const { draft, flags, chunks } = data;
   if (draft.status === "processing") return <Loading text="Ten formularz jest jeszcze przetwarzany." />;
 
-  const sorted = sortFlags(flags);
-  const open = countOpen(flags);
   const publishable = canPublish(flags);
   const flagsFor = (fieldId: string) => flags.filter((f) => f.fieldId === fieldId && !isHandled(f));
 
@@ -144,15 +104,6 @@ export function EditorView({ draftId }: { draftId: string }) {
       router.push("/official");
     });
 
-  const downloadJson = () => {
-    const blob = new Blob([JSON.stringify(coi, null, 2)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `${draft.schema.id}.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  };
-
   return (
     <section>
       <header className="rise mb-10">
@@ -191,52 +142,7 @@ export function EditorView({ draftId }: { draftId: string }) {
       {actionError && <ErrorBox message={actionError} />}
 
       <div className="rise grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)_340px]" style={{ "--i": 1 } as React.CSSProperties}>
-        <Card className="h-fit lg:sticky lg:top-20">
-          <Card.Header>
-            <Card.Title className="text-xs font-semibold tracking-wide text-ink-3 uppercase">Struktura</Card.Title>
-          </Card.Header>
-          <Card.Content>
-            <nav aria-label="Struktura formularza" className="flex flex-col gap-4">
-              {draft.schema.pages.map((page) => (
-                <div key={page.id}>
-                  <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-ink-3 uppercase">{page.title}</h3>
-                  <ul className="flex flex-col">
-                    {page.fields.map((f) => {
-                      const fl = flagsFor(f.id);
-                      const sev = fl.some((x) => x.severity === "error")
-                        ? "error"
-                        : fl.some((x) => x.severity === "warning")
-                          ? "warning"
-                          : null;
-                      const isSel = selectedId === f.id;
-                      return (
-                        <li key={f.id}>
-                          <button
-                            type="button"
-                            aria-current={isSel ? "true" : undefined}
-                            onClick={() => selectField(f.id)}
-                            className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
-                              isSel ? "bg-default font-medium text-ink shadow-[inset_2px_0_0_var(--accent)]" : "text-ink-2 hover:bg-default/60 hover:text-ink"
-                            }`}
-                          >
-                            {sev && (
-                              <span
-                                className={`size-2 shrink-0 rounded-full ${sev === "error" ? "bg-danger" : "bg-warning"}`}
-                                role="img"
-                                aria-label={sev === "error" ? "błąd krytyczny" : "ostrzeżenie"}
-                              />
-                            )}
-                            <span className="truncate">{f.label}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </nav>
-          </Card.Content>
-        </Card>
+        <StructureNav pages={draft.schema.pages} selectedId={selectedId} flagsFor={flagsFor} onSelect={selectField} />
         <Card className="min-w-0">
           <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as Tab)}>
             <Tabs.ListContainer>
@@ -284,197 +190,12 @@ export function EditorView({ draftId }: { draftId: string }) {
             </Tabs.Panel>
 
             <Tabs.Panel id="json" className="flex flex-col gap-3 pt-4">
-              <div>
-                <Button size="sm" variant="secondary" isDisabled={!coi} onPress={downloadJson}>
-                  Pobierz JSON
-                </Button>
-              </div>
-              <pre className="max-h-[60vh] overflow-auto rounded-md bg-ink p-5 font-mono text-xs leading-relaxed text-white/85">
-                {coi ? JSON.stringify(coi, null, 2) : "Wczytywanie…"}
-              </pre>
+              <CoiJsonPanel draftId={draft.id} fileName={draft.schema.id} updatedAt={draft.updatedAt} />
             </Tabs.Panel>
           </Tabs>
         </Card>
-        <aside aria-label="Panel lintera" className="flex flex-col gap-3">
-          <Card>
-            <Card.Header>
-              <Card.Title className="text-xs font-semibold tracking-wide text-ink-3 uppercase">Kontrola jakości</Card.Title>
-            </Card.Header>
-            <Card.Content className="flex flex-col gap-3">
-              <OpenFlagCounts errors={open.errors} warnings={open.warnings} infos={open.infos} showZero />
-              <p id="publish-hint" className="text-sm text-muted" aria-live="polite">
-                {publishable
-                  ? "Wszystkie krytyczne uwagi są obsłużone. Możesz opublikować formularz."
-                  : "Opublikujesz formularz, gdy obsłużysz wszystkie krytyczne uwagi."}
-              </p>
-            </Card.Content>
-          </Card>
-          {sorted.map((flag) => (
-            <FlagCard
-              key={flag.id}
-              flag={flag}
-              busy={busy}
-              onSelectField={selectField}
-              onResolve={(action, justification) => resolve(flag.id, action, justification)}
-            />
-          ))}
-        </aside>
+        <LintPanel flags={flags} busy={busy} onSelectField={selectField} onResolve={resolve} />
       </div>
     </section>
-  );
-}
-
-interface FieldEditorProps {
-  field: Field;
-  allFields: Field[];
-  chunks: StatuteChunk[];
-  onPatch: (patch: Partial<Field> | null) => void;
-}
-
-function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
-  const cond = field.visibleIf;
-  const condTargetMissing = cond && !allFields.some((f) => f.id === cond.fieldId);
-  const sourceChunk = field.legalBasis?.chunkId ? chunks.find((c) => c.id === field.legalBasis!.chunkId) : undefined;
-  const lb = field.legalBasis;
-
-  return (
-    <div className="flex flex-col gap-5">
-      <TextField value={field.label} onChange={(v) => onPatch({ label: v })} className="flex flex-col gap-1.5">
-        <Label>Treść pytania</Label>
-        <Input />
-      </TextField>
-
-      <TextField
-        value={field.helpText ?? ""}
-        onChange={(v) => onPatch({ helpText: v || undefined })}
-        className="flex flex-col gap-1.5"
-      >
-        <Label>Podpowiedź pod pytaniem</Label>
-        <Input />
-      </TextField>
-
-      <div className="flex flex-wrap items-end gap-6">
-        <Select
-          value={field.type}
-          onChange={(k) => k && onPatch({ type: k as FieldType })}
-          className="flex min-w-48 flex-col gap-1.5"
-        >
-          <Label>Typ pola</Label>
-          <Select.Trigger>
-            <Select.Value />
-            <Select.Indicator />
-          </Select.Trigger>
-          <Select.Popover>
-            <ListBox>
-              {FIELD_TYPES.map((t) => (
-                <ListBox.Item key={t} id={t} textValue={FIELD_TYPE_LABELS[t]}>
-                  {FIELD_TYPE_LABELS[t]}
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
-              ))}
-            </ListBox>
-          </Select.Popover>
-        </Select>
-
-        <Checkbox isSelected={field.required} onChange={(v) => onPatch({ required: v })} className="pb-2">
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
-          <Checkbox.Content>
-            <Label>Obowiązkowe</Label>
-          </Checkbox.Content>
-        </Checkbox>
-      </div>
-
-      <div className="flex flex-wrap items-end gap-3">
-        <Select
-          value={cond?.fieldId ?? "__always"}
-          onChange={(k) =>
-            onPatch({
-              visibleIf: k && k !== "__always" ? { fieldId: String(k), equals: cond?.equals ?? "" } : undefined,
-            })
-          }
-          isInvalid={condTargetMissing}
-          className="flex min-w-60 flex-1 flex-col gap-1.5"
-        >
-          <Label>Pokaż pole tylko, gdy inne pole ma wartość</Label>
-          <Select.Trigger>
-            <Select.Value />
-            <Select.Indicator />
-          </Select.Trigger>
-          <Select.Popover>
-            <ListBox>
-              <ListBox.Item id="__always" textValue="Zawsze widoczne">
-                Zawsze widoczne
-                <ListBox.ItemIndicator />
-              </ListBox.Item>
-              {condTargetMissing ? (
-                <ListBox.Item id={cond.fieldId} textValue={`${cond.fieldId} (takie pole nie istnieje)`}>
-                  {cond.fieldId} (takie pole nie istnieje)
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
-              ) : null}
-              {allFields
-                .filter((f) => f.id !== field.id)
-                .map((f) => (
-                  <ListBox.Item key={f.id} id={f.id} textValue={f.id}>
-                    <span className="font-mono text-sm">{f.id}</span>
-                    <ListBox.ItemIndicator />
-                  </ListBox.Item>
-                ))}
-            </ListBox>
-          </Select.Popover>
-        </Select>
-        {cond && (
-          <TextField
-            value={String(cond.equals)}
-            onChange={(v) => onPatch({ visibleIf: { ...cond, equals: v } })}
-            className="flex w-36 flex-col gap-1.5"
-          >
-            <Label>Wymagana wartość</Label>
-            <Input />
-          </TextField>
-        )}
-      </div>
-
-      <Fieldset className="rounded-xl border border-border p-4">
-        <Fieldset.Legend className="px-1 font-semibold">Podstawa prawna</Fieldset.Legend>
-        {lb ? (
-          <div className="flex flex-col gap-3">
-            <p className="text-sm text-muted">{lb.act}</p>
-            <TextField
-              value={lb.unit}
-              onChange={(v) => onPatch({ legalBasis: { ...lb, unit: v } })}
-              className="flex flex-col gap-1.5"
-            >
-              <Label>Przepis (art., ust., pkt)</Label>
-              <Input />
-            </TextField>
-            <TextField
-              value={lb.quote}
-              onChange={(v) => onPatch({ legalBasis: { ...lb, quote: v } })}
-              className="flex flex-col gap-1.5"
-            >
-              <Label>Cytat z przepisu (dosłownie, bez zmian)</Label>
-              <TextArea rows={3} />
-            </TextField>
-            {sourceChunk && (
-              <div className="border-l-2 border-accent bg-default px-4 py-3 text-sm leading-relaxed">
-                <strong>Brzmienie przepisu, {sourceChunk.unit}:</strong> {sourceChunk.text}
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="text-sm text-muted">Brak. To pole nie ma oparcia w przepisie, rozważ jego usunięcie.</p>
-        )}
-      </Fieldset>
-
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-xs text-muted">id: {field.id}</span>
-        <Button size="sm" variant="danger-soft" className="ml-auto" onPress={() => onPatch(null)}>
-          Usuń pole
-        </Button>
-      </div>
-    </div>
   );
 }
