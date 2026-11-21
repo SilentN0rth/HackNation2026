@@ -1,0 +1,70 @@
+# docker compose up --build            → API (:8000) + frontend (:3000), tryb heurystyczny (bez LLM)
+# docker compose --profile llm up      → + Ollama; model pobierz raz: ./backend/scripts/pull_model.sh
+#
+# Sekret JWT podawany w runtime (nie w obrazie): plik ./secrets/jwt_secret (patrz README → „Uruchomienie”).
+
+services:
+  api:
+    build:
+      context: ./backend
+      args:
+        WITH_LIBREOFFICE: "false"
+    image: coi-api:0.1.0
+    user: "10001:10001"
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777   # LibreOffice/Tesseract dostają pliki tymczasowe tylko tutaj (RAM)
+    volumes:
+      - api-data:/var/lib/coi       # SQLite (wersje robocze, audit) – bez plików źródłowych
+    environment:
+      AUTH_ENABLED: "${AUTH_ENABLED:-false}"
+      LLM_ENABLED: "${LLM_ENABLED:-false}"
+      OLLAMA_URL: http://ollama:11434
+      LLM_MODEL: "${LLM_MODEL:-qwen3:4b}"
+      MAX_UPLOAD_MB: "${MAX_UPLOAD_MB:-20}"
+      CORS_ORIGINS: '["http://localhost:3000"]'
+    secrets:
+      - jwt_secret
+    ports:
+      - "8000:8000"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_USE_MOCKS: "false"
+        NEXT_PUBLIC_API_URL: "http://localhost:8000"
+    image: coi-web:0.1.0
+    read_only: true
+    tmpfs:
+      - /tmp
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:0.13.5@sha256:2c9595c555fd70a28363489ac03bd5bf9e7c5bdf2890373c3a830ffd7252ce6d
+    profiles: [llm]
+    volumes:
+      - ollama-models:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+
+volumes:
+  api-data:
+  ollama-models:
+
+secrets:
+  jwt_secret:
+    file: ./secrets/jwt_secret
