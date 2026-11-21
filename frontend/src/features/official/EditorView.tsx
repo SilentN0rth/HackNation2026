@@ -15,7 +15,7 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
-import { api } from "@/api";
+import { api, USE_MOCKS } from "@/api";
 import { toCoiJson } from "@/api/adapters";
 import { DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
@@ -38,6 +38,12 @@ const FIELD_TYPE_LABELS: Record<FieldType, string> = {
   postalCode: "Kod pocztowy",
   phone: "Telefon",
   email: "E-mail",
+  nip: "NIP",
+  regon: "REGON",
+  fileUpload: "Załącznik (plik)",
+  textBlock: "Blok tekstu",
+  infoSection: "Sekcja informacyjna",
+  consent: "Zgody",
 };
 
 interface Loaded {
@@ -62,6 +68,8 @@ export function EditorView({ draftId }: { draftId: string }) {
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  /** JSON COI z backendu (GET /drafts/{id}/coi) – jedno mapowanie, po stronie serwera. */
+  const [serverCoi, setServerCoi] = useState<unknown>(null);
 
   const allFields = useMemo(() => data?.draft.schema.pages.flatMap((p) => p.fields) ?? [], [data]);
   const selected = allFields.find((f) => f.id === selectedId) ?? null;
@@ -130,8 +138,9 @@ export function EditorView({ draftId }: { draftId: string }) {
       router.push("/official");
     });
 
-  const downloadJson = () => {
-    const blob = new Blob([JSON.stringify(toCoiJson(draft.schema), null, 2)], { type: "application/json" });
+  const downloadJson = async () => {
+    const coi = USE_MOCKS ? toCoiJson(draft.schema) : await api.getDraftCoi(draft.id);
+    const blob = new Blob([JSON.stringify(coi, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `${draft.schema.id}.json`;
@@ -216,7 +225,15 @@ export function EditorView({ draftId }: { draftId: string }) {
 
         {/* 2. Edytor / podgląd / JSON */}
         <Card className="min-w-0">
-          <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as Tab)}>
+          <Tabs
+            selectedKey={tab}
+            onSelectionChange={(k) => {
+              setTab(k as Tab);
+              if (k === "json" && !USE_MOCKS) {
+                api.getDraftCoi(draft.id).then(setServerCoi, (e: unknown) => setActionError(errorMessage(e)));
+              }
+            }}
+          >
             <Tabs.ListContainer>
               <Tabs.List aria-label="Widok edytora">
                 <Tabs.Tab id="field">
@@ -267,8 +284,15 @@ export function EditorView({ draftId }: { draftId: string }) {
                   Pobierz JSON
                 </Button>
               </div>
+              {dirty && !USE_MOCKS && (
+                <p className="text-sm text-muted">Pokazujemy ostatnią zapisaną wersję – zapisz zmiany, aby je zobaczyć.</p>
+              )}
               <pre className="max-h-[60vh] overflow-auto rounded-lg bg-default p-4 font-mono text-xs">
-                {JSON.stringify(toCoiJson(draft.schema), null, 2)}
+                {USE_MOCKS
+                  ? JSON.stringify(toCoiJson(draft.schema), null, 2)
+                  : serverCoi
+                    ? JSON.stringify(serverCoi, null, 2)
+                    : "Wczytywanie…"}
               </pre>
             </Tabs.Panel>
           </Tabs>
