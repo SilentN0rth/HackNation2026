@@ -1,46 +1,45 @@
-"use client";
-
-import Link from "next/link";
-import { buttonVariants, Card } from "@heroui/react";
+import { Link } from "react-router";
 import { api } from "@/api";
-import { ErrorBox, Loading, PageHeader } from "@/components/Feedback";
+import { ArrowRight, ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
 import { useAsync } from "@/lib/useAsync";
 
 export function ServicesView() {
   const { data, error, loading } = useAsync(() => api.listPublishedForms());
 
   return (
-    <section className="mx-auto max-w-3xl">
-      <PageHeader title="Załatw sprawę online" />
-      {loading && <Loading />}
+    <section className="max-w-4xl">
+      <PageHeader
+        crumbs={[{ label: "Usługi" }]}
+        title="Załatw sprawę online"
+        description="Wybierz usługę. Część danych możemy uzupełnić za Ciebie, a przed wysłaniem wszystko sprawdzisz."
+      />
+      {loading && <Skeleton rows={3} />}
       {error && <ErrorBox message={error} />}
-      {data?.length === 0 && <p className="text-muted">Nie ma jeszcze opublikowanych usług.</p>}
-      <ul className="flex flex-col gap-4">
-        {data?.map((f) => (
-          <li key={f.id}>
-            <Card>
-              <Card.Header>
-                <Card.Title className="text-lg">
-                  <h2>{f.schema.title}</h2>
-                </Card.Title>
-                <Card.Description>{f.summary}</Card.Description>
-              </Card.Header>
-              <Card.Footer className="flex flex-wrap items-center gap-3">
-                <span className="text-sm text-muted">
-                  ok. {f.estimatedMinutes} min · {f.schema.issuer}
+      {data?.length === 0 && <p className="border-y border-border py-12 text-center text-ink-3">Nie ma jeszcze opublikowanych usług.</p>}
+      {data && data.length > 0 && (
+        <ul className="divide-y divide-border border-y border-border">
+          {data.map((f, i) => (
+            <li key={f.id} className="rise" style={{ "--i": i } as React.CSSProperties}>
+              <Link
+                to={`/citizen/form/${f.id}`}
+                className="row-link flex items-center gap-8 py-7"
+                aria-label={`Rozpocznij: ${f.schema.title}`}
+              >
+                <span className="min-w-0 flex-1">
+                  <h2 className="row-title text-xl font-semibold tracking-[-0.01em] text-ink">{f.schema.title}</h2>
+                  <p className="mt-1.5 leading-relaxed text-ink-3">{f.summary}</p>
+                  <p className="mt-3 text-sm text-ink-3">
+                    <span className="tabular-nums">około {f.estimatedMinutes} min</span>
+                    <span aria-hidden className="mx-2 text-ink-3/50">·</span>
+                    {f.schema.issuer}
+                  </p>
                 </span>
-                <Link
-                  href={`/citizen/form/${f.id}`}
-                  className={`${buttonVariants({ variant: "primary" })} ml-auto`}
-                  aria-label={`Rozpocznij: ${f.schema.title}`}
-                >
-                  Rozpocznij
-                </Link>
-              </Card.Footer>
-            </Card>
-          </li>
-        ))}
-      </ul>
+                <ArrowRight className="row-arrow size-5 shrink-0 text-accent" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

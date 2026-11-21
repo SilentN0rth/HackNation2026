@@ -72,7 +72,7 @@ export function validateField(field: Field, value: string | boolean | undefined)
 /* ---------- walidacja pliku po stronie przeglądarki (zasady z treści zadania COI) ---------- */
 
 export const ACCEPTED_EXTENSIONS = [".pdf", ".doc", ".docx", ".ods", ".xlsx", ".jpg", ".jpeg", ".png"];
-const FORBIDDEN_CHARS = /[;:><\/\\|'*%$]/;
+const FORBIDDEN_CHARS = /[;:></\\|'*%$]/;
 export const MAX_FILE_MB = 20; // backend ma własny, konfigurowalny limit – to tylko podpowiedź w UI
 
 const extOf = (name: string) => name.slice(name.lastIndexOf(".")).toLowerCase();
@@ -95,10 +95,8 @@ export function validateUploadFile(file: File): string | null {
   return r.success ? null : (r.error.issues[0]?.message ?? "Niepoprawny plik.");
 }
 
-/* ---------- uzasadnienie odrzucenia flagi (trafia do Audit Trail) ---------- */
-
 export const justificationSchema = z
   .string()
   .trim()
-  .min(10, "Napisz krótko, dlaczego odrzucasz (min. 10 znaków) – to trafi do Audit Trail.")
+  .min(10, "Napisz w co najmniej 10 znakach, dlaczego odrzucasz uwagę.")
   .max(500, "Uzasadnienie może mieć najwyżej 500 znaków.");

@@ -19,7 +19,7 @@ export const llmLintFlags: LintFlag[] = [
     pageId: "p-wnioskodawca",
     fieldId: "wn_telefon",
     title: "Cytat nie uzasadnia pola „Numer telefonu”",
-    message: "Przypisany fragment dotyczy adresu zamieszkania, a nie numeru telefonu. Werdykt modelu: nie wspiera.",
+    message: "Przypisany fragment dotyczy adresu zamieszkania, a nie numeru telefonu. Ocena modelu: fragment nie uzasadnia tego pola.",
     evidence: "„adres zamieszkania” (art. 7 ust. 2)",
     suggestion: "Ustaw pole jako nieobowiązkowe i opisz cel (kontakt w sprawie), albo usuń pole.",
   },

@@ -1,35 +1,48 @@
 # e-Formularze – frontend (HackNation 2026, COI)
 
-Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria – WCAG) · Zod 4.
+React 19 · Vite · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria, WCAG) · React Router · Zod 4.
 
 ## Start
 
 ```bash
 npm install
-cp .env.example .env.local   # domyślnie NEXT_PUBLIC_USE_MOCKS=true
-npm run dev                  # http://localhost:3000
+cp .env.example .env.local   # domyślnie VITE_USE_MOCKS=true
+npm run dev                  # http://localhost:5173
 ```
 
-Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu (rola wynika z adresu: `/official/*`, `/citizen/*`).
+| Polecenie | Co robi |
+| --- | --- |
+| `npm run dev` | serwer deweloperski z podglądem na żywo |
+| `npm run build` | sprawdzenie typów i build produkcyjny do `dist/` |
+| `npm run preview` | podgląd buildu produkcyjnego |
+| `npm run lint` | ESLint |
 
-## Gdzie co jest
+Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z adresu: `/official/*`, `/citizen/*`.
+
+## Konfiguracja
+
+| Zmienna | Domyślnie | Opis |
+| --- | --- | --- |
+| `VITE_USE_MOCKS` | `true` | `true` – dane z `src/mocks`, `false` – prawdziwe API |
+| `VITE_API_URL` | `http://localhost:8000` | adres backendu, gdy mocki są wyłączone |
+
+## Struktura
 
 ```
 src/
-  app/                 trasy (cienkie server components → widoki z features/)
-    official/          lista, upload, drafts/[id] (edytor + panel lintera), audit
-    citizen/           usługi, applications, form/[id]?app=…
-  features/            widoki klienckie ("use client") – cała logika ekranów
-  components/          AppHeader, FieldRenderer, FlagCard, Dropzone, Feedback
-  types/               schematy Zod = jedyne źródło typów (z.infer)
-  api/
-    types.ts           kontrakt frontend ↔ backend
-    mockApi.ts         implementacja na mockach (stan w pamięci przeglądarki)
-    httpApi.ts         FastAPI – każda odpowiedź walidowana schematem Zod
-    adapters.ts        mapowanie na format JSON COI (TODO)
-  lib/validators.ts    walidacja Zod: pola obywatela (PESEL, kod, tel., e-mail…), plik, uzasadnienie flagi
-  mocks/               WSZYSTKIE dane testowe – tu poprawiacie demo
-  app/globals.css      tokeny kolorów (nadpisują motyw HeroUI, kontrast WCAG AA)
+  main.tsx             wejście aplikacji
+  router.tsx           trasy
+  styles.css           tokeny kolorów, typografia, ruch
+  components/          Layout, Feedback, Dropzone, FieldRenderer, FlagCard
+  features/            ekrany: HomeView, official/*, citizen/*
+  types/               schematy Zod, jedyne źródło typów
+  api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts, adapters.ts
+  lib/                 walidacja, warunki widoczności, useAsync
+  mocks/               dane demonstracyjne
 ```
 
-Plan pracy i scenariusz demo: `PLAN.md` w oryginalnym szkielecie (bez zmian merytorycznych).
+## Wygląd
+
+Styl inspirowany serwisem coi.gov.pl: biel, czerń `#0d0e0e`, akcent `#ca0049`, krój Inter.
+Animacje tylko tam, gdzie pomagają (wejście treści, potwierdzenie kliknięcia), krzywe `ease-out`,
+czas poniżej 300 ms, pełne wsparcie `prefers-reduced-motion`.

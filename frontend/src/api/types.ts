@@ -46,10 +46,10 @@ export interface Api {
 export type UploadStep = "upload" | "parse" | "ocr" | "generate" | "lint" | "done";
 
 export const UPLOAD_STEP_LABELS: Record<UploadStep, string> = {
-  upload: "Wysyłanie pliku",
-  parse: "Odczyt struktury dokumentu",
+  upload: "Sprawdzenie pliku",
+  parse: "Odczyt dokumentu",
   ocr: "Rozpoznawanie tekstu (OCR)",
-  generate: "Generowanie formularza z podstawą prawną",
-  lint: "Kontrola jakości (5 linterów)",
+  generate: "Budowa formularza",
+  lint: "Kontrola jakości",
   done: "Gotowe",
 };

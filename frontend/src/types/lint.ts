@@ -47,7 +47,7 @@ export const LINTER_LABELS: Record<LinterId, string> = {
 };
 
 export const SEVERITY_LABELS: Record<Severity, string> = {
-  error: "Krytyczne",
-  warning: "Ostrzeżenie",
+  error: "Krytyczna",
+  warning: "Do sprawdzenia",
   info: "Sugestia",
 };
