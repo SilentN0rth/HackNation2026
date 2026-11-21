@@ -178,7 +178,9 @@ export function EditorView({ draftId }: { draftId: string }) {
         {/* 1. Struktura formularza */}
         <Card className="h-fit lg:sticky lg:top-20">
           <Card.Header>
-            <Card.Title className="text-base">Struktura</Card.Title>
+            <Card.Title className="text-base" render={(props) => <h2 {...props} />}>
+              Struktura
+            </Card.Title>
           </Card.Header>
           <Card.Content>
             <nav aria-label="Struktura formularza" className="flex flex-col gap-4">
@@ -302,7 +304,9 @@ export function EditorView({ draftId }: { draftId: string }) {
         <aside aria-label="Panel lintera" className="flex flex-col gap-3">
           <Card>
             <Card.Header>
-              <Card.Title className="text-base">Kontrola jakości</Card.Title>
+              <Card.Title className="text-base" render={(props) => <h2 {...props} />}>
+                Kontrola jakości
+              </Card.Title>
             </Card.Header>
             <Card.Content className="flex flex-col gap-3">
               <OpenFlagCounts errors={open.errors} warnings={open.warnings} infos={open.infos} showZero />

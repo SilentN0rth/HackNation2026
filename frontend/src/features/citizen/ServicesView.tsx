@@ -20,8 +20,8 @@ export function ServicesView() {
           <li key={f.id}>
             <Card>
               <Card.Header>
-                <Card.Title className="text-lg">
-                  <h2>{f.schema.title}</h2>
+                <Card.Title className="text-lg" render={(props) => <h2 {...props} />}>
+                  {f.schema.title}
                 </Card.Title>
                 <Card.Description>{f.summary}</Card.Description>
               </Card.Header>
