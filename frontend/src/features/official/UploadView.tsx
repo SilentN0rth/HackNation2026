@@ -42,7 +42,7 @@ export function UploadView() {
       {file && step && (
         <Card>
           <Card.Header>
-            <Card.Title className="font-mono text-base break-all">{file.name}</Card.Title>
+            <Card.Title className="font-mono text-base break-all" render={(props) => <h2 {...props} />}>{file.name}</Card.Title>
           </Card.Header>
           <Card.Content className="flex flex-col gap-4">
             <ProgressBar

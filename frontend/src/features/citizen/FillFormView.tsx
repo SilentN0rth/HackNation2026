@@ -147,11 +147,9 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
       <Card className="mx-auto max-w-2xl">
         <Card.Header>
           <p className="text-sm text-muted">{form.schema.title}</p>
-          <Card.Title>
-            <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold outline-none">
-              Czy możemy uzupełnić część danych za Ciebie?
-            </h1>
-          </Card.Title>
+          <h1 ref={headingRef} tabIndex={-1} className="card__title text-2xl font-semibold outline-none">
+            Czy możemy uzupełnić część danych za Ciebie?
+          </h1>
         </Card.Header>
         <Card.Content className="flex flex-col gap-3">
           <p>
@@ -176,11 +174,9 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
     return (
       <Card className="mx-auto max-w-2xl" role="status">
         <Card.Header>
-          <Card.Title>
-            <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold text-success outline-none">
-              Wniosek wysłany ✔
-            </h1>
-          </Card.Title>
+          <h1 ref={headingRef} tabIndex={-1} className="card__title text-2xl font-semibold text-success outline-none">
+            Wniosek wysłany ✔
+          </h1>
         </Card.Header>
         <Card.Content className="flex flex-col gap-2">
           <p>
