@@ -149,6 +149,11 @@ html[data-theme] body {
   }
 }
 
+/* Odstęp boczny daje już .app-header (siatka max-w-7xl jak w NavBar) – bez dodatkowego --gutter-h Payloada. */
+.template-default .app-header__content {
+  padding-inline: 0;
+}
+
 .template-default .app-header a {
   text-decoration: none;
 }
