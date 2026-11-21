@@ -1,5 +1,7 @@
+"use client";
 
-import { useNavigate } from "react-router";
+
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import {
   Button,
@@ -45,7 +47,7 @@ interface Loaded {
 }
 
 export function EditorView({ draftId }: { draftId: string }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { data, setData, error, loading } = useAsync<Loaded>(async () => {
     const [draft, flags, chunks] = await Promise.all([
       api.getDraft(draftId),
@@ -138,7 +140,7 @@ export function EditorView({ draftId }: { draftId: string }) {
     guard(async () => {
       if (dirty) await api.updateDraftSchema(draft.id, draft.schema);
       await api.publishDraft(draft.id);
-      navigate("/official");
+      router.push("/official");
     });
 
   const downloadJson = () => {
