@@ -50,7 +50,7 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
     name: field.id,
     isRequired: field.required,
     isInvalid: invalid,
-    isReadOnly: readOnly,
+    isReadOnly: readOnly || field.readOnly,
     validationBehavior: "aria" as const,
   };
   const help = field.helpText && <Description>{field.helpText}</Description>;

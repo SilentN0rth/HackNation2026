@@ -2,7 +2,7 @@ import copy
 
 from app import dictionaries
 from app.coi.builder import flow_for, option_list
-from app.coi.jsonata import parse, show_query
+from app.coi.jsonata import parse, references, show_query
 from app.coi.walk import children, leaves
 
 TYPE_TO_FRONT = {
@@ -27,6 +27,10 @@ FRONT_TO_TYPE = {
     "phone": ("TEXT_FIELD", None),
 }
 TYPE_VALIDATORS = {"PESEL", "ZIP_CODE", "EMAIL"}
+LABELS = {
+    "TERYT_DOWODOWY": "Województwo, powiat i gmina",
+    "TERYT_4G_DOWODOWY": "Województwo, powiat, gmina i miejscowość",
+}
 
 
 def front_type(field: dict) -> str | None:
@@ -52,18 +56,18 @@ def _index(coi: dict) -> dict[tuple[str, str, str], dict]:
     }
 
 
-def conditions(coi: dict) -> dict[str, tuple[str, str]]:
+def conditions(coi: dict) -> dict[str, tuple[str, str, bool]]:
     index = _index(coi)
-    result: dict[str, tuple[str, str]] = {}
+    result: dict[str, tuple[str, str, bool]] = {}
     for item in leaves(coi):
         for state in item.field.get("states") or []:
             if state.get("type") != "SHOW":
                 continue
-            ref = parse(state.get("query", ""))
-            if ref and not ref.negated:
+            ref = parse(state.get("query", "")) or next(iter(references(state.get("query", ""))), None)
+            if ref:
                 target = index.get((ref.tab, ref.section, ref.field))
                 if target:
-                    result[item.field["id"]] = (target["id"], ref.value)
+                    result[item.field["id"]] = (target["id"], ref.value, ref.negated)
     return result
 
 
@@ -91,7 +95,7 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                     continue
                 item: dict = {
                     "id": field["id"],
-                    "label": field.get("title") or field.get("techName") or "Pole",
+                    "label": LABELS.get(field.get("title") or "", field.get("title") or field.get("techName") or "Pole"),
                     "type": kind,
                     "required": "REQUIRED" in (field.get("validation") or []),
                 }
@@ -105,8 +109,13 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                 if field.get("defaultValueType") == "EXTERNAL_SYSTEM" and isinstance(field.get("defaultValue"), str):
                     item["prefill"] = {"source": "mObywatel", "key": field["defaultValue"]}
                 if field["id"] in conds:
-                    target, value = conds[field["id"]]
-                    item["visibleIf"] = {"fieldId": target, "equals": value}
+                    target, value, negated = conds[field["id"]]
+                    item["visibleIf"] = {"fieldId": target, "equals": value, **({"negate": True} if negated else {})}
+                default = field.get("defaultValue")
+                if field.get("defaultValueType") != "EXTERNAL_SYSTEM" and default:
+                    item["defaultValue"] = default[0] if isinstance(default, list) else str(default)
+                if field.get("readOnly"):
+                    item["readOnly"] = True
                 legal = (meta.get(field["id"]) or {}).get("legalBasis")
                 if legal:
                     item["legalBasis"] = legal
@@ -130,15 +139,16 @@ def exposed_ids(coi: dict) -> set[str]:
 def _replaceable(state: dict) -> bool:
     if state.get("type") != "SHOW":
         return False
-    ref = parse(state.get("query", ""))
-    return ref is not None and not ref.negated
+    return bool(parse(state.get("query", "")) or references(state.get("query", "")))
 
 
 def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
     coi = copy.deepcopy(coi)
     meta = copy.deepcopy(meta)
     conds = conditions(coi)
+    initial = dict(conds)
     original = set(conds)
+    renamed = False
     known = exposed_ids(coi)
     cells = {item.field["id"]: item for item in leaves(coi)}
     tabs_by_id = {tab["id"]: tab for tab in coi.get("tabs", [])}
@@ -151,6 +161,7 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
         if tab and new_title and new_title != tab.get("title") and new_title not in titles:
             titles.discard(tab.get("title"))
             tab["title"] = new_title
+            renamed = True
             titles.add(new_title)
         for incoming in page.get("fields", []):
             located = cells.get(incoming.get("id"))
@@ -158,7 +169,9 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
                 continue
             kept.add(incoming["id"])
             field = located.field
-            field["title"] = (incoming.get("label") or "").strip() or field.get("title", "")
+            label = (incoming.get("label") or "").strip()
+            if label and label != LABELS.get(field.get("title") or ""):
+                field["title"] = label
             field["tooltipMessage"] = incoming.get("helpText") or ""
             kind, type_validator = FRONT_TO_TYPE.get(incoming.get("type"), (field.get("type"), None))
             field["type"] = kind
@@ -182,7 +195,7 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
                 field.pop("dictionaryName", None)
             visible = incoming.get("visibleIf")
             if visible and visible.get("fieldId"):
-                conds[field["id"]] = (visible["fieldId"], str(visible.get("equals", "")))
+                conds[field["id"]] = (visible["fieldId"], str(visible.get("equals", "")), bool(visible.get("negate")))
             else:
                 conds.pop(field["id"], None)
             if incoming.get("legalBasis"):
@@ -219,10 +232,12 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
         field = item.field
         if field["id"] not in original and field["id"] not in kept:
             continue
+        if not renamed and conds.get(field["id"]) == initial.get(field["id"]):
+            continue
         states = [s for s in field.get("states") or [] if not _replaceable(s)]
         cond = conds.get(field["id"])
         if cond and cond[0] in location:
             tab_title, section_tech, field_tech = location[cond[0]]
-            states.append({"type": "SHOW", "query": show_query(cond[1], tab_title, section_tech, field_tech)})
+            states.append({"type": "SHOW", "query": show_query(cond[1], tab_title, section_tech, field_tech, cond[2])})
         field["states"] = states
     return coi, meta

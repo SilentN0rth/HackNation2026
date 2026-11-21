@@ -3,11 +3,6 @@ import type { Application, AuditEntry, FormDraft, LintFlag, PublishedForm } from
 import * as mocks from "../mocks";
 import { canPublish, countOpen } from "../lib/lint";
 
-/**
- * Implementacja API na danych z src/mocks.
- * Stan trzymamy w pamięci (kopia mocków) – odświeżenie strony resetuje demo.
- */
-
 const clone = <T,>(v: T): T => structuredClone(v);
 const wait = (ms = 250) => new Promise((r) => setTimeout(r, ms));
 const now = () => new Date().toISOString();
@@ -102,6 +97,11 @@ export const mockApi: Api = {
     d.updatedAt = now();
     log({ draftId, action: "field_edited", details: "Zmieniono strukturę formularza w edytorze." });
     return clone(d);
+  },
+
+  async getCoiJson(draftId) {
+    await wait();
+    return clone(findDraft(draftId).schema);
   },
 
   async getStatuteChunks() {

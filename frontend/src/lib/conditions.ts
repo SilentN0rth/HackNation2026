@@ -4,10 +4,10 @@ export type Values = Record<string, string | boolean>;
 
 export function isVisible(cond: Condition | undefined, values: Values): boolean {
   if (!cond) return true;
-  return values[cond.fieldId] === cond.equals;
+  const match = values[cond.fieldId] === cond.equals;
+  return cond.negate ? !match : match;
 }
 
-/** Strony i pola widoczne dla aktualnych odpowiedzi obywatela. */
 export function visiblePages(schema: FormSchema, values: Values): FormPage[] {
   return schema.pages
     .filter((p) => isVisible(p.visibleIf, values))
