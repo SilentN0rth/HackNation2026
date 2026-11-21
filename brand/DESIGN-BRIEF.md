@@ -170,7 +170,13 @@ Z 7 wariantów zostają 2: plansza otwierająca film (sygnet + nazwa, 1,5 s, bez
 
 ## 9. Jeden zestaw danych demo [decyzja do czasu prawdziwego wyniku]
 
-Wniosek o zwrot opłaty skarbowej: 3 strony, 18 pól, 18 cytatów. Flagi: 2 krytyczne (`numer_dowodu` – RODO, `numer_rachunku` – cytat nie występuje w ustawie), 1 ostrzeżenie (`adres_email` – brak podstawy prawnej), 1 poprawiona (`kwota_oplaty`). Publikacja: wersja 1.0.
+Wniosek o zwrot opłaty skarbowej (Urząd Gminy Stawiguda, skan z `data-pdf/2. …zip`): 2 strony, sekcje 1–3. Pól i cytatów nie liczymy, dopóki nie policzy ich backend.
+Flagi:
+- 2 krytyczne: `numer_dowodu` (pole dodane przez model, nie ma go w formularzu; zarazem dana ponad potrzebę) i `dane_pelnomocnika` (warunek widoczności wskazuje nieistniejące pole `czy_pelnomocnik`);
+- 1 ostrzeżenie: `instrukcja_wypelnienia` („WYPEŁNIJ WIELKIMI LITERAMI” – instrukcja papierowa);
+- 1 poprawiona: `adres_poczty_elektronicznej` oznaczony jako opcjonalny na podstawie sekcji 2.3 formularza („dane kontaktowe nie są obowiązkowe, ale ułatwią kontakt w sprawie wniosku”).
+
+Publikacja: wersja 1.0. Typy pól tylko z plików referencyjnych COI (SECTION, TEXT_FIELD, SELECT, RADIO, FILE_UPLOADER, TEXT_BLOCK, CONSENT_SECTION, NUMBER, TEXTAREA).
 Te same liczby na landingu, w slajdach, w filmie i w mockach frontendu (`frontend/src/mocks`). Gdy backend zwróci wynik, podmieniamy wszystko naraz.
 
 ## 10. Zakazy z limitami: lista odbiorcza
