@@ -75,6 +75,7 @@ export function Dropzone({ onFile, disabled }: Props) {
         type="file"
         hidden
         tabIndex={-1}
+        aria-label="Wybierz plik formularza z dysku"
         accept={ACCEPTED_EXTENSIONS.join(",")}
         onChange={(e) => {
           accept(e.target.files?.[0]);

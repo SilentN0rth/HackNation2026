@@ -1,6 +1,6 @@
 "use client";
 
-
+import { useId } from "react";
 import {
   Checkbox,
   Description,
@@ -46,6 +46,7 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
 }
 
 export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly }: Props) {
+  const errorId = useId();
   const str = typeof value === "string" ? value : "";
   const invalid = Boolean(error);
   const common = {
@@ -126,7 +127,12 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
     case "checkbox":
       control = (
         <div className="flex flex-col gap-1.5">
-          <Checkbox {...common} isSelected={value === true} onChange={onChange}>
+          <Checkbox
+            {...common}
+            isSelected={value === true}
+            onChange={onChange}
+            aria-describedby={error ? errorId : undefined}
+          >
             <Checkbox.Control>
               <Checkbox.Indicator />
             </Checkbox.Control>
@@ -136,7 +142,7 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
             </Checkbox.Content>
           </Checkbox>
           {error && (
-            <p className="text-sm text-danger" role="alert">
+            <p id={errorId} className="text-sm text-danger" role="alert">
               {error}
             </p>
           )}
