@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // samodzielny serwer w obrazie Docker (frontend/Dockerfile)
   output: "standalone",
-  /* config options here */
+  // strona startowa → panel urzędnika (przed routingiem, bez renderowania strony)
+  redirects() {
+    return [{ source: "/", destination: "/official", permanent: false }];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
