@@ -1,5 +1,5 @@
 import type { Api } from "./types";
-import { httpApi } from "./httpApi";
+import { payloadApi } from "./payloadApi";
 
 export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
 
@@ -17,7 +17,8 @@ function lazyApi(load: () => Promise<Api>): Api {
 
 // Warunek wprost na process.env – Next wstawia stałą w buildzie, więc przy mocks=false
 // gałąź z import() znika i makiety (src/mocks) nie trafiają do paczki klienta.
+// Bez makiet dane idą przez REST Payloada (/api/payload); httpApi (FastAPI wprost) zostaje jako alternatywa.
 export const api: Api =
-  process.env.NEXT_PUBLIC_USE_MOCKS === "true" ? lazyApi(() => import("./mockApi").then((m) => m.mockApi)) : httpApi;
+  process.env.NEXT_PUBLIC_USE_MOCKS === "true" ? lazyApi(() => import("./mockApi").then((m) => m.mockApi)) : payloadApi;
 
 export * from "./types";
