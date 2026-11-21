@@ -23,7 +23,8 @@ export const Media: CollectionConfig = {
   admin: { group: "Formularze", defaultColumns: ["filename", "mimeType", "filesize", "createdAt"] },
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   upload: {
-    staticDir: path.resolve(dirname, "../../../data/media"),
+    // W Dockerze MEDIA_DIR wskazuje wolumen (ścieżka względna do pliku nie działa w buildzie standalone).
+    staticDir: process.env.MEDIA_DIR || path.resolve(dirname, "../../../data/media"),
     mimeTypes: SOURCE_MIME_TYPES,
   },
   fields: [{ name: "alt", label: "Opis", type: "text" }],
