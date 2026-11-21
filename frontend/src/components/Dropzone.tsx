@@ -1,5 +1,3 @@
-"use client";
-
 import { useId, useRef, useState } from "react";
 import { ACCEPTED_EXTENSIONS, MAX_FILE_MB, validateUploadFile } from "@/lib/validators";
 
@@ -39,20 +37,35 @@ export function Dropzone({ onFile, disabled }: Props) {
           setDrag(false);
           accept(e.dataTransfer.files[0]);
         }}
-        className={`flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-dashed px-6 py-12 text-center transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+        data-drag={drag || undefined}
+        className={`group flex w-full flex-col items-start gap-6 rounded-[10px] border border-dashed px-8 py-10 text-left transition-[border-color,background-color,transform] duration-200 ease-[var(--ease-out)] disabled:cursor-not-allowed disabled:opacity-50 sm:py-14 ${
           drag
-            ? "border-accent bg-accent-soft"
+            ? "scale-[1.01] border-accent bg-accent-soft/60"
             : error
               ? "border-danger bg-danger-soft/40"
-              : "border-border bg-surface hover:border-accent hover:bg-accent-soft/40"
+              : "border-[#c9cacc] bg-white hover:border-ink"
         }`}
       >
-        <svg aria-hidden viewBox="0 0 24 24" className="size-10 text-accent" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0-4 4m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-        </svg>
-        <span className="text-lg font-medium">Przeciągnij plik formularza albo kliknij, aby wybrać</span>
-        <span id={hintId} className="text-sm text-muted">
-          PDF, DOC, DOCX, ODS, XLSX lub skan (JPG, PNG) · do {MAX_FILE_MB} MB
+        <span
+          aria-hidden
+          className={`grid size-11 place-items-center rounded-full border transition-colors duration-200 ${
+            drag ? "border-accent bg-accent text-white" : "border-border bg-default text-ink"
+          }`}
+        >
+          <svg viewBox="0 0 20 20" fill="none" className="size-5">
+            <path d="M10 13V3m0 0L6 7m4-4 4 4M3 13v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        <span className="flex flex-col gap-1.5">
+          <span className="text-xl font-semibold tracking-[-0.01em] text-ink">
+            {drag ? "Upuść, aby rozpocząć analizę" : "Przeciągnij plik formularza"}
+          </span>
+          <span className="text-ink-3">
+            albo <span className="font-semibold text-accent underline decoration-accent/30 underline-offset-4">wybierz z dysku</span>
+          </span>
+        </span>
+        <span id={hintId} className="font-mono text-xs text-ink-3">
+          PDF · DOC · DOCX · ODS · XLSX · JPG · PNG — do {MAX_FILE_MB} MB
         </span>
       </button>
       <input
@@ -61,10 +74,13 @@ export function Dropzone({ onFile, disabled }: Props) {
         hidden
         tabIndex={-1}
         accept={ACCEPTED_EXTENSIONS.join(",")}
-        onChange={(e) => accept(e.target.files?.[0])}
+        onChange={(e) => {
+          accept(e.target.files?.[0]);
+          e.target.value = "";
+        }}
       />
       {error && (
-        <p id={errId} className="mt-2 text-sm text-danger" role="alert">
+        <p id={errId} className="fade-in mt-3 text-sm text-danger" role="alert">
           {error}
         </p>
       )}

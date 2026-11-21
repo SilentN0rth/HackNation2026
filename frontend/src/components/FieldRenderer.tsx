@@ -1,4 +1,3 @@
-"use client";
 
 import {
   Checkbox,
@@ -22,7 +21,6 @@ interface Props {
   error?: string | null;
   prefilled?: boolean;
   onChange: (value: string | boolean) => void;
-  /** Podgląd w edytorze urzędnika – pola nie da się wypełnić. */
   readOnly?: boolean;
 }
 
@@ -39,13 +37,12 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
       {field.label}
       {!field.required && <span className="text-sm font-normal text-muted">(nieobowiązkowe)</span>}
       {prefilled && (
-        <span className="text-sm font-normal text-success">✓ uzupełnione z {field.prefill?.source}</span>
+        <span className="text-sm font-normal text-success">pobrane z {field.prefill?.source}</span>
       )}
     </Label>
   );
 }
 
-/** Renderuje jedno pole formularza obywatela razem z „Dlaczego pytamy?”. */
 export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly }: Props) {
   const str = typeof value === "string" ? value : "";
   const invalid = Boolean(error);
@@ -168,16 +165,16 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
     <div className="mb-6 flex flex-col gap-2">
       {control}
       {field.legalBasis && (
-        <Disclosure className="rounded-lg bg-accent-soft/60">
+        <Disclosure className="-mt-0.5">
           <Disclosure.Heading>
-            <Disclosure.Trigger className="flex w-full items-center justify-between gap-2 px-3 py-2 text-sm font-medium text-accent-soft-foreground">
+            <Disclosure.Trigger className="inline-flex w-auto items-center gap-1 text-[13px] font-medium text-ink-3 transition-colors duration-150 hover:text-accent">
               Dlaczego o to pytamy?
               <Disclosure.Indicator />
             </Disclosure.Trigger>
           </Disclosure.Heading>
           <Disclosure.Content>
-            <Disclosure.Body className="px-3 pb-3">
-              <blockquote className="border-l-4 border-accent pl-3 text-sm">
+            <Disclosure.Body className="mt-2 border-l-2 border-accent pl-3">
+              <blockquote className="text-sm leading-relaxed text-ink-2">
                 „…{field.legalBasis.quote}…”
                 <footer className="mt-1 text-muted">
                   {field.legalBasis.act}, {field.legalBasis.unit}

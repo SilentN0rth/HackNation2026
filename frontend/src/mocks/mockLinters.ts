@@ -42,8 +42,8 @@ function exactMatchFlags(schema: FormSchema, chunks: StatuteChunk[]): LintFlag[]
           severity: "error",
           pageId: page.id,
           fieldId: field.id,
-          title: `Potencjalna halucynacja AI: „${field.label}”`,
-          message: "Cytatu nie znaleziono w tekście ustawy (dopasowanie słowo w słowo).",
+          title: `Cytatu nie ma w przepisie: „${field.label}”`,
+          message: "Cytatu nie znaleziono w tekście ustawy (porównanie słowo w słowo). Model mógł go zmyślić.",
           evidence: `„${field.legalBasis.quote}” (${field.legalBasis.unit})`,
           suggestion: "Popraw cytat na dosłowny fragment przepisu albo usuń pole.",
         });
