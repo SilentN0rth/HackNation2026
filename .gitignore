@@ -16,3 +16,6 @@ secrets/
 
 # zależności
 node_modules/
+
+# Worktree agentów Claude Code
+.claude/worktrees/
