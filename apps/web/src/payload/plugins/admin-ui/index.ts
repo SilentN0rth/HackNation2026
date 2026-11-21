@@ -44,6 +44,8 @@ export const adminUiPlugin =
         // Strona publiczna nie ma ciemnego motywu – panel też zawsze jasny (inaczej Payload bierze motyw z systemu).
         theme: admin.theme ?? "light",
         avatar: admin.avatar ?? { Component: `${DIR}/shell/Avatar#Avatar` },
+        // Pasek zapisu dokumentu jest przyklejony do dołu ekranu – toasty u góry go nie zasłaniają (zwłaszcza na telefonie).
+        toast: { position: "top-right", ...admin.toast },
         meta: {
           titleSuffix: " · e-Formularze",
           icons: [
