@@ -1,0 +1,216 @@
+import type { FormDraft, LegalBasis } from "../types";
+import { MOCK_ACT } from "./statute";
+
+/**
+ * MOCK: wersja robocza wygenerowana przez AI ze skanu formularza
+ * „Wniosek o przyznanie dodatku mieszkaniowego”.
+ *
+ * Celowo zawiera błędy, które pokazujemy na demo (każdy wykrywa inny linter):
+ *  1. lokal_liczba_pokoi      – cytat, którego NIE MA w ustawie   → exact-match (halucynacja)
+ *  2. wn_telefon              – cytat prawdziwy, ale o adresie     → citation-relevance
+ *  3. wn_nr_dowodu            – dana nadmiarowa                    → gdpr
+ *  4. lokal_rodzaj_ogrzewania – warunek wskazuje nieistniejące pole → static-graph
+ *  5. lokal_media             – pytanie wielokrotnie złożone       → wcag
+ *  6. wn_email                – brak podstawy prawnej              → exact-match (ostrzeżenie)
+ *
+ * Docelowo: GET /drafts/{id}
+ */
+
+const basis = (unit: string, quote: string, chunkId: string): LegalBasis => ({
+  act: MOCK_ACT,
+  unit,
+  quote,
+  chunkId,
+});
+
+export const formDraft: FormDraft = {
+  id: "draft-dodatek-mieszkaniowy",
+  status: "review",
+  createdAt: "2026-11-21T13:05:00+01:00",
+  updatedAt: "2026-11-21T13:07:00+01:00",
+  createdBy: "u-official",
+  schema: {
+    id: "dodatek-mieszkaniowy",
+    version: 1,
+    title: "Wniosek o przyznanie dodatku mieszkaniowego",
+    issuer: "Urząd Miasta (przykład)",
+    sourceFile: "wniosek_dodatek_mieszkaniowy_skan.pdf",
+    pages: [
+      {
+        id: "p-wnioskodawca",
+        title: "Twoje dane",
+        description: "Część danych pobierzemy z mObywatela – sprawdź, czy są aktualne.",
+        fields: [
+          {
+            id: "wn_imie",
+            label: "Imię",
+            type: "text",
+            required: true,
+            prefill: { source: "mObywatel", key: "person.firstName" },
+            legalBasis: basis("art. 7 ust. 2", "imię i nazwisko wnioskodawcy", "dm-art7-ust2"),
+          },
+          {
+            id: "wn_nazwisko",
+            label: "Nazwisko",
+            type: "text",
+            required: true,
+            prefill: { source: "mObywatel", key: "person.lastName" },
+            legalBasis: basis("art. 7 ust. 2", "imię i nazwisko wnioskodawcy", "dm-art7-ust2"),
+          },
+          {
+            id: "wn_pesel",
+            label: "Numer PESEL",
+            type: "pesel",
+            required: true,
+            prefill: { source: "mObywatel", key: "person.pesel" },
+            legalBasis: basis("art. 7 ust. 2", "numer PESEL", "dm-art7-ust2"),
+          },
+          {
+            id: "wn_nr_dowodu",
+            label: "Seria i numer dowodu osobistego",
+            type: "text",
+            required: true,
+            validation: { pattern: "^[A-Z]{3}[0-9]{6}$", patternMessage: "Format: ABC123456" },
+            legalBasis: basis("art. 7 ust. 2", "numer PESEL", "dm-art7-ust2"),
+          },
+          {
+            id: "wn_telefon",
+            label: "Numer telefonu",
+            type: "phone",
+            required: true,
+            legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
+          },
+          {
+            id: "wn_email",
+            label: "Adres e-mail",
+            type: "email",
+            required: false,
+            helpText: "Podaj, jeśli chcesz dostawać powiadomienia o sprawie.",
+          },
+        ],
+      },
+      {
+        id: "p-lokal",
+        title: "Twoje mieszkanie",
+        fields: [
+          {
+            id: "lokal_ulica",
+            label: "Ulica i numer",
+            type: "text",
+            required: true,
+            prefill: { source: "mObywatel", key: "address.street" },
+            legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_kod",
+            label: "Kod pocztowy",
+            type: "postalCode",
+            required: true,
+            prefill: { source: "mObywatel", key: "address.postalCode" },
+            legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_miejscowosc",
+            label: "Miejscowość",
+            type: "text",
+            required: true,
+            prefill: { source: "mObywatel", key: "address.city" },
+            legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_tytul",
+            label: "Na jakiej podstawie zajmujesz mieszkanie?",
+            type: "select",
+            required: true,
+            options: [
+              { value: "najem", label: "Najem lub podnajem" },
+              { value: "wlasnosc", label: "Własność" },
+              { value: "spoldzielcze", label: "Spółdzielcze prawo do lokalu" },
+              { value: "inny", label: "Inny tytuł prawny" },
+            ],
+            legalBasis: basis("art. 2 ust. 1", "innym osobom posiadającym tytuł prawny do zajmowanego lokalu mieszkalnego", "dm-art2-ust1"),
+          },
+          {
+            id: "lokal_powierzchnia",
+            label: "Powierzchnia użytkowa mieszkania (m²)",
+            type: "number",
+            required: true,
+            validation: { min: 5, max: 500 },
+            legalBasis: basis("art. 7 ust. 2", "powierzchnię użytkową lokalu", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_liczba_pokoi",
+            label: "Liczba pokoi",
+            type: "number",
+            required: true,
+            validation: { min: 1, max: 20 },
+            legalBasis: basis("art. 7 ust. 2", "liczbę pokoi w lokalu", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_media",
+            label: "Czy mieszkanie ma centralne ogrzewanie i czy ma instalację ciepłej wody, a jeśli tak, to czy jest ona zasilana centralnie?",
+            type: "radio",
+            required: true,
+            options: [
+              { value: "tak", label: "Tak" },
+              { value: "nie", label: "Nie" },
+            ],
+            legalBasis: basis("art. 7 ust. 2", "instalację centralnego ogrzewania i centralnej ciepłej wody", "dm-art7-ust2"),
+          },
+          {
+            id: "lokal_rodzaj_ogrzewania",
+            label: "Jak ogrzewasz mieszkanie?",
+            type: "select",
+            required: true,
+            visibleIf: { fieldId: "lokal_ogrzewanie", equals: "nie" },
+            options: [
+              { value: "piec", label: "Piec na paliwo stałe" },
+              { value: "elektryczne", label: "Ogrzewanie elektryczne" },
+              { value: "gazowe", label: "Ogrzewanie gazowe" },
+            ],
+            legalBasis: basis("art. 6 ust. 1", "opłaty za energię cieplną", "dm-art6-ust1"),
+          },
+        ],
+      },
+      {
+        id: "p-gospodarstwo",
+        title: "Gospodarstwo domowe i dochody",
+        fields: [
+          {
+            id: "gd_liczba_osob",
+            label: "Ile osób mieszka z Tobą (razem z Tobą)?",
+            type: "number",
+            required: true,
+            validation: { min: 1, max: 30 },
+            legalBasis: basis("art. 7 ust. 2", "liczbę osób w gospodarstwie domowym", "dm-art7-ust2"),
+          },
+          {
+            id: "gd_dochod",
+            label: "Łączny dochód gospodarstwa z ostatnich 3 miesięcy (zł)",
+            type: "number",
+            required: true,
+            validation: { min: 0 },
+            helpText: "Licz dochody wszystkich osób w mieszkaniu, po odliczeniu podatku i składek.",
+            legalBasis: basis("art. 3 ust. 1", "w okresie 3 miesięcy poprzedzających datę złożenia wniosku", "dm-art3-ust1"),
+          },
+          {
+            id: "gd_wydatki",
+            label: "Ile miesięcznie płacisz za mieszkanie (zł)?",
+            type: "number",
+            required: true,
+            validation: { min: 0 },
+            helpText: "Czynsz, ogrzewanie, woda i wywóz śmieci.",
+            legalBasis: basis("art. 6 ust. 1", "czynsz, opłaty za energię cieplną, wodę oraz odbiór nieczystości", "dm-art6-ust1"),
+          },
+          {
+            id: "gd_oswiadczenie",
+            label: "Dołączam deklarację o dochodach i oświadczam, że dane są prawdziwe.",
+            type: "checkbox",
+            required: true,
+            legalBasis: basis("art. 7 ust. 1", "deklarację o dochodach gospodarstwa domowego", "dm-art7-ust1"),
+          },
+        ],
+      },
+    ],
+  },
+};
