@@ -2,6 +2,7 @@ import type { Api, UploadStep } from "./types";
 import type { Application, AuditEntry, FormDraft, LintFlag, PublishedForm } from "../types";
 import * as mocks from "../mocks";
 import { canPublish, countOpen } from "../lib/lint";
+import { toCoiJson } from "./adapters";
 
 /**
  * Implementacja API na danych z src/mocks.
@@ -93,6 +94,11 @@ export const mockApi: Api = {
   async getDraft(draftId) {
     await wait();
     return clone(findDraft(draftId));
+  },
+
+  async getDraftCoi(draftId) {
+    await wait(100);
+    return toCoiJson(clone(findDraft(draftId).schema));
   },
 
   async updateDraftSchema(draftId, schema) {

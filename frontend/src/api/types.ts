@@ -26,6 +26,8 @@ export interface Api {
   /** Wysyła plik, backend parsuje, robi OCR i generuje schemat. Zwraca id wersji roboczej. */
   uploadDocument(file: File, onProgress?: (step: UploadStep) => void): Promise<{ draftId: string }>;
   getDraft(draftId: string): Promise<FormDraft>;
+  /** Czysty JSON COI do pobrania (bez naszych rozszerzeń). */
+  getDraftCoi(draftId: string): Promise<unknown>;
   updateDraftSchema(draftId: string, schema: FormSchema): Promise<FormDraft>;
   getStatuteChunks(draftId: string): Promise<StatuteChunk[]>;
   runLinters(draftId: string): Promise<LintFlag[]>;

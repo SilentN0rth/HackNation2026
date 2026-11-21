@@ -46,6 +46,35 @@ async function request<S extends z.ZodType>(schema: S, path: string, init: Reque
 
 const json = (body: unknown) => JSON.stringify(body);
 
+const UploadStepSchema = z.enum(["upload", "parse", "ocr", "generate", "lint", "done"]);
+
+/** Minimalny klient Server-Sent Events na fetch (obsługuje nagłówek Authorization). */
+async function streamEvents(path: string, onEvent: (event: string, data: Record<string, unknown>) => void) {
+  const headers = new Headers({ Accept: "text/event-stream" });
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  const res = await fetch(`${BASE}${path}`, { headers });
+  if (!res.ok || !res.body) throw new Error(`API ${res.status}: ${res.statusText}`);
+  const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+  let buffer = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += value;
+    let sep: number;
+    while ((sep = buffer.indexOf("\n\n")) !== -1) {
+      const raw = buffer.slice(0, sep);
+      buffer = buffer.slice(sep + 2);
+      let event = "message";
+      const dataLines: string[] = [];
+      for (const line of raw.split("\n")) {
+        if (line.startsWith("event:")) event = line.slice(6).trim();
+        else if (line.startsWith("data:")) dataLines.push(line.slice(5).trim());
+      }
+      if (dataLines.length) onEvent(event, JSON.parse(dataLines.join("\n")) as Record<string, unknown>);
+    }
+  }
+}
+
 /** Wersja robocza z backendu: schemat może przyjść w formacie COI, więc najpierw adapter, potem Zod. */
 const RawDraftSchema = FormDraftSchema.extend({ schema: z.unknown() }).transform((d) => ({
   ...d,
@@ -59,17 +88,25 @@ export const httpApi: Api = {
   listDrafts: () => request(z.array(FormDraftSummarySchema), "/drafts"),
 
   async uploadDocument(file, onProgress) {
-    // Prosta wersja: jedno żądanie. Jeśli backend będzie raportował postęp (SSE/WebSocket),
-    // wołajcie onProgress przy każdym zdarzeniu.
+    // Przetwarzanie w tle + etapy przez SSE (GET /drafts/{id}/events). fetch zamiast EventSource,
+    // bo EventSource nie wysyła nagłówka Authorization.
     onProgress?.("upload");
     const body = new FormData();
     body.append("file", file);
-    const res = await request(z.object({ draftId: z.string() }), "/drafts", { method: "POST", body });
-    onProgress?.("done");
-    return res;
+    const { draftId } = await request(z.object({ draftId: z.string() }), "/drafts?async=true", {
+      method: "POST",
+      body,
+    });
+    await streamEvents(`/drafts/${draftId}/events`, (event, data) => {
+      if (event === "error") throw new Error(String(data.error ?? "Nie udało się przetworzyć pliku."));
+      const step = UploadStepSchema.safeParse(data.step);
+      if (step.success) onProgress?.(step.data);
+    });
+    return { draftId };
   },
 
   getDraft: (id) => request(DraftSchema, `/drafts/${id}`),
+  getDraftCoi: (id) => request(z.unknown(), `/drafts/${id}/coi`),
 
   updateDraftSchema: (id, schema) =>
     request(DraftSchema, `/drafts/${id}`, { method: "PUT", body: json({ schema: toCoiJson(schema) }) }),
