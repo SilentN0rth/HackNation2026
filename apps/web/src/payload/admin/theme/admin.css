@@ -1,0 +1,29 @@
+/*
+ * Motyw panelu Payloada (agent B). Ładowany z app/(payload)/custom.css, po CSS Payloada.
+ *
+ * Payload trzyma swoje style w @layer payload-default (zadeklarowanej wcześniej = niższy priorytet),
+ * więc warstwy Tailwinda/HeroUI poniżej wygrywają. Celowo BEZ preflight Tailwinda (tailwindcss/preflight.css)
+ * – zresetowałby natywne style Payloada, które zostają jako fallback.
+ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+
+@import "@heroui/styles/base/base.css" layer(base);
+@import "@heroui/styles/components/index.css" layer(components);
+@import "@heroui/styles/themes/default" layer(theme);
+@import "@heroui/styles/utilities";
+@import "@heroui/styles/variants";
+
+/* Tokeny strony (src/styles.css) – agent B przenosi/rozszerza je tutaj. */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+}
+
+:root {
+  --ink: #0d0e0e;
+  --accent: #ca0049;
+}

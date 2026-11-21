@@ -1,3 +1,4 @@
+import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
 const securityHeaders = [
@@ -14,6 +15,14 @@ const nextConfig: NextConfig = {
   // Docker ustawia NEXT_OUTPUT=standalone; lokalnie zwykły build działa z `next start`
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   poweredByHeader: false,
+  // Stare adresy panelu urzędnika prowadzą do widoków Payloada
+  async redirects() {
+    return [
+      { source: "/official/upload", destination: "/official/collections/forms/create", permanent: false },
+      { source: "/official/drafts/:id", destination: "/official/collections/forms/:id", permanent: false },
+      { source: "/official/audit", destination: "/official/collections/audit-log", permanent: false },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
@@ -28,4 +37,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig, { devBundleServerPackages: false });
