@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // samodzielny serwer w obrazie Docker (frontend/Dockerfile)
+  output: "standalone",
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
