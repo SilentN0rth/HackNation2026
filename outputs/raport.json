@@ -1,0 +1,74 @@
+[
+  {
+    "plik": "Wniosek o ustalenie numeru porządkowego nieruchomości.pdf",
+    "json": "1_wniosek_o_ustalenie_numeru_porzadkowego.json",
+    "pola_przedmiotu": 4,
+    "flagi_error": 0,
+    "flagi_razem": 1,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o zwrot opłaty skarbowej.pdf",
+    "json": "2_wniosek_o_zwrot_oplaty_skarbowej.json",
+    "pola_przedmiotu": 9,
+    "flagi_error": 0,
+    "flagi_razem": 2,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o wydanie zaświadczenia.pdf",
+    "json": "3_wniosek_o_wydanie_zaswiadczenia.json",
+    "pola_przedmiotu": 5,
+    "flagi_error": 0,
+    "flagi_razem": 2,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o wynajęcie świetlicy.pdf",
+    "json": "4_wniosek_o_wynajecie_uzyczenie_swietlicy_wiejskiej.json",
+    "pola_przedmiotu": 7,
+    "flagi_error": 0,
+    "flagi_razem": 3,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o stwierdzenie nadpłaty podatku.PDF",
+    "json": "5_wniosek_o_stwierdzenie_nadplaty_podatku.json",
+    "pola_przedmiotu": 9,
+    "flagi_error": 0,
+    "flagi_razem": 3,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o wydanie zezwolenia na zajęcie pasa drogowego.pdf",
+    "json": "6_wniosek_o_wydanie_zezwolenia_na_zajecie_pasa_drogowego.json",
+    "pola_przedmiotu": 36,
+    "flagi_error": 0,
+    "flagi_razem": 13,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o wydanie zezwolenia na hodowanie lub utrzymywanie psów ras uznawanychza agresywne.PDF",
+    "json": "7_wniosek_o_wydanie_zezwolenia_na_hodowanie_lub_utrzymywanie_p.json",
+    "pola_przedmiotu": 22,
+    "flagi_error": 1,
+    "flagi_razem": 7,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Deklaracja o wysokości opłaty.pdf",
+    "json": "8_deklaracja_o_wysokosci_miesiecznej_oplaty.json",
+    "pola_przedmiotu": 56,
+    "flagi_error": 0,
+    "flagi_razem": 19,
+    "ai": "heuristics"
+  },
+  {
+    "plik": "Wniosek o przyznanie stypendium.pdf",
+    "json": "9_wniosek_o_przyznanie_stypendium_sportowego_rady_miasta_zgier.json",
+    "pola_przedmiotu": 104,
+    "flagi_error": 0,
+    "flagi_razem": 38,
+    "ai": "heuristics"
+  }
+]
