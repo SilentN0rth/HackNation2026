@@ -1,6 +1,5 @@
-"use client";
 
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router";
 import { useMemo, useState } from "react";
 import {
   Button,
@@ -17,7 +16,7 @@ import {
 } from "@heroui/react";
 import { api } from "@/api";
 import { toCoiJson } from "@/api/adapters";
-import { DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from "@/components/Feedback";
+import { Breadcrumbs, DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { FlagCard } from "@/components/FlagCard";
 import { canPublish, countOpen, isHandled, sortFlags } from "@/lib/lint";
@@ -47,7 +46,7 @@ interface Loaded {
 }
 
 export function EditorView({ draftId }: { draftId: string }) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { data, setData, error, loading } = useAsync<Loaded>(async () => {
     const [draft, flags, chunks] = await Promise.all([
       api.getDraft(draftId),
@@ -58,7 +57,7 @@ export function EditorView({ draftId }: { draftId: string }) {
   }, [draftId]);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [tab, setTab] = useState<Tab>("field");
+  const [tab, setTab] = useState<Tab>("preview");
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -66,7 +65,7 @@ export function EditorView({ draftId }: { draftId: string }) {
   const allFields = useMemo(() => data?.draft.schema.pages.flatMap((p) => p.fields) ?? [], [data]);
   const selected = allFields.find((f) => f.id === selectedId) ?? null;
 
-  if (loading && !data) return <Loading text="Wczytywanie formularza i uruchamianie linterów…" />;
+  if (loading && !data) return <Loading text="Wczytujemy formularz i sprawdzamy jego jakość…" />;
   if (error) return <ErrorBox message={error} />;
   if (!data) return null;
 
@@ -95,7 +94,6 @@ export function EditorView({ draftId }: { draftId: string }) {
     setTab("field");
   };
 
-  /** Zmienia pole lokalnie (bez zapisu) – zapis przyciskiem „Zapisz i sprawdź”. */
   const patchField = (fieldId: string, patch: Partial<Field> | null) => {
     const schema = structuredClone(draft.schema);
     for (const page of schema.pages) {
@@ -127,7 +125,7 @@ export function EditorView({ draftId }: { draftId: string }) {
     guard(async () => {
       if (dirty) await api.updateDraftSchema(draft.id, draft.schema);
       await api.publishDraft(draft.id);
-      router.push("/official");
+      navigate("/official");
     });
 
   const downloadJson = () => {
@@ -141,41 +139,51 @@ export function EditorView({ draftId }: { draftId: string }) {
 
   return (
     <section>
-      <div className="mb-6 flex flex-wrap items-start gap-4">
-        <div className="min-w-0 flex-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-balance">{draft.schema.title}</h1>
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            <span className="font-mono text-xs text-muted">{draft.schema.sourceFile}</span>
-            <DraftStatusBadge status={draft.status} />
+      <header className="rise mb-10">
+        <Breadcrumbs
+          items={[
+            { label: "Strona główna", to: "/" },
+            { label: "Formularze", to: "/official" },
+            { label: draft.schema.title },
+          ]}
+        />
+        <div className="flex flex-wrap items-end gap-6">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-[2rem] leading-[1.1] font-semibold tracking-[-0.025em] text-balance text-ink sm:text-[2.5rem]">
+              {draft.schema.title}
+            </h1>
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1">
+              <DraftStatusBadge status={draft.status} />
+              <span className="font-mono text-xs text-ink-3">{draft.schema.sourceFile}</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="secondary" isDisabled={!dirty || busy} onPress={saveAndLint}>
+              {dirty ? "Zapisz i sprawdź" : "Zapisano"}
+            </Button>
+            <Button
+              variant="primary"
+              isDisabled={!publishable || busy || draft.status === "published"}
+              aria-describedby="publish-hint"
+              onPress={publish}
+            >
+              Zatwierdź i opublikuj
+            </Button>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button variant="secondary" isDisabled={!dirty || busy} onPress={saveAndLint}>
-            {dirty ? "Zapisz i sprawdź ponownie" : "Zapisano"}
-          </Button>
-          <Button
-            variant="primary"
-            isDisabled={!publishable || busy || draft.status === "published"}
-            aria-describedby="publish-hint"
-            onPress={publish}
-          >
-            Zatwierdź i opublikuj
-          </Button>
-        </div>
-      </div>
+      </header>
       {actionError && <ErrorBox message={actionError} />}
 
-      <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)_340px]">
-        {/* 1. Struktura formularza */}
+      <div className="rise grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)_340px]" style={{ "--i": 1 } as React.CSSProperties}>
         <Card className="h-fit lg:sticky lg:top-20">
           <Card.Header>
-            <Card.Title className="text-base">Struktura</Card.Title>
+            <Card.Title className="text-xs font-semibold tracking-wide text-ink-3 uppercase">Struktura</Card.Title>
           </Card.Header>
           <Card.Content>
             <nav aria-label="Struktura formularza" className="flex flex-col gap-4">
               {draft.schema.pages.map((page) => (
                 <div key={page.id}>
-                  <h3 className="mb-1 text-xs font-semibold tracking-wide text-muted uppercase">{page.title}</h3>
+                  <h3 className="mb-1.5 text-xs font-semibold tracking-wide text-ink-3 uppercase">{page.title}</h3>
                   <ul className="flex flex-col">
                     {page.fields.map((f) => {
                       const fl = flagsFor(f.id);
@@ -192,7 +200,7 @@ export function EditorView({ draftId }: { draftId: string }) {
                             aria-current={isSel ? "true" : undefined}
                             onClick={() => selectField(f.id)}
                             className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
-                              isSel ? "bg-accent-soft font-medium text-accent-soft-foreground" : "hover:bg-default"
+                              isSel ? "bg-default font-medium text-ink shadow-[inset_2px_0_0_var(--accent)]" : "text-ink-2 hover:bg-default/60 hover:text-ink"
                             }`}
                           >
                             {sev && (
@@ -213,18 +221,16 @@ export function EditorView({ draftId }: { draftId: string }) {
             </nav>
           </Card.Content>
         </Card>
-
-        {/* 2. Edytor / podgląd / JSON */}
         <Card className="min-w-0">
           <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as Tab)}>
             <Tabs.ListContainer>
               <Tabs.List aria-label="Widok edytora">
                 <Tabs.Tab id="field">
-                  Pole
+                  Edycja pola
                   <Tabs.Indicator />
                 </Tabs.Tab>
                 <Tabs.Tab id="preview">
-                  Podgląd dla obywatela
+                  Widok obywatela
                   <Tabs.Indicator />
                 </Tabs.Tab>
                 <Tabs.Tab id="json">
@@ -244,8 +250,8 @@ export function EditorView({ draftId }: { draftId: string }) {
                   onPatch={(patch) => patchField(selected.id, patch)}
                 />
               ) : (
-                <p className="py-8 text-center text-muted">
-                  Wybierz pole po lewej albo kliknij „Pokaż pole” przy fladze.
+                <p className="py-16 text-center text-ink-3">
+                  Wybierz pole z listy po lewej albo kliknij „Pokaż pole” przy uwadze.
                 </p>
               )}
             </Tabs.Panel>
@@ -267,25 +273,23 @@ export function EditorView({ draftId }: { draftId: string }) {
                   Pobierz JSON
                 </Button>
               </div>
-              <pre className="max-h-[60vh] overflow-auto rounded-lg bg-default p-4 font-mono text-xs">
+              <pre className="max-h-[60vh] overflow-auto rounded-md bg-ink p-5 font-mono text-xs leading-relaxed text-white/85">
                 {JSON.stringify(toCoiJson(draft.schema), null, 2)}
               </pre>
             </Tabs.Panel>
           </Tabs>
         </Card>
-
-        {/* 3. Panel lintera */}
         <aside aria-label="Panel lintera" className="flex flex-col gap-3">
           <Card>
             <Card.Header>
-              <Card.Title className="text-base">Kontrola jakości</Card.Title>
+              <Card.Title className="text-xs font-semibold tracking-wide text-ink-3 uppercase">Kontrola jakości</Card.Title>
             </Card.Header>
             <Card.Content className="flex flex-col gap-3">
               <OpenFlagCounts errors={open.errors} warnings={open.warnings} infos={open.infos} showZero />
               <p id="publish-hint" className="text-sm text-muted" aria-live="polite">
                 {publishable
-                  ? "Wszystkie krytyczne flagi obsłużone – możesz opublikować."
-                  : "Publikacja odblokuje się po obsłużeniu każdej krytycznej flagi."}
+                  ? "Wszystkie krytyczne uwagi są obsłużone. Możesz opublikować formularz."
+                  : "Opublikujesz formularz, gdy obsłużysz wszystkie krytyczne uwagi."}
               </p>
             </Card.Content>
           </Card>
@@ -304,8 +308,6 @@ export function EditorView({ draftId }: { draftId: string }) {
   );
 }
 
-/* ---------- edycja jednego pola ---------- */
-
 interface FieldEditorProps {
   field: Field;
   allFields: Field[];
@@ -322,7 +324,7 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
   return (
     <div className="flex flex-col gap-5">
       <TextField value={field.label} onChange={(v) => onPatch({ label: v })} className="flex flex-col gap-1.5">
-        <Label>Etykieta (pytanie)</Label>
+        <Label>Treść pytania</Label>
         <Input />
       </TextField>
 
@@ -331,7 +333,7 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
         onChange={(v) => onPatch({ helpText: v || undefined })}
         className="flex flex-col gap-1.5"
       >
-        <Label>Opis pomocniczy</Label>
+        <Label>Podpowiedź pod pytaniem</Label>
         <Input />
       </TextField>
 
@@ -379,7 +381,7 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
           isInvalid={condTargetMissing}
           className="flex min-w-60 flex-1 flex-col gap-1.5"
         >
-          <Label>Pokaż tylko, gdy pole (id) ma wartość</Label>
+          <Label>Pokaż pole tylko, gdy inne pole ma wartość</Label>
           <Select.Trigger>
             <Select.Value />
             <Select.Indicator />
@@ -387,13 +389,12 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
           <Select.Popover>
             <ListBox>
               <ListBox.Item id="__always" textValue="Zawsze widoczne">
-                — zawsze widoczne —
+                Zawsze widoczne
                 <ListBox.ItemIndicator />
               </ListBox.Item>
-              {/* zostawiamy też błędne id, żeby urzędnik je zobaczył */}
               {condTargetMissing ? (
-                <ListBox.Item id={cond.fieldId} textValue={`${cond.fieldId} (nie istnieje!)`}>
-                  {cond.fieldId} (nie istnieje!)
+                <ListBox.Item id={cond.fieldId} textValue={`${cond.fieldId} (takie pole nie istnieje)`}>
+                  {cond.fieldId} (takie pole nie istnieje)
                   <ListBox.ItemIndicator />
                 </ListBox.Item>
               ) : null}
@@ -414,14 +415,14 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
             onChange={(v) => onPatch({ visibleIf: { ...cond, equals: v } })}
             className="flex w-36 flex-col gap-1.5"
           >
-            <Label>Wartość warunku</Label>
+            <Label>Wymagana wartość</Label>
             <Input />
           </TextField>
         )}
       </div>
 
       <Fieldset className="rounded-xl border border-border p-4">
-        <Fieldset.Legend className="px-1 font-medium">Podstawa prawna</Fieldset.Legend>
+        <Fieldset.Legend className="px-1 font-semibold">Podstawa prawna</Fieldset.Legend>
         {lb ? (
           <div className="flex flex-col gap-3">
             <p className="text-sm text-muted">{lb.act}</p>
@@ -430,7 +431,7 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
               onChange={(v) => onPatch({ legalBasis: { ...lb, unit: v } })}
               className="flex flex-col gap-1.5"
             >
-              <Label>Jednostka redakcyjna</Label>
+              <Label>Przepis (art., ust., pkt)</Label>
               <Input />
             </TextField>
             <TextField
@@ -438,17 +439,17 @@ function FieldEditor({ field, allFields, chunks, onPatch }: FieldEditorProps) {
               onChange={(v) => onPatch({ legalBasis: { ...lb, quote: v } })}
               className="flex flex-col gap-1.5"
             >
-              <Label>Cytat (musi występować dosłownie w ustawie)</Label>
+              <Label>Cytat z przepisu (dosłownie, bez zmian)</Label>
               <TextArea rows={3} />
             </TextField>
             {sourceChunk && (
-              <div className="rounded-lg bg-accent-soft/60 p-3 text-sm">
-                <strong>Tekst źródłowy ({sourceChunk.unit}):</strong> {sourceChunk.text}
+              <div className="border-l-2 border-accent bg-default px-4 py-3 text-sm leading-relaxed">
+                <strong>Brzmienie przepisu, {sourceChunk.unit}:</strong> {sourceChunk.text}
               </div>
             )}
           </div>
         ) : (
-          <p className="text-sm text-muted">Brak – pole nie ma uzasadnienia w przepisie.</p>
+          <p className="text-sm text-muted">Brak. To pole nie ma oparcia w przepisie, rozważ jego usunięcie.</p>
         )}
       </Fieldset>
 

@@ -14,14 +14,14 @@ import {
 } from "../types";
 
 /**
- * Prawdziwe API (FastAPI). Włączane przez NEXT_PUBLIC_USE_MOCKS=false w pliku .env.local.
+ * Prawdziwe API (FastAPI). Włączane przez VITE_USE_MOCKS=false w pliku .env.local.
  *
  * Ścieżki endpointów to PROPOZYCJA – uzgodnijcie je z backendem i poprawcie tylko tutaj.
  * Każda odpowiedź przechodzi przez schemat Zod z src/types – jeśli backend zwróci
  * inny kształt, od razu zobaczycie czytelny błąd zamiast „undefined is not a function”.
  */
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
 let token: string | null = null;
 export const setToken = (t: string | null) => {
