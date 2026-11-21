@@ -28,7 +28,11 @@ export function FillFormView({ formId, applicationId }: { formId: string; applic
 function Wizard({ form, app }: { form: PublishedForm; app: Application | null }) {
   const needsPrefill = form.schema.pages.some((p) => p.fields.some((f) => f.prefill));
   const [phase, setPhase] = useState<Phase>(app || !needsPrefill ? "steps" : "consent");
-  const [values, setValues] = useState<Values>(app?.values ?? {});
+  const [values, setValues] = useState<Values>(() => {
+    const defaults: Values = {};
+    for (const p of form.schema.pages) for (const f of p.fields) if (f.defaultValue) defaults[f.id] = f.defaultValue;
+    return { ...defaults, ...(app?.values ?? {}) };
+  });
   const [prefilled, setPrefilled] = useState<Set<string>>(new Set());
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});

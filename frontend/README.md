@@ -6,7 +6,7 @@ React 19 · Vite · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria, WCAG
 
 ```bash
 npm install
-cp .env.example .env.local   # domyślnie VITE_USE_MOCKS=true
+cp .env.example .env.local
 npm run dev                  # http://localhost:5173
 ```
 
@@ -23,8 +23,10 @@ Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z ad
 
 | Zmienna | Domyślnie | Opis |
 | --- | --- | --- |
-| `VITE_USE_MOCKS` | `true` | `true` – dane z `src/mocks`, `false` – prawdziwe API |
-| `VITE_API_URL` | `http://localhost:8000` | adres backendu, gdy mocki są wyłączone |
+| `VITE_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `backend/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
+| `VITE_API_URL` | `http://localhost:8000` | adres backendu |
+
+Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/token`), więc backend może działać z włączonym uwierzytelnianiem.
 
 ## Struktura
 
@@ -36,7 +38,7 @@ src/
   components/          Layout, Feedback, Dropzone, FieldRenderer, FlagCard
   features/            ekrany: HomeView, official/*, citizen/*
   types/               schematy Zod, jedyne źródło typów
-  api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts, adapters.ts
+  api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts
   lib/                 walidacja, warunki widoczności, useAsync
   mocks/               dane demonstracyjne
 ```

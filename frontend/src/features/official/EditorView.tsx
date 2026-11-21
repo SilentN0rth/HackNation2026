@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -15,7 +15,6 @@ import {
   TextField,
 } from "@heroui/react";
 import { api } from "@/api";
-import { toCoiJson } from "@/api/adapters";
 import { Breadcrumbs, DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { FlagCard } from "@/components/FlagCard";
@@ -61,6 +60,20 @@ export function EditorView({ draftId }: { draftId: string }) {
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+
+  const [coi, setCoi] = useState<unknown>(null);
+  const updatedAt = data?.draft.updatedAt;
+  useEffect(() => {
+    if (tab !== "json") return;
+    let live = true;
+    api.getCoiJson(draftId).then(
+      (value) => live && setCoi(value),
+      (e: unknown) => live && setActionError(errorMessage(e)),
+    );
+    return () => {
+      live = false;
+    };
+  }, [tab, draftId, updatedAt]);
 
   const allFields = useMemo(() => data?.draft.schema.pages.flatMap((p) => p.fields) ?? [], [data]);
   const selected = allFields.find((f) => f.id === selectedId) ?? null;
@@ -129,7 +142,7 @@ export function EditorView({ draftId }: { draftId: string }) {
     });
 
   const downloadJson = () => {
-    const blob = new Blob([JSON.stringify(toCoiJson(draft.schema), null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(coi, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = `${draft.schema.id}.json`;
@@ -269,12 +282,12 @@ export function EditorView({ draftId }: { draftId: string }) {
 
             <Tabs.Panel id="json" className="flex flex-col gap-3 pt-4">
               <div>
-                <Button size="sm" variant="secondary" onPress={downloadJson}>
+                <Button size="sm" variant="secondary" isDisabled={!coi} onPress={downloadJson}>
                   Pobierz JSON
                 </Button>
               </div>
               <pre className="max-h-[60vh] overflow-auto rounded-md bg-ink p-5 font-mono text-xs leading-relaxed text-white/85">
-                {JSON.stringify(toCoiJson(draft.schema), null, 2)}
+                {coi ? JSON.stringify(coi, null, 2) : "Wczytywanie…"}
               </pre>
             </Tabs.Panel>
           </Tabs>

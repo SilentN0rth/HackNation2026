@@ -51,6 +51,7 @@ export type LegalBasis = z.infer<typeof LegalBasisSchema>;
 export const ConditionSchema = z.object({
   fieldId: z.string(),
   equals: z.union([z.string(), z.boolean()]),
+  negate: z.boolean().optional(),
 });
 export type Condition = z.infer<typeof ConditionSchema>;
 
@@ -83,6 +84,8 @@ export const FieldSchema = z.object({
   prefill: z.object({ source: PrefillSourceSchema, key: z.string() }).optional(),
   visibleIf: ConditionSchema.optional(),
   legalBasis: LegalBasisSchema.optional(),
+  defaultValue: z.string().optional(),
+  readOnly: z.boolean().optional(),
 });
 export type Field = z.infer<typeof FieldSchema>;
 

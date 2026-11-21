@@ -16,4 +16,17 @@ mkdir -p secrets && openssl rand -base64 48 > secrets/jwt_secret.txt
 docker compose up -d --build
 ```
 
-API: `http://localhost:8000`, dokumentacja: `http://localhost:8000/docs`.
+| Adres | Co tam jest |
+| --- | --- |
+| `http://localhost:5173` | Aplikacja: urzędnik wgrywa formularz, poprawia go w edytorze i publikuje, obywatel wypełnia e-usługę |
+| `http://localhost:8000` | REST API, minimum z wyzwania: `POST /api/v1/convert` |
+| `http://localhost:8000/docs` | Opis API (OpenAPI) |
+
+Bez Dockera:
+
+```bash
+cd backend && python3.14 -m venv .venv && .venv/bin/pip install -r requirements.txt
+JWT_SECRET=dowolny-dlugi-sekret .venv/bin/uvicorn app.main:app --port 8000
+
+cd frontend && npm install && cp .env.example .env.local && npm run dev
+```
