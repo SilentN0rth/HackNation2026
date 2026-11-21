@@ -44,8 +44,8 @@ def best(archive: zipfile.ZipFile):
 
 
 def main() -> None:
-    source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / "data-pdf"
-    target = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT.parent / "outputs"
+    source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parents[1] / "data-pdf"
+    target = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT.parents[1] / "outputs"
     target.mkdir(parents=True, exist_ok=True)
     report = []
     for archive_path in sorted(source.glob("[0-9]*.zip")):

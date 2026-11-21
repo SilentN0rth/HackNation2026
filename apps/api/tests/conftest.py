@@ -15,7 +15,7 @@ from app.main import create_app  # noqa: E402
 from app.store.db import Store, get_store  # noqa: E402
 
 FIXTURES = ROOT / "tests" / "fixtures"
-SAMPLES = ROOT.parent / "data-pdf"
+SAMPLES = ROOT.parents[1] / "data-pdf"
 
 
 def sample(prefix: str, extension: str) -> tuple[str, bytes]:
