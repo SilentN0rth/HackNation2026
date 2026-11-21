@@ -1,6 +1,7 @@
 # e-Formularze – frontend (HackNation 2026, COI)
 
-React 19 · Vite · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria, WCAG) · React Router · Zod 4.
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria, WCAG) · Zod 4 · PWA.
+Backend: Python (FastAPI) w katalogu `backend/`.
 
 ## Start
 
@@ -13,9 +14,10 @@ npm run dev                  # http://localhost:5173
 | Polecenie | Co robi |
 | --- | --- |
 | `npm run dev` | serwer deweloperski z podglądem na żywo |
-| `npm run build` | sprawdzenie typów i build produkcyjny do `dist/` |
-| `npm run preview` | podgląd buildu produkcyjnego |
-| `npm run lint` | ESLint |
+| `npm run build` | sprawdzenie typów i build produkcyjny do `.next/` (w Dockerze tryb `standalone`) |
+| `npm run start` | uruchomienie buildu produkcyjnego na :5173 |
+| `npm run typecheck` | generowanie typów tras i `tsc --noEmit` |
+| `npm run lint` | ESLint (`eslint-config-next`) |
 
 Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z adresu: `/official/*`, `/citizen/*`.
 
@@ -23,8 +25,10 @@ Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z ad
 
 | Zmienna | Domyślnie | Opis |
 | --- | --- | --- |
-| `VITE_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `backend/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
-| `VITE_API_URL` | `http://localhost:8000` | adres backendu |
+| `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `backend/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | adres backendu |
+
+Zmienne `NEXT_PUBLIC_*` są wkompilowywane w bundle podczas `npm run build` (w Dockerze jako `ARG`).
 
 Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/token`), więc backend może działać z włączonym uwierzytelnianiem.
 
@@ -32,16 +36,22 @@ Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/toke
 
 ```
 src/
-  main.tsx             wejście aplikacji
-  router.tsx           trasy
+  app/                 trasy Next.js (App Router), layout, manifest PWA
   styles.css           tokeny kolorów, typografia, ruch
-  components/          Layout, Feedback, Dropzone, FieldRenderer, FlagCard
+  components/          Layout, ServiceWorker, Feedback, Dropzone, FieldRenderer, FlagCard
   features/            ekrany: HomeView, official/*, citizen/*
   types/               schematy Zod, jedyne źródło typów
   api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts
   lib/                 walidacja, warunki widoczności, useAsync
   mocks/               dane demonstracyjne
 ```
+
+## PWA
+
+- Manifest: `src/app/manifest.ts` → `/manifest.webmanifest` (ikony w `public/icons/`, w tym maskowalne).
+- Service worker: `public/sw.js`, rejestrowany tylko w buildzie produkcyjnym. Statyczne zasoby
+  z cache, nawigacje sieć-najpierw z fallbackiem `public/offline.html`. Zapytania do API nie są cache'owane.
+- Instalację sprawdzisz po `npm run build && npm run start` (DevTools → Application → Manifest).
 
 ## Wygląd
 
