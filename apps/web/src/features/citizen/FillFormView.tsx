@@ -8,7 +8,8 @@ import { api } from "@/api";
 import { Check, ErrorBox, Loading, primaryLink } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { visiblePages, type Values } from "@/lib/conditions";
-import { errorMessage, useAsync } from "@/lib/useAsync";
+import { errorMessage } from "@/lib/format";
+import { useAsync } from "@/lib/useAsync";
 import { validateField } from "@/lib/validators";
 import type { Application, PublishedForm } from "@/types";
 

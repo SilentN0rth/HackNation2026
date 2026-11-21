@@ -11,7 +11,8 @@ import {
   primaryLink,
   Skeleton,
 } from "@/components/Feedback";
-import { formatDate, useAsync } from "@/lib/useAsync";
+import { formatDate } from "@/lib/format";
+import { useAsync } from "@/lib/useAsync";
 
 export function DashboardView() {
   const { data, error, loading } = useAsync(() => api.listDrafts());

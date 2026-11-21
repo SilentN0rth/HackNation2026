@@ -2,7 +2,8 @@
 
 import { api } from "@/api";
 import { ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
-import { formatDate, useAsync } from "@/lib/useAsync";
+import { formatDate } from "@/lib/format";
+import { useAsync } from "@/lib/useAsync";
 import type { AuditAction } from "@/types";
 
 const ACTION_LABELS: Record<AuditAction, string> = {

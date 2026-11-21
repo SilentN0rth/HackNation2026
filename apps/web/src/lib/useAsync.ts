@@ -1,7 +1,7 @@
 "use client";
 
-
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { errorMessage } from "./format";
 
 interface Result<T> {
   /** Dla jakiego zestawu `deps` (i którego przeładowania) jest ten wynik. */
@@ -22,6 +22,7 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []) {
   });
 
   const [nonce, setNonce] = useState(0);
+  // klucz z JSON.stringify – `deps` muszą być serializowalne (prymitywy, proste obiekty)
   const key = `${JSON.stringify(deps)}#${nonce}`;
   const [result, setResult] = useState<Result<T> | null>(null);
 
@@ -50,14 +51,3 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []) {
     reload,
   };
 }
-
-export const formatDate = (iso: string) =>
-  new Date(iso).toLocaleString("pl-PL", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-export const errorMessage = (e: unknown) => (e instanceof Error ? e.message : String(e));

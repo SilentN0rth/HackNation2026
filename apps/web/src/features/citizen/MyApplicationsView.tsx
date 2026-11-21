@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { api } from "@/api";
 import { AppStatusBadge, ArrowRight, ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
-import { formatDate, useAsync } from "@/lib/useAsync";
+import { formatDate } from "@/lib/format";
+import { useAsync } from "@/lib/useAsync";
 
 export function MyApplicationsView() {
   const { data, error, loading } = useAsync(() => api.listMyApplications());

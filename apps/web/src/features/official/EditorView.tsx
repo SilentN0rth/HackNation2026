@@ -21,7 +21,8 @@ import { Breadcrumbs, DraftStatusBadge, ErrorBox, Loading, OpenFlagCounts } from
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { FlagCard } from "@/components/FlagCard";
 import { canPublish, countOpen, isHandled, sortFlags } from "@/lib/lint";
-import { errorMessage, useAsync } from "@/lib/useAsync";
+import { errorMessage } from "@/lib/format";
+import { useAsync } from "@/lib/useAsync";
 import { FIELD_TYPES, type Field, type FieldType, type FormDraft, type LintFlag, type StatuteChunk } from "@/types";
 
 type Tab = "field" | "preview" | "json";

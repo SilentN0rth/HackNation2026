@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { api, UPLOAD_STEP_LABELS, type UploadStep } from "@/api";
 import { Dropzone } from "@/components/Dropzone";
 import { Check, ErrorBox, PageHeader } from "@/components/Feedback";
-import { errorMessage } from "@/lib/useAsync";
+import { errorMessage } from "@/lib/format";
 
 const STEPS: UploadStep[] = ["upload", "parse", "ocr", "generate", "lint"];
 
