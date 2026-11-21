@@ -1,16 +1,21 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { visiblePages, type Values } from "@/lib/conditions";
 import type { FormSchema } from "@/types";
 import { ease } from "../motion";
 
 /** Podgląd obywatela na żywo: te same kontrolki co /citizen, warunki widoczności działają przy wypełnianiu. */
+const noop = () => () => {};
+
 export function Preview({ schema }: { schema: FormSchema }) {
   const [values, setValues] = useState<Values>({});
+  // Kontrolki React Aria renderują na serwerze inne atrybuty niż w przeglądarce – podgląd tylko po stronie klienta.
+  const mounted = useSyncExternalStore(noop, () => true, () => false);
   const pages = visiblePages(schema, values);
+  if (!mounted) return <div data-testid="citizen-preview" className="min-h-40" aria-busy="true" />;
   return (
     <div data-testid="citizen-preview" className="flex flex-col gap-8">
       <p className="m-0 text-sm text-ink-3">Tak formularz zobaczy mieszkaniec. Możesz go wypełnić – nic nie zostanie zapisane.</p>

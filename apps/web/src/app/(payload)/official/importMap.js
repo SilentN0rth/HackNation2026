@@ -10,7 +10,6 @@ import { JSONField as JSONField_cd5792a9bd9ccd3c1b6ffcc5a8870b3b } from '@/paylo
 import { DateField as DateField_6015cd4fbe7d848e3aac64676dd21a00 } from '@/payload/admin/fields/DateField'
 import { RelationshipField as RelationshipField_c42156fb661f0de1aa87a7027301843e } from '@/payload/admin/fields/RelationshipField'
 import { FormDocLinks as FormDocLinks_86ba2847848c7f45a95186043150a3c1 } from '@/payload/admin/views/FormDocLinks'
-import { AuditList as AuditList_2bc4e5744dc8878a8ee4dbd9fa2227ca } from '@/payload/admin/views/AuditList'
 import { SwitchField as SwitchField_5c27863c85c704ccfa57979d5d66cc42 } from '@/payload/admin/fields/CheckboxField'
 import { Avatar as Avatar_96cd1ec30b700a05cc6247c4f2dc0d75 } from '@/payload/plugins/admin-ui/shell/Avatar'
 import { Nav as Nav_2df1345f77509fb205f294a4b0a361a3 } from '@/payload/plugins/admin-ui/shell/Nav'
@@ -46,7 +45,6 @@ export const importMap = {
   "@/payload/admin/fields/DateField#DateField": DateField_6015cd4fbe7d848e3aac64676dd21a00,
   "@/payload/admin/fields/RelationshipField#RelationshipField": RelationshipField_c42156fb661f0de1aa87a7027301843e,
   "@/payload/admin/views/FormDocLinks#FormDocLinks": FormDocLinks_86ba2847848c7f45a95186043150a3c1,
-  "@/payload/admin/views/AuditList#AuditList": AuditList_2bc4e5744dc8878a8ee4dbd9fa2227ca,
   "@/payload/admin/fields/CheckboxField#SwitchField": SwitchField_5c27863c85c704ccfa57979d5d66cc42,
   "@/payload/plugins/admin-ui/shell/Avatar#Avatar": Avatar_96cd1ec30b700a05cc6247c4f2dc0d75,
   "@/payload/plugins/admin-ui/shell/Nav#Nav": Nav_2df1345f77509fb205f294a4b0a361a3,

@@ -1,7 +1,7 @@
 /**
  * Fragment: WIDOKI DOMENOWE (agent E). Edytuje tylko agent E.
  * Tu: components.views (dashboard, własne widoki z path), linki w nawigacji, edytor formularza
- * i dziennik decyzji (też jako widok listy kolekcji audit-log). Kształt: PanelFragment z ./types.ts.
+ * i dziennik decyzji (/official/audit; lista kolekcji audit-log należy do fragmentu kolekcji). Kształt: PanelFragment z ./types.ts.
  * Adresy: admin/views/routes.ts (PANEL_VIEWS dla nawigacji agenta B).
  */
 import { VIEW_PATHS } from "../views/routes";
@@ -26,10 +26,6 @@ export const fragment: PanelFragment = {
   collections: {
     forms: {
       admin: { components: { edit: { beforeDocumentControls: [`${V}/FormDocLinks#FormDocLinks`] } } },
-    },
-    // Oś czasu z filtrami zamiast tabeli także pod /official/collections/audit-log.
-    "audit-log": {
-      admin: { components: { views: { list: { Component: `${V}/AuditList#AuditList` } } } },
     },
   },
 };
