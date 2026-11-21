@@ -15,10 +15,16 @@ RUN npm run build
 
 FROM node:24.22.3-alpine3.24
 WORKDIR /app
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080 HOSTNAME=0.0.0.0
+# Baza SQLite i wgrane pliki żyją na wolumenie /app/data; sekret Payloada z Docker secrets.
+# Migracje uruchamia Payload przy starcie (prodMigrations), seed demo – gdy PAYLOAD_SEED=true.
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080 HOSTNAME=0.0.0.0 \
+    DATABASE_URL=file:/app/data/payload.db MEDIA_DIR=/app/data/media \
+    PAYLOAD_SECRET_FILE=/run/secrets/payload_secret
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
+RUN mkdir -p /app/data/media && chown -R node:node /app/data
+VOLUME /app/data
 USER node
 EXPOSE 8080
 CMD ["node", "server.js"]

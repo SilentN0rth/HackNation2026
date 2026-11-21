@@ -37,14 +37,20 @@ Payload CMS 3 (dane urzędnika w SQLite, plan: `docs/PAYLOAD_PLAN.md`).
 | `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – REST Payloada (`/api/payload`, `src/api/payloadApi.ts`), `true` – dane demonstracyjne z `src/mocks` bez backendu |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | adres backendu |
 | `PAYLOAD_SECRET` | tylko dev: stały fallback | sekret Payloada (JWT, szyfrowanie); w produkcji wymagany |
+| `PAYLOAD_SECRET_FILE` | – (Docker: `/run/secrets/payload_secret`) | plik z sekretem, gdy `PAYLOAD_SECRET` jest pusty |
 | `FASTAPI_URL` | `http://localhost:8000` | silnik AI wołany przez hooki Payloada po stronie serwera |
-| `SEED_PASSWORD` | `demo1234` (dev) | hasło konta z seeda |
+| `SEED_PASSWORD` | `demo1234` (dev) | hasło konta z seeda (administrator `urzednik@example.gov.pl`) |
+| `PAYLOAD_SEED` | – (Docker: `true`) | `true` – konto i dane demo zakładane przy starcie serwera (idempotentnie) |
 | `DATABASE_URL` | `file:data/payload.db` | baza SQLite Payloada |
+| `MEDIA_DIR` | `data/media` | katalog wgranych blankietów |
 | `BUILD_ID` | czas buildu | wersja cache service workera; `next.config.ts` przekazuje ją jako `NEXT_PUBLIC_BUILD_ID` |
 
 Zmienne `NEXT_PUBLIC_*` są wkompilowywane w bundle podczas `npm run build` (w Dockerze jako `ARG`).
 Przy `NEXT_PUBLIC_USE_MOCKS=false` makiety z `src/mocks` nie trafiają do paczki klienta – `mockApi` jest
 ładowane leniwie (`import()`) tylko w trybie demonstracyjnym.
+
+Schemat bazy: lokalnie Payload synchronizuje go sam („push”), w produkcji (`NODE_ENV=production`) uruchamia
+migracje z `src/migrations` przy starcie. Po zmianie kolekcji wygeneruj nową: `npm run payload migrate:create <nazwa>`.
 
 Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/token`), więc backend może działać z włączonym uwierzytelnianiem.
 
