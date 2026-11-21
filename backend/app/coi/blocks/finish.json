@@ -1,0 +1,48 @@
+{
+  "id": "db916c6e-9595-4251-80d3-bfea63690bd6",
+  "title": "Strona końcowa",
+  "type": "FINISH",
+  "questions": [
+    {
+      "x": 0,
+      "y": 0,
+      "rows": 2,
+      "cols": 3,
+      "field": {
+        "id": "87733ddf-dd95-45c7-9fc7-5d7c15d139d5",
+        "type": "SECTION",
+        "techName": "podglad_uzupelnionego_wniosku",
+        "title": "Podgląd uzupełnionego wniosku",
+        "description": "<html><head></head><body></body></html>",
+        "options": [],
+        "validation": [],
+        "readOnly": false,
+        "repeatingSectionGrid": [
+          {
+            "x": 0,
+            "y": 0,
+            "rows": 1,
+            "cols": 3,
+            "field": {
+              "id": "247dd188-3a82-4054-b10e-4bf098b40777",
+              "type": "TEXT_BLOCK",
+              "techName": "podglad_1",
+              "title": "",
+              "description": "<html><head></head><body><p><span style=\"color: rgb(31, 35, 40); background-color: rgb(255, 255, 255);\">Zanim przejdziesz do wyboru sposobu podpisu, sprawdź dane na podglądzie. Jeśli zobaczysz błędy, wróć do edycji.</span></p></body></html>",
+              "options": [],
+              "validation": [],
+              "readOnly": false,
+              "repeatingSectionGrid": [],
+              "states": [],
+              "questionOrder": 0,
+              "tooltipMessage": ""
+            }
+          }
+        ],
+        "states": [],
+        "questionOrder": 0,
+        "tooltipMessage": ""
+      }
+    }
+  ]
+}
