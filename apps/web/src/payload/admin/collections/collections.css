@@ -1,0 +1,301 @@
+/*
+ * Widoki kolekcji (agent C). Tokeny strony (src/styles.css) w zakresie .hn-view – działają także przed scaleniem
+ * motywu agenta B; po scaleniu wartości są identyczne, więc nic się nie gryzie.
+ */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+.hn-view,
+.hn-overlay {
+  --ink: #0d0e0e;
+  --ink-2: #363739;
+  --ink-3: #515255;
+  --accent: #ca0049;
+  --accent-hover: #b30041;
+  --accent-foreground: #ffffff;
+  --accent-soft: #fce6ee;
+  --accent-soft-foreground: #860031;
+  --navy: #08255f;
+  --background: #ffffff;
+  --foreground: var(--ink);
+  --surface: #ffffff;
+  --surface-secondary: #f3f3f4;
+  --default: #f3f3f4;
+  --default-hover: #e7e7e8;
+  --default-foreground: var(--ink);
+  --muted: var(--ink-3);
+  --border: #e7e7e8;
+  --separator: #e7e7e8;
+  --field-background: #ffffff;
+  --field-border: #c9cacc;
+  --field-radius: 6px;
+  --danger: #b3261e;
+  --danger-soft: #fdecea;
+  --danger-soft-foreground: #8c1d17;
+  --warning: #8a5a00;
+  --warning-soft: #fff4dc;
+  --warning-soft-foreground: #6b4600;
+  --success: #1e6b3a;
+  --success-soft: #e8f3ec;
+  --success-soft-foreground: #165c2d;
+  --focus: var(--accent);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  color: var(--ink);
+  font-family: "Inter Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+.hn-view {
+  background: var(--background);
+}
+
+.hn-view .font-mono,
+.hn-overlay .font-mono {
+  font-family: "JetBrains Mono Variable", ui-monospace, Menlo, monospace;
+}
+
+.hn-view :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Przyciski i chipy jak na stronie głównej: obramowania zamiast cieni, promień 6 px. */
+.hn-view .button,
+.hn-overlay .button {
+  border-radius: 6px;
+  font-weight: 600;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.hn-view .button:active:not([data-disabled]),
+.hn-overlay .button:active:not([data-disabled]) {
+  transform: scale(0.97);
+}
+
+.hn-view .button--secondary,
+.hn-overlay .button--secondary {
+  --button-bg: #ffffff;
+  --button-bg-hover: #ffffff;
+  --button-bg-pressed: var(--default);
+  --button-fg: var(--ink);
+  box-shadow: inset 0 0 0 1px #c9cacc;
+}
+
+.hn-view .button--secondary:hover:not([data-disabled]),
+.hn-overlay .button--secondary:hover:not([data-disabled]) {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+
+.hn-view .button--tertiary,
+.hn-view .button--ghost,
+.hn-overlay .button--ghost {
+  --button-fg: var(--ink);
+}
+
+.hn-view .chip {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Tabele: bez tła kontenera i cieni, linie jak w wierszach strony głównej. */
+.hn-view .table-root {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.hn-view .table__content {
+  background: transparent;
+}
+
+.hn-view .table__column {
+  background: transparent;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hn-view .table__column:first-child,
+.hn-view .table__column:last-child,
+.hn-view .table__cell:first-child,
+.hn-view .table__cell:last-child {
+  border-radius: 0;
+}
+
+.hn-view .table__column::after {
+  display: none;
+}
+
+.hn-view .checkbox__control,
+.hn-overlay .checkbox__control {
+  border: 1px solid var(--field-border);
+  border-radius: 4px;
+  box-shadow: none;
+  background-color: #ffffff;
+}
+
+.hn-view .checkbox[data-selected="true"] .checkbox__control,
+.hn-view .checkbox[data-indeterminate="true"] .checkbox__control {
+  border-color: var(--accent);
+}
+
+/* Pola wyszukiwania i selecty: obramowanie zamiast cienia, jak na stronie. */
+.hn-view .search-field__group,
+.hn-view .select__trigger,
+.hn-overlay .select__trigger {
+  box-shadow: none;
+  border: 1px solid var(--field-border);
+  border-radius: 6px;
+}
+
+.hn-view .table__cell,
+.hn-view .table__column {
+  vertical-align: middle;
+}
+
+.hn-view .table__cell .checkbox,
+.hn-view .table__column .checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.hn-view .table__row {
+  background: transparent;
+}
+
+.hn-view .table__cell {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.hn-view .table__row[data-hovered] .table__cell {
+  background: #fafafa;
+}
+
+.hn-view .table__row[data-selected] .table__cell {
+  background: var(--accent-soft);
+}
+
+/* Zakładki dokumentu jak na stronie: podkreślenie w kolorze akcentu. */
+.hn-view .tabs__list-container {
+  background: transparent;
+  border-radius: 0;
+}
+
+.hn-view .tabs__list {
+  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+}
+
+.hn-view .tabs__tab {
+  padding-inline: 0;
+  min-width: 0;
+  width: auto;
+  border-radius: 0;
+  color: var(--ink-3);
+}
+
+.hn-view .tabs__tab[data-selected] {
+  color: var(--ink);
+}
+
+.hn-view .tabs__indicator {
+  background-color: var(--accent);
+  box-shadow: none;
+  border-radius: 0;
+  height: 2px;
+  top: auto;
+  bottom: -1px;
+}
+
+.hn-view .row-link .row-arrow {
+  transition: transform 200ms var(--ease-out);
+}
+
+.hn-view .row-link .row-title {
+  transition: color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hn-view .row-link:hover .row-arrow {
+    transform: translateX(3px);
+  }
+
+  .hn-view .row-link:hover .row-title {
+    color: var(--accent);
+  }
+}
+
+@keyframes hn-pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.hn-view .pulse-dot {
+  animation: hn-pulse-dot 1.1s ease-in-out infinite;
+}
+
+/* Minimalny preflight w zakresie .ef-ui – po scaleniu zastępuje go scoped preflight z pluginu agenta B. */
+/* W warstwie base, żeby narzędzia Tailwinda (border, m-*, …) wygrywały. */
+@layer base {
+  .ef-ui *,
+  .ef-ui ::before,
+  .ef-ui ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--border);
+  }
+
+  .ef-ui :where(h1, h2, h3, h4, p, ol, ul, dl, dd, figure, pre) {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ef-ui :where(ol, ul) {
+    list-style: none;
+  }
+
+  .ef-ui :where(a) {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .ef-ui :where(img, svg) {
+    display: block;
+    max-width: 100%;
+  }
+
+  .ef-ui :where(button, input, select, textarea) {
+    font: inherit;
+    color: inherit;
+  }
+
+  .ef-ui :where(table) {
+    border-collapse: collapse;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hn-view .button:active:not([data-disabled]) {
+    transform: none;
+  }
+
+  .hn-view .row-link .row-arrow {
+    transition: none;
+  }
+}
