@@ -18,6 +18,7 @@ npm run dev                  # http://localhost:5173
 | `npm run start` | uruchomienie buildu produkcyjnego na :5173 |
 | `npm run typecheck` | generowanie typów tras i `tsc --noEmit` |
 | `npm run lint` | ESLint (`eslint-config-next`) |
+| `npm test` | testy jednostkowe Vitest (`src/**/*.test.ts`: walidatory, linter, warunki widoczności) |
 
 Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z adresu: `/official/*`, `/citizen/*`.
 
@@ -27,8 +28,11 @@ Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z ad
 | --- | --- | --- |
 | `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `apps/api/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | adres backendu |
+| `BUILD_ID` | czas buildu | wersja cache service workera; `next.config.ts` przekazuje ją jako `NEXT_PUBLIC_BUILD_ID` |
 
 Zmienne `NEXT_PUBLIC_*` są wkompilowywane w bundle podczas `npm run build` (w Dockerze jako `ARG`).
+Przy `NEXT_PUBLIC_USE_MOCKS=false` makiety z `src/mocks` nie trafiają do paczki klienta – `mockApi` jest
+ładowane leniwie (`import()`) tylko w trybie demonstracyjnym.
 
 Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/token`), więc backend może działać z włączonym uwierzytelnianiem.
 
@@ -38,19 +42,26 @@ Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/toke
 src/
   app/                 trasy Next.js (App Router), layout, manifest PWA
   styles.css           tokeny kolorów, typografia, ruch
-  components/          Layout, ServiceWorker, Feedback, Dropzone, FieldRenderer, FlagCard
+  components/          Layout (komponent serwerowy) + HeaderNav (wyspy klienckie: nawigacja,
+                       przełącznik roli, nazwa użytkownika), ServiceWorker, Feedback, Dropzone,
+                       FieldRenderer, FlagCard
   features/            ekrany: HomeView, official/*, citizen/*
+    official/editor/   części edytora: FieldEditor, StructureNav, LintPanel, CoiJsonPanel
+    citizen/fill/      kreator wniosku: useWizard (stan), ConsentPhase, StepForm, SummaryCard,
+                       SubmittedPhase, WizardProgress
   types/               schematy Zod, jedyne źródło typów
   api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts
-  lib/                 walidacja, warunki widoczności, useAsync
+  lib/                 walidacja, warunki widoczności, linter, useAsync, format (daty, błędy); testy *.test.ts
   mocks/               dane demonstracyjne
 ```
 
 ## PWA
 
 - Manifest: `src/app/manifest.ts` → `/manifest.webmanifest` (ikony w `public/icons/`, w tym maskowalne).
-- Service worker: `public/sw.js`, rejestrowany tylko w buildzie produkcyjnym. Statyczne zasoby
-  z cache, nawigacje sieć-najpierw z fallbackiem `public/offline.html`. Zapytania do API nie są cache'owane.
+- Service worker: `public/sw.js`, rejestrowany tylko w buildzie produkcyjnym jako `/sw.js?v=<id buildu>`.
+  Nazwa cache pochodzi z parametru `v`, więc każdy build zaczyna od czystego cache, a stary jest usuwany.
+  Statyczne zasoby z cache, nawigacje sieć-najpierw z fallbackiem `public/offline.html`. Zapytania do API
+  nie są cache'owane.
 - Instalację sprawdzisz po `npm run build && npm run start` (DevTools → Application → Manifest).
 
 ## Wygląd
