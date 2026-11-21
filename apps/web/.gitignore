@@ -9,3 +9,11 @@ next-env.d.ts
 coverage/
 test-results/
 playwright-report/
+
+# Payload – lokalna baza i wgrane pliki
+data/*.db
+data/*.db-*
+data/media/
+
+# Playwright – zrzuty ekranu
+e2e/__screens__/
