@@ -1,0 +1,13 @@
+{
+  "MLPZ.name": "Jan",
+  "MLPZ.surname": "Kowalski",
+  "PESEL.name": "Jan",
+  "PESEL.surname": "Kowalski",
+  "PESEL.pesel": "85010112345",
+  "MLPZ.postCode": "00-950",
+  "MLPZ.street": "Przykładowa",
+  "MLPZ.building": "12",
+  "MLPZ.apartment": "4",
+  "MLPZ.phoneNumber": "600100200",
+  "MLPZ.email": "jan.kowalski@example.com"
+}

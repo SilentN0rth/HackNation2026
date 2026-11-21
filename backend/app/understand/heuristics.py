@@ -1,0 +1,518 @@
+import re
+from dataclasses import dataclass, field
+
+from app.extract.ir import Document
+from app.understand.catalog import any_match, catalog, rewrite
+from app.understand.model import Condition, FieldIR, FormIR, PageIR, SectionIR
+from app.understand.text import clean, fold, is_upper, plain_label, sentence_case, starts_with_box
+
+SECTION_NUMBER = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[A-H])[.)]\s*(\S.*)$")
+NUMBER_ONLY = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[a-hA-H])[.)]?\s*$")
+DATE_HINT = re.compile(r"^\s*(dd|rrrr|d\s?d\s?[-./]\s?m\s?m)\s*[-./ ]?", re.I)
+FIELD_NUMBER_SPLIT = re.compile(r"\s\d{1,3}\.\s(?=[A-ZĄĆĘŁŃÓŚŹŻ])")
+YES_NO_TAIL = re.compile(r"[\s:]*\btak\b[\s/,]*\bnie\b\s*$", re.I)
+OPTIONAL = re.compile(r"jeśli dotyczy|jeżeli dotyczy|nieobowiązkow|opcjonaln|o ile (posiada|dotyczy)|nie są obowiązkowe", re.I)
+INSTRUCTION = re.compile(r"^(wpisz|podaj|zaznacz|wypełnij|uzupełnij|należy)\b", re.I)
+COMPOUND = [
+    "numer domu",
+    "numer lokalu",
+    "nr domu",
+    "nr lokalu",
+    "kod pocztowy",
+    "miejscowość",
+    "ulica",
+    "gmina",
+    "powiat",
+    "województwo",
+    "poczta",
+    "pesel",
+    "nip",
+    "regon",
+]
+RESERVED_PAGE_TITLES = {"dane", "kontakt i zgody", "strona końcowa"}
+MAX_LABEL = 150
+MAX_FIELDS_PER_PAGE = 12
+ENUMERATED = re.compile(r"^\s*(?:\d{1,2}\)|[a-z]\)|[-•–])\s*(\S.*)$")
+ADDRESS = re.compile(r"\b\d{2}-\d{3}\b|^[A-ZĄĆĘŁŃÓŚŹŻ][\w.-]*(?: [\w.-]+){0,3} \d+[a-zA-Z]?(?:/\d+)?$")
+NARRATIVE = re.compile(r"^(wnoszę|proszę|zwracam się|ubiegam się)\b", re.I)
+ATTACHMENTS_LINE = re.compile(r"^(w\s+)?załącz", re.I)
+ISSUER_INLINE = re.compile(r"((?:Urząd (?:Miasta i Gminy|Miasta|Gminy|Miejski w|Dzielnicy)|Wójt Gminy|Burmistrz (?:Miasta i Gminy|Miasta|Gminy)?|Prezydent Miasta|Starosta)\s+[A-ZĄĆĘŁŃÓŚŹŻ][\w-]+(?:[ -][A-ZĄĆĘŁŃÓŚŹŻ][\w-]+)?)")
+BLANK_CUE = re.compile(r"\b(w kwocie|kwotę|w wysokości)\s*$", re.I)
+SENTENCE = re.compile(r"[a-ząćęłńóśźż]{3,}.*[.;]$")
+LEADING_CAPS = re.compile(r"^[A-ZĄĆĘŁŃÓŚŹŻ]{4,}(?: [A-ZĄĆĘŁŃÓŚŹŻ]{4,})+\b")
+ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10, "XI": 11, "XII": 12}
+
+
+@dataclass
+class Item:
+    text: str
+    page: int = 1
+    heading: bool = False
+    cell: bool = False
+    date: bool = False
+    option: bool = False
+
+
+@dataclass
+class RawSection:
+    header: str
+    kind: str
+    page: int
+    items: list[Item] = field(default_factory=list)
+
+
+def _balanced(text: str) -> bool:
+    return text.count("(") <= text.count(")")
+
+
+def _split_compound(text: str) -> list[str]:
+    lower = text.lower()
+    hits = sorted({lower.find(token) for token in COMPOUND if lower.find(token) >= 0})
+    hits = [h for h in hits if h == 0 or lower[h - 1] == " "]
+    if len(hits) < 2 or len(text) > 90:
+        return [text]
+    bounds = hits + [len(text)]
+    parts = [text[bounds[i] : bounds[i + 1]].strip(" ,;") for i in range(len(hits))]
+    head = text[: hits[0]].strip(" ,;")
+    return ([head] if head else []) + [p for p in parts if p]
+
+
+def prepare(doc: Document) -> list[Item]:
+    rules = catalog()
+    items: list[Item] = []
+    pending_number = ""
+    for line in doc.lines:
+        raw = line.text.strip()
+        if DATE_HINT.match(raw):
+            if items:
+                items[-1].date = True
+            continue
+        if NUMBER_ONLY.match(raw):
+            pending_number = "" if raw.endswith(")") else raw.rstrip(".") + ". "
+            continue
+        option = starts_with_box(raw)
+        text = clean(raw)
+        if not text:
+            continue
+        if pending_number:
+            text = pending_number + text
+            pending_number = ""
+        if any_match(rules.skip_lines, text):
+            continue
+        if items and items[-1].text == text:
+            continue
+        previous = items[-1] if items else None
+        closes = text.count(")") > text.count("(")
+        joinable = (
+            previous is not None
+            and (closes or not option)
+            and not SECTION_NUMBER.match(text)
+            and not ATTACHMENTS_LINE.match(text)
+            and not ENUMERATED.match(text)
+            and (
+                previous.text.endswith(",")
+                or not _balanced(previous.text)
+                or (text[0].islower() and not previous.text.endswith((".", ":", "?", ")")))
+            )
+        )
+        if joinable and len(previous.text) + len(text) < 400:
+            previous.text = f"{previous.text} {text}"
+            continue
+        for chunk in FIELD_NUMBER_SPLIT.split(text) if len(text) < 160 else [text]:
+            for part in _split_compound(chunk):
+                items.append(Item(part, line.page, line.heading, line.cell, option=option))
+    return items
+
+
+def _title_and_issuer(items: list[Item]) -> tuple[str | None, str | None, set[int]]:
+    rules = catalog()
+    title = issuer = None
+    used: set[int] = set()
+    for index, item in enumerate(items[:30]):
+        text = item.text
+        if title is None and any_match(rules.titles, text) and len(text) < 220:
+            title = text
+            used.add(index)
+            nxt = items[index + 1] if index + 1 < len(items) else None
+            if nxt and len(text) < 25 and (nxt.text[:1].islower() or nxt.text.lower().startswith(("o ", "w sprawie", "dotycz"))):
+                title = f"{text} {nxt.text}"
+                used.add(index + 1)
+        elif issuer is None and any_match(rules.issuers, text) and len(text) < 120:
+            issuer = re.sub(r"^do\s+", "", text, flags=re.I).rstrip(":,")
+            used.add(index)
+            following = items[index + 1 : index + 4]
+            if len(issuer.split()) <= 3 and following and re.fullmatch(r"[A-ZĄĆĘŁŃÓŚŹŻ][\w-]+(?: [A-ZĄĆĘŁŃÓŚŹŻ][\w-]+)?", following[0].text):
+                issuer = f"{issuer} {following[0].text}"
+                used.add(index + 1)
+            for offset, extra in enumerate(following, start=index + 1):
+                if ADDRESS.search(extra.text) and len(extra.text) < 45 and not SECTION_NUMBER.match(extra.text):
+                    used.add(offset)
+        elif issuer is None and (inline := ISSUER_INLINE.search(text)):
+            issuer = inline.group(1)
+    if title:
+        title = sentence_case(re.sub(r"\s+", " ", title.replace("*", ""))).rstrip(".")
+    if issuer:
+        issuer = " ".join(w if not w.isupper() or len(w) < 3 else w.capitalize() for w in issuer.split())
+    return title, issuer, used
+
+
+def _section_number(text: str) -> tuple[list[int], str] | None:
+    match = SECTION_NUMBER.match(text)
+    if not match:
+        return None
+    raw, rest = match.groups()
+    if not rest[:1].isupper() and not rest[:1].isdigit():
+        return None
+    if raw.upper() in ROMAN:
+        return [ROMAN[raw.upper()]], rest
+    if raw.isalpha():
+        return [ord(raw.upper()) - 64], rest
+    return [int(p) for p in raw.split(".") if p], rest
+
+
+def _kind(header: str) -> str:
+    rules = catalog()
+    if any_match(rules.skip_sections, header):
+        return "skip"
+    if any_match(rules.legal_sections, header):
+        return "legal"
+    if any_match(rules.applicant_sections, header):
+        return "applicant"
+    if any_match(rules.attachment_sections, header):
+        return "attachments"
+    if any_match(rules.statement_sections, header):
+        return "statements"
+    return "content"
+
+
+def split_sections(items: list[Item]) -> list[RawSection]:
+    sections: list[RawSection] = []
+    current = RawSection(header="", kind="content", page=1)
+    top: int | None = None
+    for item in items:
+        number = _section_number(item.text)
+        is_section = False
+        if number:
+            parts, rest = number
+            plausible = len(rest) <= 180 and not rest.rstrip().endswith(".")
+            if plausible and len(parts) == 1 and (top is None or parts[0] == top + 1):
+                top = parts[0]
+                is_section = True
+            elif plausible and len(parts) >= 2 and parts[0] == top:
+                is_section = True
+        elif (item.heading and not item.cell and len(item.text) <= 90) or (
+            is_upper(item.text) and sum(c.isalpha() for c in item.text) >= 6 and len(item.text) <= 90 and not item.text.endswith("?")
+        ):
+            is_section = True
+        elif LEADING_CAPS.match(item.text):
+            is_section = True
+        if is_section:
+            if current.header or current.items:
+                sections.append(current)
+            current = RawSection(header=item.text, kind=_kind(item.text), page=item.page)
+            continue
+        current.items.append(item)
+    if current.header or current.items:
+        sections.append(current)
+    for index, section in enumerate(sections):
+        if section.kind == "content" and index > 0 and sections[index - 1].kind == "applicant":
+            parent = sections[index - 1].header
+            nested = _section_number(section.header)
+            parent_number = _section_number(parent)
+            if nested and parent_number and len(nested[0]) > 1 and nested[0][0] == parent_number[0][0]:
+                section.kind = "applicant"
+    return sections
+
+
+class Builder:
+    def __init__(self) -> None:
+        self.counter = 0
+        self.rules = catalog()
+
+    def key(self) -> str:
+        self.counter += 1
+        return f"f{self.counter}"
+
+    def classify(self, label: str, item: Item | None = None, required: bool = True) -> FieldIR:
+        title, forced = rewrite(plain_label(label))
+        if len(title) > 120:
+            title = title[:117].rsplit(" ", 1)[0] + "…"
+        field_ir = FieldIR(key=self.key(), title=title, source=label, page=item.page if item else 1)
+        if forced:
+            field_ir.type = forced
+        lowered = label.lower()
+        for rule in self.rules.fields:
+            if not rule.pattern.search(lowered):
+                continue
+            if rule.type and field_ir.type == "TEXT_FIELD" and field_ir.dictionary is None:
+                field_ir.type = rule.type
+            for v in rule.validation:
+                if v not in field_ir.validation:
+                    field_ir.validation.append(v)
+            if rule.dictionary and field_ir.dictionary is None:
+                field_ir.dictionary = rule.dictionary
+                field_ir.type = rule.type or "SELECT"
+            if rule.tooltip and not field_ir.tooltip:
+                field_ir.tooltip = rule.tooltip
+        if item is not None and item.date:
+            field_ir.type = "DATEPICKER"
+        field_ir.required = required and not OPTIONAL.search(label)
+        if not field_ir.required and OPTIONAL.search(label):
+            field_ir.title = re.sub(r"\s*\((jeśli|jeżeli) dotyczy\)", "", field_ir.title, flags=re.I)
+            field_ir.tooltip = field_ir.tooltip or "Wypełnij, jeśli dotyczy."
+        return field_ir
+
+    def radio(self, title: str, options: list[str], source: str, page: int, required: bool = True) -> FieldIR:
+        clean_options: list[str] = []
+        for option in options:
+            value = plain_label(option)
+            if value and value not in clean_options:
+                clean_options.append(value)
+        kind = "RADIO" if len(clean_options) <= 5 else "SELECT"
+        return FieldIR(
+            key=self.key(),
+            title=rewrite(plain_label(title))[0],
+            type=kind,
+            required=required,
+            options=clean_options,
+            source=source,
+            page=page,
+        )
+
+
+def _match_option(text: str, options: list[str]) -> str:
+    words = set(re.findall(r"[a-z]{4,}", fold(text)))
+    best, score = options[-1], 0
+    for option in options:
+        overlap = len(words & set(re.findall(r"[a-z]{4,}", fold(option))))
+        if overlap > score:
+            best, score = option, overlap
+    return best
+
+
+def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR | None:
+    rules = catalog()
+    title = plain_label(raw.header) if raw.header else "Szczegóły wniosku"
+    section = SectionIR(title=title or "Szczegóły wniosku")
+    if raw.kind in ("skip", "applicant"):
+        return None
+    if raw.kind == "legal":
+        form.legal_basis.extend(clean(i.text) for i in raw.items if clean(i.text))
+        return None
+    if raw.kind == "attachments":
+        for item in raw.items:
+            label = plain_label(item.text)
+            if not label or any_match(rules.choice_hints, label) or len(label) > MAX_LABEL:
+                continue
+            section.fields.append(
+                FieldIR(key=builder.key(), title=label, type="FILE_UPLOADER", required=False, source=item.text, page=item.page)
+            )
+        return section if section.fields else None
+    if raw.kind == "statements":
+        for item in raw.items:
+            label = plain_label(item.text)
+            if len(label) < 8 or (label.endswith(")") and "(" not in label):
+                continue
+            section.fields.append(
+                FieldIR(
+                    key=builder.key(),
+                    title=label,
+                    type="CHECKBOX",
+                    options=["Potwierdzam"],
+                    source=item.text,
+                    page=item.page,
+                )
+            )
+        return section if section.fields else None
+
+    choice = any_match(rules.choice_hints, raw.header)
+    describe = any_match(rules.describe_hints, raw.header)
+    items = list(raw.items)
+    last_choice: FieldIR | None = None
+    pending: Condition | None = None
+
+    if choice:
+        options: list[Item] = []
+        while items and not any_match(rules.conditions, items[0].text) and len(items[0].text) <= MAX_LABEL:
+            if items[0].text.endswith(":") and options:
+                break
+            options.append(items.pop(0))
+        if len(options) >= 2:
+            last_choice = builder.radio(section.title, [o.text for o in options], raw.header, raw.page)
+            section.fields.append(last_choice)
+        else:
+            items = options + items
+
+    attachments_mode = False
+    preamble = not raw.header
+    index = 0
+    while index < len(items):
+        item = items[index]
+        index += 1
+        text = item.text
+        if ATTACHMENTS_LINE.match(text) and len(text) < 40:
+            attachments_mode = True
+            continue
+        enumerated = ENUMERATED.match(text)
+        if attachments_mode:
+            label = plain_label(enumerated.group(1) if enumerated else text)
+            if label and len(label) <= MAX_LABEL:
+                section.fields.append(
+                    FieldIR(key=builder.key(), title=label, type="FILE_UPLOADER", required=False, source=text, page=item.page)
+                )
+            continue
+        def is_option(candidate: Item) -> bool:
+            return candidate.option or bool(ENUMERATED.match(candidate.text))
+
+        if not item.option and not enumerated and index < len(items) and is_option(items[index]) and len(text) <= MAX_LABEL:
+            start = index
+            options: list[str] = []
+            while index < len(items) and is_option(items[index]) and not ATTACHMENTS_LINE.match(items[index].text):
+                match = ENUMERATED.match(items[index].text)
+                value = match.group(1) if match else items[index].text
+                if plain_label(value):
+                    options.append(value)
+                index += 1
+            if len(options) >= 2:
+                follow: list[FieldIR] = []
+                trimmed: list[str] = []
+                for value in options:
+                    label = plain_label(value)
+                    for rule in rules.follow_ups:
+                        if rule.pattern.search(label):
+                            if rule.trim:
+                                label = rule.trim.sub("", label)
+                            extra = builder.classify(rule.title, item)
+                            extra.tooltip = rule.tooltip or extra.tooltip
+                            extra.condition = Condition("", label)
+                            follow.append(extra)
+                            break
+                    trimmed.append(label)
+                last_choice = builder.radio(text, trimmed, text, item.page)
+                section.fields.append(last_choice)
+                for extra in follow:
+                    extra.condition = Condition(last_choice.key, extra.condition.equals)
+                    section.fields.append(extra)
+                other = next((o for o in last_choice.options if fold(o).startswith("inne")), None)
+                if other:
+                    extra = builder.classify("Jakie?", item)
+                    extra.title = "Opisz, czego dotyczy wniosek"
+                    extra.condition = Condition(last_choice.key, other)
+                    section.fields.append(extra)
+                continue
+            index = start
+        if preamble and any_match(rules.standard, plain_label(text)) and len(text) < 120:
+            continue
+        gaps = [gap for gap in rules.gaps if gap.pattern.search(text)]
+        if gaps and (NARRATIVE.match(text) or len(gaps) >= 2 or len(text) > 60):
+            for gap in gaps:
+                gap_field = builder.classify(gap.title, item)
+                if gap.type:
+                    gap_field.type = gap.type
+                gap_field.source = text
+                section.fields.append(gap_field)
+            continue
+        if NARRATIVE.match(text) and len(text) > 40:
+            continue
+        if any_match(rules.legal_sections, text) or re.search(r"\bart\.\s*\d+.*\bustawy\b", text, re.I):
+            form.legal_basis.append(text)
+            if BLANK_CUE.search(text):
+                section.fields.append(builder.classify("Kwota", item))
+            continue
+        if BLANK_CUE.search(text) and len(text) > 40:
+            section.fields.append(builder.classify("Kwota", item))
+            continue
+        if any_match(rules.conditions, text):
+            if last_choice and last_choice.options:
+                pending = Condition(last_choice.key, _match_option(text, last_choice.options))
+            continue
+        if INSTRUCTION.match(text) and len(text) > 40:
+            continue
+        if SENTENCE.search(text) and len(text) > 50 and not text.lower().startswith("oświadczam"):
+            continue
+        if len(text) > MAX_LABEL:
+            if text.lower().startswith("oświadczam"):
+                section.fields.append(
+                    FieldIR(key=builder.key(), title=plain_label(text), type="CHECKBOX", options=["Potwierdzam"], source=text, page=item.page)
+                )
+            continue
+        if YES_NO_TAIL.search(text):
+            field_ir = builder.radio(YES_NO_TAIL.sub("", text), ["Tak", "Nie"], text, item.page)
+            last_choice = field_ir
+        elif text.rstrip().endswith("?"):
+            field_ir = builder.radio(text, ["Tak", "Nie"], text, item.page)
+            last_choice = field_ir
+        else:
+            field_ir = builder.classify(text, item)
+        if not field_ir.title:
+            continue
+        if pending:
+            field_ir.condition = pending
+        section.fields.append(field_ir)
+
+    if not section.fields and (describe or raw.header):
+        if describe or raw.items == []:
+            field_ir = builder.classify(raw.header)
+            field_ir.title = section.title
+            if describe:
+                field_ir.type = "TEXTAREA"
+            section.fields.append(field_ir)
+    return section if section.fields else None
+
+
+def _unique(title: str, used: set[str]) -> str:
+    candidate, n = title, 2
+    while candidate.lower() in used:
+        candidate = f"{title} ({n})"
+        n += 1
+    used.add(candidate.lower())
+    return candidate
+
+
+def paginate(sections: list[SectionIR]) -> list[PageIR]:
+    pages: list[PageIR] = []
+    current: PageIR | None = None
+    count = 0
+    for section in sections:
+        size = len(section.fields)
+        if current is None or (count and count + size > MAX_FIELDS_PER_PAGE):
+            current = PageIR(title=section.title)
+            pages.append(current)
+            count = 0
+        current.sections.append(section)
+        count += size
+    used = set(RESERVED_PAGE_TITLES)
+    for page in pages:
+        page.title = _unique(page.title, used)
+    return pages
+
+
+def understand(doc: Document, filename: str = "") -> FormIR:
+    items = prepare(doc)
+    title, issuer, used = _title_and_issuer(items)
+    items = [item for index, item in enumerate(items) if index not in used]
+    form = FormIR(
+        title=title or sentence_case(filename.rsplit(".", 1)[0]) or "Wniosek",
+        issuer=issuer,
+        warnings=list(doc.warnings),
+        ocr_confidence=doc.ocr_confidence,
+    )
+    builder = Builder()
+    sections: list[SectionIR] = []
+    for raw in split_sections(items):
+        section = build_section(raw, builder, form)
+        if section:
+            sections.append(section)
+    if not sections:
+        form.warnings.append("Nie rozpoznano pól specyficznych dla wniosku. Dodano pole opisowe do uzupełnienia.")
+        sections = [
+            SectionIR(
+                title="Treść wniosku",
+                fields=[FieldIR(key=builder.key(), title="Opisz swoją sprawę", type="TEXTAREA")],
+            )
+        ]
+    used_sections: set[str] = set()
+    for section in sections:
+        section.title = _unique(section.title, used_sections)
+    form.pages = paginate(sections)
+    return form

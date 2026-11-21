@@ -1,0 +1,165 @@
+{
+  "Województwo": {
+    "opis": "Województwa w Polsce.",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": [
+      "dolnośląskie",
+      "kujawsko-pomorskie",
+      "lubelskie",
+      "lubuskie",
+      "łódzkie",
+      "małopolskie",
+      "mazowieckie",
+      "opolskie",
+      "podkarpackie",
+      "podlaskie",
+      "pomorskie",
+      "śląskie",
+      "świętokrzyskie",
+      "warmińsko-mazurskie",
+      "wielkopolskie",
+      "zachodniopomorskie"
+    ]
+  },
+  "Powiat": {
+    "opis": "Powiaty w Polsce (pełna lista w systemie docelowym).",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": []
+  },
+  "Gmina": {
+    "opis": "Gminy w Polsce (pełna lista w systemie docelowym).",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": []
+  },
+  "Miejscowość": {
+    "opis": "Miejscowości w Polsce (pełna lista w systemie docelowym).",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": []
+  },
+  "Kraje": {
+    "opis": "Państwa świata.",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": [
+      "Polska",
+      "Niemcy",
+      "Czechy",
+      "Słowacja",
+      "Litwa",
+      "Ukraina",
+      "Białoruś",
+      "Rosja",
+      "Wielka Brytania",
+      "Francja",
+      "Hiszpania",
+      "Włochy",
+      "Holandia",
+      "Belgia",
+      "Irlandia",
+      "Norwegia",
+      "Szwecja",
+      "Stany Zjednoczone"
+    ]
+  },
+  "Numery kierunkowe": {
+    "opis": "Międzynarodowe prefiksy telefoniczne.",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": [
+      "+48",
+      "+49",
+      "+420",
+      "+421",
+      "+370",
+      "+380",
+      "+375",
+      "+44",
+      "+33",
+      "+34",
+      "+39",
+      "+31",
+      "+1"
+    ]
+  },
+  "TERYT_DOWODOWY": {
+    "opis": "Słownik adresowy TERYT używany we wzorcach COI.",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": []
+  },
+  "TERYT_4G_DOWODOWY": {
+    "opis": "Czteropoziomowy słownik adresowy TERYT używany we wzorcach COI.",
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": []
+  },
+  "RASY_PSOW_UZNAWANYCH_ZA_AGRESYWNE": {
+    "opis": "Propozycja nowego słownika. Rasy psów uznawanych za agresywne według rozporządzenia Ministra Spraw Wewnętrznych i Administracji z dnia 28 kwietnia 2003 r. (Dz.U. 2003 nr 77 poz. 687).",
+    "propozycja": true,
+    "typyPol": [
+      "SELECT",
+      "RADIO"
+    ],
+    "wartosci": [
+      "Amerykański pit bull terier",
+      "Pies z Majorki (Perro de Presa Mallorquin)",
+      "Buldog amerykański",
+      "Dog argentyński",
+      "Pies kanaryjski (Perro de Presa Canario)",
+      "Tosa inu",
+      "Rottweiler",
+      "Akbash dog",
+      "Anatolian karabash",
+      "Moskiewski stróżujący",
+      "Owczarek kaukaski"
+    ]
+  },
+  "DYSCYPLINY_SPORTOWE": {
+    "opis": "Propozycja nowego słownika. Dyscypliny sportowe do wniosków o stypendia i nagrody sportowe.",
+    "propozycja": true,
+    "typyPol": [
+      "SELECT"
+    ],
+    "wartosci": [
+      "Lekkoatletyka",
+      "Piłka nożna",
+      "Piłka ręczna",
+      "Piłka siatkowa",
+      "Koszykówka",
+      "Pływanie",
+      "Kolarstwo",
+      "Judo",
+      "Zapasy",
+      "Boks",
+      "Karate",
+      "Taekwondo",
+      "Szermierka",
+      "Tenis",
+      "Tenis stołowy",
+      "Badminton",
+      "Wioślarstwo",
+      "Kajakarstwo",
+      "Żeglarstwo",
+      "Strzelectwo sportowe",
+      "Łucznictwo",
+      "Gimnastyka sportowa",
+      "Narciarstwo",
+      "Łyżwiarstwo szybkie",
+      "Hokej na lodzie",
+      "Szachy",
+      "Inna"
+    ]
+  }
+}
