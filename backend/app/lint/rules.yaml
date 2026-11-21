@@ -1,0 +1,59 @@
+# Reguły linterów – MOŻNA EDYTOWAĆ BEZ PROGRAMOWANIA.
+# Źródło: „HackNation – Standardy i dobre praktyki projektowania formularzy”, rozdz. 1 (prosty język) i RODO.
+
+wcag:
+  max_sentence_words: 20
+  max_label_words: 12
+  max_syllables: 4         # słowa dłuższe niż tyle sylab → sugestia
+  long_words_allowed: 1     # tyle długich słów w etykiecie jest OK
+  forbidden_phrases:        # urzędnicze zwroty zakazane → warning (jedno słowo = rdzeń, pasuje do odmian)
+    - dokona
+    - dokonyw
+    - posiada
+    - pragn
+    - uprzejmie informujemy
+    - informujemy
+    - niniejsz
+    - w przedmiocie
+    - celem
+    - w/w
+    - wyżej wymieniony
+    - przedłoż
+    - winien
+    - należy
+    - ww
+  impersonal_suffixes: ["no", "to"]   # „wypełniono”, „podjęto” – formy bezosobowe
+  participle_suffixes: ["ąc"]          # „wypełniając” – imiesłowy przysłówkowe
+  radio_max_options: 5
+  select_min_options: 6
+
+gdpr:
+  # dane wrażliwe / nadmiarowe – zbierane bez podstawy prawnej → error
+  sensitive:
+    - "numer dowodu"
+    - "nr dowodu"
+    - "seria dowodu"
+    - "nazwisko rodowe matki"
+    - "imię ojca"
+    - "imię matki"
+    - "imiona rodziców"
+    - "stan cywilny"
+    - "płeć"
+    - "miejsce urodzenia"
+    - "obywatelstwo"
+    - "wyznanie"
+    - "religia"
+    - "narodowość"
+    - "stan zdrowia"
+    - "niepełnosprawność"
+    - "karalność"
+    - "wykształcenie"
+    - "dochód"
+    - "zarobki"
+  # dane dostępne w rejestrach – pytane ręcznie → sugestia prefill (MLPZ/PESEL)
+  registry:
+    - pesel
+    - "data urodzenia"
+    - "imię"
+    - nazwisko
+    - "adres zamieszkania"
