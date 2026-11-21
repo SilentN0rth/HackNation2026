@@ -1,0 +1,191 @@
+pomijane_linie:
+  - "^strona \\d+\\s*(/|z)\\s*\\d+$"
+  - "^\\d+\\s*/\\s*\\d+$"
+  - "^(czytelny )?podpis"
+  - "podpis wnioskodawcy|podpis składającego|podpis osoby"
+  - "^(data i podpis|miejscowość i data|data, podpis)"
+  - "^data:?$"
+  - "^\\)"
+  - "^\\(?data\\)?:?$"
+  - "^\\(?(miejscowość i data|data i podpis|miejscowość, data)"
+  - "^dnia:?$"
+  - "załącznik (nr|numer) \\d+ do"
+  - "strona \\d+ z \\d+"
+  - "^wersja .*\\d{4}"
+  - "^(nr|numer) sprawy"
+  - "niepotrzebne skreślić"
+  - "(\\d[ -]?){20,}"
+  - "^opłata skarbowa\\s*[–-]\\s*\\d+"
+  - "dane nieobowiązkowe\\.?$"
+  - "^(dd|rrrr)[-./ ]"
+  - "^pieczęć"
+  - "wypełnia (urząd|organ|pracownik)"
+  - "wypełnij wielkimi literami|wypełniaj kolorem|pola wyboru oznaczaj"
+  - "^(tak|nie)$"
+  - "^\\W*$"
+  - "^\\d{1,2}\\)?$"
+  - "podpis"
+  - ",\\s*dnia\\s*$"
+  - "^\\d{2}-\\d{3}\\s"
+  - "^(ul\\.|ulica)\\s"
+  - "^wnioskodawca\\b"
+  - "^\\*"
+  - "^(do|adresat)$"
+
+pomijane_sekcje:
+  - "instrukcj"
+  - "pouczeni"
+  - "klauzul"
+  - "informacja o przetwarzaniu"
+  - "podpis"
+  - "adnotacj"
+  - "wypełnia (urząd|organ)"
+  - "potwierdzenie (przyjęcia|złożenia)"
+  - "objaśnieni"
+  - "przetwarzani[ae] (twoich |pani/pana |państwa )?danych"
+  - "ochron[ay] danych"
+  - "administrator danych"
+  - "^(informacje|informacja|uwagi|informacje dodatkowe):?$"
+
+sekcje_wnioskodawcy:
+  - "dane wnioskodawc"
+  - "dane identyfikacyjne"
+  - "dane składając"
+  - "dane podatnika"
+  - "dane osob"
+  - "dane pełnomocnik"
+  - "dane kontaktowe"
+  - "adres siedziby"
+  - "adres zamieszkania"
+  - "miejsca zamieszkania"
+  - "adres do korespondencji"
+  - "^wnioskodawca"
+  - "^składający"
+  - "dane właściciela psa"
+  - "dane zgłaszającego"
+
+sekcje_podstawy_prawnej:
+  - "podstawa prawna"
+
+sekcje_zalacznikow:
+  - "załącznik"
+
+sekcje_oswiadczen:
+  - "oświadczeni"
+
+wskazowki_wyboru:
+  - "postaw „?x"
+  - "zaznacz"
+  - "właściwe (zaznaczyć|podkreślić)"
+  - "wybierz"
+  - "niepotrzebne skreślić"
+
+wskazowki_opisu:
+  - "opisz"
+  - "uzasadnieni"
+
+warunki:
+  - "^(jeśli|jeżeli|w przypadku)"
+
+wydawcy:
+  - "^(urząd|wójt|burmistrz|prezydent|starost|marszałek|rada|zarząd|dyrektor|kierownik)\\b"
+  - "^do (wójta|burmistrza|prezydenta|starosty|urzędu)"
+
+tytuly:
+  - "^(wniosek|deklaracja|zgłoszenie|oświadczenie|podanie|informacja|zawiadomienie|formularz)\\b"
+
+pola:
+  - wzorzec: "pesel"
+    walidacja: [PESEL]
+  - wzorzec: "\\bnip\\b"
+    walidacja: [NIP]
+  - wzorzec: "\\bregon\\b"
+    walidacja: [REGON]
+  - wzorzec: "kod pocztowy"
+    walidacja: [ZIP_CODE]
+  - wzorzec: "e-?mail|poczty elektronicznej"
+    walidacja: [EMAIL]
+  - wzorzec: "seria i numer dowodu|numer dowodu osobistego"
+    walidacja: [SERIAL_NUMBER_ID_CARD]
+  - wzorzec: "epuap"
+    walidacja: [EPUAP]
+  - wzorzec: "adres do e-doręczeń|\\bade\\b"
+    walidacja: [ADE]
+  - wzorzec: "^kraj\\b"
+    typ: SELECT
+    slownik: Kraje
+  - wzorzec: "rasa|rasy psa|rasie"
+    typ: SELECT
+    slownik: RASY_PSOW_UZNAWANYCH_ZA_AGRESYWNE
+  - wzorzec: "dyscyplin"
+    typ: SELECT
+    slownik: DYSCYPLINY_SPORTOWE
+  - wzorzec: "^data\\b|\\bdata (urodzenia|uiszczenia|zapłaty|rozpoczęcia|zakończenia)|od dnia|do dnia|\\btermin\\b"
+    typ: DATEPICKER
+  - wzorzec: "kwot|wysokość (opłaty|nadpłaty|podatku)|\\bliczba\\b|\\bilość\\b|powierzchni|\\bzł\\b|m²|\\bmetr|wiek\\b"
+    typ: NUMBER
+  - wzorzec: "numer (rachunku|konta)|rachunek bankowy"
+    typ: TEXT_FIELD
+    podpowiedz: "Wpisz 26 cyfr numeru rachunku."
+  - wzorzec: "uzasadnieni|^opis|uwagi|przyczyn|^cel\\b|okoliczności|charakterystyk|osiągnię"
+    typ: TEXTAREA
+
+dane_standardowe:
+  - "imi[ęe]|nazwisk"
+  - "nazwa (firmy|podmiotu|wnioskodawcy)"
+  - "adres (zamieszkania|siedziby|do korespondencji)|^adres\\b|siedziba"
+  - "\\bpesel\\b|\\bnip\\b|\\bregon\\b"
+  - "telefon|e-?mail|poczty elektronicznej"
+  - "^(miejscowość|ulica|numer domu|numer lokalu|kod pocztowy|nr domu|nr lokalu)$"
+
+wrazliwe:
+  - "seria i numer dowodu|numer dowodu"
+  - "nazwisko rodowe"
+  - "imi[ęe] (ojca|matki)"
+  - "stan cywilny"
+  - "\\bpłeć\\b"
+  - "miejsce urodzenia"
+  - "obywatelstwo|narodowość"
+  - "wykształcenie"
+  - "wyznanie|religi"
+  - "stan zdrowia|niepełnosprawn"
+
+przeformulowania:
+  - wzorzec: "kwotę nadpłaty proszę"
+    tytul: "Wybierz, co mamy zrobić z nadpłatą"
+  - wzorzec: "proszę o wydanie zaświadczenia"
+    tytul: "Czego ma dotyczyć zaświadczenie?"
+  - wzorzec: "celem przedłożenia|cel wydania"
+    tytul: "W jakim celu potrzebujesz zaświadczenia?"
+  - wzorzec: "^nazwa organu, w którym zapłacono"
+    tytul: "Nazwa urzędu, w którym zapłacono opłatę"
+  - wzorzec: "^dane właściciela$"
+    tytul: "Imię i nazwisko właściciela rachunku"
+  - wzorzec: "^inne$"
+    tytul: "Inne"
+
+luki_w_tekscie:
+  - fraza: "w miejscowości"
+    tytul: "Miejscowość"
+  - fraza: "przy ulicy"
+    tytul: "Ulica"
+  - fraza: "(numer|nr) ewidencyjny działki|nr działki|działki nr"
+    tytul: "Numer ewidencyjny działki"
+  - fraza: "w obrębie|obręb"
+    tytul: "Obręb"
+  - fraza: "w kwocie|w wysokości"
+    tytul: "Kwota"
+    typ: NUMBER
+  - fraza: "na okres|w okresie"
+    tytul: "Okres"
+  - fraza: "w dniu|w dniach"
+    tytul: "Data"
+    typ: DATEPICKER
+
+dopytania:
+  - wzorzec: "z tytułu$"
+    obetnij: "\\s*z tytułu$"
+    tytul: "Nazwa podatku"
+  - wzorzec: "rachun"
+    tytul: "Numer rachunku"
+    podpowiedz: "Wpisz 26 cyfr numeru rachunku."

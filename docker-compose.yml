@@ -1,0 +1,46 @@
+name: e-formularze
+
+services:
+  api:
+    build: ./backend
+    image: e-formularze-api:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-20}
+      MAX_PAGES: ${MAX_PAGES:-40}
+      AUTH_ENABLED: ${AUTH_ENABLED:-true}
+      JWT_TTL_MIN: ${JWT_TTL_MIN:-480}
+      JWT_SECRET_FILE: /run/secrets/jwt_secret
+      CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:5173"]}
+      LLM_ENABLED: ${LLM_ENABLED:-false}
+      OLLAMA_URL: http://ollama:11434
+      LLM_MODEL: ${LLM_MODEL:-qwen3:4b}
+    secrets:
+      - jwt_secret
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - api-data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:0.40.17
+    profiles:
+      - llm
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+
+secrets:
+  jwt_secret:
+    file: ./secrets/jwt_secret.txt
+
+volumes:
+  api-data:
+  ollama-models:
