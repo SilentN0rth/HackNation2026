@@ -1,0 +1,10 @@
+# Konfiguracja lintera Ruff (w CI: `ruff check app tests scripts`).
+target-version = "py314"
+line-length = 120
+extend-exclude = ["data"]
+
+[lint]
+select = ["E", "F", "I", "B", "UP"]
+# Długie wiersze z komunikatami dla użytkownika (np. Flag w linterach) są celowe;
+# łamanie ich pogorszyłoby czytelność bez zysku, więc limit długości nie jest egzekwowany.
+ignore = ["E501"]
