@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/navigation";
 import { api, UPLOAD_STEP_LABELS, type UploadStep } from "@/api";
 import { Dropzone } from "@/components/Dropzone";
 import { Check, ErrorBox, PageHeader } from "@/components/Feedback";
@@ -17,7 +19,7 @@ const HINTS: Record<UploadStep, string> = {
 };
 
 export function UploadView() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [step, setStep] = useState<UploadStep | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,7 @@ export function UploadView() {
     setError(null);
     try {
       const { draftId } = await api.uploadDocument(f, setStep);
-      navigate(`/official/drafts/${draftId}`);
+      router.push(`/official/drafts/${draftId}`);
     } catch (e) {
       setError(errorMessage(e));
       setStep(null);

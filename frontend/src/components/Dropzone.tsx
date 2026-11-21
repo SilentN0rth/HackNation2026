@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useRef, useState } from "react";
 import { ACCEPTED_EXTENSIONS, MAX_FILE_MB, validateUploadFile } from "@/lib/validators";
 

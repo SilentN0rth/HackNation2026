@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import Link from "next/link";
 import { ArrowRight, primaryLink } from "@/components/Feedback";
 
 const STEPS = [
@@ -53,10 +53,10 @@ export function HomeView() {
             elektronicznego. Każde pole ma typ, walidację i podstawę prawną.
           </p>
           <div className="rise mt-10 flex flex-wrap items-center gap-6" style={{ "--i": 3 } as React.CSSProperties}>
-            <Link to="/official/upload" className={primaryLink}>
+            <Link href="/official/upload" className={primaryLink}>
               Wgraj formularz
             </Link>
-            <Link to="/official" className="link-arrow">
+            <Link href="/official" className="link-arrow">
               Zobacz formularze
               <ArrowRight />
             </Link>
@@ -117,7 +117,7 @@ export function HomeView() {
         <ul className="divide-y divide-border border-y border-border">
           {LINKS.map((l) => (
             <li key={l.to}>
-              <Link to={l.to} className="row-link flex items-center gap-6 py-6">
+              <Link href={l.to} className="row-link flex items-center gap-6 py-6">
                 <span className="min-w-0 flex-1">
                   <span className="row-title block text-lg font-semibold text-ink">{l.title}</span>
                   <span className="mt-1 block text-ink-3">{l.text}</span>

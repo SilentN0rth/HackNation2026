@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import { api } from "@/api";
 import { ArrowRight, ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
 import { useAsync } from "@/lib/useAsync";
@@ -21,7 +23,7 @@ export function ServicesView() {
           {data.map((f, i) => (
             <li key={f.id} className="rise" style={{ "--i": i } as React.CSSProperties}>
               <Link
-                to={`/citizen/form/${f.id}`}
+                href={`/citizen/form/${f.id}`}
                 className="row-link flex items-center gap-8 py-7"
                 aria-label={`Rozpocznij: ${f.schema.title}`}
               >

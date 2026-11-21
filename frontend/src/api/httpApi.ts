@@ -13,7 +13,7 @@ import {
   type Role,
 } from "../types";
 
-const BASE = (import.meta.env.VITE_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
+const BASE = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 const USER_BY_ROLE: Record<Role, string> = { official: "u-urzednik", citizen: "u-obywatel" };
 const TokenSchema = z.object({ access_token: z.string(), expires_in: z.number() });
 const ProblemSchema = z.object({ detail: z.string() }).partial();

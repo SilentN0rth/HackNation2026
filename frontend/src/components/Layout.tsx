@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, ScrollRestoration, useLocation, useMatches } from "react-router";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState, type ReactNode } from "react";
 import { api, USE_MOCKS } from "@/api";
 import type { Role } from "@/types";
 
@@ -15,17 +18,19 @@ const NAV: Record<Role, { to: string; label: string }[]> = {
   ],
 };
 
-function useDocumentTitle() {
-  const matches = useMatches();
-  const title = (matches.at(-1)?.handle as { title?: string } | undefined)?.title;
-  useEffect(() => {
-    document.title = title ? `${title} · e-Formularze` : "e-Formularze";
-  }, [title]);
+/** Link nawigacji z `aria-current="page"` przy dokładnym dopasowaniu ścieżki. */
+function NavLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
+  const pathname = usePathname();
+  return (
+    <Link href={href} className={className} aria-current={pathname === href ? "page" : undefined}>
+      {children}
+    </Link>
+  );
 }
 
 export function Wordmark() {
   return (
-    <Link to="/" className="press flex items-center gap-2.5" aria-label="e-Formularze, strona główna">
+    <Link href="/" className="press flex items-center gap-2.5" aria-label="e-Formularze, strona główna">
       <span aria-hidden className="grid size-7 place-items-center rounded-[5px] bg-accent text-[15px] font-bold text-white">
         e
       </span>
@@ -46,7 +51,7 @@ function RoleSwitch({ role }: { role: Role }) {
         return (
           <Link
             key={it.role}
-            to={it.to}
+            href={it.to}
             aria-current={active ? "true" : undefined}
             className={`press rounded-[5px] px-3 py-1.5 font-medium transition-colors duration-150 ${
               active ? "bg-white text-ink shadow-[0_1px_2px_rgba(13,14,14,0.08)]" : "text-ink-3 hover:text-ink"
@@ -61,7 +66,7 @@ function RoleSwitch({ role }: { role: Role }) {
 }
 
 function Header() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const role: Role = pathname.startsWith("/citizen") ? "citizen" : "official";
   const [userName, setUserName] = useState("");
 
@@ -81,8 +86,7 @@ function Header() {
           {NAV[role].map((item) => (
             <NavLink
               key={item.to}
-              to={item.to}
-              end
+              href={item.to}
               className="nav-link flex items-center text-[15px] font-medium"
             >
               {item.label}
@@ -96,7 +100,7 @@ function Header() {
       </div>
       <nav aria-label="Nawigacja mobilna" className="flex gap-6 overflow-x-auto border-t border-border px-5 md:hidden">
         {NAV[role].map((item) => (
-          <NavLink key={item.to} to={item.to} end className="nav-link py-3 text-sm font-medium whitespace-nowrap">
+          <NavLink key={item.to} href={item.to} className="nav-link py-3 text-sm font-medium whitespace-nowrap">
             {item.label}
           </NavLink>
         ))}
@@ -118,14 +122,14 @@ function Footer() {
         </div>
         <div className="flex flex-col gap-2.5 text-sm">
           <p className="mb-1 font-semibold text-white">Urzędnik</p>
-          <Link className="hover:text-white" to="/official">Formularze</Link>
-          <Link className="hover:text-white" to="/official/upload">Nowy z pliku</Link>
-          <Link className="hover:text-white" to="/official/audit">Dziennik decyzji</Link>
+          <Link className="hover:text-white" href="/official">Formularze</Link>
+          <Link className="hover:text-white" href="/official/upload">Nowy z pliku</Link>
+          <Link className="hover:text-white" href="/official/audit">Dziennik decyzji</Link>
         </div>
         <div className="flex flex-col gap-2.5 text-sm">
           <p className="mb-1 font-semibold text-white">Obywatel</p>
-          <Link className="hover:text-white" to="/citizen">Usługi</Link>
-          <Link className="hover:text-white" to="/citizen/applications">Twoje sprawy</Link>
+          <Link className="hover:text-white" href="/citizen">Usługi</Link>
+          <Link className="hover:text-white" href="/citizen/applications">Twoje sprawy</Link>
         </div>
       </div>
       <div className="border-t border-white/10">
@@ -138,8 +142,7 @@ function Footer() {
   );
 }
 
-export function Layout() {
-  useDocumentTitle();
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col">
       <a
@@ -150,10 +153,9 @@ export function Layout() {
       </a>
       <Header />
       <main id="main" tabIndex={-1} className="mx-auto w-full max-w-7xl flex-1 px-5 pt-10 outline-none sm:px-8 sm:pt-14">
-        <Outlet />
+        {children}
       </main>
       <Footer />
-      <ScrollRestoration />
     </div>
   );
 }

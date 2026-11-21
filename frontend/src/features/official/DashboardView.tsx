@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import { api } from "@/api";
 import {
   ArrowRight,
@@ -21,7 +23,7 @@ export function DashboardView() {
         title="Formularze"
         description="Wersje robocze wygenerowane z plików oraz opublikowane e-usługi."
         actions={
-          <Link to="/official/upload" className={primaryLink}>
+          <Link href="/official/upload" className={primaryLink}>
             Nowy z pliku
           </Link>
         }
@@ -71,7 +73,7 @@ export function DashboardView() {
                       {body}
                     </div>
                   ) : (
-                    <Link to={`/official/drafts/${d.id}`} className={`row-link ${cls}`}>
+                    <Link href={`/official/drafts/${d.id}`} className={`row-link ${cls}`}>
                       {body}
                     </Link>
                   )}
