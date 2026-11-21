@@ -1,0 +1,206 @@
+/*
+ * Pola panelu (agent D). Tokeny 1:1 ze strony głównej (src/styles.css), ale z zerową specyficznością
+ * (:where), żeby motyw agenta B (admin.css) mógł je nadpisać. Ładowane bez warstwy – wygrywają z
+ * domyślnym motywem HeroUI (@layer theme) i CSS Payloada (@layer payload-default).
+ */
+:where(html:not([data-theme="dark"])) {
+  --ink: #0d0e0e;
+  --ink-2: #363739;
+  --ink-3: #515255;
+  --accent: #ca0049;
+  --accent-hover: #b30041;
+  --accent-pressed: #860031;
+  --accent-foreground: #ffffff;
+  --accent-soft: #fce6ee;
+  --accent-soft-foreground: #860031;
+  --surface: #ffffff;
+  --surface-secondary: #f3f3f4;
+  --surface-tertiary: #e7e7e8;
+  --default: #f3f3f4;
+  --default-hover: #e7e7e8;
+  --default-foreground: var(--ink);
+  --muted: var(--ink-3);
+  --border: #e7e7e8;
+  --separator: #e7e7e8;
+  --field-background: #ffffff;
+  --field-border: #c9cacc;
+  --field-border-width: 1px;
+  --field-radius: 6px;
+  --danger: #b3261e;
+  --danger-soft: #fdecea;
+  --danger-soft-foreground: #8c1d17;
+  --success: #1e6b3a;
+  --success-soft: #e8f3ec;
+  --focus: var(--accent);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.pf-field,
+.pf-popover {
+  font-family: "Inter Variable", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.pf-field {
+  position: relative;
+  min-width: 0;
+}
+
+/* Odstępy jak w formularzu obywatela – Payload daje .field-type własny margines, ujednolicamy go. */
+.render-fields > .pf-field {
+  margin-bottom: 1.5rem;
+}
+.render-fields > .pf-field:last-child {
+  margin-bottom: 0;
+}
+
+.pf-field :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Kontrolki tylko do odczytu – wyszarzone tło, jak pola zablokowane na stronie obywatela. */
+.pf-field :is(.input, .textarea)[readonly],
+.pf-field [data-readonly] :is(.input, .textarea, .select__trigger, .combo-box__input-group, .number-field__group, .date-input-group) {
+  background: var(--surface-secondary);
+  color: var(--ink-2);
+}
+
+.pf-mono,
+.pf-field .pf-mono {
+  font-family: "JetBrains Mono Variable", ui-monospace, Menlo, monospace;
+  font-variant-ligatures: none;
+}
+
+.pf-field .button {
+  border-radius: 6px;
+  font-weight: 600;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    color 150ms ease;
+}
+.pf-field .button:active:not([data-disabled]) {
+  transform: scale(0.97);
+}
+.pf-field .button--secondary {
+  --button-bg: #ffffff;
+  --button-bg-hover: #ffffff;
+  --button-bg-pressed: var(--default);
+  --button-fg: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--field-border);
+}
+.pf-field .button--secondary:hover:not([data-disabled]) {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.pf-field :is(.button--tertiary, .button--ghost) {
+  --button-fg: var(--ink);
+}
+.pf-field .chip,
+.pf-field .tag {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Segmenty (np. status formularza). */
+.pf-field .toggle-button-group {
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--field-border);
+  padding: 2px;
+  background: #fff;
+}
+.pf-field .toggle-button {
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.pf-field .toggle-button[data-selected] {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* Zakładki jak na stronie głównej. */
+.pf-field .tabs__list-container {
+  background: transparent;
+  border-radius: 0;
+}
+.pf-field .tabs__list {
+  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+}
+.pf-field .tabs__tab {
+  padding-inline: 0;
+  min-width: 0;
+  width: auto;
+  border-radius: 0;
+  color: var(--ink-3);
+}
+.pf-field .tabs__tab[data-selected] {
+  color: var(--ink);
+}
+.pf-field .tabs__indicator {
+  background-color: var(--accent);
+  box-shadow: none;
+  border-radius: 0;
+  height: 2px;
+  top: auto;
+  bottom: -1px;
+}
+
+.pf-field .radio__control,
+.pf-field .radio__indicator {
+  border-radius: 9999px;
+}
+
+/* Popovery (portal poza .pf-field). */
+.pf-popover {
+  border-radius: 10px;
+}
+.pf-popover .list-box-item[data-selected],
+.pf-popover .list-box-item[aria-selected="true"] {
+  color: var(--accent-pressed);
+}
+
+.pf-press {
+  transition: transform 160ms var(--ease-out);
+}
+.pf-press:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-field .button:active:not([data-disabled]),
+  .pf-press:active {
+    transform: none;
+  }
+}
+
+/*
+ * Minimalny preflight pól (do czasu scalenia z pluginem B, który daje .ef-ui). W @layer base –
+ * niżej niż komponenty HeroUI, więc ich obramowania i odstępy wygrywają.
+ */
+@layer base {
+  :where(.pf-field, .pf-popover),
+  :where(.pf-field, .pf-popover) *,
+  :where(.pf-field, .pf-popover) ::before,
+  :where(.pf-field, .pf-popover) ::after {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+  :where(.pf-field, .pf-popover) :is(button, input, textarea, select) {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    margin: 0;
+  }
+  :where(.pf-field, .pf-popover) :is(h1, h2, h3, p, ul, ol) {
+    margin: 0;
+    padding: 0;
+  }
+  :where(.pf-field, .pf-popover) button {
+    cursor: pointer;
+  }
+}
