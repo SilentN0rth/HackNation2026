@@ -2,7 +2,7 @@ import type { Condition, FormPage, FormSchema } from "../types";
 
 export type Values = Record<string, string | boolean>;
 
-export function isVisible(cond: Condition | undefined, values: Values): boolean {
+function isVisible(cond: Condition | undefined, values: Values): boolean {
   if (!cond) return true;
   const match = values[cond.fieldId] === cond.equals;
   return cond.negate ? !match : match;

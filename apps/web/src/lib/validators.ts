@@ -9,7 +9,7 @@ import type { Field } from "../types";
  * z tego samego JSON-a, więc reguły nie rozjeżdżają się między warstwami.
  */
 
-export function isValidPesel(value: string): boolean {
+function isValidPesel(value: string): boolean {
   if (!/^\d{11}$/.test(value)) return false;
   const w = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
   const sum = w.reduce((acc, weight, i) => acc + weight * Number(value[i]), 0);
@@ -49,7 +49,7 @@ function textSchema(field: Field): z.ZodType<string> {
   return out;
 }
 
-export function fieldValueSchema(field: Field): z.ZodType<string | boolean | undefined> {
+function fieldValueSchema(field: Field): z.ZodType<string | boolean | undefined> {
   const filled = textSchema(field);
   return z.union([z.string(), z.boolean(), z.undefined()]).superRefine((val, ctx) => {
     const empty = val === undefined || val === "" || val === false;
@@ -77,7 +77,7 @@ export const MAX_FILE_MB = 20; // backend ma własny, konfigurowalny limit – t
 
 const extOf = (name: string) => name.slice(name.lastIndexOf(".")).toLowerCase();
 
-export const uploadFileSchema = z
+const uploadFileSchema = z
   .custom<File>((f) => typeof File !== "undefined" && f instanceof File, "Wybierz plik.")
   .refine((f) => ACCEPTED_EXTENSIONS.includes(extOf(f.name)), {
     error: `Nieobsługiwany format. Dozwolone: ${ACCEPTED_EXTENSIONS.join(", ")}.`,

@@ -49,7 +49,7 @@ export const ErrorBox = ({ message }: { message: string }) => (
   </div>
 );
 
-export const StatusDot = ({ label, tone }: { label: string; tone: Tone }) => (
+const StatusDot = ({ label, tone }: { label: string; tone: Tone }) => (
   <span className="inline-flex items-center gap-2 text-sm whitespace-nowrap text-ink-2">
     <span aria-hidden className={`size-1.5 rounded-full ${DOT[tone]}`} />
     {label}
@@ -105,7 +105,7 @@ export function OpenFlagCounts({
   );
 }
 
-export interface Crumb {
+interface Crumb {
   label: string;
   to?: string;
 }
@@ -164,5 +164,3 @@ export function PageHeader({
 
 export const primaryLink =
   "press inline-flex h-11 items-center gap-2 rounded-md bg-accent px-5 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-accent-hover";
-export const secondaryLink =
-  "press inline-flex h-11 items-center gap-2 rounded-md border border-[#c9cacc] bg-white px-5 text-[15px] font-semibold text-ink transition-colors duration-150 hover:border-ink";
