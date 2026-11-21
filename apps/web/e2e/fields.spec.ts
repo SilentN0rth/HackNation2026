@@ -21,7 +21,8 @@ async function openJson(page: Page, path: string) {
 }
 
 async function saveGlobal(page: Page, slug: string) {
-  const done = page.waitForResponse((r) => r.url().includes(`/api/payload/globals/${slug}`) && ["POST", "PATCH"].includes(r.request().method()) && r.status() < 400);
+  // Dokładna ścieżka – panel wysyła też POST /globals/<slug>/access, który nie jest zapisem.
+  const done = page.waitForResponse((r) => new URL(r.url()).pathname === `/api/payload/globals/${slug}` && ["POST", "PATCH"].includes(r.request().method()) && r.status() < 400);
   await page.locator("#action-save").click();
   await done;
   // Payload po zapisie przeładowuje stan formularza – poczekaj na koniec przetwarzania.
@@ -130,7 +131,10 @@ test.describe("pola panelu (HeroUI)", () => {
     await expect(field(page, "source").locator('[data-testid="upload-dropzone"]')).toBeVisible();
     await field(page, "source").getByRole("button", { name: "Wybierz z biblioteki" }).click();
     await page.getByPlaceholder("Szukaj w bibliotece…").fill("blankiet-e2e");
-    await page.getByRole("option").first().click();
+    // Lista odświeża się po debounce wyszukiwania – czekaj na wynik pasujący do frazy.
+    const picked = page.getByRole("option", { name: /blankiet-e2e/ }).first();
+    await expect(picked).toBeVisible();
+    await picked.click();
     await expect(field(page, "source").locator('[data-testid="upload-preview"]')).toContainText("blankiet-e2e");
     await screenshot(page, testInfo, "fields-forms-edit");
     expect(errors).toEqual([]);
@@ -211,6 +215,9 @@ test.describe("pola panelu (HeroUI)", () => {
     const after = await openJson(page, "prefill");
     await expect(after).toHaveValue(new RegExp(marker));
     await screenshot(page, testInfo, "fields-registry-json");
+    // Przywróć dane rejestru (prefill obywatela korzysta z nich w innych testach).
+    await after.fill(original || "{}");
+    await saveGlobal(page, "registry");
     expect(errors).toEqual([]);
   });
 
@@ -229,6 +236,30 @@ test.describe("pola panelu (HeroUI)", () => {
       await page.goto(`/official/collections/media/${media.docs[0].id}`);
       await expect(page.locator("#field-alt")).toBeVisible();
       await screenshot(page, testInfo, "fields-media-edit");
+    }
+    expect(errors).toEqual([]);
+  });
+
+  test("tylko do odczytu: dziennik decyzji (relacje, select, textarea) i data publikacji", async ({ page }, testInfo) => {
+    const errors = trackConsoleErrors(page, IGNORE);
+    await login(page);
+    const audit = await (await page.request.get("/api/payload/audit-log?limit=1&depth=0&sort=-createdAt")).json();
+    test.skip(!audit.docs[0], "brak wpisów dziennika w bazie");
+    await page.goto(`/official/collections/audit-log/${audit.docs[0].id}`);
+    for (const [path, type] of [["form", "relationship"], ["user", "relationship"], ["action", "select"], ["details", "textarea"]] as const) {
+      await expect(field(page, path)).toHaveAttribute("data-pf-field", type);
+    }
+    await expect(page.locator(".field-type:not(.pf-field)")).toHaveCount(0);
+    await expect(page.locator("#field-details")).toHaveAttribute("readonly", "");
+    await screenshot(page, testInfo, "fields-audit-readonly");
+
+    const published = await (await page.request.get("/api/payload/forms?limit=1&depth=0&where[status][equals]=published")).json();
+    if (published.docs[0]) {
+      await page.goto(`/official/collections/forms/${published.docs[0].id}`);
+      await expect(field(page, "publishedAt")).toHaveAttribute("data-pf-field", "date");
+      await expect(field(page, "publishedAt")).toContainText(/\d{4}/);
+      await expect(field(page, "publishedBy")).toHaveAttribute("data-pf-field", "relationship");
+      await screenshot(page, testInfo, "fields-forms-published");
     }
     expect(errors).toEqual([]);
   });
