@@ -6,7 +6,11 @@ const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
 ];
 
+// Zmienia się przy każdym buildzie – service worker bierze z niej nazwę cache (public/sw.js)
+const buildId = process.env.BUILD_ID ?? Date.now().toString(36);
+
 const nextConfig: NextConfig = {
+  env: { NEXT_PUBLIC_BUILD_ID: buildId },
   // Docker ustawia NEXT_OUTPUT=standalone; lokalnie zwykły build działa z `next start`
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   poweredByHeader: false,

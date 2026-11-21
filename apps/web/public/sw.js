@@ -1,5 +1,6 @@
 // Minimalny service worker: statyczne zasoby Next.js z cache, nawigacje sieć-najpierw z offline fallbackiem.
-const CACHE = "e-formularze-v1";
+// Wersja cache z `?v=` przy rejestracji (id buildu) – nowy build czyści stary cache w activate.
+const CACHE = `e-formularze-${new URL(self.location.href).searchParams.get("v") ?? "v1"}`;
 const OFFLINE = "/offline.html";
 
 self.addEventListener("install", (event) => {
