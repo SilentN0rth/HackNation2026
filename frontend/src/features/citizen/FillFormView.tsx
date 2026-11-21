@@ -1,5 +1,7 @@
+"use client";
 
-import { Link } from "react-router";
+
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { Alert, Button, Card } from "@heroui/react";
 import { api } from "@/api";
@@ -193,7 +195,7 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
         <p className="rise mt-5 text-ink-3" style={{ "--i": 3 } as React.CSSProperties}>
           Status wniosku sprawdzisz w zakładce „Twoje sprawy”.
         </p>
-        <Link to="/citizen/applications" className={`rise mt-10 ${primaryLink}`} style={{ "--i": 4 } as React.CSSProperties}>
+        <Link href="/citizen/applications" className={`rise mt-10 ${primaryLink}`} style={{ "--i": 4 } as React.CSSProperties}>
           Przejdź do Twoich spraw
         </Link>
       </section>

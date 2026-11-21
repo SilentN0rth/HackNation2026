@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import Link from "next/link";
 import type { ApplicationStatus, DraftStatus, Severity } from "@/types";
 import { SEVERITY_LABELS } from "@/types";
 
@@ -118,7 +118,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
           <li key={c.label} className="flex items-center gap-2">
             {i > 0 && <span aria-hidden className="text-ink-3/50">/</span>}
             {c.to ? (
-              <Link to={c.to} className="transition-colors duration-150 hover:text-ink">
+              <Link href={c.to} className="transition-colors duration-150 hover:text-ink">
                 {c.label}
               </Link>
             ) : (

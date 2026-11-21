@@ -1,3 +1,5 @@
+"use client";
+
 
 import { useState } from "react";
 import { Button, Card, FieldError, Label, TextArea, TextField } from "@heroui/react";

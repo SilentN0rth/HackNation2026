@@ -1,12 +1,9 @@
 # zależności i build
 node_modules/
-dist/
-*.tsbuildinfo
-.vite/
-
-# pozostałości po Next.js
 .next/
+out/
 next-env.d.ts
+*.tsbuildinfo
 
 # testy
 coverage/

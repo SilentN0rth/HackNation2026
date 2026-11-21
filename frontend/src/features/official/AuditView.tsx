@@ -1,3 +1,5 @@
+"use client";
+
 import { api } from "@/api";
 import { ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
 import { formatDate, useAsync } from "@/lib/useAsync";

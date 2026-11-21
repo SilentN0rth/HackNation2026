@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import { api } from "@/api";
 import { AppStatusBadge, ArrowRight, ErrorBox, PageHeader, Skeleton } from "@/components/Feedback";
 import { formatDate, useAsync } from "@/lib/useAsync";
@@ -36,7 +38,7 @@ export function MyApplicationsView() {
               <li key={a.id} className="rise" style={{ "--i": i } as React.CSSProperties}>
                 {a.status === "draft" ? (
                   <Link
-                    to={`/citizen/form/${a.formId}?app=${a.id}`}
+                    href={`/citizen/form/${a.formId}?app=${a.id}`}
                     className="row-link flex items-center gap-6 py-5"
                     aria-label={`Dokończ: ${a.formTitle}`}
                   >
