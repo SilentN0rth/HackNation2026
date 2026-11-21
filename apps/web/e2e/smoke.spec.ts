@@ -48,12 +48,12 @@ test.describe("smoke", () => {
 
   test("logowanie kontem z seeda prowadzi na pulpit (HeroUI działa w panelu)", async ({ page }, testInfo) => {
     await login(page);
-    const probe = page.getByTestId("heroui-probe");
-    await expect(probe).toBeVisible();
-    const button = probe.getByRole("button", { name: "Nowy formularz" });
-    await expect(button).toBeVisible();
-    // Style HeroUI załadowane: przycisk primary ma tło w kolorze akcentu, a nie przezroczyste.
-    const bg = await button.evaluate((el) => getComputedStyle(el).backgroundColor);
+    const dashboard = page.getByTestId("panel-dashboard");
+    await expect(dashboard).toBeVisible();
+    const cta = dashboard.getByRole("link", { name: "Nowy z pliku" }).first();
+    await expect(cta).toBeVisible();
+    // Style załadowane: główne wezwanie do działania ma tło w kolorze akcentu, a nie przezroczyste.
+    const bg = await cta.evaluate((el) => getComputedStyle(el).backgroundColor);
     expect(bg).not.toBe("rgba(0, 0, 0, 0)");
     await screenshot(page, testInfo, "official-dashboard");
   });
