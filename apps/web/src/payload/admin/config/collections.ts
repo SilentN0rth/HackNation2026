@@ -1,12 +1,27 @@
 /**
  * Fragment: KOLEKCJE (agent C). Edytuje tylko agent C.
- * Tu: collections.<slug>.admin – components.views.list / components.views.edit, beforeList,
- * components.edit (SaveButton, PublishButton, …), defaultColumns, listSearchableFields, pagination.
- * Przykład: { collections: { forms: { admin: { components: { views: { list: { Component: "@/payload/admin/collections/ListView#ListView" } } } } } } }
+ * Każda kolekcja dostaje własny widok listy (HeroUI) i własny korzeń widoku dokumentu (edit.root),
+ * który obsługuje edycję, wersje, różnice wersji i API, a widoki dodane przez innych agentów
+ * (edit.default, edit.<zakładka> z `path`) renderuje przez RenderServerComponent.
  * Kształt: PanelFragment z ./types.ts.
  */
-import type { PanelFragment } from "./types";
+import type { CollectionSlug, GlobalSlug, PanelFragment } from "./types";
+
+const LIST = "@/payload/admin/collections/ListView#ListView";
+const DOCUMENT = "@/payload/admin/collections/DocumentRoot#DocumentRoot";
+
+const COLLECTIONS: CollectionSlug[] = ["users", "media", "forms", "audit-log", "applications", "statute-chunks"];
+const GLOBALS: GlobalSlug[] = ["settings", "registry"];
+
+const collectionAdmin = (slug: CollectionSlug) => ({
+  admin: {
+    pagination: { defaultLimit: 10, limits: [10, 25, 50, 100] },
+    ...(slug === "media" ? { defaultColumns: ["filename", "mimeType", "filesize", "createdAt"] } : {}),
+    components: { views: { list: { Component: LIST }, edit: { root: { Component: DOCUMENT } } } },
+  },
+});
 
 export const fragment: PanelFragment = {
-  collections: {},
+  collections: Object.fromEntries(COLLECTIONS.map((slug) => [slug, collectionAdmin(slug)])),
+  globals: Object.fromEntries(GLOBALS.map((slug) => [slug, { admin: { components: { views: { edit: { root: { Component: DOCUMENT } } } } } }])),
 };

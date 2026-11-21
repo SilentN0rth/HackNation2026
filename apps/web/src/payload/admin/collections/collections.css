@@ -1,0 +1,90 @@
+/*
+ * Widoki kolekcji (agent C). Tokeny, fonty, preflight (.ef-ui), przyciski, chipy i zakładki daje motyw panelu
+ * (plugins/admin-ui/theme/admin.css + brand.css). Tu tylko to, czego brakuje: tabele, pola wyboru, pola wyszukiwania.
+ */
+
+/* Tabele: bez tła kontenera i cieni, linie jak w wierszach strony głównej. */
+.hn-view .table-root {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.hn-view .table__content {
+  background: transparent;
+}
+
+.hn-view .table__column {
+  background: transparent;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hn-view .table__column::after {
+  display: none;
+}
+
+.hn-view .table__column:first-child,
+.hn-view .table__column:last-child,
+.hn-view .table__cell:first-child,
+.hn-view .table__cell:last-child {
+  border-radius: 0;
+}
+
+.hn-view .table__cell,
+.hn-view .table__column {
+  vertical-align: middle;
+}
+
+.hn-view .table__row {
+  background: transparent;
+}
+
+.hn-view .table__cell {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.hn-view .table__row[data-hovered] .table__cell {
+  background: #fafafa;
+}
+
+.hn-view .checkbox {
+  display: inline-flex;
+  align-items: center;
+}
+
+.hn-view .checkbox__control {
+  border: 1px solid var(--field-border);
+  border-radius: 4px;
+  box-shadow: none;
+  background-color: var(--field-background);
+}
+
+.hn-view .checkbox[data-selected="true"] .checkbox__control,
+.hn-view .checkbox[data-indeterminate="true"] .checkbox__control {
+  border-color: var(--accent);
+}
+
+/* Pola wyszukiwania i selecty: obramowanie zamiast cienia, jak na stronie. */
+.hn-view .search-field__group,
+.hn-view .select__trigger {
+  box-shadow: none;
+  border: 1px solid var(--field-border);
+  border-radius: 6px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hn-view .row-link:hover .row-arrow {
+    transform: translateX(3px);
+  }
+
+  .hn-view .row-link:hover .row-title {
+    color: var(--accent);
+  }
+}
