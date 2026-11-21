@@ -7,6 +7,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Docker ustawia NEXT_OUTPUT=standalone; lokalnie zwykły build działa z `next start`
+  output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
   poweredByHeader: false,
   async headers() {
     return [
