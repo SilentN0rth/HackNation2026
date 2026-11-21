@@ -1,0 +1,203 @@
+/*
+ * Motyw panelu urzędnika (plugin admin-ui). Ładowany z app/(payload)/custom.css, po CSS Payloada.
+ *
+ * Payload trzyma swoje style w @layer payload-default (zadeklarowanej wcześniej = niższy priorytet),
+ * więc warstwy Tailwinda/HeroUI i reguły bez warstwy poniżej wygrywają. Celowo BEZ preflight Tailwinda
+ * – zresetowałby natywne style ekranów, których Payload nie pozwala podmienić (np. /reset/:token).
+ */
+@layer theme, base, components, utilities;
+
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+
+@import "@heroui/styles/base/base.css" layer(base);
+@import "@heroui/styles/components/index.css" layer(components);
+@import "@heroui/styles/themes/default" layer(theme);
+@import "@heroui/styles/utilities";
+@import "@heroui/styles/variants";
+
+/* Te same tokeny i klasy co strona publiczna. */
+@import "../../../../brand.css";
+
+/* Zmienne Payloada → tokeny marki: natywne elementy (toasty, modale, /reset) mają te same kolory i krój. */
+:root,
+html[data-theme] {
+  --font-body: var(--font-sans);
+  --font-mono: "JetBrains Mono Variable", ui-monospace, Menlo, monospace;
+  --theme-bg: var(--background);
+  --theme-input-bg: var(--field-background, #fff);
+  --theme-text: var(--ink);
+  --theme-border-color: var(--border);
+  --theme-elevation-0: #ffffff;
+  --theme-elevation-50: #f8f8f8;
+  --theme-elevation-100: #f3f3f4;
+  --theme-elevation-150: #e7e7e8;
+  --theme-elevation-200: #dcdcdd;
+  --theme-elevation-250: #cfcfd1;
+  --theme-elevation-300: #b9b9bc;
+  --theme-elevation-400: #8e8f92;
+  --theme-elevation-500: #6b6c6f;
+  --theme-elevation-600: #515255;
+  --theme-elevation-800: #363739;
+  --theme-elevation-1000: var(--ink);
+  --theme-error-500: var(--danger);
+  --style-radius-s: 4px;
+  --style-radius-m: 6px;
+  --style-radius-l: 10px;
+}
+
+/*
+ * Rozmiar bazowy jak na stronie publicznej (Tailwind liczy w rem). Payload ustawia html na 13 px, a swoje odstępy
+ * liczy z --base-body-size – podnosimy oba, więc --base Payloada zostaje 20 px.
+ */
+html[data-theme] {
+  --base-body-size: 16;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/*
+ * Reset Tailwinda (preflight) tylko dla naszych komponentów: korzeń z klasą .ef-ui (export `uiScope` z theme).
+ * Warstwa base wygrywa z @layer payload-default, a utility Tailwinda wygrywają z base.
+ */
+@layer base {
+  :where(.ef-ui) *,
+  :where(.ef-ui) ::before,
+  :where(.ef-ui) ::after {
+    box-sizing: border-box;
+    border: 0 solid;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(.ef-ui) :is(h1, h2, h3, h4, h5, h6) {
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+  }
+
+  :where(.ef-ui) a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  :where(.ef-ui) :is(button, input, select, textarea) {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    background-color: transparent;
+    border-radius: 0;
+  }
+
+  :where(.ef-ui) :is(ol, ul, menu) {
+    list-style: none;
+  }
+
+  :where(.ef-ui) :is(img, svg, video) {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+html[data-theme] body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+}
+
+/* Ekrany bez logowania (szablon minimal): pełna szerokość, układ daje AuthLayout. */
+.template-minimal {
+  display: block;
+  padding: 0;
+  background: var(--background);
+}
+
+.template-minimal .template-minimal__wrap {
+  max-width: none;
+}
+
+/* Ekrany po zalogowaniu: nawigacja u góry (shell/NavBar) zamiast bocznego menu Payloada. */
+.template-default {
+  display: block;
+  --nav-width: 0px;
+}
+
+.template-default__nav-toggler-wrapper {
+  display: none;
+}
+
+/* Pasek okruszków i akcji dokumentu Payloada pod naszym nagłówkiem – bez własnego „sticky”. */
+.template-default .app-header {
+  position: static;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+@media (min-width: 640px) {
+  .template-default .app-header {
+    padding-inline: 2rem;
+  }
+}
+
+.template-default .app-header a {
+  text-decoration: none;
+}
+
+/* Hamburger Payloada otwierał boczne menu, które zastąpił NavBar (na mobile przewijany poziomo). */
+.template-default .app-header__mobile-nav-toggler {
+  display: none;
+}
+
+/* Sygnet w okruszkach wypełnia pole .step-nav__home (16–18 px zależnie od szerokości ekranu). */
+.step-nav__home > span,
+.step-nav__home > span > span {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Konto jest w NavBar (imię i nazwisko) – link z awatarem w pasku Payloada byłby duplikatem. */
+.template-default .app-header__account {
+  display: none;
+}
+
+/* Toasty Payloada (sonner) w stylu marki. */
+.payload-toast-container .payload-toast-item {
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: none;
+  font-family: var(--font-sans);
+  color: var(--ink);
+}
+
+.payload-toast-container .payload-toast-item.toast-success {
+  background: var(--success-soft);
+  color: var(--success-soft-foreground);
+}
+
+.payload-toast-container .payload-toast-item.toast-error {
+  background: var(--danger-soft);
+  color: var(--danger-soft-foreground);
+}
+
+/* Preferencje panelu (global „settings”, theme/Providers.tsx). */
+html[data-density="compact"] {
+  --base-px: 16;
+}
+
+html[data-animations="off"] *,
+html[data-animations="off"] *::before,
+html[data-animations="off"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
