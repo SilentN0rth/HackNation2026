@@ -81,7 +81,7 @@ export function UploadPanel({ isCreate, data }: { isCreate: boolean; data?: Reco
         >
           <AnimatePresence mode="wait" initial={false}>
             {file ? (
-              <motion.div key="file" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: duration.base, ease }} className="flex items-center gap-4 text-left">
+              <motion.div key="file" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: duration.base, ease: ease.out }} className="flex items-center gap-4 text-left">
                 <Thumb src={preview} ext={ext(file.type, file.name)} />
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-ink" data-testid="upload-filename">{file.name}</p>

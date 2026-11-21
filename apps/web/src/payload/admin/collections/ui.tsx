@@ -4,6 +4,7 @@ import { Breadcrumbs, Chip, I18nProvider, RouterProvider } from "@heroui/react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { uiScope } from "@/payload/plugins/admin-ui/theme";
 import type { Tone } from "./config";
 import { useRise } from "./motion";
 import "./collections.css";
@@ -14,7 +15,7 @@ export function ViewRoot({ children, testId }: { children: ReactNode; testId?: s
   return (
     <RouterProvider navigate={(href) => router.push(href)}>
       <I18nProvider locale="pl-PL">
-        <div data-testid={testId} className="ef-ui hn-view mx-auto w-full max-w-7xl px-5 pt-8 pb-28 sm:px-8 sm:pt-12">
+        <div data-testid={testId} className={`${uiScope} hn-view mx-auto w-full max-w-7xl px-5 pt-8 pb-28 sm:px-8 sm:pt-12`}>
           {children}
         </div>
       </I18nProvider>
@@ -31,7 +32,7 @@ export function Crumbs({ items }: { items: Crumb[] }) {
         <Breadcrumbs.Item
           key={`${c.label}-${i}`}
           href={c.href}
-          className={c.href ? "text-muted transition-colors duration-150 hover:text-ink" : "text-(--ink-2)"}
+          className={c.href ? "text-muted transition-colors duration-150 hover:text-ink" : "text-ink-2"}
         >
           {c.label}
         </Breadcrumbs.Item>
@@ -108,7 +109,7 @@ const CHIP_COLOR: Record<Tone, "default" | "accent" | "success" | "warning" | "d
 
 const DOT: Record<Tone, string> = {
   neutral: "bg-muted/50",
-  accent: "bg-(--navy)",
+  accent: "bg-navy",
   success: "bg-success",
   warning: "bg-[#d18b00]",
   danger: "bg-danger",

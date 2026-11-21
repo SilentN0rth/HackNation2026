@@ -24,7 +24,7 @@ export function ConfirmDialog({
   onConfirm: () => void;
 }) {
   return (
-    <AlertDialog.Backdrop isOpen={isOpen} onOpenChange={onOpenChange} className="hn-overlay">
+    <AlertDialog.Backdrop isOpen={isOpen} onOpenChange={onOpenChange}>
       <AlertDialog.Container size="sm">
         <AlertDialog.Dialog className="rounded-[10px] border border-border shadow-none" data-testid="confirm-dialog">
           <AlertDialog.Header>

@@ -180,7 +180,7 @@ export function ListClient({ data }: { data: ListViewData }) {
               <Select.Value />
               <Select.Indicator />
             </Select.Trigger>
-            <Select.Popover className="hn-overlay">
+            <Select.Popover>
               <ListBox>
                 <ListBox.Item id="__all" textValue={`${f.label}: wszystkie`}>
                   {f.label}: wszystkie
@@ -204,7 +204,7 @@ export function ListClient({ data }: { data: ListViewData }) {
                 {Icon.columns}
                 <span className="hidden sm:inline">Kolumny</span>
               </Button>
-              <Dropdown.Popover className="hn-overlay min-w-56">
+              <Dropdown.Popover className="min-w-56">
                 <Dropdown.Menu
                   aria-label="Widoczne kolumny"
                   selectionMode="multiple"
@@ -438,7 +438,7 @@ export function ListClient({ data }: { data: ListViewData }) {
               <Select.Value />
               <Select.Indicator />
             </Select.Trigger>
-            <Select.Popover className="hn-overlay">
+            <Select.Popover>
               <ListBox>
                 {[...new Set([...PER_PAGE, data.limit])].sort((a, b) => a - b).map((n) => (
                   <ListBox.Item key={n} id={String(n)} textValue={String(n)}>
@@ -571,7 +571,7 @@ function Timeline({ rows }: { rows: ListRow[] }) {
               {r.status && <StatusChip label={r.status.label} tone={r.status.tone} />}
               <time className="font-mono text-xs text-muted sm:hidden">{r.timeline?.date}</time>
             </div>
-            <p className="mt-1.5 leading-relaxed text-(--ink-2)">{r.timeline?.details}</p>
+            <p className="mt-1.5 leading-relaxed text-ink-2">{r.timeline?.details}</p>
             {r.timeline?.link && (
               <Link href={r.timeline.link.href} className="link-arrow mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
                 {r.timeline.link.label}

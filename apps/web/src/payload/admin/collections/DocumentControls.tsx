@@ -119,7 +119,7 @@ export function DocumentControls({ shell, drafts, operation }: { shell: ShellDat
       >
         <motion.div
           animate={{ borderColor: modified ? "#0d0e0e" : "#c9cacc" }}
-          transition={{ duration: duration.fast, ease }}
+          transition={{ duration: duration.fast, ease: ease.out }}
           className="flex w-full flex-wrap items-center gap-3 rounded-[10px] border bg-white px-4 py-3"
         >
           <p className="mr-auto flex min-w-0 items-center gap-2 text-sm" aria-live="polite" data-testid="document-state">
@@ -129,7 +129,7 @@ export function DocumentControls({ shell, drafts, operation }: { shell: ShellDat
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: duration.fast, ease }}
+                transition={{ duration: duration.fast, ease: ease.out }}
                 className="inline-flex items-center gap-2"
               >
                 <span aria-hidden className={`size-1.5 rounded-full ${modified ? "pulse-dot bg-accent" : "bg-success"}`} />
@@ -145,7 +145,7 @@ export function DocumentControls({ shell, drafts, operation }: { shell: ShellDat
               <Button variant="ghost" size="sm" aria-label="Więcej akcji" data-testid="document-more">
                 Więcej
               </Button>
-              <Dropdown.Popover className="hn-overlay min-w-48" placement="top end">
+              <Dropdown.Popover className="min-w-48" placement="top end">
                 <Dropdown.Menu
                   aria-label="Więcej akcji"
                   onAction={(key) => {

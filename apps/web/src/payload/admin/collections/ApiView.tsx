@@ -14,7 +14,7 @@ export function ApiView({ shell, doc }: { shell: ShellData; doc: Record<string, 
       <div className="mb-6 flex flex-wrap items-center gap-4 border-t border-ink pt-5">
         <div className="min-w-0 flex-1">
           <SectionLabel>REST API</SectionLabel>
-          <p className="mt-2 truncate font-mono text-sm text-(--ink-2)">GET {url}</p>
+          <p className="mt-2 truncate font-mono text-sm text-ink-2">GET {url}</p>
         </div>
         <Button
           variant="secondary"

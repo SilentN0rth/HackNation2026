@@ -13,7 +13,7 @@ export function Thumb({ src, ext, size = "sm" }: { src?: string; ext?: string; s
   }
   const label = ext ?? src?.slice(5) ?? "";
   return (
-    <span className={`${box} grid place-items-center rounded-[6px] border border-border bg-default font-mono text-[11px] font-medium text-(--ink-2)`}>
+    <span className={`${box} grid place-items-center rounded-[6px] border border-border bg-default font-mono text-[11px] font-medium text-ink-2`}>
       {label}
     </span>
   );
@@ -39,10 +39,10 @@ export function Cell({ col, value }: { col: ColumnDef; value: CellValue }) {
         </span>
       );
     case "mime":
-      return <span className="rounded-[4px] bg-default px-2 py-0.5 font-mono text-xs font-medium text-(--ink-2)">{value.text}</span>;
+      return <span className="rounded-[4px] bg-default px-2 py-0.5 font-mono text-xs font-medium text-ink-2">{value.text}</span>;
     default:
       return (
-        <span className={`block max-w-[28ch] truncate ${value.mono ? "font-mono text-[13px] text-(--ink-2) tabular-nums" : "text-(--ink-2)"}`} title={value.text}>
+        <span className={`block max-w-[28ch] truncate ${value.mono ? "font-mono text-[13px] text-ink-2 tabular-nums" : "text-ink-2"}`} title={value.text}>
           {value.text}
         </span>
       );

@@ -22,7 +22,7 @@ export function AuthPanel({ isCreate, readOnly }: { isCreate: boolean; readOnly:
         </div>
       ) : (
         <AnimatePresence initial={false}>
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: duration.base, ease }} className="grid gap-5 sm:grid-cols-2">
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: duration.base, ease: ease.out }} className="grid gap-5 sm:grid-cols-2">
             <PasswordInputs required={isCreate} />
             {!isCreate && (
               <div className="sm:col-span-2">
