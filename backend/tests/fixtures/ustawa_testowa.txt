@@ -1,0 +1,6 @@
+Ustawa testowa z dnia 1 stycznia 2026 r. o fikcyjnych opłatach (fragment do testów – NIE jest prawdziwym aktem)
+Art. 1. 1. Wniosek o zwrot opłaty zawiera imię i nazwisko wnioskodawcy oraz numer rachunku bankowego.
+2. Do wniosku dołącza się dowód uiszczenia opłaty.
+Art. 2. Organ zwraca opłatę w terminie 14 dni od dnia złożenia wniosku:
+1) gotówką w kasie organu;
+2) przelewem na rachunek bankowy wskazany we wniosku.
