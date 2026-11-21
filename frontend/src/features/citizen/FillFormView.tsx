@@ -1,10 +1,9 @@
-"use client";
 
-import Link from "next/link";
+import { Link } from "react-router";
 import { useRef, useState } from "react";
-import { Alert, Button, buttonVariants, Card } from "@heroui/react";
+import { Alert, Button, Card } from "@heroui/react";
 import { api } from "@/api";
-import { ErrorBox, Loading } from "@/components/Feedback";
+import { Check, ErrorBox, Loading, primaryLink } from "@/components/Feedback";
 import { FieldRenderer } from "@/components/FieldRenderer";
 import { visiblePages, type Values } from "@/lib/conditions";
 import { errorMessage, useAsync } from "@/lib/useAsync";
@@ -43,7 +42,6 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
   const pages = visiblePages(form.schema, values);
   const page = pages[Math.min(step, pages.length - 1)];
 
-  /** Po zmianie kroku przenosimy fokus na nagłówek – czytnik ekranu ogłasza nowy krok (WCAG 2.4.3). */
   const focusHeading = () => requestAnimationFrame(() => headingRef.current?.focus());
 
   const set = (id: string, v: string | boolean) => {
@@ -95,7 +93,6 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
     }
     setErrors(errs);
     const first = Object.keys(errs)[0];
-    // Fokus na pierwsze błędne pole (WCAG 3.3.1).
     if (first) requestAnimationFrame(() => document.querySelector<HTMLElement>(`[name="${first}"]`)?.focus());
     return !first;
   };
@@ -140,69 +137,71 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
     return f?.options?.find((o) => o.value === v)?.label ?? v;
   };
 
-  /* ---------- ekrany ---------- */
-
   if (phase === "consent")
     return (
-      <Card className="mx-auto max-w-2xl">
-        <Card.Header>
-          <p className="text-sm text-muted">{form.schema.title}</p>
-          <Card.Title>
-            <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold outline-none">
-              Czy możemy uzupełnić część danych za Ciebie?
-            </h1>
-          </Card.Title>
-        </Card.Header>
-        <Card.Content className="flex flex-col gap-3">
-          <p>
-            Pobierzemy z mObywatela Twoje imię, nazwisko, PESEL i adres. Zaoszczędzisz czas, a przed wysłaniem
-            wszystko sprawdzisz i możesz to zmienić.
+      <section className="max-w-2xl">
+        <p className="rise text-sm font-semibold text-accent">{form.schema.title}</p>
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className="rise mt-3 text-[2.25rem] leading-[1.1] font-semibold tracking-[-0.025em] text-balance text-ink outline-none sm:text-5xl"
+          style={{ "--i": 1 } as React.CSSProperties}
+        >
+          Czy możemy uzupełnić część danych za Ciebie?
+        </h1>
+        <div className="rise mt-6 flex flex-col gap-3" style={{ "--i": 2 } as React.CSSProperties}>
+          <p className="text-lg leading-relaxed text-ink-2">
+            Pobierzemy z mObywatela imię, nazwisko, PESEL i adres. Przed wysłaniem wszystko sprawdzisz i w razie
+            potrzeby poprawisz.
           </p>
-          <p className="text-sm text-muted">Makieta – w demo dane są fikcyjne.</p>
+          <p className="text-sm text-ink-3">To wersja demonstracyjna, dane są fikcyjne.</p>
           {actionError && <ErrorBox message={actionError} />}
-        </Card.Content>
-        <Card.Footer className="flex flex-wrap gap-2">
-          <Button variant="primary" isPending={busy} onPress={() => acceptConsent(true)}>
+        </div>
+        <div className="rise mt-10 flex flex-wrap gap-3" style={{ "--i": 3 } as React.CSSProperties}>
+          <Button size="lg" variant="primary" isPending={busy} onPress={() => acceptConsent(true)}>
             Tak, uzupełnij
           </Button>
-          <Button variant="secondary" isDisabled={busy} onPress={() => acceptConsent(false)}>
-            Nie, wpiszę sam(a)
+          <Button size="lg" variant="secondary" isDisabled={busy} onPress={() => acceptConsent(false)}>
+            Wpiszę dane samodzielnie
           </Button>
-        </Card.Footer>
-      </Card>
+        </div>
+      </section>
     );
 
   if (phase === "sent" && sent)
     return (
-      <Card className="mx-auto max-w-2xl" role="status">
-        <Card.Header>
-          <Card.Title>
-            <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-semibold text-success outline-none">
-              Wniosek wysłany ✔
-            </h1>
-          </Card.Title>
-        </Card.Header>
-        <Card.Content className="flex flex-col gap-2">
-          <p>
-            Numer potwierdzenia (UPO – makieta): <strong className="font-mono">{sent.confirmationNo}</strong>
-          </p>
-          <p className="text-sm text-muted">Status sprawy sprawdzisz w zakładce „Twoje sprawy”.</p>
-        </Card.Content>
-        <Card.Footer>
-          <Link href="/citizen/applications" className={buttonVariants({ variant: "primary" })}>
-            Przejdź do Twoich spraw
-          </Link>
-        </Card.Footer>
-      </Card>
+      <section className="max-w-2xl" role="status">
+        <span aria-hidden className="rise grid size-12 place-items-center rounded-full bg-ink text-white">
+          <Check className="size-5" />
+        </span>
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className="rise mt-8 text-[2.25rem] leading-[1.1] font-semibold tracking-[-0.025em] text-ink outline-none sm:text-5xl"
+          style={{ "--i": 1 } as React.CSSProperties}
+        >
+          Wniosek został wysłany
+        </h1>
+        <dl className="rise mt-8 border-y border-border py-5" style={{ "--i": 2 } as React.CSSProperties}>
+          <dt className="text-sm text-ink-3">Numer potwierdzenia (UPO)</dt>
+          <dd className="mt-1 font-mono text-xl text-ink">{sent.confirmationNo}</dd>
+        </dl>
+        <p className="rise mt-5 text-ink-3" style={{ "--i": 3 } as React.CSSProperties}>
+          Status wniosku sprawdzisz w zakładce „Twoje sprawy”.
+        </p>
+        <Link to="/citizen/applications" className={`rise mt-10 ${primaryLink}`} style={{ "--i": 4 } as React.CSSProperties}>
+          Przejdź do Twoich spraw
+        </Link>
+      </section>
     );
 
   const totalSteps = pages.length + 1;
   const currentNo = phase === "summary" ? totalSteps : step + 1;
 
   return (
-    <section className="mx-auto max-w-2xl">
-      <p className="text-sm text-muted">{form.schema.title}</p>
-      <h1 ref={headingRef} tabIndex={-1} className="mb-4 text-2xl font-semibold tracking-tight outline-none">
+    <section className="max-w-3xl">
+      <p className="rise text-sm font-semibold text-accent">{form.schema.title}</p>
+      <h1 ref={headingRef} tabIndex={-1} className="mt-3 mb-8 text-[2.25rem] leading-[1.1] font-semibold tracking-[-0.025em] text-ink outline-none sm:text-5xl">
         {phase === "summary" ? "Sprawdź dane przed wysłaniem" : page?.title}
         <span className="sr-only">
           {" "}
@@ -210,38 +209,30 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
         </span>
       </h1>
 
-      <nav aria-label="Postęp wypełniania" className="mb-6">
-        <ol className="flex flex-wrap gap-2">
-          {pages.map((p, i) => {
-            const done = phase === "summary" || i < step;
-            const current = phase === "steps" && i === step;
+      <nav aria-label="Postęp wypełniania" className="mb-10">
+        <ol className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${totalSteps}, minmax(0, 1fr))` }}>
+          {[...pages.map((p) => p.title), "Podsumowanie"].map((title, i) => {
+            const isSummary = i === pages.length;
+            const done = isSummary ? false : phase === "summary" || i < step;
+            const current = isSummary ? phase === "summary" : phase === "steps" && i === step;
             return (
-              <li
-                key={p.id}
-                aria-current={current ? "step" : undefined}
-                className={`rounded-full px-3 py-1 text-sm ${
-                  current
-                    ? "bg-accent font-medium text-accent-foreground"
-                    : done
-                      ? "bg-success-soft text-success-soft-foreground"
-                      : "bg-default text-muted"
-                }`}
-              >
-                {done && <span aria-hidden>✓ </span>}
-                {i + 1}. {p.title}
+              <li key={title + i} aria-current={current ? "step" : undefined} className="flex flex-col gap-2">
+                <span
+                  aria-hidden
+                  className={`h-1 transition-colors duration-300 ${current ? "bg-accent" : done ? "bg-ink" : "bg-default"}`}
+                />
+                <span className={`hidden items-center gap-1.5 text-xs sm:flex ${current ? "font-semibold text-ink" : "text-ink-3"}`}>
+                  {done ? <Check className="size-3 text-ink" /> : <span className="font-mono tabular-nums">{i + 1}</span>}
+                  <span className="truncate">{title}</span>
+                </span>
                 {done && <span className="sr-only"> (ukończony)</span>}
               </li>
             );
           })}
-          <li
-            aria-current={phase === "summary" ? "step" : undefined}
-            className={`rounded-full px-3 py-1 text-sm ${
-              phase === "summary" ? "bg-accent font-medium text-accent-foreground" : "bg-default text-muted"
-            }`}
-          >
-            {totalSteps}. Podsumowanie
-          </li>
         </ol>
+        <p className="mt-3 text-sm text-ink-3 sm:hidden">
+          Krok {currentNo} z {totalSteps}
+        </p>
       </nav>
 
       {actionError && <ErrorBox message={actionError} />}
@@ -261,7 +252,7 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
                 <Alert status="danger" className="mb-6">
                   <Alert.Indicator />
                   <Alert.Content>
-                    <Alert.Title>Popraw zaznaczone pola, aby przejść dalej.</Alert.Title>
+                    <Alert.Title>Popraw zaznaczone pola, żeby przejść dalej.</Alert.Title>
                   </Alert.Content>
                 </Alert>
               )}
@@ -328,7 +319,6 @@ function Wizard({ form, app }: { form: PublishedForm; app: Application | null })
             <Button variant="ghost" onPress={() => goTo(pages.length - 1)}>
               Wstecz
             </Button>
-            {/* Podpis przez węzeł krajowy – makieta */}
             <Button variant="primary" className="ml-auto" isPending={busy} onPress={() => save("sent")}>
               Podpisz i wyślij
             </Button>

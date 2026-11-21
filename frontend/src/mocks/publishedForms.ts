@@ -47,7 +47,7 @@ export const publishedForms: PublishedForm[] = [
             },
             {
               id: "telefon",
-              label: "Telefon do kierowcy (opcjonalnie)",
+              label: "Telefon do kierowcy",
               type: "phone",
               required: false,
               helpText: "Kierowca zadzwoni, jeśli nie znajdzie odpadów.",

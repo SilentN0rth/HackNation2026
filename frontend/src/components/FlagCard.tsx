@@ -1,4 +1,3 @@
-"use client";
 
 import { useState } from "react";
 import { Button, Card, FieldError, Label, TextArea, TextField } from "@heroui/react";
@@ -31,29 +30,29 @@ export function FlagCard({ flag, busy, onSelectField, onResolve }: Props) {
   const justError = touched && !parsed.success ? parsed.error.issues[0]?.message : undefined;
 
   return (
-    <Card className={`border-l-4 ${BORDER[flag.severity]} ${handled ? "opacity-70" : ""}`}>
+    <Card className={`fade-in border-l-2 ${BORDER[flag.severity]} transition-opacity duration-200 ${handled ? "opacity-60" : ""}`}>
       <Card.Header className="gap-1.5">
         <div className="flex flex-wrap items-center gap-2">
           <SeverityBadge severity={flag.severity} />
-          <span className="text-xs text-muted">{LINTER_LABELS[flag.linter]}</span>
+          <span className="text-xs text-ink-3">{LINTER_LABELS[flag.linter]}</span>
         </div>
         <Card.Title className={`text-base ${handled ? "line-through decoration-muted" : ""}`}>{flag.title}</Card.Title>
       </Card.Header>
       <Card.Content className="flex flex-col gap-2 text-sm">
         <p>{flag.message}</p>
         {flag.evidence && (
-          <p className="rounded-md bg-default px-2 py-1.5 font-mono text-xs break-words text-muted">{flag.evidence}</p>
+          <p className="rounded-[4px] bg-default px-2.5 py-1.5 font-mono text-xs break-words text-ink-2">{flag.evidence}</p>
         )}
         {flag.suggestion && (
           <p className="text-muted">
-            <strong className="text-foreground">Sugestia:</strong> {flag.suggestion}
+            <strong className="text-foreground">Co zrobić:</strong> {flag.suggestion}
           </p>
         )}
       </Card.Content>
       <Card.Footer className="flex-col items-stretch gap-2">
         {flag.resolution ? (
           <p className="text-sm text-muted" role="status">
-            {flag.resolution.action === "fixed" ? "✔ Poprawione" : "✖ Odrzucone"} przez {flag.resolution.by}
+            {flag.resolution.action === "fixed" ? "Poprawione" : "Odrzucone"} przez {flag.resolution.by}
             {flag.resolution.justification && <> – „{flag.resolution.justification}”</>}
           </p>
         ) : rejecting ? (
@@ -75,7 +74,7 @@ export function FlagCard({ flag, busy, onSelectField, onResolve }: Props) {
               autoFocus
               className="flex flex-col gap-1"
             >
-              <Label>Dlaczego odrzucasz? (trafi do Audit Trail)</Label>
+              <Label>Dlaczego odrzucasz tę uwagę? Uzasadnienie trafi do dziennika decyzji.</Label>
               <TextArea rows={2} />
               <FieldError>{justError}</FieldError>
             </TextField>
@@ -89,18 +88,18 @@ export function FlagCard({ flag, busy, onSelectField, onResolve }: Props) {
             </div>
           </form>
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-3 text-sm font-semibold">
             {flag.fieldId && onSelectField && (
-              <Button size="sm" variant="tertiary" onPress={() => onSelectField(flag.fieldId!)}>
+              <button type="button" className="press text-ink transition-colors duration-150 hover:text-accent" onClick={() => onSelectField(flag.fieldId!)}>
                 Pokaż pole
-              </Button>
+              </button>
             )}
-            <Button size="sm" variant="secondary" isDisabled={busy} onPress={() => onResolve("fixed")}>
+            <button type="button" disabled={busy} className="press text-accent transition-colors duration-150 hover:text-accent-hover disabled:opacity-50" onClick={() => onResolve("fixed")}>
               Poprawione
-            </Button>
-            <Button size="sm" variant="ghost" isDisabled={busy} onPress={() => setRejecting(true)}>
-              Odrzuć z uzasadnieniem
-            </Button>
+            </button>
+            <button type="button" disabled={busy} className="press ml-auto text-ink-3 transition-colors duration-150 hover:text-ink disabled:opacity-50" onClick={() => setRejecting(true)}>
+              Odrzuć
+            </button>
           </div>
         )}
       </Card.Footer>

@@ -28,6 +28,6 @@ export const auditTrail: AuditEntry[] = [
     userId: "system",
     userName: "System",
     action: "linters_run",
-    details: "Uruchomiono 5 linterów.",
+    details: "Sprawdzono jakość formularza (5 reguł).",
   },
 ];
