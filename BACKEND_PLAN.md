@@ -62,7 +62,7 @@ plik ──► [1] Walidacja uploadu ──► [2] Ekstrakcja ──► Document
 | Qdrant / pgvector + embeddingi | **BM25 w pamięci** (`rank-bm25`) na kilku ustawach z repo | Korpus to kilka ustaw, więc wektory nic nie dają. Mniej kontenerów to niższy koszt (kryterium 20%). |
 | PostgreSQL | **SQLite** (biblioteka standardowa) | Zero konfiguracji. Unikamy też `psycopg` (LGPL). Migracja do Postgresa jest opisana w README jako ścieżka wdrożeniowa. |
 | Ustawa → formularz jako główna ścieżka | Formularz → COI, a ustawa jako źródło cytatów do „Dlaczego pytamy?” i lintera | Tak brzmi minimum i tak będzie wyglądać test na obronie. |
-| API ISAP/ELI na żywo | Teksty ustaw pobrane wcześniej do `backend/data/statutes/` | Zakaz zewnętrznych API. |
+| API ISAP/ELI na żywo | Teksty ustaw pobrane wcześniej do `apps/api/data/statutes/` | Zakaz zewnętrznych API. |
 
 ---
 
@@ -115,7 +115,7 @@ Python: `python:3.14-slim-bookworm`, przypięty po digest. Jeśli któraś bibli
 
 ## 4. API
 
-Ścieżki **zgodne z `frontend/src/api/httpApi.ts`**, plus endpoint minimum.
+Ścieżki **zgodne z `apps/web/src/api/httpApi.ts`**, plus endpoint minimum.
 
 | Metoda i ścieżka | Rola | Co robi | Priorytet |
 |---|---|---|---|
@@ -208,7 +208,7 @@ Pydantic v2 (modele COI, `extra="allow"`, żeby nie gubić nieznanych kluczy) + 
 
 ## 6. Lintery
 
-Kontrakt: `LintFlag` z `frontend/src/types/lint.ts`. ID flagi jest deterministyczne: `"<linter>:<techName>[:<reguła>]"`, więc decyzja urzędnika przetrwa ponowny lint.
+Kontrakt: `LintFlag` z `apps/web/src/types/lint.ts`. ID flagi jest deterministyczne: `"<linter>:<techName>[:<reguła>]"`, więc decyzja urzędnika przetrwa ponowny lint.
 
 | Linter | Jak | LLM? | Przykład flagi |
 |---|---|---|---|
@@ -227,7 +227,7 @@ Trzy lintery są w pełni deterministyczne (`coi-rules`, `static-graph`, `exact-
 
 ## 7. Dane, korpus prawny, bezpieczeństwo, Docker
 
-**Korpus ustaw (`backend/data/statutes/`)** – myśliciele pobierają tekst jednolity z ISAP/ELI **przed** demo, jeden plik na akt. Wstępna lista do potwierdzenia:
+**Korpus ustaw (`apps/api/data/statutes/`)** – myśliciele pobierają tekst jednolity z ISAP/ELI **przed** demo, jeden plik na akt. Wstępna lista do potwierdzenia:
 - Ordynacja podatkowa (formularz 5 – nadpłata),
 - ustawa o opłacie skarbowej (formularz 2),
 - KPA, art. 217 i dalsze (formularz 3 – zaświadczenie),
@@ -300,7 +300,7 @@ Mapowanie typów (`app/mapping/frontend.py`): `text → TEXT_FIELD`, `textarea �
 ## 11. Struktura katalogów
 
 ```
-backend/
+apps/api/
   pyproject.toml          # uv, przypięte wersje
   Dockerfile  .dockerignore  README.md
   app/

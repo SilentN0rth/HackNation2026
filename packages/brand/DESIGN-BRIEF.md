@@ -42,7 +42,7 @@ Nic nie rysujemy „na wzór”. Każdy obraz na stronie pochodzi z tej listy.
 | Referencyjne pliki JSON COI | `data-pdf/1. …zip` i `5. …zip` (`konfiguracja_form_…json`) | prawdziwe fragmenty JSON na stronie i w slajdach |
 | Wizualizacje formularzy po cyfryzacji | dwa pliki `… wizualizacja formularza …docx` z `Materiały do zadania` | wzór układu formularza obywatela |
 | Dosłowny tekst ustawy o opłacie skarbowej | ISAP, pobrany wcześniej i trzymany w repozytorium (bez API na żywo) | cytaty przy polach, sekcja cytowania |
-| Zrzuty prawdziwego frontendu | `frontend/` (Next.js), uruchomiony na danych demo | Panel Lintera, edytor, formularz obywatela |
+| Zrzuty prawdziwego frontendu | `apps/web/` (Next.js), uruchomiony na danych demo | Panel Lintera, edytor, formularz obywatela |
 | JSON z naszego backendu | odpowiedź `POST /drafts` dla formularza przewodniego | jedyne źródło liczb (pola, strony, flagi) |
 
 Zdjęcia: tylko własne z hackathonu (zespół przy pracy, ekran z demo). Bez zdjęć stockowych urzędów i ludzi. **[decyzja]**
@@ -177,7 +177,7 @@ Flagi:
 - 1 poprawiona: `adres_poczty_elektronicznej` oznaczony jako opcjonalny na podstawie sekcji 2.3 formularza („dane kontaktowe nie są obowiązkowe, ale ułatwią kontakt w sprawie wniosku”).
 
 Publikacja: wersja 1.0. Typy pól tylko z plików referencyjnych COI (SECTION, TEXT_FIELD, SELECT, RADIO, FILE_UPLOADER, TEXT_BLOCK, CONSENT_SECTION, NUMBER, TEXTAREA).
-Te same liczby na landingu, w slajdach, w filmie i w mockach frontendu (`frontend/src/mocks`). Gdy backend zwróci wynik, podmieniamy wszystko naraz.
+Te same liczby na landingu, w slajdach, w filmie i w mockach frontendu (`apps/web/src/mocks`). Gdy backend zwróci wynik, podmieniamy wszystko naraz.
 
 ## 10. Zakazy z limitami: lista odbiorcza
 

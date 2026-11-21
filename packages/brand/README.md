@@ -5,7 +5,7 @@ Logo (koncepcja A: „kartka z pieczęcią”) i podstawy marki. Pełny brand ki
 ## Pliki
 
 ```
-brand/
+packages/brand/
   logo/<kolorystyka>/<wersja>.svg   # 7 kolorystyk × 10 wersji, napis zamieniony na krzywe
   logo/favicon.svg
   png/                              # favicon 16/32, apple-touch-icon 180, ikona 512 (granat i złoto)
@@ -54,4 +54,4 @@ Nie używać: granatu na #0b1f36 (2,5:1), zieleni na granacie (1,2:1), jasnego z
 Krój Inter: SIL Open Font License 1.1 (zamiana liter na krzywe w logo jest dozwolona). Generator korzysta z fontTools (MIT).
 
 Regeneracja: `npm pack @fontsource/inter@5 && tar xzf fontsource-inter-*.tgz`, potem
-`INTER_WOFF_DIR=package/files python brand/tools/brand.py brand/logo`.
+`INTER_WOFF_DIR=package/files python packages/brand/tools/brand.py packages/brand/logo`.

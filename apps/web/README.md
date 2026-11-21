@@ -1,7 +1,7 @@
 # e-Formularze – frontend (HackNation 2026, COI)
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · HeroUI v3 (React Aria, WCAG) · Zod 4 · PWA.
-Backend: Python (FastAPI) w katalogu `backend/`.
+Backend: Python (FastAPI) w katalogu `apps/api/`.
 
 ## Start
 
@@ -25,7 +25,7 @@ Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z ad
 
 | Zmienna | Domyślnie | Opis |
 | --- | --- | --- |
-| `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `backend/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
+| `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `apps/api/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | adres backendu |
 
 Zmienne `NEXT_PUBLIC_*` są wkompilowywane w bundle podczas `npm run build` (w Dockerze jako `ARG`).
