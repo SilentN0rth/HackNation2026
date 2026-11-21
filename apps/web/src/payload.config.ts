@@ -18,6 +18,7 @@ import { fragment as viewsFragment } from "./payload/admin/config/views";
 import { collections } from "./payload/collections";
 import { prefillEndpoint } from "./payload/endpoints/prefill";
 import { Registry } from "./payload/globals/Registry";
+import { migrations } from "./migrations";
 import { Settings } from "./payload/globals/Settings";
 import { adminUiPlugin } from "./payload/plugins/admin-ui";
 
@@ -51,6 +52,9 @@ export default buildConfig({
   editor: lexicalEditor(),
   db: sqliteAdapter({
     client: { url: process.env.DATABASE_URL || `file:${path.resolve(dirname, "../data/payload.db")}` },
+    // Lokalnie schemat synchronizuje „push”; produkcja (NODE_ENV=production) uruchamia migracje przy starcie.
+    // Po zmianie kolekcji: `npm run payload migrate:create <nazwa>`.
+    prodMigrations: migrations,
   }),
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
   i18n: { supportedLanguages: { pl }, fallbackLanguage: "pl" },
