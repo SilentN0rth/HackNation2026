@@ -22,6 +22,8 @@ const PATTERNS: Partial<Record<Field["type"], { re: RegExp; message: string }>> 
   postalCode: { re: /^\d{2}-\d{3}$/, message: "Wpisz kod w formacie 00-000." },
   phone: { re: /^(\+48)?\s?\d{3}\s?\d{3}\s?\d{3}$/, message: "Wpisz 9 cyfr numeru telefonu." },
   email: { re: z.regexes.email, message: "Wpisz poprawny adres e-mail." },
+  nip: { re: /^\d{3}-?\d{3}-?\d{2}-?\d{2}$/, message: "Wpisz 10 cyfr numeru NIP." },
+  regon: { re: /^(\d{9}|\d{14})$/, message: "REGON ma 9 albo 14 cyfr." },
 };
 
 /** Schemat dla niepustej wartości tekstowej pola (pustość obsługuje fieldValueSchema). */

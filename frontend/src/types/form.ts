@@ -24,6 +24,13 @@ export const FIELD_TYPES = [
   "postalCode",
   "phone",
   "email",
+  // typy obecne we wzorcowych JSON-ach COI
+  "nip",
+  "regon",
+  "fileUpload",
+  "textBlock",
+  "infoSection",
+  "consent",
 ] as const;
 export const FieldTypeSchema = z.enum(FIELD_TYPES);
 export type FieldType = z.infer<typeof FieldTypeSchema>;
@@ -65,7 +72,8 @@ export const FieldValidationSchema = z.object({
 });
 export type FieldValidation = z.infer<typeof FieldValidationSchema>;
 
-export const PrefillSourceSchema = z.enum(["mObywatel", "CEIDG", "KRS"]);
+/** Źródła danych inicjalnych jak w COI („Dane inicjalne”): defaultValue = „<ŹRÓDŁO>.<atrybut>”. */
+export const PrefillSourceSchema = z.enum(["MLPZ", "PESEL", "PESEL_ADDRESS"]);
 export type PrefillSource = z.infer<typeof PrefillSourceSchema>;
 
 export const FieldSchema = z.object({
@@ -83,6 +91,8 @@ export const FieldSchema = z.object({
   prefill: z.object({ source: PrefillSourceSchema, key: z.string() }).optional(),
   visibleIf: ConditionSchema.optional(),
   legalBasis: LegalBasisSchema.optional(),
+  /** Sekcja COI, w której leży pole (COI wymaga, by każde pole było w sekcji). */
+  section: z.object({ techName: z.string(), title: z.string() }).optional(),
 });
 export type Field = z.infer<typeof FieldSchema>;
 

@@ -124,6 +124,47 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
       );
       break;
 
+    case "textBlock":
+    case "infoSection":
+      control = (
+        <div className={field.type === "infoSection" ? "rounded-lg bg-accent-soft/60 p-3" : undefined}>
+          {field.label && <p className="font-medium">{field.label}</p>}
+          {field.helpText && <p className="text-sm text-muted">{field.helpText}</p>}
+        </div>
+      );
+      break;
+
+    case "fileUpload": {
+      const inputId = `file-${field.id}`;
+      control = (
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor={inputId} className="flex flex-wrap items-baseline gap-x-2 font-medium">
+            {field.label}
+            {!field.required && <span className="text-sm font-normal text-muted">(nieobowiązkowe)</span>}
+          </label>
+          {field.helpText && <p className="text-sm text-muted">{field.helpText}</p>}
+          <input
+            id={inputId}
+            name={field.id}
+            type="file"
+            disabled={readOnly}
+            aria-invalid={invalid || undefined}
+            aria-required={field.required}
+            onChange={(e) => onChange(e.target.files?.[0]?.name ?? "")}
+            className="text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-accent-soft file:px-3 file:py-2 file:font-medium file:text-accent-soft-foreground"
+          />
+          {str && <p className="text-sm text-muted">Wybrano: {str}</p>}
+          {error && (
+            <p className="text-sm text-danger" role="alert">
+              {error}
+            </p>
+          )}
+        </div>
+      );
+      break;
+    }
+
+    case "consent":
     case "checkbox":
       control = (
         <div className="flex flex-col gap-1.5">
@@ -153,7 +194,7 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
           value={str}
           onChange={onChange}
           autoComplete={AUTOCOMPLETE[field.type]}
-          inputMode={field.type === "number" || field.type === "pesel" ? "numeric" : undefined}
+          inputMode={["number", "pesel", "nip", "regon"].includes(field.type) ? "numeric" : undefined}
           className="flex flex-col gap-1.5"
         >
           <FieldLabel field={field} prefilled={prefilled} />

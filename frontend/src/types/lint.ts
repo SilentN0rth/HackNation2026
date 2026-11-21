@@ -2,6 +2,7 @@ import { z } from "zod";
 
 /** Pięć linterów z architektury (Panel Lintera). */
 export const LinterIdSchema = z.enum([
+  "coi-rules", // reguły techniczne COI (kod, bez LLM)
   "exact-match", // czy cytat istnieje w ustawie (kod, bez LLM)
   "citation-relevance", // czy cytat uzasadnia pole (LLM)
   "gdpr", // minimalizacja danych (LLM)
@@ -39,6 +40,7 @@ export const LintFlagSchema = z.object({
 export type LintFlag = z.infer<typeof LintFlagSchema>;
 
 export const LINTER_LABELS: Record<LinterId, string> = {
+  "coi-rules": "Reguły techniczne COI",
   "exact-match": "Cytat w ustawie",
   "citation-relevance": "Trafność cytatu",
   gdpr: "RODO – minimalizacja",
