@@ -15,7 +15,7 @@ test.describe("smoke", () => {
   test("strona główna się renderuje", async ({ page }, testInfo) => {
     await page.goto("/");
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.getByRole("link", { name: /e-Formularze, strona główna/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /^e-\s?Formularze$/ })).toBeVisible();
     await screenshot(page, testInfo, "home");
   });
 

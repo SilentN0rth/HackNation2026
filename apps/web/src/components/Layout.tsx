@@ -5,11 +5,14 @@ import { NavLinks, RoleSwitch, UserName } from "./HeaderNav";
 
 function Wordmark() {
   return (
-    <Link href="/" className="press flex items-center gap-2.5" aria-label="e-Formularze, strona główna">
+    // Nazwa dostępna = widoczny tekst (WCAG 2.5.3): sygnet „e” jest ozdobą, czytnik słyszy „e-Formularze”.
+    <Link href="/" className="press flex items-center gap-2.5" title="Strona główna">
       <span aria-hidden className="grid size-7 place-items-center rounded-[5px] bg-accent text-[15px] font-bold text-white">
         e
       </span>
-      <span className="text-[17px] font-semibold tracking-[-0.01em] text-ink">Formularze</span>
+      <span className="text-[17px] font-semibold tracking-[-0.01em] text-ink">
+        <span className="sr-only">e-</span>Formularze
+      </span>
     </Link>
   );
 }
