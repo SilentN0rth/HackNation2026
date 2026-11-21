@@ -1,0 +1,154 @@
+# Katalog pól – rozpoznawanie etykiet ze starych formularzy.
+# MOŻNA EDYTOWAĆ BEZ PROGRAMOWANIA. Dopasowanie jest rozmyte (rapidfuzz) i odporne na błędy OCR.
+#
+# Klucze wpisu:
+#   match:       lista fraz (małymi literami, bez kropek); wystarczy, że etykieta zawiera frazę
+#   title:       ładna, prosta nazwa pola w e-usłudze (opcjonalnie – inaczej zostaje etykieta z dokumentu)
+#   type:        TEXT_FIELD | TEXTAREA | NUMBER | DATEPICKER | SELECT | RADIO | CHECKBOX | FILE_UPLOADER
+#   validation:  lista walidatorów COI (REQUIRED dokłada builder, gdy pole jest obowiązkowe)
+#   group:       applicant | address | contact | signature | drop
+#                → pole w sekcji z danymi wnioskodawcy zastępuje standardowy blok COI („Dane”, „Kontakt”);
+#                  signature/drop – pole nie trafia do e-usługi (podpis, pieczęć, „wypełnia urząd”).
+#   dictionary:  nazwa słownika COI (tylko dla SELECT/RADIO/CHECKBOX)
+#
+# Kolejność ma znaczenie: wygrywa PIERWSZY pasujący wpis.
+
+fields:
+  # --- nigdy w e-usłudze ---
+  - match: ["podpis", "czytelny podpis", "pieczęć", "pieczęć urzędu", "wypełnia urząd", "wypełnia organ", "nr sprawy", "znak sprawy", "data wpływu", "adnotacje urzędowe", "niepotrzebne skreślić", "miejscowość i data", "miejscowość, data"]
+    group: signature
+
+  # --- dane wnioskodawcy → blok standardowy „Dane” ---
+  - match: ["imię i nazwisko", "imie i nazwisko", "nazwa / imię i nazwisko", "nazwa /imię i nazwisko", "imię i nazwisko lub nazwa", "nazwa firmy", "nazwa wnioskodawcy", "wnioskodawca"]
+    group: applicant
+  - match: ["imię", "imie", "imiona"]
+    group: applicant
+  - match: ["nazwisko"]
+    group: applicant
+  - match: ["pesel"]
+    type: TEXT_FIELD
+    validation: [PESEL]
+    group: applicant
+  - match: ["nip"]
+    type: TEXT_FIELD
+    validation: [NIP]
+    group: applicant
+  - match: ["regon"]
+    type: TEXT_FIELD
+    validation: [REGON]
+    group: applicant
+  - match: ["krs", "numer krs"]
+    group: applicant
+  - match: ["seria i numer dowodu", "numer dowodu osobistego", "nr dowodu"]
+    type: TEXT_FIELD
+    validation: [SERIAL_NUMBER_ID_CARD]
+    group: applicant
+
+  # --- adres → blok standardowy „Dane” (sekcja adresu) ---
+  - match: ["adres zamieszkania", "adres siedziby", "adres zamieszkania/siedziby", "adres do korespondencji"]
+    group: address
+  - match: ["kod pocztowy"]
+    title: Kod pocztowy
+    validation: [ZIP_CODE]
+    group: address
+  - match: ["miejscowość", "miejscowości", "miejscowosc", "miasto", "w miejscowości"]
+    title: Miejscowość
+    group: address
+  - match: ["ulica", "ulicy", "przy ulicy", "ul"]
+    title: Ulica
+    group: address
+  - match: ["nr domu", "numer domu", "nr budynku", "numer budynku"]
+    title: Numer budynku
+    group: address
+  - match: ["nr lokalu", "numer lokalu", "nr mieszkania"]
+    title: Numer lokalu
+    group: address
+  - match: ["gmina", "powiat", "województwo", "poczta", "kraj"]
+    group: address
+
+  # --- kontakt → blok standardowy „Kontakt i zgody” ---
+  - match: ["telefon", "nr telefonu", "numer telefonu", "tel"]
+    title: Numer telefonu
+    group: contact
+  - match: ["e-mail", "email", "adres poczty elektronicznej", "adres e-mail", "poczta elektroniczna"]
+    title: Adres e-mail
+    validation: [EMAIL]
+    group: contact
+  - match: ["epuap", "skrzynka epuap"]
+    validation: [EPUAP]
+    group: contact
+
+  # --- typy pól w przedmiocie wniosku ---
+  - match: ["obręb", "obrębie", "w obrębie", "obręb ewidencyjny"]
+    title: Obręb
+  - match: ["nr ewidencyjny działki", "numer ewidencyjny działki", "nr działki", "numer działki", "działka nr ewid", "działka nr"]
+    title: Numer ewidencyjny działki
+  - match: ["kwota", "kwocie", "kwotę", "w kwocie"]
+    title: Kwota
+    type: NUMBER
+  - match: ["rodzaj podatku", "podatek"]
+    title: Podatek, którego dotyczy wniosek
+  - match: ["numer rachunku", "nr rachunku", "rachunek bankowy", "konto bankowe"]
+    title: Numer rachunku bankowego
+    type: TEXT_FIELD
+  - match: ["data urodzenia", "data uiszczenia", "data zapłaty", "data wydania", "data zawarcia", "w terminie od", "od dnia", "do dnia", "data"]
+    type: DATEPICKER
+  - match: ["kwota", "wysokość opłaty", "wysokość", "wartość", "zł", "liczba", "ilość", "powierzchnia", "długość", "szerokość", "razem", "m2", "dni"]
+    type: NUMBER
+  - match: ["uzasadnienie", "opis", "uwagi", "cel", "rodzaj robót", "sposób wykonania", "informacje dodatkowe"]
+    type: TEXTAREA
+  - match: ["załącznik", "w załączeniu", "kopia", "skan", "dowód uiszczenia", "potwierdzenie przelewu", "plan sytuacyjny", "harmonogram", "projekt organizacji"]
+    type: FILE_UPLOADER
+
+# Tytuły sekcji, które oznaczają dane wnioskodawcy (całą sekcję zastępuje blok standardowy).
+applicant_sections:
+  - "dane wnioskodawcy"
+  - "dane identyfikacyjne"
+  - "dane osobowe"
+  - "dane składającego"
+  - "dane podatnika"
+  - "dane właściciela"
+  - "wnioskodawca"
+  - "adres siedziby lub miejsca zamieszkania"
+  - "adres zamieszkania"
+  - "adres do korespondencji"
+  - "dane kontaktowe"
+  - "dane pełnomocnika"
+  - "pełnomocnik"
+  - "dane reprezentanta"
+
+# Sekcje pomijane w całości (instrukcje, podpis, klauzule – w e-usłudze ich nie ma lub są w blokach).
+skip_sections:
+  - "instrukcja"
+  - "sposób wypełnienia"
+  - "pouczenie"
+  - "data i podpis"
+  - "podpis"
+  - "klauzula informacyjna"
+  - "informacja o przetwarzaniu danych"
+  - "rodo"
+  - "wypełnia urząd"
+  - "wypełnia organ"
+  - "adnotacje urzędowe"
+  - "oświadczenie o odpowiedzialności karnej"
+
+# Sekcje z podstawą prawną (tekst trafia do meta – wskazówka dla „Dlaczego pytamy?”).
+legal_sections:
+  - "podstawa prawna"
+
+# Sekcje z załącznikami (każda pozycja → FILE_UPLOADER, nieobowiązkowe).
+attachment_sections:
+  - "załączniki"
+  - "załącznik"
+  - "do wniosku załączam"
+  - "w załączeniu"
+
+# Linie odrzucane zawsze (instrukcje wypełniania drukiem).
+drop_lines:
+  - "wypełnij wielkimi literami"
+  - "pola wyboru oznaczaj"
+  - "wypełniaj kolorem"
+  - "wypełniać drukowanymi"
+  - "strona"
+  - "dd-mm-rrrr"
+  - "niepotrzebne skreślić"
