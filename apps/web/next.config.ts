@@ -18,9 +18,7 @@ const nextConfig: NextConfig = {
   // Stare adresy panelu urzędnika prowadzą do widoków Payloada
   async redirects() {
     return [
-      { source: "/official/upload", destination: "/official/collections/forms/create", permanent: false },
       { source: "/official/drafts/:id", destination: "/official/collections/forms/:id", permanent: false },
-      { source: "/official/audit", destination: "/official/collections/audit-log", permanent: false },
     ];
   },
   async headers() {
