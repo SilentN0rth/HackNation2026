@@ -8,9 +8,9 @@
 - **Komunikaty commitów po angielsku**, nawet gdy rozmowa toczy się po polsku.
 - **Conventional Commits:** `<type>(<scope>): <opis>`
   - typy: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `build`, `ci`, `chore`, `style`, `revert`;
-  - scope wskazuje część repo, np. `backend`, `frontend`, `docker`, `docs`;
+  - scope wskazuje część repo: `web` (`apps/web`), `api` (`apps/api`), `brand` (`packages/brand`), `repo`, `docker`, `ci`, `docs`;
   - opis w trybie rozkazującym, małą literą, bez kropki na końcu, do ok. 72 znaków
-    (np. `feat(backend): add SSE progress for draft uploads`);
+    (np. `feat(api): add SSE progress for draft uploads`);
   - treść commitu (opcjonalnie) wyjaśnia *dlaczego*, a nie *co*; zmiany łamiące zgodność oznacz `!` i `BREAKING CHANGE:`.
 - **Małe, logiczne commity:** jeden commit = jedna spójna zmiana (warstwa / funkcja), w kolejności zależności.
   Nie mieszaj refaktoru z nową funkcją.

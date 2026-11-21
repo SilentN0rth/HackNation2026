@@ -2,19 +2,25 @@
 
 Zamiana papierowych formularzy urzędowych na formularze elektroniczne w formacie JSON COI.
 
+Monorepo:
+
 | Katalog | Zawartość |
 | --- | --- |
-| `backend/` | Usługa REST (Python 3.14, FastAPI): `POST /api/v1/convert` i edytor wersji roboczych. Instrukcja w `backend/README.md` |
-| `frontend/` | Aplikacja dla urzędnika i podgląd e-usługi dla obywatela |
+| `apps/api/` | Usługa REST (Python 3.14, FastAPI): `POST /api/v1/convert` i edytor wersji roboczych. Instrukcja w `apps/api/README.md` |
+| `apps/web/` | Aplikacja dla urzędnika i e-usługa dla obywatela (Next.js 16, HeroUI, Tailwind, Zod, PWA). Instrukcja w `apps/web/README.md` |
+| `packages/brand/` | Logo, ikony i generator znaku |
+| `docs/` | Architektura (`docs/ARCHITEKTURA.md`) |
 | `outputs/` | Wynikowe pliki JSON dla formularzy z wyzwania i raport |
 | `data-pdf/` | Materiały i przykładowe formularze od organizatorów |
 
 ## Uruchomienie
 
 ```bash
-mkdir -p secrets && openssl rand -base64 48 > secrets/jwt_secret.txt
+./scripts/make-secrets.sh        # tworzy secrets/jwt_secret.txt (bez niego API nie wystartuje)
 docker compose up -d --build
 ```
+
+Adres API wkompilowany we frontend ustawisz zmienną `PUBLIC_API_URL` (argument budowania obrazu `web`).
 
 | Adres | Co tam jest |
 | --- | --- |
@@ -22,11 +28,21 @@ docker compose up -d --build
 | `http://localhost:8000` | REST API, minimum z wyzwania: `POST /api/v1/convert` |
 | `http://localhost:8000/docs` | Opis API (OpenAPI) |
 
-Bez Dockera:
+Bez Dockera (wymaga Node 24 i [uv](https://docs.astral.sh/uv/)):
 
 ```bash
-cd backend && python3.14 -m venv .venv && .venv/bin/pip install -r requirements.txt
-JWT_SECRET=dowolny-dlugi-sekret .venv/bin/uvicorn app.main:app --port 8000
-
-cd frontend && npm install && cp .env.example .env.local && npm run dev
+npm run setup                                  # zależności web + venv Pythona 3.14 dla api
+cp apps/web/.env.example apps/web/.env.local
+npm run dev                                    # web :5173 i api :8000 naraz
 ```
+
+| Polecenie (z katalogu głównego) | Co robi |
+| --- | --- |
+| `npm run dev` | web i api z przeładowaniem na żywo |
+| `npm run lint` | ESLint (web) i Ruff (api) |
+| `npm run typecheck` | TypeScript (web) |
+| `npm test` | Vitest (web) i pytest (api) |
+| `npm run build` | build produkcyjny web |
+
+Frontend bez backendu: `NEXT_PUBLIC_USE_MOCKS=true` w `apps/web/.env.local` (dane demonstracyjne).
+CI (`.github/workflows/ci.yml`) uruchamia te same kroki oraz `docker compose build`.
