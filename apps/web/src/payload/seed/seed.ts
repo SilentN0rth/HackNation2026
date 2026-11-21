@@ -15,13 +15,21 @@ function seedPassword(): string {
   return "demo1234";
 }
 
+/** Konto demo jest administratorem – na pokazie da się dodać kolejnych urzędników. */
 async function seedUser(payload: Payload): Promise<number> {
   const found = await payload.find({ collection: "users", where: { email: { equals: SEED_EMAIL } }, limit: 1 });
-  if (found.docs[0]) return found.docs[0].id;
+  const existing = found.docs[0];
+  if (existing) {
+    if (existing.role !== "admin") {
+      await payload.update({ collection: "users", id: existing.id, data: { role: "admin" } });
+      payload.logger.info(`seed: ${SEED_EMAIL} ma teraz rolę administratora`);
+    }
+    return existing.id;
+  }
   const { name, initials } = users.official;
   const user = await payload.create({
     collection: "users",
-    data: { email: SEED_EMAIL, password: seedPassword(), name, initials, role: "official" },
+    data: { email: SEED_EMAIL, password: seedPassword(), name, initials, role: "admin" },
   });
   payload.logger.info(`seed: utworzono konto ${SEED_EMAIL}`);
   return user.id;
