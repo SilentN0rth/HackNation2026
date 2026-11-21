@@ -53,6 +53,7 @@ test.describe("pola panelu (HeroUI)", () => {
     // Zapis bez danych → błędy z walidacji Payloada wjeżdżają pod polami.
     await page.locator("[data-testid=save]").click();
     await expect(page.locator('[data-testid="field-error"]')).toHaveCount(4);
+    await page.waitForLoadState("networkidle").catch(() => undefined);
     await expect(field(page, "act").getByRole("alert")).toContainText(/wymagane/i);
     await screenshot(page, testInfo, "fields-required-errors");
 
@@ -206,6 +207,8 @@ test.describe("pola panelu (HeroUI)", () => {
     // Zapis z błędnym JSON-em jest blokowany walidacją kliencką.
     await page.locator("[data-testid=save]").click();
     await expect(field(page, "prefill").getByRole("alert")).toBeVisible();
+    // Odrzucony zapis kończy się dopiero po walidacji stanu formularza na serwerze – kolejny klik przed tym jest ignorowany.
+    await page.waitForLoadState("networkidle").catch(() => undefined);
     const marker = `E2E ${Date.now()}`;
     const next = { ...(JSON.parse(original || "{}") as Record<string, unknown>), "e2e.marker": marker };
     await editor.fill(JSON.stringify(next, null, 2));

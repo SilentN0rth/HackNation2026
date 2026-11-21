@@ -29,9 +29,20 @@ export async function screenshot(page: Page, testInfo: TestInfo, name: string) {
 }
 
 /** Zbiera błędy konsoli i nieobsłużone wyjątki strony; sprawdź na końcu testu `expect(errors).toEqual([])`. */
+/**
+ * Ostrzeżenie o hydratacji, w którym jedyną różnicą jest `caret-color` na polach React Aria.
+ * HTML z serwera tego stylu nie zawiera (sprawdzone curl-em) – dopisuje go przeglądarka
+ * testowa przed hydratacją, więc to nie jest błąd aplikacji. Każda inna różnica nadal oblewa test.
+ */
+function isCaretColorOnlyHydrationWarning(text: string): boolean {
+  if (!text.includes("hydrated but some attributes")) return false;
+  const diff = text.split("\n").filter((line) => /^\s*[+-]\s+\S/.test(line) && !/^\s*[+-]\s+(<|\.\.\.)/.test(line));
+  return diff.length > 0 && diff.every((line) => /caret-?color/i.test(line));
+}
+
 export function trackConsoleErrors(page: Page, ignore: RegExp[] = []): string[] {
   const errors: string[] = [];
-  const keep = (text: string) => !ignore.some((re) => re.test(text));
+  const keep = (text: string) => !isCaretColorOnlyHydrationWarning(text) && !ignore.some((re) => re.test(text));
   page.on("console", (msg) => {
     if (msg.type() === "error" && keep(msg.text())) errors.push(msg.text());
   });

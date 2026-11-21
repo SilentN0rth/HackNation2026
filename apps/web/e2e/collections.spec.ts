@@ -160,7 +160,8 @@ test.describe("widoki kolekcji", () => {
     const doc = page.getByTestId("document-statute-chunks");
     await doc.locator('[data-path="unit"] input, #field-unit').first().fill(`${chunk.unit} (zmiana)`);
     await expect(doc.getByTestId("document-state")).toContainText("Niezapisane zmiany");
-    await doc.getByRole("link", { name: "Podstawy prawne" }).click();
+    // Okruszki są w pasku panelu (step-nav), poza widokiem dokumentu – strażnik działa na całej stronie.
+    await page.locator(".step-nav").getByRole("link", { name: "Podstawy prawne" }).click();
     await expect(page.getByTestId("confirm-dialog")).toContainText("Opuścić bez zapisywania?");
     await page.getByTestId("confirm-dialog").getByRole("button", { name: "Anuluj" }).click();
     await expect(page).toHaveURL(new RegExp(`/statute-chunks/${chunk.id}$`));
@@ -182,8 +183,10 @@ test.describe("widoki kolekcji", () => {
     await expect(page).toHaveURL(/statute-chunks\/\d+$/);
     await expect(page.getByTestId("document-title")).toContainText("art. 1");
 
-    // Usunięcie z menu „Więcej”
-    await page.getByTestId("document-more").click();
+    // Usunięcie z menu „Więcej” (na ekranie dotykowym React Aria otwiera menu dotknięciem)
+    const more = page.getByTestId("document-more");
+    if (testInfo.project.name === "mobile") await more.tap();
+    else await more.click();
     await page.getByRole("menuitem", { name: "Usuń" }).click();
     await page.getByTestId("confirm-dialog").getByRole("button", { name: "Usuń" }).click();
     await expect(page).toHaveURL(/statute-chunks(\?|$)/);
