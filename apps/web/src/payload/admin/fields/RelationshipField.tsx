@@ -1,14 +1,14 @@
 "use client";
 
 import { Chip, CloseButton, ComboBox, Input, ListBox, Spinner } from "@heroui/react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { ClientField } from "payload";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ReadOnlyValue } from "./SelectField";
 import { docTitle, usePayloadApi, type DocLike } from "./shared/api";
 import { FieldShell, PanelDescription, PanelError, PanelLabel } from "./shared/parts";
 import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelField";
-import { duration, ease } from "./motion";
+import { useFieldMotion } from "./shared/useFieldMotion";
 
 type RelClientField = ClientField & { relationTo: string | string[]; hasMany?: boolean };
 type Id = string | number;
@@ -43,7 +43,7 @@ export function RelationshipField(props: PanelFieldProps) {
   const multiple = Boolean(field.hasMany);
   const f = usePanelField<unknown>(props);
   const api = usePayloadApi();
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const id = fieldId(f.path);
   const errorId = `${id}-error`;
 
@@ -209,7 +209,7 @@ export function RelationshipField(props: PanelFieldProps) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: reduce ? 0 : duration.fast, ease }}
+                transition={motionFor("fast")}
               >
                 <Chip size="md" variant="soft" className="gap-1 pr-1">
                   <Chip.Label>{labels[keyOf(r)] ?? `#${r.id}`}</Chip.Label>

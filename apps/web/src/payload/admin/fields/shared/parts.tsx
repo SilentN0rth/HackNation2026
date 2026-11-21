@@ -1,12 +1,12 @@
 "use client";
 
 import { Description, Label } from "@heroui/react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { CSSProperties, ReactNode } from "react";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "../fields.css";
-import { duration, ease } from "../motion";
+import { useFieldMotion } from "./useFieldMotion";
 
 /** Etykieta jak w formularzu obywatela: font-medium, „(nieobowiązkowe)” dla pól opcjonalnych. */
 export function PanelLabel({ children, required, readOnly, htmlFor, elementType }: { children?: ReactNode; required?: boolean; readOnly?: boolean; htmlFor?: string; elementType?: string }) {
@@ -27,7 +27,7 @@ export function PanelDescription({ children }: { children?: ReactNode }) {
 
 /** Błąd walidacji – wjeżdża wysokością i przezroczystością (motion), ogłaszany przez czytniki ekranu. */
 export function PanelError({ message, id }: { message?: string; id?: string }) {
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   return (
     <AnimatePresence initial={false}>
       {message && (
@@ -36,7 +36,7 @@ export function PanelError({ message, id }: { message?: string; id?: string }) {
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: reduce ? 0 : duration.base, ease }}
+          transition={motionFor("base")}
           className="overflow-hidden"
         >
           <p id={id} role="alert" data-testid="field-error" className="flex items-start gap-1.5 pt-1 text-sm font-medium text-(--danger)">

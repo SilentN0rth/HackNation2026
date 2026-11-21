@@ -2,13 +2,13 @@
 
 import { Button, Tabs } from "@heroui/react";
 import { RenderFields, useField, useForm, useFormFields, useFormSubmitted } from "@payloadcms/ui";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { ClientField, SanitizedFieldPermissions, StaticLabel } from "payload";
 import { getFieldPaths } from "payload/shared";
 import { useId, useMemo, useState, type ReactNode } from "react";
 import { PanelDescription, PanelError } from "./shared/parts";
 import { fieldId, useText } from "./shared/usePanelField";
-import { duration, ease } from "./motion";
+import { useFieldMotion } from "./shared/useFieldMotion";
 
 type Perms = SanitizedFieldPermissions | boolean | undefined;
 type LayoutProps = {
@@ -105,7 +105,7 @@ export function RowField(props: LayoutProps) {
 export function CollapsibleField(props: LayoutProps) {
   const field = props.field as WithFields;
   const text = useText();
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const [open, setOpen] = useState(!field.admin?.initCollapsed);
   const panelId = useId();
   const label = text(field.label) ?? "Szczegóły";
@@ -119,7 +119,7 @@ export function CollapsibleField(props: LayoutProps) {
         className="group flex w-full items-center justify-between gap-3 border-t border-(--ink) pt-3 text-left"
       >
         <span className="text-lg font-semibold tracking-[-0.02em] text-(--ink)">{label}</span>
-        <motion.svg aria-hidden viewBox="0 0 16 16" className="size-4 text-(--ink-3)" animate={{ rotate: open ? 180 : 0 }} transition={{ duration: reduce ? 0 : duration.base, ease }}>
+        <motion.svg aria-hidden viewBox="0 0 16 16" className="size-4 text-(--ink-3)" animate={{ rotate: open ? 180 : 0 }} transition={motionFor("base")}>
           <path d="M3.5 6 8 10.5 12.5 6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </motion.svg>
       </button>
@@ -132,7 +132,7 @@ export function CollapsibleField(props: LayoutProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             className="overflow-hidden"
           >
             <div className="pt-1">
@@ -170,7 +170,7 @@ function TabLabel({ tab, parentPath, index }: { tab: TabConfig; parentPath: stri
 export function TabsField(props: LayoutProps) {
   const field = props.field as ClientField & { tabs: TabConfig[] };
   const text = useText();
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const [active, setActive] = useState("0");
   const path = props.path ?? "";
   const tabs = field.tabs;
@@ -215,7 +215,7 @@ export function TabsField(props: LayoutProps) {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             className="flex flex-col gap-4"
             role="tabpanel"
           >
@@ -241,7 +241,7 @@ type ArrayClientField = WithFields & { labels?: { singular?: StaticLabel; plural
 export function ArrayField(props: LayoutProps) {
   const field = props.field as ArrayClientField;
   const text = useText();
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const { addFieldRow, removeFieldRow, moveFieldRow } = useForm();
   const { path, rows = [], showError, errorMessage, disabled } = useField({ hasRows: true, potentiallyStalePath: props.path });
   const schemaPath = props.schemaPath ?? "";
@@ -275,11 +275,11 @@ export function ArrayField(props: LayoutProps) {
             return (
               <motion.li
                 key={row.id}
-                layout={reduce ? false : "position"}
+                layout={motionFor().duration === 0 ? false : "position"}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: reduce ? 0 : duration.base, ease }}
+                transition={motionFor("base")}
                 className="overflow-hidden"
                 data-testid="array-row"
               >

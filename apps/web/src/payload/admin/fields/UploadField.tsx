@@ -2,13 +2,13 @@
 
 import { Button, ComboBox, Input, ListBox, ProgressBar } from "@heroui/react";
 import { useConfig } from "@payloadcms/ui";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { ClientField } from "payload";
 import { useEffect, useRef, useState, type DragEvent } from "react";
 import { docTitle, usePayloadApi, type DocLike } from "./shared/api";
 import { FieldShell, PanelDescription, PanelError, PanelLabel } from "./shared/parts";
 import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelField";
-import { duration, ease } from "./motion";
+import { useFieldMotion } from "./shared/useFieldMotion";
 
 type UploadClientField = ClientField & { relationTo: string; hasMany?: boolean };
 type MediaDoc = DocLike & { filename?: string; mimeType?: string; filesize?: number; url?: string; thumbnailURL?: string | null; alt?: string };
@@ -54,7 +54,7 @@ export function UploadField(props: PanelFieldProps) {
   const f = usePanelField<number | string | MediaDoc | null>(props);
   const api = usePayloadApi();
   const { getEntityConfig } = useConfig();
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const id = fieldId(f.path);
   const errorId = `${id}-error`;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -134,7 +134,7 @@ export function UploadField(props: PanelFieldProps) {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             data-testid="upload-preview"
             className="flex max-w-xl items-center gap-4 rounded-[10px] border border-(--border) p-3"
           >
@@ -171,7 +171,7 @@ export function UploadField(props: PanelFieldProps) {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             onDragOver={(e) => {
               e.preventDefault();
               setDragging(true);
@@ -237,7 +237,7 @@ export function UploadField(props: PanelFieldProps) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             className="overflow-hidden"
           >
             <ComboBox

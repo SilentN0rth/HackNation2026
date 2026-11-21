@@ -1,12 +1,12 @@
 "use client";
 
 import { Button, TextArea, TextField } from "@heroui/react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import type { ClientField } from "payload";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FieldShell, PanelDescription, PanelError, PanelLabel } from "./shared/parts";
 import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelField";
-import { duration, ease } from "./motion";
+import { useFieldMotion } from "./shared/useFieldMotion";
 
 type CodeClientField = ClientField & { admin?: { language?: string; editorOptions?: unknown } };
 
@@ -38,7 +38,7 @@ function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code
   const localError = useRef<string | undefined>(undefined);
   const jsonValidate = useCallback(() => localError.current ?? true, []);
   const f = usePanelField<unknown>(props, mode === "json" ? jsonValidate : undefined);
-  const reduce = useReducedMotion();
+  const motionFor = useFieldMotion();
   const id = fieldId(f.path);
   const errorId = `${id}-error`;
 
@@ -120,7 +120,7 @@ function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: reduce ? 0 : duration.base, ease }}
+            transition={motionFor("base")}
             className="overflow-hidden"
           >
             <TextField
