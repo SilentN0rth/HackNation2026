@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 5173;
+// Równoległe worktree uruchamiają testy na własnych portach (E2E_PORT)
+const PORT = Number(process.env.E2E_PORT ?? 5173);
 const baseURL = process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
