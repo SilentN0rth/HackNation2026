@@ -1,0 +1,55 @@
+[project]
+name = "coi-backend"
+version = "0.1.0"
+description = "COI – cyfryzacja formularzy: plik → JSON COI + lintery"
+authors = [
+    { name = "Maksymilian Szewczyk", email = "max.szewczyk@interia.pl" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.165.0",
+    "filetype>=1.2.0",
+    "httpx>=0.28.1",
+    "jsonata-python>=0.7.2",
+    "networkx>=3.7",
+    "odfpy>=1.4.1",
+    "olefile>=0.47",
+    "openpyxl>=3.1.5",
+    "pdfplumber>=0.11.11",
+    "pillow>=13.0.0",
+    "pydantic-settings>=2.16.3",
+    "pyjwt>=2.15.1",
+    "pypdf>=7.1.1",
+    "pytesseract>=0.3.13",
+    "python-docx>=1.2.0",
+    "pyyaml>=6.0.4",
+    "rank-bm25>=0.2.2",
+    "rapidfuzz>=3.14.6",
+]
+
+["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.6",
+]
+
+[tool.fastapi]
+entrypoint = "app.main:app"
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["slow: macierz 9 formularzy × wszystkie formaty (OCR) – kilka minut"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
