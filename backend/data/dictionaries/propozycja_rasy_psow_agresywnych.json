@@ -1,0 +1,21 @@
+{
+  "name": "RASY_PSOW_AGRESYWNYCH",
+  "title": "Rasy psów uznawanych za agresywne",
+  "source": "PROPOZYCJA (rozszerzenie II) – Rozporządzenie Ministra Spraw Wewnętrznych i Administracji z dnia 28 kwietnia 2003 r. w sprawie wykazu ras psów uznawanych za agresywne (Dz. U. Nr 77, poz. 687). DO WERYFIKACJI z tekstem w ISAP przed użyciem.",
+  "allowedTypes": ["SELECT", "RADIO"],
+  "usage": "Formularz 7 – „Wniosek o wydanie zezwolenia na hodowanie lub utrzymywanie psów ras uznawanych za agresywne”: pole „Rasa psa” zamiast wpisywania tekstu. Ujednolica dane i pozwala automatycznie sprawdzić, czy zezwolenie jest wymagane.",
+  "structure": {"id": "string – nazwa rasy", "name": "string – nazwa wyświetlana", "techName": "slug"},
+  "items": [
+    {"id": "amerykański pit bull terier", "name": "Amerykański pit bull terier", "techName": "amerykanski_pit_bull_terier"},
+    {"id": "pies z Majorki (Perro de Presa Mallorquin)", "name": "Pies z Majorki (Perro de Presa Mallorquin)", "techName": "pies_z_majorki"},
+    {"id": "buldog amerykański", "name": "Buldog amerykański", "techName": "buldog_amerykanski"},
+    {"id": "dog argentyński", "name": "Dog argentyński", "techName": "dog_argentynski"},
+    {"id": "pies kanaryjski (Perro de Presa Canario)", "name": "Pies kanaryjski (Perro de Presa Canario)", "techName": "pies_kanaryjski"},
+    {"id": "tosa inu", "name": "Tosa inu", "techName": "tosa_inu"},
+    {"id": "rottweiler", "name": "Rottweiler", "techName": "rottweiler"},
+    {"id": "akbash dog", "name": "Akbash dog", "techName": "akbash_dog"},
+    {"id": "anatolian karabash", "name": "Anatolian karabash", "techName": "anatolian_karabash"},
+    {"id": "moskiewski stróżujący", "name": "Moskiewski stróżujący", "techName": "moskiewski_strozujacy"},
+    {"id": "owczarek kaukaski", "name": "Owczarek kaukaski", "techName": "owczarek_kaukaski"}
+  ]
+}

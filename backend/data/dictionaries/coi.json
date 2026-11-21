@@ -1,0 +1,13 @@
+{
+  "_opis": "Słowniki predefiniowane COI (dokument „Hacknation – Słowniki”) + nazwy techniczne używane we wzorcowych JSON-ach. Wartości trzyma platforma COI – tu tylko katalog.",
+  "dictionaries": [
+    {"name": "Kraje", "title": "Kraje", "allowedTypes": ["SELECT"], "usage": "kraj zamieszkania, adres zagraniczny, obywatelstwo", "source": "COI"},
+    {"name": "TERYT_DOWODOWY", "title": "Województwo / powiat / gmina / miejscowość (TERYT)", "allowedTypes": ["SELECT"], "usage": "adres w Polsce – drzewo wielopoziomowe (multiLevelTree)", "source": "COI"},
+    {"name": "TERYT_4G_DOWODOWY", "title": "TERYT 4-poziomowy", "allowedTypes": ["SELECT"], "usage": "adres siedziby / adres innej osoby", "source": "COI"},
+    {"name": "Województwo", "title": "Województwo", "allowedTypes": ["SELECT"], "usage": "dane adresowe", "source": "COI"},
+    {"name": "Powiat", "title": "Powiat", "allowedTypes": ["SELECT"], "usage": "dane adresowe", "source": "COI"},
+    {"name": "Gmina", "title": "Gmina", "allowedTypes": ["SELECT"], "usage": "dane adresowe", "source": "COI"},
+    {"name": "Miejscowość", "title": "Miejscowość", "allowedTypes": ["SELECT"], "usage": "dane adresowe", "source": "COI"},
+    {"name": "Numery kierunkowe", "title": "Numery kierunkowe", "allowedTypes": ["SELECT"], "usage": "prefiks telefonu, np. +48", "source": "COI"}
+  ]
+}
