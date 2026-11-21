@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import errors
 from app.api import citizen, convert, drafts, meta
-from app.config import get_settings
+from app.config import get_settings, jwt_secret
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
@@ -20,6 +20,8 @@ kontrolę jakości, dziennik decyzji i podgląd e-usługi dla obywatela.
 
 def create_app() -> FastAPI:
     settings = get_settings()
+    if settings.auth_enabled:
+        jwt_secret()  # brak sekretu zatrzymuje start zamiast unieważniać tokeny po restarcie
     app = FastAPI(
         title="e-Formularze API",
         version="1.0.0",

@@ -58,4 +58,12 @@ def jwt_secret() -> str:
         value = settings.jwt_secret_file.read_text().strip()
         if value:
             return value
-    return secrets.token_urlsafe(48)
+    if not settings.auth_enabled:
+        # Bez uwierzytelniania tokeny nie są sprawdzane, więc wystarczy klucz jednorazowy.
+        return secrets.token_urlsafe(48)
+    raise RuntimeError(
+        "Brak sekretu JWT. Ustaw zmienną JWT_SECRET albo wskaż plik w JWT_SECRET_FILE "
+        f"(obecnie: {settings.jwt_secret_file}). Plik secrets/jwt_secret.txt utworzysz poleceniem "
+        "./scripts/make-secrets.sh z katalogu głównego repozytorium. "
+        "Bez stałego sekretu tokeny przestają działać po restarcie i między workerami."
+    )
