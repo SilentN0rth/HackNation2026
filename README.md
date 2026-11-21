@@ -16,11 +16,13 @@ Monorepo:
 ## Uruchomienie
 
 ```bash
-./scripts/make-secrets.sh        # tworzy secrets/jwt_secret.txt (bez niego API nie wystartuje)
+./scripts/make-secrets.sh        # tworzy secrets/jwt_secret.txt i secrets/payload_secret.txt
 docker compose up -d --build
 ```
 
 Adres API wkompilowany we frontend ustawisz zmienną `PUBLIC_API_URL` (argument budowania obrazu `web`).
+Panel urzędnika: `http://localhost:5173/official`, konto demo `urzednik@example.gov.pl` z hasłem `SEED_PASSWORD`
+(domyślnie `demo1234`). Baza i wgrane pliki są w wolumenie `web-data`; `PAYLOAD_SEED=false` wyłącza dane demo.
 
 | Adres | Co tam jest |
 | --- | --- |

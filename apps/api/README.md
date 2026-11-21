@@ -10,7 +10,7 @@ Python 3.14 · FastAPI · SQLite · Tesseract OCR · LibreOffice (konwersja DOC)
 Z katalogu głównego repozytorium (tam leży `docker-compose.yml`):
 
 ```bash
-./scripts/make-secrets.sh      # tworzy secrets/jwt_secret.txt, istniejącego pliku nie nadpisuje
+./scripts/make-secrets.sh      # tworzy secrets/jwt_secret.txt i payload_secret.txt, istniejących nie nadpisuje
 docker compose build
 docker compose up -d
 ```

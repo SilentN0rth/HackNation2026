@@ -38,6 +38,16 @@ services:
     image: e-formularze-web:1.0.0
     ports:
       - "5173:8080"
+    environment:
+      # Hooki Payloada wołają silnik AI w sieci compose (nie przez localhost przeglądarki)
+      FASTAPI_URL: http://api:8000
+      # Konto i dane demo przy starcie (idempotentnie); PAYLOAD_SEED=false na czystą instalację
+      PAYLOAD_SEED: ${PAYLOAD_SEED:-true}
+      SEED_PASSWORD: ${SEED_PASSWORD:-demo1234}
+    secrets:
+      - payload_secret
+    volumes:
+      - web-data:/app/data
     depends_on:
       - api
     read_only: true
@@ -61,7 +71,10 @@ services:
 secrets:
   jwt_secret:
     file: ./secrets/jwt_secret.txt
+  payload_secret:
+    file: ./secrets/payload_secret.txt
 
 volumes:
   api-data:
+  web-data:
   ollama-models:
