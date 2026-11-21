@@ -26,7 +26,7 @@ class FlagPatch(BaseModel):
     justification: str | None = Field(default=None, max_length=500)
 
     @model_validator(mode="after")
-    def need_reason(self) -> "FlagPatch":
+    def need_reason(self) -> FlagPatch:
         if self.action == "rejected" and len((self.justification or "").strip()) < 10:
             raise ValueError("Odrzucenie uwagi wymaga uzasadnienia (co najmniej 10 znaków).")
         return self

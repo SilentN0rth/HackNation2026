@@ -4,7 +4,7 @@ import pdfplumber
 
 from app.config import get_settings
 from app.errors import ApiError
-from app.extract.image import ocr_image, ocr_available
+from app.extract.image import ocr_available, ocr_image
 from app.extract.ir import Document
 
 MIN_TEXT_PER_PAGE = 40
