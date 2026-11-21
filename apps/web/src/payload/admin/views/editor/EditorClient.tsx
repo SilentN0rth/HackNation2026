@@ -217,7 +217,7 @@ export function EditorClient({ initial, chunks, userName }: { initial: FormDoc; 
           </Notice>
         </Rise>
       ) : (
-        <Stagger className="grid gap-6 lg:grid-cols-[250px_minmax(0,1fr)_330px]" delay={0.2}>
+        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[250px_minmax(0,1fr)_330px]" delay={0.2}>
           <Rise>
             <StructureNav pages={schema.pages} selectedId={selectedId} flagsFor={flagsFor} onSelect={selectField} onAdd={addField} />
           </Rise>
