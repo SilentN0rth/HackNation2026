@@ -1,0 +1,16 @@
+{
+  "_opis": "MAKIETA danych inicjalnych (MLPZ / PESEL / PESEL_ADDRESS) – wyłącznie dane fikcyjne. PESEL 44051401359 to przykładowy numer z poprawną sumą kontrolną.",
+  "MLPZ.name": "Jan",
+  "MLPZ.surname": "Kowalski",
+  "MLPZ.postCode": "85-001",
+  "MLPZ.city": "Bydgoszcz",
+  "MLPZ.street": "Przykładowa",
+  "MLPZ.building": "12",
+  "MLPZ.apartment": "4",
+  "MLPZ.phoneNumber": "500600700",
+  "MLPZ.email": "jan.kowalski@example.com",
+  "PESEL.pesel": "44051401359",
+  "PESEL_ADDRESS.city": "Bydgoszcz",
+  "PESEL.name": "Jan",
+  "PESEL.surname": "Kowalski"
+}
