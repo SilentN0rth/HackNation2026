@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/*
+ * DESIGN TOKENS – plik dla grafika.
+ * Kolory HeroUI nadpisujemy tutaj; komponenty używają wyłącznie tych zmiennych
+ * (klasy Tailwind: bg-accent, text-muted, border-border, text-danger…).
+ *
+ * Kontrast tekstu do tła: WCAG AA (min. 4.5:1). Domyślny akcent HeroUI ma ~3.3:1
+ * z białym tekstem, dlatego podmieniamy go na granat w stylu gov.pl (6.6:1).
+ */
+:root,
+[data-theme="light"] {
+  --accent: #0b5cad;
+  --accent-hover: #094a8b;
+  --accent-foreground: #ffffff;
+  --accent-soft: #e7f0fa;
+  --accent-soft-foreground: #0b4a8b;
+
+  --background: #f5f7fa;
+  --foreground: #1b1f24;
+  --surface: #ffffff;
+  --muted: #5a6470;
+  --border: #d5dbe3;
+
+  --danger: #b3261e;
+  --danger-hover: #93201a;
+  --danger-foreground: #ffffff;
+  --danger-soft: #fdecea;
+  --danger-soft-foreground: #8c1d17;
+
+  --warning: #8a5a00;
+  --warning-foreground: #ffffff;
+  --warning-soft: #fff4dc;
+  --warning-soft-foreground: #6b4600;
+
+  --success: #1e7a3c;
+  --success-foreground: #ffffff;
+  --success-soft: #e6f4ea;
+  --success-soft-foreground: #165c2d;
+
+  --focus: #0b5cad;
+  --link: #0b5cad;
+  --radius: 0.625rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, Menlo, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Wyraźny pierścień fokusu dla klawiatury (WCAG 2.4.7 / 2.4.11). */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
