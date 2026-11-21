@@ -16,7 +16,7 @@ import {
   type Selection,
   type SortDescriptor,
 } from "@heroui/react";
-import { toast, useListQuery, useRouteTransition } from "@payloadcms/ui";
+import { toast, useListQuery, useRouteTransition, useStepNav } from "@payloadcms/ui";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useSyncExternalStore, type ComponentProps } from "react";
@@ -139,6 +139,11 @@ export function ListClient({ data }: { data: ListViewData }) {
   }
 
   const crumbs = [{ label: "Panel", href: data.adminRoute }, { label: data.plural }];
+  const { setStepNav } = useStepNav();
+  useEffect(() => {
+    // Okruszki w pasku panelu (agent B), tak jak w widoku dokumentu.
+    setStepNav([{ label: data.plural }]);
+  }, [data.plural, setStepNav]);
   const hasQuery = Boolean(search) || Object.values(filters).some(Boolean);
 
   return (

@@ -41,15 +41,15 @@ export function Crumbs({ items }: { items: Crumb[] }) {
   );
 }
 
-/** Nagłówek strony jak PageHeader na stronie głównej: okruszki, duży tytuł, opis, akcje. */
+/** Nagłówek strony jak PageHeader na stronie głównej: duży tytuł, opis, akcje. */
 export function PageHeader({
-  crumbs,
   eyebrow,
   title,
   description,
   actions,
   meta,
 }: {
+  /** Okruszki trafiają do step-nav Payloada (pasek pod nawigacją), nie do nagłówka. */
   crumbs?: Crumb[];
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -60,11 +60,6 @@ export function PageHeader({
   const { item, list } = useRise();
   return (
     <motion.header variants={list} initial="hidden" animate="show" className="mb-10 sm:mb-12">
-      {crumbs && (
-        <motion.div variants={item} className="mb-6">
-          <Crumbs items={crumbs} />
-        </motion.div>
-      )}
       <div className="flex flex-wrap items-end gap-6">
         <div className="min-w-0 flex-1">
           {eyebrow && (
