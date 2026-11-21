@@ -1,7 +1,15 @@
+# środowisko i cache Pythona
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
 .pytest_cache/
-.env
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# lokalne bazy danych (tworzone przy starcie)
 data/*.db
 data/*.db-*
+data/*.sqlite3
+data/*.sqlite3-*

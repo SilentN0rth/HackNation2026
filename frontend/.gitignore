@@ -1,8 +1,14 @@
-node_modules
-dist
-coverage
+# zależności i build
+node_modules/
+dist/
 *.tsbuildinfo
-.DS_Store
-*.log
-.env*
-!.env.example
+.vite/
+
+# pozostałości po Next.js
+.next/
+next-env.d.ts
+
+# testy
+coverage/
+test-results/
+playwright-report/
