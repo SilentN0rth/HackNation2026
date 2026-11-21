@@ -8,8 +8,11 @@ Backend: Python (FastAPI) w katalogu `apps/api/`.
 ```bash
 npm install
 cp .env.example .env.local
-npm run dev                  # http://localhost:5173
+npm run payload:seed         # baza Payloada (data/payload.db) z danymi demo
+npm run dev                  # http://localhost:5173, panel urzędnika: /official
 ```
+
+Logowanie do panelu: `urzednik@example.gov.pl` / `demo1234` (hasło z `SEED_PASSWORD`).
 
 | Polecenie | Co robi |
 | --- | --- |
@@ -19,15 +22,24 @@ npm run dev                  # http://localhost:5173
 | `npm run typecheck` | generowanie typów tras i `tsc --noEmit` |
 | `npm run lint` | ESLint (`eslint-config-next`) |
 | `npm test` | testy jednostkowe Vitest (`src/**/*.test.ts`: walidatory, linter, warunki widoczności) |
+| `npm run e2e` | Playwright (`e2e/`, desktop 1440 + mobile 390, zrzuty w `e2e/__screens__/`); sam uruchamia `next dev` i seed |
+| `npm run payload:seed` | idempotentny seed Payloada z `src/mocks` |
+| `npm run payload:importmap` | regeneracja `src/app/(payload)/official/importMap.js` po dodaniu komponentów panelu |
+| `npm run payload:types` | regeneracja `src/payload-types.ts` po zmianie kolekcji |
 
-Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. Rola wynika z adresu: `/official/*`, `/citizen/*`.
+Przełącznik „Urzędnik / Obywatel” w prawym górnym rogu. `/citizen/*` to strona obywatela, `/official` – panel
+Payload CMS 3 (dane urzędnika w SQLite, plan: `docs/PAYLOAD_PLAN.md`).
 
 ## Konfiguracja
 
 | Zmienna | Domyślnie | Opis |
 | --- | --- | --- |
-| `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – prawdziwe API z katalogu `apps/api/`, `true` – dane demonstracyjne z `src/mocks` bez backendu |
+| `NEXT_PUBLIC_USE_MOCKS` | `false` | `false` – REST Payloada (`/api/payload`, `src/api/payloadApi.ts`), `true` – dane demonstracyjne z `src/mocks` bez backendu |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | adres backendu |
+| `PAYLOAD_SECRET` | tylko dev: stały fallback | sekret Payloada (JWT, szyfrowanie); w produkcji wymagany |
+| `FASTAPI_URL` | `http://localhost:8000` | silnik AI wołany przez hooki Payloada po stronie serwera |
+| `SEED_PASSWORD` | `demo1234` (dev) | hasło konta z seeda |
+| `DATABASE_URL` | `file:data/payload.db` | baza SQLite Payloada |
 | `BUILD_ID` | czas buildu | wersja cache service workera; `next.config.ts` przekazuje ją jako `NEXT_PUBLIC_BUILD_ID` |
 
 Zmienne `NEXT_PUBLIC_*` są wkompilowywane w bundle podczas `npm run build` (w Dockerze jako `ARG`).
@@ -40,7 +52,10 @@ Frontend sam pobiera token JWT dla roli urzędnika i obywatela (`POST /auth/toke
 
 ```
 src/
-  app/                 trasy Next.js (App Router), layout, manifest PWA
+  app/(frontend)/      strony publiczne (home, citizen) + layout z <Layout>
+  app/(payload)/       panel Payloada (/official) i REST (/api/payload) – szablon Payloada
+  payload.config.ts    konfiguracja Payloada, składa fragmenty z payload/admin/config
+  payload/             kolekcje, globale, hooki (FastAPI, dziennik), endpointy, seed, admin/* (UI panelu)
   styles.css           tokeny kolorów, typografia, ruch
   components/          Layout (komponent serwerowy) + HeaderNav (wyspy klienckie: nawigacja,
                        przełącznik roli, nazwa użytkownika), ServiceWorker, Feedback, Dropzone,
@@ -50,7 +65,7 @@ src/
     citizen/fill/      kreator wniosku: useWizard (stan), ConsentPhase, StepForm, SummaryCard,
                        SubmittedPhase, WizardProgress
   types/               schematy Zod, jedyne źródło typów
-  api/                 kontrakt (types.ts), mockApi.ts, httpApi.ts
+  api/                 kontrakt (types.ts), payloadApi.ts, mockApi.ts, httpApi.ts (FastAPI wprost)
   lib/                 walidacja, warunki widoczności, linter, useAsync, format (daty, błędy); testy *.test.ts
   mocks/               dane demonstracyjne
 ```
