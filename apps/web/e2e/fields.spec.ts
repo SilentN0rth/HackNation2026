@@ -23,7 +23,7 @@ async function openJson(page: Page, path: string) {
 async function saveGlobal(page: Page, slug: string) {
   // Dokładna ścieżka – panel wysyła też POST /globals/<slug>/access, który nie jest zapisem.
   const done = page.waitForResponse((r) => new URL(r.url()).pathname === `/api/payload/globals/${slug}` && ["POST", "PATCH"].includes(r.request().method()) && r.status() < 400);
-  await page.locator("#action-save").click();
+  await page.locator("[data-testid=save]").click();
   await done;
   // Payload po zapisie przeładowuje stan formularza – poczekaj na koniec przetwarzania.
   await page.waitForLoadState("networkidle").catch(() => undefined);
@@ -51,7 +51,7 @@ test.describe("pola panelu (HeroUI)", () => {
     await expect(page.locator(".field-type:not(.pf-field)")).toHaveCount(0);
 
     // Zapis bez danych → błędy z walidacji Payloada wjeżdżają pod polami.
-    await page.locator("#action-save").click();
+    await page.locator("[data-testid=save]").click();
     await expect(page.locator('[data-testid="field-error"]')).toHaveCount(4);
     await expect(field(page, "act").getByRole("alert")).toContainText(/wymagane/i);
     await screenshot(page, testInfo, "fields-required-errors");
@@ -73,7 +73,7 @@ test.describe("pola panelu (HeroUI)", () => {
     // Błąd znika po poprawieniu wartości.
     await expect(field(page, "act").getByRole("alert")).toHaveCount(0);
 
-    await Promise.all([page.waitForURL(/statute-chunks\/\d+/), page.locator("#action-save").click()]);
+    await Promise.all([page.waitForURL(/statute-chunks\/\d+/), page.locator("[data-testid=save]").click()]);
     await page.reload();
     await expect(page.locator("#field-chunkId")).toHaveValue(unique);
     await expect(page.locator("#field-unit")).toHaveValue("art. 63 § 1");
@@ -116,7 +116,7 @@ test.describe("pola panelu (HeroUI)", () => {
     await expect(flags.getByRole("alert")).toHaveCount(0);
 
     await screenshot(page, testInfo, "fields-forms-create");
-    await Promise.all([page.waitForURL(/forms\/\d+/, { timeout: 30_000 }), page.locator("#action-save-draft").click()]);
+    await Promise.all([page.waitForURL(/forms\/\d+/, { timeout: 30_000 }), page.locator("[data-testid=save-draft]").click()]);
     await page.waitForLoadState("networkidle").catch(() => undefined);
     await page.reload();
     await expect(page.locator("#field-title")).toHaveValue(title);
@@ -161,7 +161,7 @@ test.describe("pola panelu (HeroUI)", () => {
     await values.fill('{ "person.fullName": "Jan Kowalski" }');
     await screenshot(page, testInfo, "fields-applications-create");
 
-    await Promise.all([page.waitForURL(/applications\/\d+/), page.locator("#action-save").click()]);
+    await Promise.all([page.waitForURL(/applications\/\d+/), page.locator("[data-testid=save]").click()]);
     await page.reload();
     await expect(page.locator("#field-form")).toHaveValue(target.title);
     const persisted = await openJson(page, "values");
@@ -204,7 +204,7 @@ test.describe("pola panelu (HeroUI)", () => {
     await editor.fill("{ zepsuty");
     await expect(field(page, "prefill").getByRole("alert")).toContainText("Niepoprawny JSON");
     // Zapis z błędnym JSON-em jest blokowany walidacją kliencką.
-    await page.locator("#action-save").click();
+    await page.locator("[data-testid=save]").click();
     await expect(field(page, "prefill").getByRole("alert")).toBeVisible();
     const marker = `E2E ${Date.now()}`;
     const next = { ...(JSON.parse(original || "{}") as Record<string, unknown>), "e2e.marker": marker };

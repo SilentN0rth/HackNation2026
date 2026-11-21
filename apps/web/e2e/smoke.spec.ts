@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { login, screenshot, SEED_USER, trackConsoleErrors } from "./helpers";
+import { login, screenshot, trackConsoleErrors } from "./helpers";
 
 test.describe("smoke", () => {
   let errors: string[];
@@ -66,10 +66,11 @@ test.describe("smoke", () => {
     await screenshot(page, testInfo, "official-forms-list");
   });
 
-  test("stare adresy panelu przekierowują do Payloada", async ({ page }) => {
+  test("stary adres wersji roboczej przekierowuje do Payloada", async ({ page, request }) => {
     await login(page);
-    await page.goto("/official/audit");
-    await expect(page).toHaveURL(/\/official\/collections\/audit-log/);
-    await expect(page.getByText(SEED_USER.name).first()).toBeVisible();
+    const res = await request.get("/api/payload/forms?limit=1&depth=0");
+    const id = (await res.json()).docs[0].id;
+    await page.goto(`/official/drafts/${id}`);
+    await expect(page).toHaveURL(new RegExp(`/official/collections/forms/${id}`));
   });
 });
