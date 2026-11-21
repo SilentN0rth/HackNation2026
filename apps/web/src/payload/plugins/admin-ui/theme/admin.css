@@ -158,6 +158,11 @@ html[data-theme] body {
   display: none;
 }
 
+/* Okruszki z samym sygnetem (widok bez setStepNav) nic nie mówią – ukrywamy cały pasek. */
+.step-nav:not(:has(> :nth-child(2))) {
+  display: none;
+}
+
 /* Sygnet w okruszkach wypełnia pole .step-nav__home (16–18 px zależnie od szerokości ekranu). */
 .step-nav__home > span,
 .step-nav__home > span > span {

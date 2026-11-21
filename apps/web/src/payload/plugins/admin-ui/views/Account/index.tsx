@@ -2,6 +2,7 @@ import type { AdminViewServerProps } from "payload";
 import { redirect } from "next/navigation";
 import { heading } from "../../theme";
 import { AccountForms } from "./AccountForms";
+import { AccountStepNav } from "./AccountStepNav";
 
 /** Konto (/official/account): dane profilu, zmiana hasła i preferencje panelu. */
 export function AccountView({ initPageResult }: AdminViewServerProps) {
@@ -12,6 +13,7 @@ export function AccountView({ initPageResult }: AdminViewServerProps) {
 
   return (
     <div className="ef-ui ef-page mx-auto w-full max-w-7xl px-5 pt-10 pb-20 sm:px-8 sm:pt-14">
+      <AccountStepNav />
       <h1 className={heading.h1}>Twoje konto</h1>
       <p className="mt-3 max-w-xl text-lg text-ink-2">Dane widoczne w dzienniku decyzji, hasło i ustawienia panelu.</p>
       <AccountForms
