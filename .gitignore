@@ -13,3 +13,6 @@ secrets/
 
 # logi
 *.log
+
+# zależności
+node_modules/

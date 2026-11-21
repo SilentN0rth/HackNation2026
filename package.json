@@ -1,0 +1,20 @@
+{
+  "name": "e-formularze",
+  "version": "1.0.0",
+  "private": true,
+  "description": "e-Formularze – HackNation 2026, wyzwanie COI",
+  "scripts": {
+    "setup": "npm ci && npm --prefix apps/web ci && uv venv --python 3.14 apps/api/.venv && uv pip install -p apps/api/.venv -r apps/api/requirements.txt -r apps/api/requirements-dev.txt",
+    "dev": "concurrently -k -n web,api -c blue,green \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "npm --prefix apps/web run dev",
+    "dev:api": "cd apps/api && JWT_SECRET=${JWT_SECRET:-dev-only-secret} .venv/bin/uvicorn app.main:app --reload --port 8000",
+    "lint": "npm --prefix apps/web run lint && cd apps/api && .venv/bin/ruff check app tests scripts",
+    "typecheck": "npm --prefix apps/web run typecheck",
+    "test": "npm --prefix apps/web test && cd apps/api && .venv/bin/python -m pytest -q",
+    "build": "npm --prefix apps/web run build",
+    "secrets": "./scripts/make-secrets.sh"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}
