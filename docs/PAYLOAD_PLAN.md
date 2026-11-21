@@ -76,10 +76,15 @@ apps/web/
 Etap 0 zostawia `src/payload.config.ts`, kolekcje i hooki; agenci zmieniają panel wyłącznie przez swój fragment
 w `src/payload/admin/config/`. Typy: `admin/config/types.ts`, sklejanie: `admin/config/merge.ts` (nie edytować).
 
+**Shell (obszar B) jest pluginem, nie fragmentem:** `src/payload/plugins/admin-ui` (`plugins: [adminUiPlugin()]`
+w `payload.config.ts`). Dokłada providers (MotionConfig, preferencje z globala `settings`), logo, `Nav` (poziomy pasek
+jak na stronie publicznej, renderuje też `beforeNavLinks`/`afterNavLinks`), `logout.Button`, `avatar`, `admin.theme: "light"`
+i widoki `login`, `createFirstUser`, `forgot`, `account`, `logout`, `inactivity`, `unauthorized`. Działa po sklejeniu
+fragmentów i ustawia tylko to, czego fragmenty nie zdefiniowały. CSS: `plugins/admin-ui/theme/admin.css` (tokeny z `src/brand.css`).
+Wspólne helpery dla C/D/E: `import { ease, transition, rise, primaryLink, heading, usePanelSettings } from "@/payload/plugins/admin-ui/theme"`.
+
 | Plik | Właściciel | Co tam trafia |
 | --- | --- | --- |
-| `theme.ts` | B | `components.providers` (HeroUI + MotionConfig), `admin.theme`, `admin.meta.icons`; CSS w `admin/theme/admin.css` |
-| `shell.ts` | B | `components.graphics` (Logo, Icon), `Nav`, `header`, `actions`, `logout`, `beforeLogin`/`afterLogin`, `views.login`/`account`/`createFirstUser`, `globals.settings` |
 | `collections.ts` | C | `collections.<slug>.admin` – `components.views.list`/`edit`, `beforeList`, `components.edit.*`, `defaultColumns` |
 | `fields.ts` | D | `fields.byType.<typ>` i `fields.byPath["<slug>.<pole>"]` – `{ Field, Cell, Label, Description, Error, … }` |
 | `views.ts` | E | `components.views` (dashboard, własne widoki z `path`), `beforeDashboard`, `collections.forms.admin.components.views.edit.*`, `collections["audit-log"]` |
@@ -96,11 +101,11 @@ type PanelFragment = {
 };
 ```
 
-- Kolejność sklejania: theme → shell → collections → fields → views. Tablice są sklejane, obiekty łączone
+- Kolejność sklejania: collections → fields → views, potem plugin admin-ui. Tablice są sklejane, obiekty łączone
   rekurencyjnie (późniejszy fragment wygrywa), a komponent (`"ścieżka#Eksport"` albo `{ path, … }`) jest niepodzielny.
 - Komponenty pól: `byPath` > komponenty zdefiniowane w kolekcji > `byType`; pola typu `ui` są pomijane.
 - Ścieżki komponentów: `"@/payload/admin/<obszar>/Plik#Eksport"`. Pliki komponentów tylko we własnym katalogu
-  (`admin/theme`, `admin/shell`, `admin/collections`, `admin/fields`, `admin/views`).
+  (`admin/collections`, `admin/fields`, `admin/views`; shell w `plugins/admin-ui`).
 - `importMap.js` regeneruje się po scaleniu (`npm run payload:importmap`). W gałęzi agenta wolno go wygenerować
   lokalnie do testów, ale nie commitować.
 - Zaślepka `admin/views/HeroUIProbe.tsx` (w `views.ts` jako `beforeDashboard`) potwierdza, że HeroUI + Tailwind

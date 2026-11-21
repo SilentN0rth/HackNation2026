@@ -1,7 +1,8 @@
 /**
  * Konfiguracja Payload CMS (panel urzędnika pod /official, REST pod /api/payload).
- * Etap 0 – agenci NIE edytują tego pliku. Wygląd i widoki panelu zmienia się we fragmentach
- * src/payload/admin/config/{theme,shell,collections,fields,views}.ts (kontrakt: admin/config/types.ts).
+ * Etap 0 – agenci NIE edytują tego pliku. Widoki panelu zmienia się we fragmentach
+ * src/payload/admin/config/{collections,fields,views}.ts (kontrakt: admin/config/types.ts), a shell, logowanie,
+ * konto i motyw dokłada plugin src/payload/plugins/admin-ui.
  */
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,13 +14,12 @@ import sharp from "sharp";
 import { fragment as collectionsFragment } from "./payload/admin/config/collections";
 import { fragment as fieldsFragment } from "./payload/admin/config/fields";
 import { applyToCollections, applyToGlobals, mergeFragments } from "./payload/admin/config/merge";
-import { fragment as shellFragment } from "./payload/admin/config/shell";
-import { fragment as themeFragment } from "./payload/admin/config/theme";
 import { fragment as viewsFragment } from "./payload/admin/config/views";
 import { collections } from "./payload/collections";
 import { prefillEndpoint } from "./payload/endpoints/prefill";
 import { Registry } from "./payload/globals/Registry";
 import { Settings } from "./payload/globals/Settings";
+import { adminUiPlugin } from "./payload/plugins/admin-ui";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -32,7 +32,7 @@ function payloadSecret(): string {
   throw new Error("Brak PAYLOAD_SECRET – ustaw go w środowisku produkcyjnym.");
 }
 
-const panel = mergeFragments([themeFragment, shellFragment, collectionsFragment, fieldsFragment, viewsFragment]);
+const panel = mergeFragments([collectionsFragment, fieldsFragment, viewsFragment]);
 
 export default buildConfig({
   secret: payloadSecret(),
@@ -56,4 +56,5 @@ export default buildConfig({
   i18n: { supportedLanguages: { pl }, fallbackLanguage: "pl" },
   sharp,
   telemetry: false,
+  plugins: [adminUiPlugin()],
 });
