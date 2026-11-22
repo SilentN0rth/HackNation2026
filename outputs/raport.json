@@ -70,7 +70,7 @@
     "wynik": "08_deklaracja_o_wysokosci_miesiecznej_oplaty.json",
     "strony": 14,
     "bledyCOI": 0,
-    "uwagi": 17,
+    "uwagi": 18,
     "jakosc": {}
   },
   {
@@ -79,7 +79,7 @@
     "wynik": "09_wniosek_o_przyznanie_stypendium_nagrody_lub_wyroznienia_sportowego.json",
     "strony": 19,
     "bledyCOI": 0,
-    "uwagi": 33,
+    "uwagi": 32,
     "jakosc": {
       "long-title": 1
     }

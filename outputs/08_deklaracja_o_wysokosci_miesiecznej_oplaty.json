@@ -1853,19 +1853,19 @@
     },
     {
       "id": "01834766-abb0-4140-bfe0-61bac5fe55a1",
-      "title": "Pesel (część 1 z 2)",
+      "title": "Dane podmiotu zobowiązanego do złożenia deklaracji (część 2 z 3)",
       "type": "MAIN",
       "questions": [
         {
           "x": 0,
           "y": 0,
-          "rows": 14,
+          "rows": 15,
           "cols": 3,
           "field": {
             "id": "e75bb009-bfad-454c-8f99-04c43e970c7a",
             "type": "SECTION",
-            "techName": "pesel_czesc_1_z_2",
-            "title": "Pesel (część 1 z 2)",
+            "techName": "dane_podmiotu_zobowiazanego_do_zlozenia_deklaracji_czesc_2",
+            "title": "Dane podmiotu zobowiązanego do złożenia deklaracji (część 2 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -1874,6 +1874,29 @@
               {
                 "x": 0,
                 "y": 0,
+                "rows": 1,
+                "cols": 3,
+                "field": {
+                  "id": "e40def73-0660-46a9-8d4b-5dd4133ad6c6",
+                  "type": "TEXT_FIELD",
+                  "techName": "pesel",
+                  "title": "Pesel",
+                  "description": "",
+                  "options": [],
+                  "validation": [
+                    "REQUIRED",
+                    "PESEL"
+                  ],
+                  "readOnly": false,
+                  "repeatingSectionGrid": [],
+                  "states": [],
+                  "questionOrder": 0,
+                  "tooltipMessage": ""
+                }
+              },
+              {
+                "x": 0,
+                "y": 1,
                 "rows": 1,
                 "cols": 3,
                 "field": {
@@ -1891,26 +1914,6 @@
                   "readOnly": false,
                   "repeatingSectionGrid": [],
                   "states": [],
-                  "questionOrder": 0,
-                  "tooltipMessage": ""
-                }
-              },
-              {
-                "x": 0,
-                "y": 1,
-                "rows": 1,
-                "cols": 3,
-                "field": {
-                  "id": "345a91f7-f83d-4534-babd-b9dcb2a3f717",
-                  "type": "TEXT_BLOCK",
-                  "techName": "dane_identyfikacyjne_wspolmalzonka",
-                  "title": "Dane identyfikacyjne współmałżonka",
-                  "description": "<html><head></head><body><p><strong>Dane identyfikacyjne współmałżonka</strong></p></body></html>",
-                  "options": [],
-                  "validation": [],
-                  "readOnly": false,
-                  "repeatingSectionGrid": [],
-                  "states": [],
                   "questionOrder": 1,
                   "tooltipMessage": ""
                 }
@@ -1922,14 +1925,12 @@
                 "cols": 3,
                 "field": {
                   "id": "aeb5a3f5-47c1-48b5-a663-106be185384e",
-                  "type": "TEXT_FIELD",
-                  "techName": "nazwisko_imie",
-                  "title": "Nazwisko, imię",
-                  "description": "",
+                  "type": "TEXT_BLOCK",
+                  "techName": "dane_identyfikacyjne_wspolmalzonka",
+                  "title": "Dane identyfikacyjne współmałżonka",
+                  "description": "<html><head></head><body><p><strong>Dane identyfikacyjne współmałżonka</strong></p></body></html>",
                   "options": [],
-                  "validation": [
-                    "REQUIRED"
-                  ],
+                  "validation": [],
                   "readOnly": false,
                   "repeatingSectionGrid": [],
                   "states": [],
@@ -1945,8 +1946,8 @@
                 "field": {
                   "id": "4d6d1711-18b4-467d-93dd-848eeec5240a",
                   "type": "TEXT_FIELD",
-                  "techName": "adres_zamieszkania_2",
-                  "title": "Adres zamieszkania",
+                  "techName": "nazwisko_imie",
+                  "title": "Nazwisko, imię",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -1967,13 +1968,12 @@
                 "field": {
                   "id": "13fc1548-b550-4190-9300-f1eb8846d58c",
                   "type": "TEXT_FIELD",
-                  "techName": "pesel",
-                  "title": "Pesel",
+                  "techName": "adres_zamieszkania_2",
+                  "title": "Adres zamieszkania",
                   "description": "",
                   "options": [],
                   "validation": [
-                    "REQUIRED",
-                    "PESEL"
+                    "REQUIRED"
                   ],
                   "readOnly": false,
                   "repeatingSectionGrid": [],
@@ -1990,12 +1990,13 @@
                 "field": {
                   "id": "b743ec43-e068-4de5-a2c7-f39684e17898",
                   "type": "TEXT_FIELD",
-                  "techName": "adres_zamieszkania_siedziby",
-                  "title": "Adres zamieszkania / siedziby",
+                  "techName": "pesel_2",
+                  "title": "Pesel",
                   "description": "",
                   "options": [],
                   "validation": [
-                    "REQUIRED"
+                    "REQUIRED",
+                    "PESEL"
                   ],
                   "readOnly": false,
                   "repeatingSectionGrid": [],
@@ -2012,8 +2013,8 @@
                 "field": {
                   "id": "0164882b-e828-40fd-beec-069e963978d7",
                   "type": "TEXT_FIELD",
-                  "techName": "kraj_2",
-                  "title": "Kraj",
+                  "techName": "adres_zamieszkania_siedziby",
+                  "title": "Adres zamieszkania / siedziby",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2034,8 +2035,8 @@
                 "field": {
                   "id": "154d4964-9d21-4462-b985-f531d00c2534",
                   "type": "TEXT_FIELD",
-                  "techName": "wojewodztwo_2",
-                  "title": "Województwo",
+                  "techName": "kraj_2",
+                  "title": "Kraj",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2056,8 +2057,8 @@
                 "field": {
                   "id": "ce2417b3-a406-47d5-b5e9-e738ee487c0b",
                   "type": "TEXT_FIELD",
-                  "techName": "gmina",
-                  "title": "Gmina",
+                  "techName": "wojewodztwo_2",
+                  "title": "Województwo",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2078,8 +2079,8 @@
                 "field": {
                   "id": "c6838f9b-9e0b-49c1-b8c5-53d668c88c8d",
                   "type": "TEXT_FIELD",
-                  "techName": "miejscowosc",
-                  "title": "Miejscowość",
+                  "techName": "gmina",
+                  "title": "Gmina",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2100,8 +2101,8 @@
                 "field": {
                   "id": "1e847bb5-5a04-4dc4-be10-53110ca90e87",
                   "type": "TEXT_FIELD",
-                  "techName": "ulica_2",
-                  "title": "Ulica",
+                  "techName": "miejscowosc",
+                  "title": "Miejscowość",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2122,8 +2123,8 @@
                 "field": {
                   "id": "4ccc46b4-c4ba-4380-822c-9987ebf7e6da",
                   "type": "TEXT_FIELD",
-                  "techName": "numer",
-                  "title": "Numer",
+                  "techName": "ulica_2",
+                  "title": "Ulica",
                   "description": "",
                   "options": [],
                   "validation": [
@@ -2144,6 +2145,28 @@
                 "field": {
                   "id": "a6adedb1-17f5-43b7-be14-4d71ecaeeae2",
                   "type": "TEXT_FIELD",
+                  "techName": "numer",
+                  "title": "Numer",
+                  "description": "",
+                  "options": [],
+                  "validation": [
+                    "REQUIRED"
+                  ],
+                  "readOnly": false,
+                  "repeatingSectionGrid": [],
+                  "states": [],
+                  "questionOrder": 12,
+                  "tooltipMessage": ""
+                }
+              },
+              {
+                "x": 0,
+                "y": 13,
+                "rows": 1,
+                "cols": 3,
+                "field": {
+                  "id": "fb6e0103-f90b-4541-93f1-7484d6d5fc84",
+                  "type": "TEXT_FIELD",
                   "techName": "numer_lokalu_2",
                   "title": "Numer lokalu",
                   "description": "",
@@ -2154,7 +2177,7 @@
                   "readOnly": false,
                   "repeatingSectionGrid": [],
                   "states": [],
-                  "questionOrder": 12,
+                  "questionOrder": 13,
                   "tooltipMessage": ""
                 }
               }
@@ -2168,7 +2191,7 @@
     },
     {
       "id": "68b11c40-5151-4bfe-8056-c9b3b7bbfa91",
-      "title": "Pesel (część 2 z 2)",
+      "title": "Dane podmiotu zobowiązanego do złożenia deklaracji (część 3 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -2179,8 +2202,8 @@
           "field": {
             "id": "152e1a60-164a-4221-bb84-c7153fb61775",
             "type": "SECTION",
-            "techName": "pesel_czesc_2_z_2",
-            "title": "Pesel (część 2 z 2)",
+            "techName": "dane_podmiotu_zobowiazanego_do_zlozenia_deklaracji_czesc_3",
+            "title": "Dane podmiotu zobowiązanego do złożenia deklaracji (część 3 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -2484,7 +2507,7 @@
     },
     {
       "id": "e4a560f8-cd9c-40b2-9cd9-398d0f0aac0f",
-      "title": "Dane adresowe nieruchomości, na której powstają i są gromadzone odpady",
+      "title": "Dane adresowe nieruchomości",
       "type": "MAIN",
       "questions": [
         {
@@ -2601,7 +2624,7 @@
     },
     {
       "id": "47acbace-0fda-4125-a5bf-b2cb7b09bb6c",
-      "title": "Szczegóły wniosku",
+      "title": "Dane adresowe nieruchomości (ciąg dalszy)",
       "type": "MAIN",
       "questions": [
         {
@@ -2612,8 +2635,8 @@
           "field": {
             "id": "1b00086e-08cf-4c1e-b9ed-c296874d8cee",
             "type": "SECTION",
-            "techName": "gdynia",
-            "title": "Gdynia",
+            "techName": "dane_adresowe_nieruchomosci_na_ktorej_powstaja_i_sa_2",
+            "title": "Dane adresowe nieruchomości, na której powstają i są gromadzone odpady (ciąg dalszy)",
             "description": "",
             "options": [],
             "validation": [],
@@ -2968,7 +2991,7 @@
     },
     {
       "id": "f78ebd46-6371-45fb-b556-cd0d244a0aa2",
-      "title": "Mieszkalnymi jednorodzinnymi zwolnionych z części opłaty (część 1 z 2)",
+      "title": "Oświadczenie o wysokości opłaty (część 2 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -2979,8 +3002,8 @@
           "field": {
             "id": "d71bfb6b-ebbf-4aa5-b37a-28aa54908673",
             "type": "SECTION",
-            "techName": "mieszkalnymi_jednorodzinnymi_zwolnionych_z_czesci_oplaty",
-            "title": "Mieszkalnymi jednorodzinnymi zwolnionych z części opłaty (część 1 z 2)",
+            "techName": "oswiadczenie_o_wysokosci_oplaty_za_gospodarowanie_odpadami_2",
+            "title": "Oświadczenie o wysokości opłaty za gospodarowanie odpadami komunalnymi (część 2 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -3282,7 +3305,7 @@
     },
     {
       "id": "b1faa2e0-f0f0-4783-8d79-de3eb1e49898",
-      "title": "Mieszkalnymi jednorodzinnymi zwolnionych z części opłaty (część 2 z 2)",
+      "title": "Oświadczenie o wysokości opłaty (część 3 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -3293,8 +3316,8 @@
           "field": {
             "id": "217907e4-e997-498e-83c4-be97999f064b",
             "type": "SECTION",
-            "techName": "mieszkalnymi_jednorodzinnymi_zwolnionych_z_czesci_oplaty_2",
-            "title": "Mieszkalnymi jednorodzinnymi zwolnionych z części opłaty (część 2 z 2)",
+            "techName": "oswiadczenie_o_wysokosci_oplaty_za_gospodarowanie_odpadami_3",
+            "title": "Oświadczenie o wysokości opłaty za gospodarowanie odpadami komunalnymi (część 3 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -3574,7 +3597,7 @@
     },
     {
       "id": "d9e100c0-e90d-4373-aab2-11a7c928640b",
-      "title": "ZAMIESZKUJĄ MIESZKAŃCY, A POWSTAJĄ ODPADY KOMUNALNE lub B do deklaracji zł",
+      "title": "Razem wysokość miesięcznej opłaty",
       "type": "MAIN",
       "questions": [
         {
@@ -3585,8 +3608,8 @@
           "field": {
             "id": "63a4dda3-6be8-4e62-b6a5-bc0777e1547f",
             "type": "SECTION",
-            "techName": "zamieszkuja_mieszkancy_a_powstaja_odpady_komunalne_lub_b_do",
-            "title": "ZAMIESZKUJĄ MIESZKAŃCY, A POWSTAJĄ ODPADY KOMUNALNE lub B do deklaracji zł",
+            "techName": "razem_wysokosc_miesiecznej_oplaty",
+            "title": "Razem wysokość miesięcznej opłaty",
             "description": "",
             "options": [],
             "validation": [],
@@ -3600,7 +3623,7 @@
                 "field": {
                   "id": "1860b477-1986-46cb-a896-db23e681bd6a",
                   "type": "TEXT_FIELD",
-                  "techName": "razem_wysokosc_miesiecznej_oplaty",
+                  "techName": "razem_wysokosc_miesiecznej_oplaty_2",
                   "title": "Razem wysokość miesięcznej opłaty",
                   "description": "",
                   "options": [],
@@ -3646,7 +3669,7 @@
     },
     {
       "id": "d728f540-c736-4fe1-ac3d-c337d7ab9ba8",
-      "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 1 z 3)",
+      "title": "Dane do kontaktu (pola nieobowiązkowe) (część 1 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -3658,7 +3681,7 @@
             "id": "c9dffc04-fc8f-4679-ac77-b9835f3c9292",
             "type": "SECTION",
             "techName": "dane_do_kontaktu_pola_nieobowiazkowe_czesc_1_z_3",
-            "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 1 z 3)",
+            "title": "Dane do kontaktu (pola nieobowiązkowe) (część 1 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -4016,7 +4039,7 @@
     },
     {
       "id": "4f23a06f-3284-4f08-84e5-58275819039d",
-      "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 2 z 3)",
+      "title": "Dane do kontaktu (pola nieobowiązkowe) (część 2 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -4028,7 +4051,7 @@
             "id": "ef07c1dd-cae1-4355-b8b7-3177f7418f6f",
             "type": "SECTION",
             "techName": "dane_do_kontaktu_pola_nieobowiazkowe_czesc_2_z_3",
-            "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 2 z 3)",
+            "title": "Dane do kontaktu (pola nieobowiązkowe) (część 2 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -4156,7 +4179,7 @@
                 "field": {
                   "id": "6043e1c8-a9af-49dd-8909-934c7bccb56b",
                   "type": "TEXT_FIELD",
-                  "techName": "pesel_2",
+                  "techName": "pesel_3",
                   "title": "Pesel",
                   "description": "",
                   "options": [],
@@ -4359,7 +4382,7 @@
     },
     {
       "id": "ed664e37-0834-4509-9925-c55a544ade3c",
-      "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)",
+      "title": "Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)",
       "type": "MAIN",
       "questions": [
         {
@@ -4371,7 +4394,7 @@
             "id": "686d42fc-b195-458f-be14-2b0e3b367b02",
             "type": "SECTION",
             "techName": "dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3",
-            "title": "DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)",
+            "title": "Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)",
             "description": "",
             "options": [],
             "validation": [],
@@ -4435,7 +4458,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 1,
@@ -4462,7 +4485,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 2,
@@ -4489,7 +4512,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 3,
@@ -4516,7 +4539,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 4,
@@ -4543,7 +4566,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 5,
@@ -4570,7 +4593,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 6,
@@ -4597,7 +4620,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 7,
@@ -4624,7 +4647,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 8,
@@ -4649,7 +4672,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 9,
@@ -4674,7 +4697,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 10,
@@ -4701,7 +4724,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 11,
@@ -4728,7 +4751,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 12,
@@ -4755,7 +4778,7 @@
                   "states": [
                     {
                       "type": "SHOW",
-                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['DANE DO KONTAKTU (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
+                      "query": "(\"Za pośrednictwem poczty elektronicznej: wydz.podatkow@gdynia.pl\" in tabs['Dane do kontaktu (pola nieobowiązkowe) (część 3 z 3)' in title].questions['dane_do_kontaktu_pola_nieobowiazkowe_czesc_3_z_3' in field.techName].field.repeatingSectionGrid['z_administratorem_w_zwiazku_ze_zlozona_deklaracja_mozna_sie' in field.techName].field.__userAnswer)"
                     }
                   ],
                   "questionOrder": 13,

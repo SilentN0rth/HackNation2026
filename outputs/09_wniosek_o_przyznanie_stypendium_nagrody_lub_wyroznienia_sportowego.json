@@ -2503,108 +2503,7 @@
                   "techName": "dyscypliny_sportowe",
                   "title": "Dyscypliny sportowe",
                   "description": "",
-                  "options": [
-                    {
-                      "id": "Gimnastyka artystyczna",
-                      "name": "Gimnastyka artystyczna",
-                      "techName": "gimnastyka_artystyczna"
-                    },
-                    {
-                      "id": "Hokej",
-                      "name": "Hokej",
-                      "techName": "hokej"
-                    },
-                    {
-                      "id": "Karate",
-                      "name": "Karate",
-                      "techName": "karate"
-                    },
-                    {
-                      "id": "Kolarstwo",
-                      "name": "Kolarstwo",
-                      "techName": "kolarstwo"
-                    },
-                    {
-                      "id": "Koszykówka",
-                      "name": "Koszykówka",
-                      "techName": "koszykowka"
-                    },
-                    {
-                      "id": "Lekkoatletyka",
-                      "name": "Lekkoatletyka",
-                      "techName": "lekkoatletyka"
-                    },
-                    {
-                      "id": "Łucznictwo",
-                      "name": "Łucznictwo",
-                      "techName": "lucznictwo"
-                    },
-                    {
-                      "id": "Łyżwiarstwo",
-                      "name": "Łyżwiarstwo",
-                      "techName": "lyzwiarstwo"
-                    },
-                    {
-                      "id": "Narciarstwo klasyczne",
-                      "name": "Narciarstwo klasyczne",
-                      "techName": "narciarstwo_klasyczne"
-                    },
-                    {
-                      "id": "Piłka nożna",
-                      "name": "Piłka nożna",
-                      "techName": "pilka_nozna"
-                    },
-                    {
-                      "id": "Piłka ręczna",
-                      "name": "Piłka ręczna",
-                      "techName": "pilka_reczna"
-                    },
-                    {
-                      "id": "Piłka siatkowa",
-                      "name": "Piłka siatkowa",
-                      "techName": "pilka_siatkowa"
-                    },
-                    {
-                      "id": "Piłka wodna",
-                      "name": "Piłka wodna",
-                      "techName": "pilka_wodna"
-                    },
-                    {
-                      "id": "Sport motocyklowy",
-                      "name": "Sport motocyklowy",
-                      "techName": "sport_motocyklowy"
-                    },
-                    {
-                      "id": "Sporty walki",
-                      "name": "Sporty walki",
-                      "techName": "sporty_walki"
-                    },
-                    {
-                      "id": "Sporty wodne",
-                      "name": "Sporty wodne",
-                      "techName": "sporty_wodne"
-                    },
-                    {
-                      "id": "Tenis stołowy",
-                      "name": "Tenis stołowy",
-                      "techName": "tenis_stolowy"
-                    },
-                    {
-                      "id": "Tenis ziemny",
-                      "name": "Tenis ziemny",
-                      "techName": "tenis_ziemny"
-                    },
-                    {
-                      "id": "Unihokej",
-                      "name": "Unihokej",
-                      "techName": "unihokej"
-                    },
-                    {
-                      "id": "Zapasy",
-                      "name": "Zapasy",
-                      "techName": "zapasy"
-                    }
-                  ],
+                  "options": [],
                   "validation": [
                     "REQUIRED"
                   ],
@@ -2612,7 +2511,8 @@
                   "repeatingSectionGrid": [],
                   "states": [],
                   "questionOrder": 7,
-                  "tooltipMessage": ""
+                  "tooltipMessage": "",
+                  "dictionaryName": "DYSCYPLINY_SPORTOWE"
                 }
               },
               {
