@@ -265,7 +265,7 @@ function DropArea({ onFile, disabled }: { onFile: (f: File) => void; disabled: b
           data-drag={drag || undefined}
           className={`flex flex-col items-start gap-6 border-dashed px-8 py-10 transition-colors duration-200 sm:py-14 ${
             disabled ? "opacity-60" : ""
-          } ${drag ? "border-accent bg-[#fce6ee]/60" : error ? "border-danger bg-danger-soft/40" : "border-[#c9cacc] hover:border-ink"}`}
+          } ${drag ? "border-accent bg-accent-soft/60" : error ? "border-danger bg-danger-soft/40" : "border-[#c9cacc] hover:border-ink"}`}
         >
           <span
             aria-hidden

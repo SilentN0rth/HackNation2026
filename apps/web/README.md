@@ -87,6 +87,6 @@ src/
 
 ## Wygląd
 
-Styl inspirowany serwisem coi.gov.pl: biel, czerń `#0d0e0e`, akcent `#ca0049`, krój Inter.
+Styl inspirowany serwisem coi.gov.pl: biel, czerń `#0d0e0e`, akcent `#21519f`, krój Inter.
 Animacje tylko tam, gdzie pomagają (wejście treści, potwierdzenie kliknięcia), krzywe `ease-out`,
 czas poniżej 300 ms, pełne wsparcie `prefers-reduced-motion`.
