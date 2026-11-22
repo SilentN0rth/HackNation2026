@@ -5,7 +5,8 @@
     "wynik": "01_wniosek_o_ustalenie_numeru_porzadkowego.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0
+    "uwagi": 0,
+    "jakosc": {}
   },
   {
     "formularz": "2",
@@ -13,7 +14,8 @@
     "wynik": "02_wniosek_o_zwrot_oplaty_skarbowej.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 1
+    "uwagi": 1,
+    "jakosc": {}
   },
   {
     "formularz": "3",
@@ -21,7 +23,8 @@
     "wynik": "03_wniosek_o_wydanie_zaswiadczenia.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0
+    "uwagi": 0,
+    "jakosc": {}
   },
   {
     "formularz": "4",
@@ -29,7 +32,8 @@
     "wynik": "04_wniosek_o_wynajecie_uzyczenie_swietlicy_wiejskiej.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0
+    "uwagi": 0,
+    "jakosc": {}
   },
   {
     "formularz": "5",
@@ -37,7 +41,8 @@
     "wynik": "05_wniosek_o_stwierdzenie_nadplaty_podatku.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0
+    "uwagi": 0,
+    "jakosc": {}
   },
   {
     "formularz": "6",
@@ -45,7 +50,8 @@
     "wynik": "06_wniosek_o_wydanie_zezwolenia_na_zajecie_pasa_drogowego_w_celu.json",
     "strony": 5,
     "bledyCOI": 0,
-    "uwagi": 0
+    "uwagi": 0,
+    "jakosc": {}
   },
   {
     "formularz": "7",
@@ -53,15 +59,22 @@
     "wynik": "07_wniosek_o_wydanie_zezwolenia_na_hodowanie_lub_utrzymywanie_psow_ras.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 1
+    "uwagi": 1,
+    "jakosc": {}
   },
   {
     "formularz": "8",
     "plik": "Deklaracja o wysokości opłaty.pdf",
     "wynik": "08_deklaracja_o_wysokosci_miesiecznej_oplaty.json",
-    "strony": 12,
+    "strony": 10,
     "bledyCOI": 0,
-    "uwagi": 13
+    "uwagi": 11,
+    "jakosc": {
+      "junk-title": 2,
+      "heavy-section": 3,
+      "heavy-page": 2,
+      "long-option": 2
+    }
   },
   {
     "formularz": "9",
@@ -69,6 +82,12 @@
     "wynik": "09_wniosek_o_przyznanie_stypendium.json",
     "strony": 10,
     "bledyCOI": 0,
-    "uwagi": 26
+    "uwagi": 26,
+    "jakosc": {
+      "heavy-section": 3,
+      "long-title": 1,
+      "heavy-page": 3,
+      "long-option": 3
+    }
   }
 ]
