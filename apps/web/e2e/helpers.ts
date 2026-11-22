@@ -38,7 +38,8 @@ export async function screenshot(page: Page, testInfo: TestInfo, name: string) {
  */
 function isCaretColorOnlyHydrationWarning(text: string): boolean {
   if (!text.includes("hydrated but some attributes")) return false;
-  const diff = text.split("\n").filter((line) => /^\s*[+-]\s+\S/.test(line) && !/^\s*[+-]\s+(<|\.\.\.)/.test(line));
+  // Różnice w drzewie mają głębokie wcięcie; punkty z objaśnienia Reacta („- A server/client branch…”) – pojedynczą spację.
+  const diff = text.split("\n").filter((line) => /^\s*[+-]\s{2,}\S/.test(line) && !/^\s*[+-]\s+(<|\.\.\.)/.test(line));
   return diff.length > 0 && diff.every((line) => /caret-?color/i.test(line));
 }
 

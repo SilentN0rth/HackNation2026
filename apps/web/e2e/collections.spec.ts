@@ -57,7 +57,10 @@ test.describe("widoki kolekcji", () => {
     await view.getByTestId("filter-status").getByRole("button").click();
     await page.getByRole("option", { name: "Opublikowany" }).click();
     await expect(page).toHaveURL(/where/);
-    await expect(view.getByTestId("list-row")).toHaveCount(1);
+    // Baza testowa bywa współdzielona z ręcznymi próbami – liczy się, że filtr zostawia wyłącznie opublikowane.
+    const rows = view.getByTestId("list-row");
+    await expect(rows.filter({ hasText: "Zgłoszenie odbioru odpadów wielkogabarytowych" })).toHaveCount(1);
+    await expect(rows.filter({ hasNotText: "Opublikowany" })).toHaveCount(0);
     await view.getByTestId("filter-status").getByRole("button").click();
     await page.getByRole("option", { name: /wszystkie/ }).click();
 

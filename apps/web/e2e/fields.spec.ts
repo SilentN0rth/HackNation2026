@@ -145,8 +145,10 @@ test.describe("pola panelu (HeroUI)", () => {
     test.skip(testInfo.project.name === "mobile", "zapis sprawdzany na desktopie");
     const errors = trackConsoleErrors(page, IGNORE);
     await login(page);
-    const forms = await (await page.request.get("/api/payload/forms?limit=1&depth=0&sort=title")).json();
-    const target = forms.docs[0] as { id: number; title: string };
+    const forms = (await (await page.request.get("/api/payload/forms?limit=200&depth=0&sort=title")).json()).docs as { id: number; title: string }[];
+    // Tytuł niepowtarzalny – podpowiedzi muszą dać dokładnie jedną opcję, nawet gdy w bazie są kopie z innych prób.
+    const target = forms.find((f) => f.title.length >= 6 && forms.filter((g) => g.title.startsWith(f.title.slice(0, 6))).length === 1)!;
+    expect(target, "formularz o niepowtarzalnym tytule").toBeTruthy();
 
     await page.goto("/official/collections/applications/create");
     const combo = page.locator("#field-form");
