@@ -72,6 +72,7 @@ export interface Config {
     forms: Form;
     'audit-log': AuditLog;
     applications: Application;
+    attachments: Attachment;
     'statute-chunks': StatuteChunk;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -85,6 +86,7 @@ export interface Config {
     forms: FormsSelect<false> | FormsSelect<true>;
     'audit-log': AuditLogSelect<false> | AuditLogSelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
+    attachments: AttachmentsSelect<false> | AttachmentsSelect<true>;
     'statute-chunks': StatuteChunksSelect<false> | StatuteChunksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -289,6 +291,24 @@ export interface Application {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "attachments".
+ */
+export interface Attachment {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "statute-chunks".
  */
 export interface StatuteChunk {
@@ -343,6 +363,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'applications';
         value: number | Application;
+      } | null)
+    | ({
+        relationTo: 'attachments';
+        value: number | Attachment;
       } | null)
     | ({
         relationTo: 'statute-chunks';
@@ -486,6 +510,23 @@ export interface ApplicationsSelect<T extends boolean = true> {
   confirmationNo?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "attachments_select".
+ */
+export interface AttachmentsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -251,6 +251,13 @@ export const payloadApi: Api = {
 
   getApplication: async (id) => toApplication(docOf(await call(`/applications/${id}`, {}, { depth: 0 }))),
 
+  async uploadAttachment(file) {
+    const form = new FormData();
+    form.append("file", file);
+    const body = parse(z.object({ doc: z.object({ id: z.union([z.string(), z.number()]), filename: z.string() }) }), await call("/attachments", { method: "POST", body: form }), "Załącznik");
+    return `${body.doc.id}|${body.doc.filename}`;
+  },
+
   async saveApplication(app) {
     const data = {
       form: Number(app.formId),

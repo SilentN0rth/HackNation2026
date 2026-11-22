@@ -22,3 +22,6 @@ node_modules/
 
 # wgrane załączniki obywateli
 apps/api/data/attachments/
+
+# załączniki obywateli (Payload)
+apps/web/data/attachments/
