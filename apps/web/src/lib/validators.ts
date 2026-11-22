@@ -8,6 +8,36 @@ function isValidPesel(value: string): boolean {
   return (10 - (sum % 10)) % 10 === Number(value[10]);
 }
 
+function isValidNip(value: string): boolean {
+  if (!/^\d{10}$/.test(value)) return false;
+  const w = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+  const sum = w.reduce((acc, weight, i) => acc + weight * Number(value[i]), 0);
+  return sum % 11 === Number(value[9]);
+}
+
+function isValidRegon(value: string): boolean {
+  if (!/^(\d{9}|\d{14})$/.test(value)) return false;
+  const check = (digits: string, weights: number[]) => {
+    const sum = weights.reduce((acc, weight, i) => acc + weight * Number(digits[i]), 0);
+    return (sum % 11) % 10 === Number(digits[weights.length]);
+  };
+  const ok9 = check(value, [8, 9, 2, 3, 4, 5, 6, 7]);
+  return value.length === 9 ? ok9 : ok9 && check(value, [2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8]);
+}
+
+/**
+ * NIP, REGON i KRS to pola tekstowe (typ „text”), więc rozpoznajemy je po etykiecie ze standardu
+ * (sekcja „Dane podmiotu”). Etykiety w schemacie pochodzą z generatora, nie z danych obywatela.
+ */
+function identifierKind(field: Field): "nip" | "regon" | "krs" | null {
+  if (field.type !== "text") return null;
+  const label = field.label.trim().toLowerCase();
+  if (label === "nip" || label === "numer nip") return "nip";
+  if (label === "regon" || label === "numer regon") return "regon";
+  if (label === "numer krs" || label === "krs") return "krs";
+  return null;
+}
+
 const REQUIRED = "To pole jest wymagane.";
 
 const PATTERNS: Partial<Record<Field["type"], { re: RegExp; message: string }>> = {
@@ -27,6 +57,10 @@ function textSchema(field: Field): z.ZodType<string> {
 
   let out: z.ZodType<string> = s;
   if (field.type === "pesel") out = out.refine(isValidPesel, "Numer PESEL jest niepoprawny. Sprawdź cyfry.");
+  const id = identifierKind(field);
+  if (id === "nip") out = out.refine(isValidNip, "Numer NIP jest niepoprawny. Wpisz 10 cyfr bez myślników.");
+  if (id === "regon") out = out.refine(isValidRegon, "Numer REGON jest niepoprawny. Wpisz 9 lub 14 cyfr.");
+  if (id === "krs") out = out.refine((raw) => /^\d{10}$/.test(raw), "Wpisz 10 cyfr.");
   if (field.type === "number") {
     out = out.superRefine((raw, ctx) => {
       const n = Number(raw.replace(",", "."));
@@ -83,6 +117,29 @@ const uploadFileSchema = z
 export function validateUploadFile(file: File): string | null {
   const r = uploadFileSchema.safeParse(file);
   return r.success ? null : (r.error.issues[0]?.message ?? "Niepoprawny plik.");
+}
+
+/* ---------- pliki obywatela: formaty i limit ze standardu (sekcje Pełnomocnictwo i Opłata skarbowa) ---------- */
+
+export const CITIZEN_FILE_MAX_MB = 10;
+
+/** Potwierdzenie przelewu przyjmujemy tylko jako PDF; pozostałe załączniki jako PDF, obraz lub XML. */
+export function citizenFileFormats(field: Pick<Field, "label">): string[] {
+  return /potwierdzeni\w* przelewu/i.test(field.label) ? ["pdf"] : ["pdf", "jpg", "jpeg", "png", "xml"];
+}
+
+/** Zdanie pod etykietą pola pliku, np. „Dozwolone formaty: PDF, JPG. Maksymalny rozmiar: 10 MB.” */
+export function citizenFileHint(field: Pick<Field, "label">): string {
+  const formats = citizenFileFormats(field).map((f) => f.toUpperCase());
+  return `Dozwolone formaty: ${formats.join(", ")}. Maksymalny rozmiar: ${CITIZEN_FILE_MAX_MB} MB.`;
+}
+
+export function validateCitizenFile(field: Pick<Field, "label">, file: Pick<File, "name" | "size">): string | null {
+  const formats = citizenFileFormats(field);
+  const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".") + 1).toLowerCase() : "";
+  if (!formats.includes(ext)) return `Ten format pliku nie jest obsługiwany. Dodaj plik: ${formats.map((f) => f.toUpperCase()).join(", ")}.`;
+  if (file.size > CITIZEN_FILE_MAX_MB * 1024 * 1024) return `Plik może mieć najwyżej ${CITIZEN_FILE_MAX_MB} MB.`;
+  return null;
 }
 
 export const justificationSchema = z

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Field } from "@/types";
-import { justificationSchema, validateField, validateUploadFile } from "./validators";
+import { citizenFileHint, justificationSchema, validateCitizenFile, validateField, validateUploadFile } from "./validators";
 
 const field = (over: Partial<Field> = {}): Field => ({ id: "f", label: "Pole", type: "text", required: false, ...over });
 
@@ -88,5 +88,43 @@ describe("justificationSchema", () => {
     expect(justificationSchema.safeParse("   uzasadnienie ").success).toBe(true);
     expect(justificationSchema.safeParse("  krótko  ").success).toBe(false);
     expect(justificationSchema.safeParse("x".repeat(501)).success).toBe(false);
+  });
+});
+
+describe("validateField – dane podmiotu (NIP, REGON, KRS)", () => {
+  it("NIP: suma kontrolna i 10 cyfr", () => {
+    const f = field({ label: "NIP" });
+    expect(validateField(f, "5260001246")).toBeNull();
+    for (const v of ["5260001247", "526000124", "52600012461"]) expect(validateField(f, v)).toMatch(/NIP/);
+  });
+  it("REGON: 9 lub 14 cyfr z sumą kontrolną", () => {
+    const f = field({ label: "REGON" });
+    expect(validateField(f, "123456785")).toBeNull();
+    expect(validateField(f, "12345678512347")).toBeNull();
+    for (const v of ["123456784", "12345678", "12345678512340"]) expect(validateField(f, v)).toMatch(/REGON/);
+  });
+  it("KRS jest nieobowiązkowy, ale gdy podany, ma 10 cyfr", () => {
+    const f = field({ label: "Numer KRS" });
+    expect(validateField(f, "")).toBeNull();
+    expect(validateField(f, "0000123456")).toBeNull();
+    expect(validateField(f, "12345")).toBe("Wpisz 10 cyfr.");
+  });
+  it("etykieta nie zmienia walidacji pól innych typów", () => {
+    expect(validateField(field({ label: "NIP", type: "textarea" }), "abc")).toBeNull();
+  });
+});
+
+describe("pliki obywatela", () => {
+  const upload = field({ label: "Plik dokumentu z pełnomocnictwem", type: "file" });
+  const transfer = field({ label: "Plik z potwierdzeniem przelewu", type: "file" });
+  it("podpowiedź zawiera formaty i limit", () => {
+    expect(citizenFileHint(upload)).toBe("Dozwolone formaty: PDF, JPG, JPEG, PNG, XML. Maksymalny rozmiar: 10 MB.");
+    expect(citizenFileHint(transfer)).toBe("Dozwolone formaty: PDF. Maksymalny rozmiar: 10 MB.");
+  });
+  it("odrzuca zły format i za duży plik", () => {
+    expect(validateCitizenFile(upload, { name: "a.pdf", size: 1000 })).toBeNull();
+    expect(validateCitizenFile(upload, { name: "a.exe", size: 1000 })).toMatch(/format/);
+    expect(validateCitizenFile(transfer, { name: "a.png", size: 1000 })).toMatch(/PDF/);
+    expect(validateCitizenFile(upload, { name: "a.pdf", size: 10 * 1024 * 1024 + 1 })).toBe("Plik może mieć najwyżej 10 MB.");
   });
 });
