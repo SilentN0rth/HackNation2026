@@ -1,0 +1,2480 @@
+teryt,gmina,powiat,wojewodztwo
+0201011,Bolesławiec,bolesławiecki,dolnośląskie
+0201022,gmina Bolesławiec,bolesławiecki,dolnośląskie
+0201032,gmina Gromadka,bolesławiecki,dolnośląskie
+0201043,''gmina Nowogrodziec'',bolesławiecki,dolnośląskie
+0201052,gmina Osiecznica,bolesławiecki,dolnośląskie
+0201062,gmina Warta Bolesławiecka,bolesławiecki,dolnośląskie
+0202011,Bielawa,dzierżoniowski,dolnośląskie
+0202021,Dzierżoniów,dzierżoniowski,dolnośląskie
+0202033,''gmina Pieszyce'',dzierżoniowski,dolnośląskie
+0202041,Piława Górna,dzierżoniowski,dolnośląskie
+0202052,gmina Dzierżoniów,dzierżoniowski,dolnośląskie
+0202062,gmina Łagiewniki,dzierżoniowski,dolnośląskie
+0202073,''gmina Niemcza'',dzierżoniowski,dolnośląskie
+0203011,Głogów,głogowski,dolnośląskie
+0203022,gmina Głogów,głogowski,dolnośląskie
+0203032,gmina Jerzmanowa,głogowski,dolnośląskie
+0203042,gmina Kotla,głogowski,dolnośląskie
+0203052,gmina Pęcław,głogowski,dolnośląskie
+0203062,gmina Żukowice,głogowski,dolnośląskie
+0204013,''gmina Góra'',górowski,dolnośląskie
+0204022,gmina Jemielno,górowski,dolnośląskie
+0204032,gmina Niechlów,górowski,dolnośląskie
+0204043,gmina Wąsosz,górowski,dolnośląskie
+0205011,Jawor,jaworski,dolnośląskie
+0205023,''gmina Bolków'',jaworski,dolnośląskie
+0205032,gmina Męcinka,jaworski,dolnośląskie
+0205042,gmina Mściwojów,jaworski,dolnośląskie
+0205052,gmina Paszowice,jaworski,dolnośląskie
+0205062,gmina Wądroże Wielkie,jaworski,dolnośląskie
+0206011,Karpacz,"karkonoski<ref group=""uwaga"" name=""Karkonoski"">Do 31 grudnia 2020 r.: powiat jeleniogórski</ref>",dolnośląskie
+0206021,Kowary,karkonoski{{U|Karkonoski}},dolnośląskie
+0206031,Piechowice,karkonoski{{U|Karkonoski}},dolnośląskie
+0206041,Szklarska Poręba,karkonoski{{U|Karkonoski}},dolnośląskie
+0206052,gmina Janowice Wielkie,karkonoski{{U|Karkonoski}},dolnośląskie
+0206062,gmina Jeżów Sudecki,karkonoski{{U|Karkonoski}},dolnośląskie
+0206072,gmina Mysłakowice,karkonoski{{U|Karkonoski}},dolnośląskie
+0206082,gmina Podgórzyn,karkonoski{{U|Karkonoski}},dolnośląskie
+0206092,gmina Stara Kamienica,karkonoski{{U|Karkonoski}},dolnośląskie
+0207011,Kamienna Góra,kamiennogórski,dolnośląskie
+0207022,gmina Kamienna Góra,kamiennogórski,dolnośląskie
+0207033,''gmina Lubawka'',kamiennogórski,dolnośląskie
+0207042,gmina Marciszów,kamiennogórski,dolnośląskie
+0208011,Duszniki-Zdrój,kłodzki,dolnośląskie
+0208021,Kłodzko,kłodzki,dolnośląskie
+0208031,Kudowa-Zdrój,kłodzki,dolnośląskie
+0208041,Nowa Ruda,kłodzki,dolnośląskie
+0208051,Polanica-Zdrój,kłodzki,dolnośląskie
+0208063,''gmina Bystrzyca Kłodzka'',kłodzki,dolnośląskie
+0208072,gmina Kłodzko,kłodzki,dolnośląskie
+0208083,''gmina Lądek-Zdrój'',kłodzki,dolnośląskie
+0208092,gmina Lewin Kłodzki,kłodzki,dolnośląskie
+0208103,''gmina Międzylesie'',kłodzki,dolnośląskie
+0208112,gmina Nowa Ruda,kłodzki,dolnośląskie
+0208123,''gmina Radków'',kłodzki,dolnośląskie
+0208133,''gmina Stronie Śląskie'',kłodzki,dolnośląskie
+0208143,''gmina Szczytna'',kłodzki,dolnośląskie
+0209011,Chojnów,legnicki,dolnośląskie
+0209022,gmina Chojnów,legnicki,dolnośląskie
+0209032,gmina Krotoszyce,legnicki,dolnośląskie
+0209042,gmina Kunice,legnicki,dolnośląskie
+0209052,gmina Legnickie Pole,legnicki,dolnośląskie
+0209062,gmina Miłkowice,legnicki,dolnośląskie
+0209073,''gmina Prochowice'',legnicki,dolnośląskie
+0209082,gmina Ruja,legnicki,dolnośląskie
+0210011,Lubań,lubański,dolnośląskie
+0210021,Świeradów-Zdrój,lubański,dolnośląskie
+0210033,''gmina Leśna'',lubański,dolnośląskie
+0210042,gmina Lubań,lubański,dolnośląskie
+0210053,''gmina Olszyna'',lubański,dolnośląskie
+0210062,gmina Platerówka,lubański,dolnośląskie
+0210072,gmina Siekierczyn,lubański,dolnośląskie
+0211011,Lubin,lubiński,dolnośląskie
+0211022,gmina Lubin,lubiński,dolnośląskie
+0211032,gmina Rudna,lubiński,dolnośląskie
+0211043,''gmina Ścinawa'',lubiński,dolnośląskie
+0212013,''gmina Gryfów Śląski'',lwówecki,dolnośląskie
+0212023,''gmina Lubomierz'',lwówecki,dolnośląskie
+0212033,''gmina Lwówek Śląski'',lwówecki,dolnośląskie
+0212043,''gmina Mirsk'',lwówecki,dolnośląskie
+0212053,''gmina Wleń'',lwówecki,dolnośląskie
+0213012,gmina Cieszków,milicki,dolnośląskie
+0213022,gmina Krośnice,milicki,dolnośląskie
+0213033,''gmina Milicz'',milicki,dolnośląskie
+0214011,Oleśnica,oleśnicki,dolnośląskie
+0214023,''gmina Bierutów'',oleśnicki,dolnośląskie
+0214032,gmina Dobroszyce,oleśnicki,dolnośląskie
+0214042,gmina Dziadowa Kłoda,oleśnicki,dolnośląskie
+0214053,''gmina Międzybórz'',oleśnicki,dolnośląskie
+0214062,gmina Oleśnica,oleśnicki,dolnośląskie
+0214073,''gmina Syców'',oleśnicki,dolnośląskie
+0214083,''gmina Twardogóra'',oleśnicki,dolnośląskie
+0215011,Oława,oławski,dolnośląskie
+0215022,gmina Domaniów,oławski,dolnośląskie
+0215033,''gmina Jelcz-Laskowice'',oławski,dolnośląskie
+0215042,gmina Oława,oławski,dolnośląskie
+0216013,''gmina Chocianów'',polkowicki,dolnośląskie
+0216022,gmina Gaworzyce,polkowicki,dolnośląskie
+0216032,gmina Grębocice,polkowicki,dolnośląskie
+0216043,''gmina Polkowice'',polkowicki,dolnośląskie
+0216053,''gmina Przemków'',polkowicki,dolnośląskie
+0216062,gmina Radwanice,polkowicki,dolnośląskie
+0217012,gmina Borów,strzeliński,dolnośląskie
+0217022,gmina Kondratowice,strzeliński,dolnośląskie
+0217032,gmina Przeworno,strzeliński,dolnośląskie
+0217043,''gmina Strzelin'',strzeliński,dolnośląskie
+0217053,''gmina Wiązów'',strzeliński,dolnośląskie
+0218012,gmina Kostomłoty,średzki,dolnośląskie
+0218022,gmina Malczyce,średzki,dolnośląskie
+0218032,gmina Miękinia,średzki,dolnośląskie
+0218043,''gmina Środa Śląska'',średzki,dolnośląskie
+0218052,gmina Udanin,średzki,dolnośląskie
+0219011,Świdnica,świdnicki,dolnośląskie
+0219021,Świebodzice,świdnicki,dolnośląskie
+0219032,gmina Dobromierz,świdnicki,dolnośląskie
+0219043,''gmina Jaworzyna Śląska'',świdnicki,dolnośląskie
+0219052,gmina Marcinowice,świdnicki,dolnośląskie
+0219063,''gmina Strzegom'',świdnicki,dolnośląskie
+0219072,gmina Świdnica,świdnicki,dolnośląskie
+0219083,''gmina Żarów'',świdnicki,dolnośląskie
+0220013,''gmina Oborniki Śląskie'',trzebnicki,dolnośląskie
+0220023,''gmina Prusice'',trzebnicki,dolnośląskie
+0220033,''gmina Trzebnica'',trzebnicki,dolnośląskie
+0220042,gmina Wisznia Mała,trzebnicki,dolnośląskie
+0220052,gmina Zawonia,trzebnicki,dolnośląskie
+0220063,''gmina Żmigród'',trzebnicki,dolnośląskie
+0221011,Boguszów-Gorce,wałbrzyski,dolnośląskie
+0221021,Jedlina-Zdrój,wałbrzyski,dolnośląskie
+0221031,Szczawno-Zdrój,wałbrzyski,dolnośląskie
+0221042,gmina Czarny Bór,wałbrzyski,dolnośląskie
+0221053,''gmina Głuszyca'',wałbrzyski,dolnośląskie
+0221063,''gmina Mieroszów'',wałbrzyski,dolnośląskie
+0221072,gmina Stare Bogaczowice,wałbrzyski,dolnośląskie
+0221082,gmina Walim,wałbrzyski,dolnośląskie
+0222013,''gmina Brzeg Dolny'',wołowski,dolnośląskie
+0222022,gmina Wińsko,wołowski,dolnośląskie
+0222033,''gmina Wołów'',wołowski,dolnośląskie
+0223012,gmina Czernica,wrocławski,dolnośląskie
+0223022,gmina Długołęka,wrocławski,dolnośląskie
+0223032,gmina Jordanów Śląski,wrocławski,dolnośląskie
+0223043,''gmina Kąty Wrocławskie'',wrocławski,dolnośląskie
+0223052,gmina Kobierzyce,wrocławski,dolnośląskie
+0223062,gmina Mietków,wrocławski,dolnośląskie
+0223073,''gmina Sobótka'',wrocławski,dolnośląskie
+0223083,''gmina Siechnice'',wrocławski,dolnośląskie
+0223092,gmina Żórawina,wrocławski,dolnośląskie
+0224013,''gmina Bardo'',ząbkowicki,dolnośląskie
+0224022,gmina Ciepłowody,ząbkowicki,dolnośląskie
+0224033,''gmina Kamieniec Ząbkowicki'',ząbkowicki,dolnośląskie
+0224042,gmina Stoszowice,ząbkowicki,dolnośląskie
+0224053,''gmina Ząbkowice Śląskie'',ząbkowicki,dolnośląskie
+0224063,''gmina Ziębice'',ząbkowicki,dolnośląskie
+0224073,''gmina Złoty Stok'',ząbkowicki,dolnośląskie
+0225011,Zawidów,zgorzelecki,dolnośląskie
+0225021,Zgorzelec,zgorzelecki,dolnośląskie
+0225033,''gmina Bogatynia'',zgorzelecki,dolnośląskie
+0225043,''gmina Pieńsk'',zgorzelecki,dolnośląskie
+0225052,gmina Sulików,zgorzelecki,dolnośląskie
+0225063,''gmina Węgliniec'',zgorzelecki,dolnośląskie
+0225072,gmina Zgorzelec,zgorzelecki,dolnośląskie
+0226011,Wojcieszów,złotoryjski,dolnośląskie
+0226021,Złotoryja,złotoryjski,dolnośląskie
+0226032,gmina Pielgrzymka,złotoryjski,dolnośląskie
+0226043,''gmina Świerzawa'',złotoryjski,dolnośląskie
+0226052,gmina Zagrodno,złotoryjski,dolnośląskie
+0226062,gmina Złotoryja,złotoryjski,dolnośląskie
+0261011,Jelenia Góra,Jelenia Góra,dolnośląskie
+0262011,Legnica,Legnica,dolnośląskie
+0264011,Wrocław,Wrocław,dolnośląskie
+0265011,Wałbrzych,Wałbrzych,dolnośląskie
+0401011,Aleksandrów Kujawski,aleksandrowski,kujawsko-pomorskie
+0401021,Ciechocinek,aleksandrowski,kujawsko-pomorskie
+0401031,Nieszawa,aleksandrowski,kujawsko-pomorskie
+0401042,gmina Aleksandrów Kujawski,aleksandrowski,kujawsko-pomorskie
+0401052,gmina Bądkowo,aleksandrowski,kujawsko-pomorskie
+0401062,gmina Koneck,aleksandrowski,kujawsko-pomorskie
+0401072,gmina Raciążek,aleksandrowski,kujawsko-pomorskie
+0401082,gmina Waganiec,aleksandrowski,kujawsko-pomorskie
+0401092,gmina Zakrzewo,aleksandrowski,kujawsko-pomorskie
+0402011,Brodnica,brodnicki,kujawsko-pomorskie
+0402022,gmina Bobrowo,brodnicki,kujawsko-pomorskie
+0402032,gmina Brodnica,brodnicki,kujawsko-pomorskie
+0402042,gmina Brzozie,brodnicki,kujawsko-pomorskie
+0402053,''gmina Górzno'',brodnicki,kujawsko-pomorskie
+0402062,gmina Bartniczka,brodnicki,kujawsko-pomorskie
+0402073,''gmina Jabłonowo Pomorskie'',brodnicki,kujawsko-pomorskie
+0402082,gmina Osiek,brodnicki,kujawsko-pomorskie
+0402092,gmina Świedziebnia,brodnicki,kujawsko-pomorskie
+0402102,gmina Zbiczno,brodnicki,kujawsko-pomorskie
+0403012,gmina Białe Błota,bydgoski,kujawsko-pomorskie
+0403022,gmina Dąbrowa Chełmińska,bydgoski,kujawsko-pomorskie
+0403032,gmina Dobrcz,bydgoski,kujawsko-pomorskie
+0403043,''gmina Koronowo'',bydgoski,kujawsko-pomorskie
+0403052,gmina Nowa Wieś Wielka,bydgoski,kujawsko-pomorskie
+0403062,gmina Osielsko,bydgoski,kujawsko-pomorskie
+0403072,gmina Sicienko,bydgoski,kujawsko-pomorskie
+0403083,gmina Solec Kujawski,bydgoski,kujawsko-pomorskie
+0404011,Chełmno,chełmiński,kujawsko-pomorskie
+0404022,gmina Chełmno,chełmiński,kujawsko-pomorskie
+0404032,gmina Kijewo Królewskie,chełmiński,kujawsko-pomorskie
+0404042,gmina Lisewo,chełmiński,kujawsko-pomorskie
+0404052,gmina Papowo Biskupie,chełmiński,kujawsko-pomorskie
+0404062,gmina Stolno,chełmiński,kujawsko-pomorskie
+0404072,gmina Unisław,chełmiński,kujawsko-pomorskie
+0405011,Golub-Dobrzyń,golubsko-dobrzyński,kujawsko-pomorskie
+0405022,gmina Ciechocin,golubsko-dobrzyński,kujawsko-pomorskie
+0405032,gmina Golub-Dobrzyń,golubsko-dobrzyński,kujawsko-pomorskie
+0405043,''gmina Kowalewo Pomorskie'',golubsko-dobrzyński,kujawsko-pomorskie
+0405052,gmina Radomin,golubsko-dobrzyński,kujawsko-pomorskie
+0405062,gmina Zbójno,golubsko-dobrzyński,kujawsko-pomorskie
+0406012,gmina Grudziądz,grudziądzki,kujawsko-pomorskie
+0406022,gmina Gruta,grudziądzki,kujawsko-pomorskie
+0406033,''gmina Łasin'',grudziądzki,kujawsko-pomorskie
+0406043,''gmina Radzyń Chełmiński'',grudziądzki,kujawsko-pomorskie
+0406052,gmina Rogóźno,grudziądzki,kujawsko-pomorskie
+0406062,gmina Świecie nad Osą,grudziądzki,kujawsko-pomorskie
+0407011,Inowrocław,inowrocławski,kujawsko-pomorskie
+0407022,gmina Dąbrowa Biskupia,inowrocławski,kujawsko-pomorskie
+0407033,''gmina Gniewkowo'',inowrocławski,kujawsko-pomorskie
+0407042,gmina Inowrocław,inowrocławski,kujawsko-pomorskie
+0407053,''gmina Janikowo'',inowrocławski,kujawsko-pomorskie
+0407063,''gmina Kruszwica'',inowrocławski,kujawsko-pomorskie
+0407073,''gmina Pakość'',inowrocławski,kujawsko-pomorskie
+0407082,gmina Rojewo,inowrocławski,kujawsko-pomorskie
+0407092,gmina Złotniki Kujawskie,inowrocławski,kujawsko-pomorskie
+0408011,Lipno,lipnowski,kujawsko-pomorskie
+0408022,gmina Bobrowniki,lipnowski,kujawsko-pomorskie
+0408032,gmina Chrostkowo,lipnowski,kujawsko-pomorskie
+0408043,''gmina Dobrzyń nad Wisłą'',lipnowski,kujawsko-pomorskie
+0408052,gmina Kikół,lipnowski,kujawsko-pomorskie
+0408062,gmina Lipno,lipnowski,kujawsko-pomorskie
+0408073,''gmina Skępe'',lipnowski,kujawsko-pomorskie
+0408082,gmina Tłuchowo,lipnowski,kujawsko-pomorskie
+0408092,gmina Wielgie,lipnowski,kujawsko-pomorskie
+0409012,gmina Dąbrowa,mogileński,kujawsko-pomorskie
+0409022,gmina Jeziora Wielkie,mogileński,kujawsko-pomorskie
+0409033,''gmina Mogilno'',mogileński,kujawsko-pomorskie
+0409043,''gmina Strzelno'',mogileński,kujawsko-pomorskie
+0410013,''gmina Kcynia'',nakielski,kujawsko-pomorskie
+0410023,''gmina Mrocza'',nakielski,kujawsko-pomorskie
+0410033,''gmina Nakło nad Notecią'',nakielski,kujawsko-pomorskie
+0410042,gmina Sadki,nakielski,kujawsko-pomorskie
+0410053,''gmina Szubin'',nakielski,kujawsko-pomorskie
+0411011,Radziejów,radziejowski,kujawsko-pomorskie
+0411022,gmina Bytoń,radziejowski,kujawsko-pomorskie
+0411032,gmina Dobre,radziejowski,kujawsko-pomorskie
+0411042,gmina Osięciny,radziejowski,kujawsko-pomorskie
+0411053,''gmina Piotrków Kujawski'',radziejowski,kujawsko-pomorskie
+0411062,gmina Radziejów,radziejowski,kujawsko-pomorskie
+0411072,gmina Topólka,radziejowski,kujawsko-pomorskie
+0412011,Rypin,rypiński,kujawsko-pomorskie
+0412022,gmina Brzuze,rypiński,kujawsko-pomorskie
+0412032,gmina Rogowo,rypiński,kujawsko-pomorskie
+0412042,gmina Rypin,rypiński,kujawsko-pomorskie
+0412052,gmina Skrwilno,rypiński,kujawsko-pomorskie
+0412062,gmina Wąpielsk,rypiński,kujawsko-pomorskie
+0413013,''gmina Kamień Krajeński'',sępoleński,kujawsko-pomorskie
+0413023,''gmina Sępólno Krajeńskie'',sępoleński,kujawsko-pomorskie
+0413032,gmina Sośno,sępoleński,kujawsko-pomorskie
+0413043,''gmina Więcbork'',sępoleński,kujawsko-pomorskie
+0414012,gmina Bukowiec,świecki,kujawsko-pomorskie
+0414022,gmina Dragacz,świecki,kujawsko-pomorskie
+0414032,gmina Drzycim,świecki,kujawsko-pomorskie
+0414042,gmina Jeżewo,świecki,kujawsko-pomorskie
+0414052,gmina Lniano,świecki,kujawsko-pomorskie
+0414063,''gmina Nowe'',świecki,kujawsko-pomorskie
+0414072,gmina Osie,świecki,kujawsko-pomorskie
+0414082,gmina Pruszcz,świecki,kujawsko-pomorskie
+0414093,''gmina Świecie'',świecki,kujawsko-pomorskie
+0414102,gmina Świekatowo,świecki,kujawsko-pomorskie
+0414112,gmina Warlubie,świecki,kujawsko-pomorskie
+0415011,Chełmża,toruński,kujawsko-pomorskie
+0415022,gmina Chełmża,toruński,kujawsko-pomorskie
+0415032,gmina Czernikowo,toruński,kujawsko-pomorskie
+0415042,gmina Lubicz,toruński,kujawsko-pomorskie
+0415052,gmina Łubianka,toruński,kujawsko-pomorskie
+0415062,gmina Łysomice,toruński,kujawsko-pomorskie
+0415072,gmina Obrowo,toruński,kujawsko-pomorskie
+0415082,gmina Wielka Nieszawka,toruński,kujawsko-pomorskie
+0415092,gmina Zławieś Wielka,toruński,kujawsko-pomorskie
+0416012,gmina Cekcyn,tucholski,kujawsko-pomorskie
+0416022,gmina Gostycyn,tucholski,kujawsko-pomorskie
+0416032,gmina Kęsowo,tucholski,kujawsko-pomorskie
+0416042,gmina Lubiewo,tucholski,kujawsko-pomorskie
+0416052,gmina Śliwice,tucholski,kujawsko-pomorskie
+0416063,''gmina Tuchola'',tucholski,kujawsko-pomorskie
+0417011,Wąbrzeźno,wąbrzeski,kujawsko-pomorskie
+0417022,gmina Dębowa Łąka,wąbrzeski,kujawsko-pomorskie
+0417032,gmina Książki,wąbrzeski,kujawsko-pomorskie
+0417042,gmina Płużnica,wąbrzeski,kujawsko-pomorskie
+0417052,gmina Ryńsk,wąbrzeski,kujawsko-pomorskie
+0418011,Kowal,włocławski,kujawsko-pomorskie
+0418022,gmina Baruchowo,włocławski,kujawsko-pomorskie
+0418032,gmina Boniewo,włocławski,kujawsko-pomorskie
+0418043,''gmina Brześć Kujawski'',włocławski,kujawsko-pomorskie
+0418052,gmina Choceń,włocławski,kujawsko-pomorskie
+0418063,''gmina Chodecz'',włocławski,kujawsko-pomorskie
+0418072,gmina Fabianki,włocławski,kujawsko-pomorskie
+0418083,''gmina Izbica Kujawska'',włocławski,kujawsko-pomorskie
+0418092,gmina Kowal,włocławski,kujawsko-pomorskie
+0418102,gmina Lubanie,włocławski,kujawsko-pomorskie
+0418113,''gmina Lubień Kujawski'',włocławski,kujawsko-pomorskie
+0418123,''gmina Lubraniec'',włocławski,kujawsko-pomorskie
+0418132,gmina Włocławek,włocławski,kujawsko-pomorskie
+0419013,''gmina Barcin'',żniński,kujawsko-pomorskie
+0419022,gmina Gąsawa,żniński,kujawsko-pomorskie
+0419033,''gmina Janowiec Wielkopolski'',żniński,kujawsko-pomorskie
+0419043,''gmina Łabiszyn'',żniński,kujawsko-pomorskie
+0419052,gmina Rogowo,żniński,kujawsko-pomorskie
+0419063,''gmina Żnin'',żniński,kujawsko-pomorskie
+0461011,Bydgoszcz,Bydgoszcz,kujawsko-pomorskie
+0462011,Grudziądz,Grudziądz,kujawsko-pomorskie
+0463011,Toruń,Toruń,kujawsko-pomorskie
+0464011,Włocławek,Włocławek,kujawsko-pomorskie
+0601011,Międzyrzec Podlaski,bialski,lubelskie
+0601021,Terespol,bialski,lubelskie
+0601032,gmina Biała Podlaska,bialski,lubelskie
+0601042,gmina Drelów,bialski,lubelskie
+0601052,''gmina Janów Podlaski'',bialski,lubelskie
+0601062,gmina Kodeń,bialski,lubelskie
+0601072,gmina Konstantynów,bialski,lubelskie
+0601082,gmina Leśna Podlaska,bialski,lubelskie
+0601092,gmina Łomazy,bialski,lubelskie
+0601102,gmina Międzyrzec Podlaski,bialski,lubelskie
+0601112,gmina Piszczac,bialski,lubelskie
+0601122,gmina Rokitno,bialski,lubelskie
+0601132,gmina Rossosz,bialski,lubelskie
+0601142,gmina Sławatycze,bialski,lubelskie
+0601152,gmina Sosnówka,bialski,lubelskie
+0601162,gmina Terespol,bialski,lubelskie
+0601172,gmina Tuczna,bialski,lubelskie
+0601182,gmina Wisznice,bialski,lubelskie
+0601192,gmina Zalesie,bialski,lubelskie
+0602011,Biłgoraj,biłgorajski,lubelskie
+0602022,gmina Aleksandrów,biłgorajski,lubelskie
+0602032,gmina Biłgoraj,biłgorajski,lubelskie
+0602042,gmina Biszcza,biłgorajski,lubelskie
+0602053,''gmina Frampol'',biłgorajski,lubelskie
+0602063,''gmina Goraj'',biłgorajski,lubelskie
+0602073,''gmina Józefów'',biłgorajski,lubelskie
+0602082,gmina Księżpol,biłgorajski,lubelskie
+0602092,gmina Łukowa,biłgorajski,lubelskie
+0602102,gmina Obsza,biłgorajski,lubelskie
+0602112,gmina Potok Górny,biłgorajski,lubelskie
+0602123,''gmina Tarnogród'',biłgorajski,lubelskie
+0602132,gmina Tereszpol,biłgorajski,lubelskie
+0602142,gmina Turobin,biłgorajski,lubelskie
+0603011,Rejowiec Fabryczny,chełmski,lubelskie
+0603022,gmina Białopole,chełmski,lubelskie
+0603032,gmina Chełm,chełmski,lubelskie
+0603042,gmina Dorohusk,chełmski,lubelskie
+0603052,gmina Dubienka,chełmski,lubelskie
+0603062,gmina Kamień,chełmski,lubelskie
+0603072,gmina Leśniowice,chełmski,lubelskie
+0603082,gmina Rejowiec Fabryczny,chełmski,lubelskie
+0603092,gmina Ruda-Huta,chełmski,lubelskie
+0603102,gmina Sawin,chełmski,lubelskie
+0603113,''gmina Siedliszcze'',chełmski,lubelskie
+0603122,gmina Wierzbica,chełmski,lubelskie
+0603132,gmina Wojsławice,chełmski,lubelskie
+0603142,gmina Żmudź,chełmski,lubelskie
+0603153,''gmina Rejowiec'',chełmski,lubelskie
+0604011,Hrubieszów,hrubieszowski,lubelskie
+0604022,gmina Dołhobyczów,hrubieszowski,lubelskie
+0604032,gmina Horodło,hrubieszowski,lubelskie
+0604042,gmina Hrubieszów,hrubieszowski,lubelskie
+0604052,gmina Mircze,hrubieszowski,lubelskie
+0604062,gmina Trzeszczany,hrubieszowski,lubelskie
+0604072,gmina Uchanie,hrubieszowski,lubelskie
+0604082,gmina Werbkowice,hrubieszowski,lubelskie
+0605012,gmina Batorz,janowski,lubelskie
+0605022,gmina Chrzanów,janowski,lubelskie
+0605032,gmina Dzwola,janowski,lubelskie
+0605042,gmina Godziszów,janowski,lubelskie
+0605053,''gmina Janów Lubelski'',janowski,lubelskie
+0605063,''gmina Modliborzyce'',janowski,lubelskie
+0605072,gmina Potok Wielki,janowski,lubelskie
+0606011,Krasnystaw,krasnostawski,lubelskie
+0606022,gmina Fajsławice,krasnostawski,lubelskie
+0606032,gmina Gorzków,krasnostawski,lubelskie
+0606042,gmina Izbica,krasnostawski,lubelskie
+0606052,gmina Krasnystaw,krasnostawski,lubelskie
+0606062,gmina Kraśniczyn,krasnostawski,lubelskie
+0606072,gmina Łopiennik Górny,krasnostawski,lubelskie
+0606092,gmina Rudnik,krasnostawski,lubelskie
+0606102,gmina Siennica Różana,krasnostawski,lubelskie
+0606112,gmina Żółkiewka,krasnostawski,lubelskie
+0607011,Kraśnik,kraśnicki,lubelskie
+0607023,''gmina Annopol'',kraśnicki,lubelskie
+0607032,gmina Dzierzkowice,kraśnicki,lubelskie
+0607042,gmina Gościeradów,kraśnicki,lubelskie
+0607052,gmina Kraśnik,kraśnicki,lubelskie
+0607062,gmina Szastarka,kraśnicki,lubelskie
+0607072,gmina Trzydnik Duży,kraśnicki,lubelskie
+0607083,''gmina Urzędów'',kraśnicki,lubelskie
+0607092,gmina Wilkołaz,kraśnicki,lubelskie
+0607102,gmina Zakrzówek,kraśnicki,lubelskie
+0608011,Lubartów,lubartowski,lubelskie
+0608022,gmina Abramów,lubartowski,lubelskie
+0608032,gmina Firlej,lubartowski,lubelskie
+0608042,gmina Jeziorzany,lubartowski,lubelskie
+0608053,''gmina Kamionka'',lubartowski,lubelskie
+0608063,''gmina Kock'',lubartowski,lubelskie
+0608072,gmina Lubartów,lubartowski,lubelskie
+0608082,gmina Michów,lubartowski,lubelskie
+0608092,gmina Niedźwiada,lubartowski,lubelskie
+0608103,''gmina Ostrów Lubelski'',lubartowski,lubelskie
+0608112,gmina Ostrówek,lubartowski,lubelskie
+0608122,gmina Serniki,lubartowski,lubelskie
+0608132,gmina Uścimów,lubartowski,lubelskie
+0609013,''gmina Bełżyce'',lubelski,lubelskie
+0609022,gmina Borzechów,lubelski,lubelskie
+0609033,''gmina Bychawa'',lubelski,lubelskie
+0609042,gmina Garbów,lubelski,lubelskie
+0609052,gmina Głusk,lubelski,lubelskie
+0609062,gmina Jabłonna,lubelski,lubelskie
+0609072,gmina Jastków,lubelski,lubelskie
+0609082,gmina Konopnica,lubelski,lubelskie
+0609092,gmina Krzczonów,lubelski,lubelskie
+0609102,gmina Niedrzwica Duża,lubelski,lubelskie
+0609112,gmina Niemce,lubelski,lubelskie
+0609122,gmina Strzyżewice,lubelski,lubelskie
+0609132,gmina Wojciechów,lubelski,lubelskie
+0609142,gmina Wólka,lubelski,lubelskie
+0609152,gmina Wysokie,lubelski,lubelskie
+0609162,gmina Zakrzew,lubelski,lubelskie
+0610012,gmina Cyców,łęczyński,lubelskie
+0610022,gmina Ludwin,łęczyński,lubelskie
+0610033,''gmina Łęczna'',łęczyński,lubelskie
+0610042,gmina Milejów,łęczyński,lubelskie
+0610052,gmina Puchaczów,łęczyński,lubelskie
+0610062,gmina Spiczyn,łęczyński,lubelskie
+0611011,Łuków,łukowski,lubelskie
+0611021,Stoczek Łukowski,łukowski,lubelskie
+0611032,gmina Adamów,łukowski,lubelskie
+0611042,gmina Krzywda,łukowski,lubelskie
+0611052,gmina Łuków,łukowski,lubelskie
+0611062,gmina Serokomla,łukowski,lubelskie
+0611072,gmina Stanin,łukowski,lubelskie
+0611082,gmina Stoczek Łukowski,łukowski,lubelskie
+0611092,gmina Trzebieszów,łukowski,lubelskie
+0611102,gmina Wojcieszków,łukowski,lubelskie
+0611112,gmina Wola Mysłowska,łukowski,lubelskie
+0612012,gmina Chodel,opolski,lubelskie
+0612023,''gmina Józefów nad Wisłą'',opolski,lubelskie
+0612032,gmina Karczmiska,opolski,lubelskie
+0612042,gmina Łaziska,opolski,lubelskie
+0612053,''gmina Opole Lubelskie'',opolski,lubelskie
+0612063,''gmina Poniatowa'',opolski,lubelskie
+0612072,gmina Wilków,opolski,lubelskie
+0613012,gmina Dębowa Kłoda,parczewski,lubelskie
+0613022,gmina Jabłoń,parczewski,lubelskie
+0613032,gmina Milanów,parczewski,lubelskie
+0613043,''gmina Parczew'',parczewski,lubelskie
+0613052,gmina Podedwórze,parczewski,lubelskie
+0613062,gmina Siemień,parczewski,lubelskie
+0613072,gmina Sosnowica,parczewski,lubelskie
+0614011,Puławy,puławski,lubelskie
+0614022,gmina Baranów,puławski,lubelskie
+0614032,gmina Janowiec,puławski,lubelskie
+0614043,''gmina Kazimierz Dolny'',puławski,lubelskie
+0614052,gmina Końskowola,puławski,lubelskie
+0614062,gmina Kurów,puławski,lubelskie
+0614072,gmina Markuszów,puławski,lubelskie
+0614083,''gmina Nałęczów'',puławski,lubelskie
+0614092,gmina Puławy,puławski,lubelskie
+0614102,gmina Wąwolnica,puławski,lubelskie
+0614112,gmina Żyrzyn,puławski,lubelskie
+0615011,Radzyń Podlaski,radzyński,lubelskie
+0615022,gmina Borki,radzyński,lubelskie
+0615032,gmina Czemierniki,radzyński,lubelskie
+0615042,gmina Kąkolewnica,radzyński,lubelskie
+0615052,gmina Komarówka Podlaska,radzyński,lubelskie
+0615062,gmina Radzyń Podlaski,radzyński,lubelskie
+0615072,gmina Ulan-Majorat,radzyński,lubelskie
+0615082,gmina Wohyń,radzyński,lubelskie
+0616011,Dęblin,rycki,lubelskie
+0616022,gmina Kłoczew,rycki,lubelskie
+0616032,gmina Nowodwór,rycki,lubelskie
+0616043,''gmina Ryki'',rycki,lubelskie
+0616052,gmina Stężyca,rycki,lubelskie
+0616062,gmina Ułęż,rycki,lubelskie
+0617011,Świdnik,świdnicki,lubelskie
+0617022,gmina Mełgiew,świdnicki,lubelskie
+0617033,''gmina Piaski'',świdnicki,lubelskie
+0617042,gmina Rybczewice,świdnicki,lubelskie
+0617052,gmina Trawniki,świdnicki,lubelskie
+0618011,Tomaszów Lubelski,tomaszowski,lubelskie
+0618022,gmina Bełżec,tomaszowski,lubelskie
+0618032,gmina Jarczów,tomaszowski,lubelskie
+0618042,gmina Krynice,tomaszowski,lubelskie
+0618053,''gmina Lubycza Królewska'',tomaszowski,lubelskie
+0618063,''gmina Łaszczów'',tomaszowski,lubelskie
+0618072,gmina Rachanie,tomaszowski,lubelskie
+0618082,gmina Susiec,tomaszowski,lubelskie
+0618092,gmina Tarnawatka,tomaszowski,lubelskie
+0618102,gmina Telatyn,tomaszowski,lubelskie
+0618112,gmina Tomaszów Lubelski,tomaszowski,lubelskie
+0618123,''gmina Tyszowce'',tomaszowski,lubelskie
+0618132,gmina Ulhówek,tomaszowski,lubelskie
+0619011,Włodawa,włodawski,lubelskie
+0619022,gmina Hanna,włodawski,lubelskie
+0619032,gmina Hańsk,włodawski,lubelskie
+0619042,gmina Stary Brus,włodawski,lubelskie
+0619052,gmina Urszulin,włodawski,lubelskie
+0619062,gmina Włodawa,włodawski,lubelskie
+0619072,gmina Wola Uhruska,włodawski,lubelskie
+0619082,gmina Wyryki,włodawski,lubelskie
+0620012,gmina Adamów,zamojski,lubelskie
+0620022,gmina Grabowiec,zamojski,lubelskie
+0620032,gmina Komarów-Osada,zamojski,lubelskie
+0620043,''gmina Krasnobród'',zamojski,lubelskie
+0620052,gmina Łabunie,zamojski,lubelskie
+0620062,gmina Miączyn,zamojski,lubelskie
+0620072,gmina Nielisz,zamojski,lubelskie
+0620082,gmina Radecznica,zamojski,lubelskie
+0620092,gmina Sitno,zamojski,lubelskie
+0620102,gmina Skierbieszów,zamojski,lubelskie
+0620112,gmina Stary Zamość,zamojski,lubelskie
+0620122,gmina Sułów,zamojski,lubelskie
+0620133,''gmina Szczebrzeszyn'',zamojski,lubelskie
+0620142,gmina Zamość,zamojski,lubelskie
+0620153,''gmina Zwierzyniec'',zamojski,lubelskie
+0661011,Biała Podlaska,Biała Podlaska,lubelskie
+0662011,Chełm,Chełm,lubelskie
+0663011,Lublin,Lublin,lubelskie
+0664011,Zamość,Zamość,lubelskie
+0801011,Kostrzyn nad Odrą,gorzowski,lubuskie
+0801022,gmina Bogdaniec,gorzowski,lubuskie
+0801032,gmina Deszczno,gorzowski,lubuskie
+0801042,gmina Kłodawa,gorzowski,lubuskie
+0801052,gmina Lubiszyn,gorzowski,lubuskie
+0801062,gmina Santok,gorzowski,lubuskie
+0801073,''gmina Witnica'',gorzowski,lubuskie
+0802011,Gubin,krośnieński,lubuskie
+0802022,gmina Bobrowice,krośnieński,lubuskie
+0802032,gmina Bytnica,krośnieński,lubuskie
+0802042,gmina Dąbie,krośnieński,lubuskie
+0802052,gmina Gubin,krośnieński,lubuskie
+0802063,''gmina Krosno Odrzańskie'',krośnieński,lubuskie
+0802072,gmina Maszewo,krośnieński,lubuskie
+0803012,gmina Bledzew,międzyrzecki,lubuskie
+0803023,''gmina Międzyrzecz'',międzyrzecki,lubuskie
+0803032,gmina Przytoczna,międzyrzecki,lubuskie
+0803042,gmina Pszczew,międzyrzecki,lubuskie
+0803053,''gmina Skwierzyna'',międzyrzecki,lubuskie
+0803063,''gmina Trzciel'',międzyrzecki,lubuskie
+0804011,Nowa Sól,nowosolski,lubuskie
+0804023,''gmina Bytom Odrzański'',nowosolski,lubuskie
+0804032,gmina Kolsko,nowosolski,lubuskie
+0804043,''gmina Kożuchów'',nowosolski,lubuskie
+0804052,gmina Nowa Sól,nowosolski,lubuskie
+0804063,''gmina Nowe Miasteczko'',nowosolski,lubuskie
+0804073,''gmina Otyń'',nowosolski,lubuskie
+0804082,gmina Siedlisko,nowosolski,lubuskie
+0805013,''gmina Cybinka'',słubicki,lubuskie
+0805022,gmina Górzyca,słubicki,lubuskie
+0805033,''gmina Ośno Lubuskie'',słubicki,lubuskie
+0805043,''gmina Rzepin'',słubicki,lubuskie
+0805053,''gmina Słubice'',słubicki,lubuskie
+0806013,''gmina Dobiegniew'',strzelecko-drezdenecki,lubuskie
+0806023,''gmina Drezdenko'',strzelecko-drezdenecki,lubuskie
+0806032,gmina Stare Kurowo,strzelecko-drezdenecki,lubuskie
+0806043,''gmina Strzelce Krajeńskie'',strzelecko-drezdenecki,lubuskie
+0806052,gmina Zwierzyn,strzelecko-drezdenecki,lubuskie
+0807012,gmina Krzeszyce,sulęciński,lubuskie
+0807023,''gmina Lubniewice'',sulęciński,lubuskie
+0807032,gmina Słońsk,sulęciński,lubuskie
+0807043,''gmina Sulęcin'',sulęciński,lubuskie
+0807053,''gmina Torzym'',sulęciński,lubuskie
+0808012,gmina Lubrza,świebodziński,lubuskie
+0808022,gmina Łagów,świebodziński,lubuskie
+0808032,gmina Skąpe,świebodziński,lubuskie
+0808042,gmina Szczaniec,świebodziński,lubuskie
+0808053,''gmina Świebodzin'',świebodziński,lubuskie
+0808063,''gmina Zbąszynek'',świebodziński,lubuskie
+0809013,''gmina Babimost'',zielonogórski,lubuskie
+0809022,gmina Bojadła,zielonogórski,lubuskie
+0809033,''gmina Czerwieńsk'',zielonogórski,lubuskie
+0809043,''gmina Kargowa'',zielonogórski,lubuskie
+0809053,''gmina Nowogród Bobrzański'',zielonogórski,lubuskie
+0809063,''gmina Sulechów'',zielonogórski,lubuskie
+0809072,gmina Świdnica,zielonogórski,lubuskie
+0809082,gmina Trzebiechów,zielonogórski,lubuskie
+0809092,gmina Zabór,zielonogórski,lubuskie
+0810011,Gozdnica,żagański,lubuskie
+0810021,Żagań,żagański,lubuskie
+0810032,gmina Brzeźnica,żagański,lubuskie
+0810043,''gmina Iłowa'',żagański,lubuskie
+0810053,''gmina Małomice'',żagański,lubuskie
+0810062,gmina Niegosławice,żagański,lubuskie
+0810073,''gmina Szprotawa'',żagański,lubuskie
+0810082,gmina Wymiarki,żagański,lubuskie
+0810092,gmina Żagań,żagański,lubuskie
+0811011,Łęknica,żarski,lubuskie
+0811021,Żary,żarski,lubuskie
+0811032,gmina Brody,żarski,lubuskie
+0811043,''gmina Jasień'',żarski,lubuskie
+0811052,gmina Lipinki Łużyckie,żarski,lubuskie
+0811063,''gmina Lubsko'',żarski,lubuskie
+0811072,gmina Przewóz,żarski,lubuskie
+0811082,gmina Trzebiel,żarski,lubuskie
+0811092,gmina Tuplice,żarski,lubuskie
+0811102,gmina Żary,żarski,lubuskie
+0812013,''gmina Sława'',wschowski,lubuskie
+0812023,''gmina Szlichtyngowa'',wschowski,lubuskie
+0812033,''gmina Wschowa'',wschowski,lubuskie
+0861011,Gorzów Wielkopolski,Gorzów Wielkopolski,lubuskie
+0862011,Zielona Góra,Zielona Góra,lubuskie
+1001011,Bełchatów,bełchatowski,łódzkie
+1001022,gmina Bełchatów,bełchatowski,łódzkie
+1001032,gmina Drużbice,bełchatowski,łódzkie
+1001042,gmina Kleszczów,bełchatowski,łódzkie
+1001052,gmina Kluki,bełchatowski,łódzkie
+1001062,gmina Rusiec,bełchatowski,łódzkie
+1001072,gmina Szczerców,bełchatowski,łódzkie
+1001083,''gmina Zelów'',bełchatowski,łódzkie
+1002011,Kutno,kutnowski,łódzkie
+1002022,gmina Bedlno,kutnowski,łódzkie
+1002032,gmina Dąbrowice,kutnowski,łódzkie
+1002043,''gmina Krośniewice'',kutnowski,łódzkie
+1002052,gmina Krzyżanów,kutnowski,łódzkie
+1002062,gmina Kutno,kutnowski,łódzkie
+1002072,gmina Łanięta,kutnowski,łódzkie
+1002082,gmina Nowe Ostrowy,kutnowski,łódzkie
+1002092,gmina Oporów,kutnowski,łódzkie
+1002102,gmina Strzelce,kutnowski,łódzkie
+1002113,''gmina Żychlin'',kutnowski,łódzkie
+1003012,gmina Buczek,łaski,łódzkie
+1003023,''gmina Łask'',łaski,łódzkie
+1003032,gmina Sędziejowice,łaski,łódzkie
+1003042,gmina Widawa,łaski,łódzkie
+1003052,gmina Wodzierady,łaski,łódzkie
+1004011,Łęczyca,łęczycki,łódzkie
+1004022,gmina Daszyna,łęczycki,łódzkie
+1004032,gmina Góra Świętej Małgorzaty,łęczycki,łódzkie
+1004042,gmina Grabów,łęczycki,łódzkie
+1004052,gmina Łęczyca,łęczycki,łódzkie
+1004063,''gmina Piątek'',łęczycki,łódzkie
+1004072,gmina Świnice Warckie,łęczycki,łódzkie
+1004082,gmina Witonia,łęczycki,łódzkie
+1005011,Łowicz,łowicki,łódzkie
+1005022,gmina Bielawy,łowicki,łódzkie
+1005032,gmina Chąśno,łowicki,łódzkie
+1005042,gmina Domaniewice,łowicki,łódzkie
+1005052,gmina Kiernozia,łowicki,łódzkie
+1005062,gmina Kocierzew Południowy,łowicki,łódzkie
+1005072,gmina Łowicz,łowicki,łódzkie
+1005082,gmina Łyszkowice,łowicki,łódzkie
+1005092,gmina Nieborów,łowicki,łódzkie
+1005102,gmina Zduny,łowicki,łódzkie
+1006022,gmina Andrespol,łódzki wschodni,łódzkie
+1006032,gmina Brójce,łódzki wschodni,łódzkie
+1006073,''gmina Koluszki'',łódzki wschodni,łódzkie
+1006082,gmina Nowosolna,łódzki wschodni,łódzkie
+1006103,''gmina Rzgów'',łódzki wschodni,łódzkie
+1006113,''gmina Tuszyn'',łódzki wschodni,łódzkie
+1007012,gmina Białaczów,opoczyński,łódzkie
+1007023,''gmina Drzewica'',opoczyński,łódzkie
+1007032,gmina Mniszków,opoczyński,łódzkie
+1007043,''gmina Opoczno'',opoczyński,łódzkie
+1007052,gmina Paradyż,opoczyński,łódzkie
+1007062,gmina Poświętne,opoczyński,łódzkie
+1007072,gmina Sławno,opoczyński,łódzkie
+1007082,gmina Żarnów,opoczyński,łódzkie
+1008011,Konstantynów Łódzki,pabianicki,łódzkie
+1008021,Pabianice,pabianicki,łódzkie
+1008032,gmina Dłutów,pabianicki,łódzkie
+1008042,gmina Dobroń,pabianicki,łódzkie
+1008052,gmina Ksawerów,pabianicki,łódzkie
+1008062,gmina Lutomiersk,pabianicki,łódzkie
+1008072,gmina Pabianice,pabianicki,łódzkie
+1009013,''gmina Działoszyn'',pajęczański,łódzkie
+1009022,gmina Kiełczygłów,pajęczański,łódzkie
+1009032,gmina Nowa Brzeźnica,pajęczański,łódzkie
+1009043,''gmina Pajęczno'',pajęczański,łódzkie
+1009052,gmina Rząśnia,pajęczański,łódzkie
+1009062,gmina Siemkowice,pajęczański,łódzkie
+1009072,gmina Strzelce Wielkie,pajęczański,łódzkie
+1009082,gmina Sulmierzyce,pajęczański,łódzkie
+1010012,gmina Aleksandrów,piotrkowski,łódzkie
+1010022,gmina Czarnocin,piotrkowski,łódzkie
+1010032,gmina Gorzkowice,piotrkowski,łódzkie
+1010042,gmina Grabica,piotrkowski,łódzkie
+1010052,gmina Łęki Szlacheckie,piotrkowski,łódzkie
+1010062,gmina Moszczenica,piotrkowski,łódzkie
+1010072,gmina Ręczno,piotrkowski,łódzkie
+1010082,gmina Rozprza,piotrkowski,łódzkie
+1010093,''gmina Sulejów'',piotrkowski,łódzkie
+1010102,gmina Wola Krzysztoporska,piotrkowski,łódzkie
+1010113,''gmina Wolbórz'',piotrkowski,łódzkie
+1011012,gmina Dalików,poddębicki,łódzkie
+1011022,gmina Pęczniew,poddębicki,łódzkie
+1011033,''gmina Poddębice'',poddębicki,łódzkie
+1011043,''gmina Uniejów'',poddębicki,łódzkie
+1011052,gmina Wartkowice,poddębicki,łódzkie
+1011062,gmina Zadzim,poddębicki,łódzkie
+1012011,Radomsko,radomszczański,łódzkie
+1012022,gmina Dobryszyce,radomszczański,łódzkie
+1012032,gmina Gidle,radomszczański,łódzkie
+1012042,gmina Gomunice,radomszczański,łódzkie
+1012053,''gmina Kamieńsk'',radomszczański,łódzkie
+1012062,gmina Kobiele Wielkie,radomszczański,łódzkie
+1012072,gmina Kodrąb,radomszczański,łódzkie
+1012082,gmina Lgota Wielka,radomszczański,łódzkie
+1012092,gmina Ładzice,radomszczański,łódzkie
+1012102,gmina Masłowice,radomszczański,łódzkie
+1012113,''gmina Przedbórz'',radomszczański,łódzkie
+1012122,gmina Radomsko,radomszczański,łódzkie
+1012132,gmina Wielgomłyny,radomszczański,łódzkie
+1012142,gmina Żytno,radomszczański,łódzkie
+1013011,Rawa Mazowiecka,rawski,łódzkie
+1013023,''gmina Biała Rawska'',rawski,łódzkie
+1013032,gmina Cielądz,rawski,łódzkie
+1013042,gmina Rawa Mazowiecka,rawski,łódzkie
+1013052,gmina Regnów,rawski,łódzkie
+1013062,gmina Sadkowice,rawski,łódzkie
+1014011,Sieradz,sieradzki,łódzkie
+1014023,''gmina Błaszki'',sieradzki,łódzkie
+1014032,gmina Brąszewice,sieradzki,łódzkie
+1014042,gmina Brzeźnio,sieradzki,łódzkie
+1014052,gmina Burzenin,sieradzki,łódzkie
+1014062,gmina Goszczanów,sieradzki,łódzkie
+1014072,gmina Klonowa,sieradzki,łódzkie
+1014082,gmina Sieradz,sieradzki,łódzkie
+1014093,''gmina Warta'',sieradzki,łódzkie
+1014102,gmina Wróblew,sieradzki,łódzkie
+1014113,''gmina Złoczew'',sieradzki,łódzkie
+1015012,gmina Bolimów,skierniewicki,łódzkie
+1015022,gmina Głuchów,skierniewicki,łódzkie
+1015032,gmina Godzianów,skierniewicki,łódzkie
+1015042,gmina Kowiesy,skierniewicki,łódzkie
+1015052,gmina Lipce Reymontowskie,skierniewicki,łódzkie
+1015062,gmina Maków,skierniewicki,łódzkie
+1015072,gmina Nowy Kawęczyn,skierniewicki,łódzkie
+1015082,gmina Skierniewice,skierniewicki,łódzkie
+1015092,gmina Słupia,skierniewicki,łódzkie
+1016011,Tomaszów Mazowiecki,tomaszowski,łódzkie
+1016022,gmina Będków,tomaszowski,łódzkie
+1016032,gmina Budziszewice,tomaszowski,łódzkie
+1016042,gmina Czerniewice,tomaszowski,łódzkie
+1016052,gmina Inowłódz,tomaszowski,łódzkie
+1016062,gmina Lubochnia,tomaszowski,łódzkie
+1016072,gmina Rokiciny,tomaszowski,łódzkie
+1016082,gmina Rzeczyca,tomaszowski,łódzkie
+1016092,gmina Tomaszów Mazowiecki,tomaszowski,łódzkie
+1016102,gmina Ujazd,tomaszowski,łódzkie
+1016112,gmina Żelechlinek,tomaszowski,łódzkie
+1017012,gmina Biała,wieluński,łódzkie
+1017022,gmina Czarnożyły,wieluński,łódzkie
+1017032,gmina Konopnica,wieluński,łódzkie
+1017042,gmina Mokrsko,wieluński,łódzkie
+1017052,gmina Osjaków,wieluński,łódzkie
+1017062,gmina Ostrówek,wieluński,łódzkie
+1017072,gmina Pątnów,wieluński,łódzkie
+1017082,gmina Skomlin,wieluński,łódzkie
+1017093,''gmina Wieluń'',wieluński,łódzkie
+1017102,gmina Wierzchlas,wieluński,łódzkie
+1018012,gmina Bolesławiec,wieruszowski,łódzkie
+1018022,gmina Czastary,wieruszowski,łódzkie
+1018032,gmina Galewice,wieruszowski,łódzkie
+1018043,''gmina Lututów'',wieruszowski,łódzkie
+1018052,gmina Łubnice,wieruszowski,łódzkie
+1018062,gmina Sokolniki,wieruszowski,łódzkie
+1018073,''gmina Wieruszów'',wieruszowski,łódzkie
+1019011,Zduńska Wola,zduńskowolski,łódzkie
+1019023,''gmina Szadek'',zduńskowolski,łódzkie
+1019032,gmina Zapolice,zduńskowolski,łódzkie
+1019042,gmina Zduńska Wola,zduńskowolski,łódzkie
+1020011,Głowno,zgierski,łódzkie
+1020021,Ozorków,zgierski,łódzkie
+1020031,Zgierz,zgierski,łódzkie
+1020043,''gmina Aleksandrów Łódzki'',zgierski,łódzkie
+1020052,gmina Głowno,zgierski,łódzkie
+1020062,gmina Ozorków,zgierski,łódzkie
+1020072,gmina Parzęczew,zgierski,łódzkie
+1020083,''gmina Stryków'',zgierski,łódzkie
+1020092,gmina Zgierz,zgierski,łódzkie
+1021011,Brzeziny,brzeziński,łódzkie
+1021022,gmina Brzeziny,brzeziński,łódzkie
+1021032,gmina Dmosin,brzeziński,łódzkie
+1021042,gmina Jeżów,brzeziński,łódzkie
+1021052,gmina Rogów,brzeziński,łódzkie
+1061011,Łódź,Łódź,łódzkie
+1062011,Piotrków Trybunalski,Piotrków Trybunalski,łódzkie
+1063011,Skierniewice,Skierniewice,łódzkie
+1201011,Bochnia,bocheński,małopolskie
+1201022,gmina Bochnia,bocheński,małopolskie
+1201032,gmina Drwinia,bocheński,małopolskie
+1201042,gmina Lipnica Murowana,bocheński,małopolskie
+1201052,gmina Łapanów,bocheński,małopolskie
+1201063,''gmina Nowy Wiśnicz'',bocheński,małopolskie
+1201072,gmina Rzezawa,bocheński,małopolskie
+1201082,gmina Trzciana,bocheński,małopolskie
+1201092,gmina Żegocina,bocheński,małopolskie
+1202012,gmina Borzęcin,brzeski,małopolskie
+1202023,''gmina Brzesko'',brzeski,małopolskie
+1202033,''gmina Czchów'',brzeski,małopolskie
+1202042,gmina Dębno,brzeski,małopolskie
+1202052,gmina Gnojnik,brzeski,małopolskie
+1202062,gmina Iwkowa,brzeski,małopolskie
+1202072,gmina Szczurowa,brzeski,małopolskie
+1203013,''gmina Alwernia'',chrzanowski,małopolskie
+1203022,gmina Babice,chrzanowski,małopolskie
+1203033,''gmina Chrzanów'',chrzanowski,małopolskie
+1203043,''gmina Libiąż'',chrzanowski,małopolskie
+1203053,''gmina Trzebinia'',chrzanowski,małopolskie
+1204012,gmina Bolesław,dąbrowski,małopolskie
+1204023,''gmina Dąbrowa Tarnowska'',dąbrowski,małopolskie
+1204032,gmina Gręboszów,dąbrowski,małopolskie
+1204042,gmina Mędrzechów,dąbrowski,małopolskie
+1204052,gmina Olesno,dąbrowski,małopolskie
+1204062,gmina Radgoszcz,dąbrowski,małopolskie
+1204073,''gmina Szczucin'',dąbrowski,małopolskie
+1205011,Gorlice,gorlicki,małopolskie
+1205023,''gmina Biecz'',gorlicki,małopolskie
+1205033,''gmina Bobowa'',gorlicki,małopolskie
+1205042,gmina Gorlice,gorlicki,małopolskie
+1205052,gmina Lipinki,gorlicki,małopolskie
+1205062,gmina Łużna,gorlicki,małopolskie
+1205072,gmina Moszczenica,gorlicki,małopolskie
+1205082,gmina Ropa,gorlicki,małopolskie
+1205092,gmina Sękowa,gorlicki,małopolskie
+1205102,gmina Uście Gorlickie,gorlicki,małopolskie
+1206012,gmina Czernichów,krakowski,małopolskie
+1206022,gmina Igołomia-Wawrzeńczyce,krakowski,małopolskie
+1206032,gmina Iwanowice,krakowski,małopolskie
+1206042,gmina Jerzmanowice-Przeginia,krakowski,małopolskie
+1206052,gmina Kocmyrzów-Luborzyca,krakowski,małopolskie
+1206063,''gmina Krzeszowice'',krakowski,małopolskie
+1206072,gmina Liszki,krakowski,małopolskie
+1206082,gmina Michałowice,krakowski,małopolskie
+1206092,gmina Mogilany,krakowski,małopolskie
+1206103,''gmina Skała'',krakowski,małopolskie
+1206113,''gmina Skawina'',krakowski,małopolskie
+1206123,''gmina Słomniki'',krakowski,małopolskie
+1206132,gmina Sułoszowa,krakowski,małopolskie
+1206143,''gmina Świątniki Górne'',krakowski,małopolskie
+1206152,gmina Wielka Wieś,krakowski,małopolskie
+1206162,gmina Zabierzów,krakowski,małopolskie
+1206172,gmina Zielonki,krakowski,małopolskie
+1207011,Limanowa,limanowski,małopolskie
+1207021,Mszana Dolna,limanowski,małopolskie
+1207032,gmina Dobra,limanowski,małopolskie
+1207042,gmina Jodłownik,limanowski,małopolskie
+1207052,gmina Kamienica,limanowski,małopolskie
+1207062,gmina Laskowa,limanowski,małopolskie
+1207072,gmina Limanowa,limanowski,małopolskie
+1207082,gmina Łukowica,limanowski,małopolskie
+1207092,gmina Mszana Dolna,limanowski,małopolskie
+1207102,gmina Niedźwiedź,limanowski,małopolskie
+1207112,gmina Słopnice,limanowski,małopolskie
+1207122,gmina Tymbark,limanowski,małopolskie
+1207132,gmina Szczawa,limanowski,małopolskie
+1208012,gmina Charsznica,miechowski,małopolskie
+1208022,gmina Gołcza,miechowski,małopolskie
+1208032,gmina Kozłów,miechowski,małopolskie
+1208042,gmina Książ Wielki,miechowski,małopolskie
+1208053,''gmina Miechów'',miechowski,małopolskie
+1208062,gmina Racławice,miechowski,małopolskie
+1208072,gmina Słaboszów,miechowski,małopolskie
+1209013,''gmina Dobczyce'',myślenicki,małopolskie
+1209022,gmina Lubień,myślenicki,małopolskie
+1209033,''gmina Myślenice'',myślenicki,małopolskie
+1209042,gmina Pcim,myślenicki,małopolskie
+1209052,gmina Raciechowice,myślenicki,małopolskie
+1209062,gmina Siepraw,myślenicki,małopolskie
+1209073,''gmina Sułkowice'',myślenicki,małopolskie
+1209082,gmina Tokarnia,myślenicki,małopolskie
+1209092,gmina Wiśniowa,myślenicki,małopolskie
+1210011,Grybów,nowosądecki,małopolskie
+1210022,gmina Chełmiec,nowosądecki,małopolskie
+1210032,gmina Gródek nad Dunajcem,nowosądecki,małopolskie
+1210042,gmina Grybów,nowosądecki,małopolskie
+1210052,gmina Kamionka Wielka,nowosądecki,małopolskie
+1210062,gmina Korzenna,nowosądecki,małopolskie
+1210073,''gmina Krynica-Zdrój'',nowosądecki,małopolskie
+1210082,gmina Łabowa,nowosądecki,małopolskie
+1210092,gmina Łącko,nowosądecki,małopolskie
+1210102,gmina Łososina Dolna,nowosądecki,małopolskie
+1210113,''gmina Muszyna'',nowosądecki,małopolskie
+1210122,gmina Nawojowa,nowosądecki,małopolskie
+1210133,''gmina Piwniczna-Zdrój'',nowosądecki,małopolskie
+1210142,gmina Podegrodzie,nowosądecki,małopolskie
+1210152,gmina Rytro,nowosądecki,małopolskie
+1210163,''gmina Stary Sącz'',nowosądecki,małopolskie
+1211011,Nowy Targ,nowotarski,małopolskie
+1211023,''gmina Szczawnica'',nowotarski,małopolskie
+1211032,gmina Czarny Dunajec,nowotarski,małopolskie
+1211042,gmina Czorsztyn,nowotarski,małopolskie
+1211052,gmina Jabłonka,nowotarski,małopolskie
+1211062,gmina Krościenko nad Dunajcem,nowotarski,małopolskie
+1211072,gmina Lipnica Wielka,nowotarski,małopolskie
+1211082,gmina Łapsze Niżne,nowotarski,małopolskie
+1211092,gmina Nowy Targ,nowotarski,małopolskie
+1211102,gmina Ochotnica Dolna,nowotarski,małopolskie
+1211112,gmina Raba Wyżna,nowotarski,małopolskie
+1211123,''gmina Rabka-Zdrój'',nowotarski,małopolskie
+1211132,gmina Spytkowice,nowotarski,małopolskie
+1211142,gmina Szaflary,nowotarski,małopolskie
+1212011,Bukowno,olkuski,małopolskie
+1212032,gmina Bolesław,olkuski,małopolskie
+1212042,gmina Klucze,olkuski,małopolskie
+1212053,''gmina Olkusz'',olkuski,małopolskie
+1212062,gmina Trzyciąż,olkuski,małopolskie
+1212073,''gmina Wolbrom'',olkuski,małopolskie
+1213011,Oświęcim,oświęcimski,małopolskie
+1213023,''gmina Brzeszcze'',oświęcimski,małopolskie
+1213033,''gmina Chełmek'',oświęcimski,małopolskie
+1213043,''gmina Kęty'',oświęcimski,małopolskie
+1213052,gmina Osiek,oświęcimski,małopolskie
+1213062,gmina Oświęcim,oświęcimski,małopolskie
+1213072,gmina Polanka Wielka,oświęcimski,małopolskie
+1213082,gmina Przeciszów,oświęcimski,małopolskie
+1213093,''gmina Zator'',oświęcimski,małopolskie
+1214012,gmina Koniusza,proszowicki,małopolskie
+1214023,''gmina Koszyce'',proszowicki,małopolskie
+1214033,''gmina Nowe Brzesko'',proszowicki,małopolskie
+1214042,gmina Pałecznica,proszowicki,małopolskie
+1214053,''gmina Proszowice'',proszowicki,małopolskie
+1214062,gmina Radziemice,proszowicki,małopolskie
+1215011,Jordanów,suski,małopolskie
+1215021,Sucha Beskidzka,suski,małopolskie
+1215032,gmina Budzów,suski,małopolskie
+1215042,gmina Bystra-Sidzina,suski,małopolskie
+1215052,gmina Jordanów,suski,małopolskie
+1215063,''gmina Maków Podhalański'',suski,małopolskie
+1215072,gmina Stryszawa,suski,małopolskie
+1215082,gmina Zawoja,suski,małopolskie
+1215092,gmina Zembrzyce,suski,małopolskie
+1216013,''gmina Ciężkowice'',tarnowski,małopolskie
+1216022,gmina Gromnik,tarnowski,małopolskie
+1216032,gmina Lisia Góra,tarnowski,małopolskie
+1216042,gmina Pleśna,tarnowski,małopolskie
+1216053,''gmina Radłów'',tarnowski,małopolskie
+1216063,''gmina Ryglice'',tarnowski,małopolskie
+1216072,gmina Rzepiennik Strzyżewski,tarnowski,małopolskie
+1216082,gmina Skrzyszów,tarnowski,małopolskie
+1216092,gmina Tarnów,tarnowski,małopolskie
+1216103,''gmina Tuchów'',tarnowski,małopolskie
+1216112,gmina Wierzchosławice,tarnowski,małopolskie
+1216122,gmina Wietrzychowice,tarnowski,małopolskie
+1216133,''gmina Wojnicz'',tarnowski,małopolskie
+1216143,''gmina Zakliczyn'',tarnowski,małopolskie
+1216153,''gmina Żabno'',tarnowski,małopolskie
+1216162,gmina Szerzyny,tarnowski,małopolskie
+1217011,Zakopane,tatrzański,małopolskie
+1217022,gmina Biały Dunajec,tatrzański,małopolskie
+1217032,gmina Bukowina Tatrzańska,tatrzański,małopolskie
+1217042,gmina Kościelisko,tatrzański,małopolskie
+1217052,gmina Poronin,tatrzański,małopolskie
+1218013,''gmina Andrychów'',wadowicki,małopolskie
+1218022,gmina Brzeźnica,wadowicki,małopolskie
+1218033,''gmina Kalwaria Zebrzydowska'',wadowicki,małopolskie
+1218042,gmina Lanckorona,wadowicki,małopolskie
+1218052,gmina Mucharz,wadowicki,małopolskie
+1218062,gmina Spytkowice,wadowicki,małopolskie
+1218072,gmina Stryszów,wadowicki,małopolskie
+1218082,gmina Tomice,wadowicki,małopolskie
+1218093,''gmina Wadowice'',wadowicki,małopolskie
+1218102,gmina Wieprz,wadowicki,małopolskie
+1219012,gmina Biskupice,wielicki,małopolskie
+1219022,gmina Gdów,wielicki,małopolskie
+1219032,gmina Kłaj,wielicki,małopolskie
+1219043,''gmina Niepołomice'',wielicki,małopolskie
+1219053,''gmina Wieliczka'',wielicki,małopolskie
+1261011,Kraków,Kraków,małopolskie
+1262011,Nowy Sącz,Nowy Sącz,małopolskie
+1263011,Tarnów,Tarnów,małopolskie
+1401013,''gmina Białobrzegi'',białobrzeski,mazowieckie
+1401022,gmina Promna,białobrzeski,mazowieckie
+1401032,gmina Radzanów,białobrzeski,mazowieckie
+1401042,gmina Stara Błotnica,białobrzeski,mazowieckie
+1401052,gmina Stromiec,białobrzeski,mazowieckie
+1401063,''gmina Wyśmierzyce'',białobrzeski,mazowieckie
+1402011,Ciechanów,ciechanowski,mazowieckie
+1402022,gmina Ciechanów,ciechanowski,mazowieckie
+1402033,''gmina Glinojeck'',ciechanowski,mazowieckie
+1402042,gmina Gołymin-Ośrodek,ciechanowski,mazowieckie
+1402052,gmina Grudusk,ciechanowski,mazowieckie
+1402062,gmina Ojrzeń,ciechanowski,mazowieckie
+1402072,gmina Opinogóra Górna,ciechanowski,mazowieckie
+1402082,gmina Regimin,ciechanowski,mazowieckie
+1402092,gmina Sońsk,ciechanowski,mazowieckie
+1403011,Garwolin,garwoliński,mazowieckie
+1403021,Łaskarzew,garwoliński,mazowieckie
+1403032,gmina Borowie,garwoliński,mazowieckie
+1403042,gmina Garwolin,garwoliński,mazowieckie
+1403052,gmina Górzno,garwoliński,mazowieckie
+1403062,gmina Łaskarzew,garwoliński,mazowieckie
+1403072,gmina Maciejowice,garwoliński,mazowieckie
+1403082,gmina Miastków Kościelny,garwoliński,mazowieckie
+1403092,gmina Parysów,garwoliński,mazowieckie
+1403103,''gmina Pilawa'',garwoliński,mazowieckie
+1403112,gmina Sobolew,garwoliński,mazowieckie
+1403122,gmina Trojanów,garwoliński,mazowieckie
+1403132,gmina Wilga,garwoliński,mazowieckie
+1403143,''gmina Żelechów'',garwoliński,mazowieckie
+1404011,Gostynin,gostyniński,mazowieckie
+1404022,gmina Gostynin,gostyniński,mazowieckie
+1404032,gmina Pacyna,gostyniński,mazowieckie
+1404043,''gmina Sanniki'',gostyniński,mazowieckie
+1404052,gmina Szczawin Kościelny,gostyniński,mazowieckie
+1405011,Milanówek,grodziski,mazowieckie
+1405021,Podkowa Leśna,grodziski,mazowieckie
+1405032,gmina Baranów,grodziski,mazowieckie
+1405043,''gmina Grodzisk Mazowiecki'',grodziski,mazowieckie
+1405052,gmina Jaktorów,grodziski,mazowieckie
+1405062,gmina Żabia Wola,grodziski,mazowieckie
+1406012,gmina Belsk Duży,grójecki,mazowieckie
+1406022,gmina Błędów,grójecki,mazowieckie
+1406032,gmina Chynów,grójecki,mazowieckie
+1406042,gmina Goszczyn,grójecki,mazowieckie
+1406053,''gmina Grójec'',grójecki,mazowieckie
+1406062,gmina Jasieniec,grójecki,mazowieckie
+1406073,''gmina Mogielnica'',grójecki,mazowieckie
+1406083,''gmina Nowe Miasto nad Pilicą'',grójecki,mazowieckie
+1406092,gmina Pniewy,grójecki,mazowieckie
+1406113,''gmina Warka'',grójecki,mazowieckie
+1407012,gmina Garbatka-Letnisko,kozienicki,mazowieckie
+1407022,gmina Głowaczów,kozienicki,mazowieckie
+1407032,gmina Gniewoszów,kozienicki,mazowieckie
+1407042,gmina Grabów nad Pilicą,kozienicki,mazowieckie
+1407053,''gmina Kozienice'',kozienicki,mazowieckie
+1407062,gmina Magnuszew,kozienicki,mazowieckie
+1407072,gmina Sieciechów,kozienicki,mazowieckie
+1408011,Legionowo,legionowski,mazowieckie
+1408022,gmina Jabłonna,legionowski,mazowieckie
+1408032,gmina Nieporęt,legionowski,mazowieckie
+1408043,''gmina Serock'',legionowski,mazowieckie
+1408052,gmina Wieliszew,legionowski,mazowieckie
+1409012,gmina Chotcza,lipski,mazowieckie
+1409022,gmina Ciepielów,lipski,mazowieckie
+1409033,''gmina Lipsko'',lipski,mazowieckie
+1409042,gmina Rzeczniów,lipski,mazowieckie
+1409052,gmina Sienno,lipski,mazowieckie
+1409063,''gmina Solec nad Wisłą'',lipski,mazowieckie
+1410012,gmina Huszlew,łosicki,mazowieckie
+1410023,''gmina Łosice'',łosicki,mazowieckie
+1410032,gmina Olszanka,łosicki,mazowieckie
+1410042,gmina Platerów,łosicki,mazowieckie
+1410052,gmina Sarnaki,łosicki,mazowieckie
+1410062,gmina Stara Kornica,łosicki,mazowieckie
+1411011,Maków Mazowiecki,makowski,mazowieckie
+1411022,gmina Czerwonka,makowski,mazowieckie
+1411032,gmina Karniewo,makowski,mazowieckie
+1411042,gmina Krasnosielc,makowski,mazowieckie
+1411052,gmina Młynarze,makowski,mazowieckie
+1411062,gmina Płoniawy-Bramura,makowski,mazowieckie
+1411073,''gmina Różan'',makowski,mazowieckie
+1411082,gmina Rzewnie,makowski,mazowieckie
+1411092,gmina Sypniewo,makowski,mazowieckie
+1411102,gmina Szelków,makowski,mazowieckie
+1412011,Mińsk Mazowiecki,miński,mazowieckie
+1412042,gmina Cegłów,miński,mazowieckie
+1412052,gmina Dębe Wielkie,miński,mazowieckie
+1412062,gmina Dobre,miński,mazowieckie
+1412073,''gmina Halinów'',miński,mazowieckie
+1412082,gmina Jakubów,miński,mazowieckie
+1412093,''gmina Kałuszyn'',miński,mazowieckie
+1412102,gmina Latowicz,miński,mazowieckie
+1412112,gmina Mińsk Mazowiecki,miński,mazowieckie
+1412123,''gmina Mrozy'',miński,mazowieckie
+1412132,gmina Siennica,miński,mazowieckie
+1412142,''gmina Stanisławów'',miński,mazowieckie
+1412151,Sulejówek,miński,mazowieckie
+1413011,Mława,mławski,mazowieckie
+1413022,gmina Dzierzgowo,mławski,mazowieckie
+1413032,gmina Lipowiec Kościelny,mławski,mazowieckie
+1413042,gmina Radzanów,mławski,mazowieckie
+1413052,gmina Strzegowo,mławski,mazowieckie
+1413062,gmina Stupsk,mławski,mazowieckie
+1413072,gmina Szreńsk,mławski,mazowieckie
+1413082,gmina Szydłowo,mławski,mazowieckie
+1413092,gmina Wieczfnia Kościelna,mławski,mazowieckie
+1413102,gmina Wiśniewo,mławski,mazowieckie
+1414011,Nowy Dwór Mazowiecki,nowodworski,mazowieckie
+1414022,gmina Czosnów,nowodworski,mazowieckie
+1414032,gmina Leoncin,nowodworski,mazowieckie
+1414043,''gmina Nasielsk'',nowodworski,mazowieckie
+1414052,gmina Pomiechówek,nowodworski,mazowieckie
+1414063,''gmina Zakroczym'',nowodworski,mazowieckie
+1415012,gmina Baranowo,ostrołęcki,mazowieckie
+1415022,gmina Czarnia,ostrołęcki,mazowieckie
+1415032,gmina Czerwin,ostrołęcki,mazowieckie
+1415042,gmina Goworowo,ostrołęcki,mazowieckie
+1415052,gmina Kadzidło,ostrołęcki,mazowieckie
+1415062,gmina Lelis,ostrołęcki,mazowieckie
+1415072,gmina Łyse,ostrołęcki,mazowieckie
+1415083,''gmina Myszyniec'',ostrołęcki,mazowieckie
+1415092,gmina Olszewo-Borki,ostrołęcki,mazowieckie
+1415102,gmina Rzekuń,ostrołęcki,mazowieckie
+1415112,gmina Troszyn,ostrołęcki,mazowieckie
+1416011,Ostrów Mazowiecka,ostrowski,mazowieckie
+1416022,gmina Andrzejewo,ostrowski,mazowieckie
+1416032,gmina Boguty-Pianki,ostrowski,mazowieckie
+1416043,''gmina Brok'',ostrowski,mazowieckie
+1416052,''gmina Małkinia Górna'',ostrowski,mazowieckie
+1416062,gmina Nur,ostrowski,mazowieckie
+1416072,gmina Ostrów Mazowiecka,ostrowski,mazowieckie
+1416082,gmina Stary Lubotyń,ostrowski,mazowieckie
+1416092,gmina Szulborze Wielkie,ostrowski,mazowieckie
+1416102,gmina Wąsewo,ostrowski,mazowieckie
+1416112,gmina Zaręby Kościelne,ostrowski,mazowieckie
+1417011,Józefów,otwocki,mazowieckie
+1417021,Otwock,otwocki,mazowieckie
+1417032,gmina Celestynów,otwocki,mazowieckie
+1417043,''gmina Karczew'',otwocki,mazowieckie
+1417052,gmina Kołbiel,otwocki,mazowieckie
+1417062,gmina Osieck,otwocki,mazowieckie
+1417072,gmina Sobienie-Jeziory,otwocki,mazowieckie
+1417082,gmina Wiązowna,otwocki,mazowieckie
+1418013,''gmina Góra Kalwaria'',piaseczyński,mazowieckie
+1418023,''gmina Konstancin-Jeziorna'',piaseczyński,mazowieckie
+1418032,gmina Lesznowola,piaseczyński,mazowieckie
+1418043,''gmina Piaseczno'',piaseczyński,mazowieckie
+1418052,gmina Prażmów,piaseczyński,mazowieckie
+1418063,''gmina Tarczyn'',piaseczyński,mazowieckie
+1419012,gmina Bielsk,płocki,mazowieckie
+1419022,gmina Bodzanów,płocki,mazowieckie
+1419032,gmina Brudzeń Duży,płocki,mazowieckie
+1419042,gmina Bulkowo,płocki,mazowieckie
+1419053,''gmina Drobin'',płocki,mazowieckie
+1419063,''gmina Gąbin'',płocki,mazowieckie
+1419072,gmina Łąck,płocki,mazowieckie
+1419082,gmina Mała Wieś,płocki,mazowieckie
+1419092,gmina Nowy Duninów,płocki,mazowieckie
+1419102,gmina Radzanowo,płocki,mazowieckie
+1419112,gmina Słubice,płocki,mazowieckie
+1419122,gmina Słupno,płocki,mazowieckie
+1419132,gmina Stara Biała,płocki,mazowieckie
+1419142,''gmina Staroźreby'',płocki,mazowieckie
+1419153,''gmina Wyszogród'',płocki,mazowieckie
+1420011,Płońsk,płoński,mazowieckie
+1420021,Raciąż,płoński,mazowieckie
+1420032,gmina Baboszewo,płoński,mazowieckie
+1420043,''gmina Czerwińsk nad Wisłą'',płoński,mazowieckie
+1420052,gmina Dzierzążnia,płoński,mazowieckie
+1420062,gmina Joniec,płoński,mazowieckie
+1420072,gmina Naruszewo,płoński,mazowieckie
+1420082,gmina Nowe Miasto,płoński,mazowieckie
+1420092,gmina Płońsk,płoński,mazowieckie
+1420102,gmina Raciąż,płoński,mazowieckie
+1420113,''gmina Sochocin'',płoński,mazowieckie
+1420122,gmina Załuski,płoński,mazowieckie
+1421011,Piastów,pruszkowski,mazowieckie
+1421021,Pruszków,pruszkowski,mazowieckie
+1421033,''gmina Brwinów'',pruszkowski,mazowieckie
+1421042,gmina Michałowice,pruszkowski,mazowieckie
+1421052,gmina Nadarzyn,pruszkowski,mazowieckie
+1421062,gmina Raszyn,pruszkowski,mazowieckie
+1422011,Przasnysz,przasnyski,mazowieckie
+1422023,''gmina Chorzele'',przasnyski,mazowieckie
+1422032,gmina Czernice Borowe,przasnyski,mazowieckie
+1422042,gmina Jednorożec,przasnyski,mazowieckie
+1422052,gmina Krasne,przasnyski,mazowieckie
+1422062,gmina Krzynowłoga Mała,przasnyski,mazowieckie
+1422072,gmina Przasnysz,przasnyski,mazowieckie
+1423012,gmina Borkowice,przysuski,mazowieckie
+1423022,gmina Gielniów,przysuski,mazowieckie
+1423032,gmina Klwów,przysuski,mazowieckie
+1423042,gmina Odrzywół,przysuski,mazowieckie
+1423052,gmina Potworów,przysuski,mazowieckie
+1423063,''gmina Przysucha'',przysuski,mazowieckie
+1423072,gmina Rusinów,przysuski,mazowieckie
+1423082,gmina Wieniawa,przysuski,mazowieckie
+1424012,gmina Gzy,pułtuski,mazowieckie
+1424022,gmina Obryte,pułtuski,mazowieckie
+1424032,gmina Pokrzywnica,pułtuski,mazowieckie
+1424043,''gmina Pułtusk'',pułtuski,mazowieckie
+1424052,gmina Świercze,pułtuski,mazowieckie
+1424062,gmina Winnica,pułtuski,mazowieckie
+1424072,gmina Zatory,pułtuski,mazowieckie
+1425011,Pionki,radomski,mazowieckie
+1425022,gmina Gózd,radomski,mazowieckie
+1425033,''gmina Iłża'',radomski,mazowieckie
+1425042,gmina Jastrzębia,radomski,mazowieckie
+1425052,gmina Jedlińsk,radomski,mazowieckie
+1425062,gmina Jedlnia-Letnisko,radomski,mazowieckie
+1425072,gmina Kowala,radomski,mazowieckie
+1425082,gmina Pionki,radomski,mazowieckie
+1425092,gmina Przytyk,radomski,mazowieckie
+1425103,''gmina Skaryszew'',radomski,mazowieckie
+1425112,gmina Wierzbica,radomski,mazowieckie
+1425122,gmina Wolanów,radomski,mazowieckie
+1425132,gmina Zakrzew,radomski,mazowieckie
+1426012,gmina Domanice,siedlecki,mazowieckie
+1426022,gmina Korczew,siedlecki,mazowieckie
+1426032,gmina Kotuń,siedlecki,mazowieckie
+1426042,gmina Mokobody,siedlecki,mazowieckie
+1426053,''gmina Mordy'',siedlecki,mazowieckie
+1426062,gmina Paprotnia,siedlecki,mazowieckie
+1426072,gmina Przesmyki,siedlecki,mazowieckie
+1426082,gmina Siedlce,siedlecki,mazowieckie
+1426092,gmina Skórzec,siedlecki,mazowieckie
+1426102,gmina Suchożebry,siedlecki,mazowieckie
+1426112,gmina Wiśniew,siedlecki,mazowieckie
+1426122,gmina Wodynie,siedlecki,mazowieckie
+1426132,gmina Zbuczyn,siedlecki,mazowieckie
+1427011,Sierpc,sierpecki,mazowieckie
+1427022,gmina Gozdowo,sierpecki,mazowieckie
+1427032,gmina Mochowo,sierpecki,mazowieckie
+1427042,gmina Rościszewo,sierpecki,mazowieckie
+1427052,gmina Sierpc,sierpecki,mazowieckie
+1427062,gmina Szczutowo,sierpecki,mazowieckie
+1427072,gmina Zawidz,sierpecki,mazowieckie
+1428011,Sochaczew,sochaczewski,mazowieckie
+1428022,gmina Brochów,sochaczewski,mazowieckie
+1428032,gmina Iłów,sochaczewski,mazowieckie
+1428042,gmina Młodzieszyn,sochaczewski,mazowieckie
+1428052,gmina Nowa Sucha,sochaczewski,mazowieckie
+1428062,gmina Rybno,sochaczewski,mazowieckie
+1428072,gmina Sochaczew,sochaczewski,mazowieckie
+1428082,gmina Teresin,sochaczewski,mazowieckie
+1429011,Sokołów Podlaski,sokołowski,mazowieckie
+1429022,gmina Bielany,sokołowski,mazowieckie
+1429032,gmina Ceranów,sokołowski,mazowieckie
+1429042,gmina Jabłonna Lacka,sokołowski,mazowieckie
+1429053,''gmina Kosów Lacki'',sokołowski,mazowieckie
+1429062,gmina Repki,sokołowski,mazowieckie
+1429072,gmina Sabnie,sokołowski,mazowieckie
+1429082,gmina Sokołów Podlaski,sokołowski,mazowieckie
+1429092,gmina Sterdyń,sokołowski,mazowieckie
+1430012,gmina Chlewiska,szydłowiecki,mazowieckie
+1430022,gmina Jastrząb,szydłowiecki,mazowieckie
+1430032,gmina Mirów,szydłowiecki,mazowieckie
+1430042,gmina Orońsko,szydłowiecki,mazowieckie
+1430053,''gmina Szydłowiec'',szydłowiecki,mazowieckie
+1432013,''gmina Błonie'',warszawski zachodni,mazowieckie
+1432022,gmina Izabelin,warszawski zachodni,mazowieckie
+1432032,gmina Kampinos,warszawski zachodni,mazowieckie
+1432042,gmina Leszno,warszawski zachodni,mazowieckie
+1432053,''gmina Łomianki'',warszawski zachodni,mazowieckie
+1432063,''gmina Ożarów Mazowiecki'',warszawski zachodni,mazowieckie
+1432072,gmina Stare Babice,warszawski zachodni,mazowieckie
+1433011,Węgrów,węgrowski,mazowieckie
+1433022,gmina Grębków,węgrowski,mazowieckie
+1433032,gmina Korytnica,węgrowski,mazowieckie
+1433042,gmina Liw,węgrowski,mazowieckie
+1433053,''gmina Łochów'',węgrowski,mazowieckie
+1433062,gmina Miedzna,węgrowski,mazowieckie
+1433072,gmina Sadowne,węgrowski,mazowieckie
+1433082,gmina Stoczek,węgrowski,mazowieckie
+1433092,gmina Wierzbno,węgrowski,mazowieckie
+1434011,Kobyłka,wołomiński,mazowieckie
+1434021,Marki,wołomiński,mazowieckie
+1434031,Ząbki,wołomiński,mazowieckie
+1434041,Zielonka,wołomiński,mazowieckie
+1434052,gmina Dąbrówka,wołomiński,mazowieckie
+1434062,gmina Jadów,wołomiński,mazowieckie
+1434072,gmina Klembów,wołomiński,mazowieckie
+1434082,gmina Poświętne,wołomiński,mazowieckie
+1434093,''gmina Radzymin'',wołomiński,mazowieckie
+1434102,gmina Strachówka,wołomiński,mazowieckie
+1434113,''gmina Tłuszcz'',wołomiński,mazowieckie
+1434123,''gmina Wołomin'',wołomiński,mazowieckie
+1435012,gmina Brańszczyk,wyszkowski,mazowieckie
+1435022,gmina Długosiodło,wyszkowski,mazowieckie
+1435032,gmina Rząśnik,wyszkowski,mazowieckie
+1435042,gmina Somianka,wyszkowski,mazowieckie
+1435053,''gmina Wyszków'',wyszkowski,mazowieckie
+1435062,gmina Zabrodzie,wyszkowski,mazowieckie
+1436012,gmina Kazanów,zwoleński,mazowieckie
+1436022,gmina Policzna,zwoleński,mazowieckie
+1436032,gmina Przyłęk,zwoleński,mazowieckie
+1436042,gmina Tczów,zwoleński,mazowieckie
+1436053,''gmina Zwoleń'',zwoleński,mazowieckie
+1437013,''gmina Bieżuń'',żuromiński,mazowieckie
+1437022,gmina Kuczbork-Osada,żuromiński,mazowieckie
+1437033,''gmina Lubowidz'',żuromiński,mazowieckie
+1437042,gmina Lutocin,żuromiński,mazowieckie
+1437052,gmina Siemiątkowo,żuromiński,mazowieckie
+1437063,''gmina Żuromin'',żuromiński,mazowieckie
+1438011,Żyrardów,żyrardowski,mazowieckie
+1438023,''gmina Mszczonów'',żyrardowski,mazowieckie
+1438032,gmina Puszcza Mariańska,żyrardowski,mazowieckie
+1438042,gmina Radziejowice,żyrardowski,mazowieckie
+1438053,''gmina Wiskitki'',żyrardowski,mazowieckie
+1461011,Ostrołęka,Ostrołęka,mazowieckie
+1462011,Płock,Płock,mazowieckie
+1463011,Radom,Radom,mazowieckie
+1464011,Siedlce,Siedlce,mazowieckie
+1465011,Warszawa,Warszawa,mazowieckie
+1601011,Brzeg,brzeski,opolskie
+1601022,gmina Skarbimierz,brzeski,opolskie
+1601033,''gmina Grodków'',brzeski,opolskie
+1601043,''gmina Lewin Brzeski'',brzeski,opolskie
+1601052,gmina Lubsza,brzeski,opolskie
+1601062,gmina Olszanka,brzeski,opolskie
+1602013,''gmina Baborów'',głubczycki,opolskie
+1602022,''gmina Branice'',głubczycki,opolskie
+1602033,''gmina Głubczyce'',głubczycki,opolskie
+1602043,''gmina Kietrz'',głubczycki,opolskie
+1603011,Kędzierzyn-Koźle,kędzierzyńsko-kozielski,opolskie
+1603022,gmina Bierawa,kędzierzyńsko-kozielski,opolskie
+1603032,gmina Cisek,kędzierzyńsko-kozielski,opolskie
+1603042,gmina Pawłowiczki,kędzierzyńsko-kozielski,opolskie
+1603052,gmina Polska Cerekiew,kędzierzyńsko-kozielski,opolskie
+1603062,gmina Reńska Wieś,kędzierzyńsko-kozielski,opolskie
+1604013,''gmina Byczyna'',kluczborski,opolskie
+1604023,''gmina Kluczbork'',kluczborski,opolskie
+1604032,gmina Lasowice Wielkie,kluczborski,opolskie
+1604043,''gmina Wołczyn'',kluczborski,opolskie
+1605013,''gmina Gogolin'',krapkowicki,opolskie
+1605023,''gmina Krapkowice'',krapkowicki,opolskie
+1605032,gmina Strzeleczki,krapkowicki,opolskie
+1605042,gmina Walce,krapkowicki,opolskie
+1605053,''gmina Zdzieszowice'',krapkowicki,opolskie
+1606012,gmina Domaszowice,namysłowski,opolskie
+1606023,''gmina Namysłów'',namysłowski,opolskie
+1606032,gmina Pokój,namysłowski,opolskie
+1606042,gmina Świerczów,namysłowski,opolskie
+1606052,gmina Wilków,namysłowski,opolskie
+1607013,''gmina Głuchołazy'',nyski,opolskie
+1607022,gmina Kamiennik,nyski,opolskie
+1607033,''gmina Korfantów'',nyski,opolskie
+1607042,gmina Łambinowice,nyski,opolskie
+1607053,''gmina Nysa'',nyski,opolskie
+1607063,''gmina Otmuchów'',nyski,opolskie
+1607073,''gmina Paczków'',nyski,opolskie
+1607082,gmina Pakosławice,nyski,opolskie
+1607092,gmina Skoroszyce,nyski,opolskie
+1608013,''gmina Dobrodzień'',oleski,opolskie
+1608023,''gmina Gorzów Śląski'',oleski,opolskie
+1608033,''gmina Olesno'',oleski,opolskie
+1608043,''gmina Praszka'',oleski,opolskie
+1608052,gmina Radłów,oleski,opolskie
+1608062,gmina Rudniki,oleski,opolskie
+1608072,gmina Zębowice,oleski,opolskie
+1609012,gmina Chrząstowice,opolski,opolskie
+1609022,gmina Dąbrowa,opolski,opolskie
+1609032,gmina Dobrzeń Wielki,opolski,opolskie
+1609042,gmina Komprachcice,opolski,opolskie
+1609052,gmina Łubniany,opolski,opolskie
+1609062,gmina Murów,opolski,opolskie
+1609073,''gmina Niemodlin'',opolski,opolskie
+1609083,''gmina Ozimek'',opolski,opolskie
+1609092,gmina Popielów,opolski,opolskie
+1609103,''gmina Prószków'',opolski,opolskie
+1609112,gmina Tarnów Opolski,opolski,opolskie
+1609123,''gmina Tułowice'',opolski,opolskie
+1609132,gmina Turawa,opolski,opolskie
+1610013,''gmina Biała'',prudnicki,opolskie
+1610023,''gmina Głogówek'',prudnicki,opolskie
+1610032,gmina Lubrza,prudnicki,opolskie
+1610043,''gmina Prudnik'',prudnicki,opolskie
+1611012,gmina Izbicko,strzelecki,opolskie
+1611022,gmina Jemielnica,strzelecki,opolskie
+1611033,''gmina Kolonowskie'',strzelecki,opolskie
+1611043,''gmina Leśnica'',strzelecki,opolskie
+1611053,''gmina Strzelce Opolskie'',strzelecki,opolskie
+1611063,''gmina Ujazd'',strzelecki,opolskie
+1611073,''gmina Zawadzkie'',strzelecki,opolskie
+1661011,Opole,Opole,opolskie
+1801032,gmina Czarna,bieszczadzki,podkarpackie
+1801052,gmina Lutowiska,bieszczadzki,podkarpackie
+1801083,''gmina Ustrzyki Dolne'',bieszczadzki,podkarpackie
+1802013,''gmina Brzozów'',brzozowski,podkarpackie
+1802022,gmina Domaradz,brzozowski,podkarpackie
+1802032,gmina Dydnia,brzozowski,podkarpackie
+1802042,gmina Haczów,brzozowski,podkarpackie
+1802052,gmina Jasienica Rosielna,brzozowski,podkarpackie
+1802062,gmina Nozdrzec,brzozowski,podkarpackie
+1803011,Dębica,dębicki,podkarpackie
+1803023,''gmina Brzostek'',dębicki,podkarpackie
+1803032,gmina Czarna,dębicki,podkarpackie
+1803042,gmina Dębica,dębicki,podkarpackie
+1803052,gmina Jodłowa,dębicki,podkarpackie
+1803063,''gmina Pilzno'',dębicki,podkarpackie
+1803072,gmina Żyraków,dębicki,podkarpackie
+1804011,Jarosław,jarosławski,podkarpackie
+1804021,Radymno,jarosławski,podkarpackie
+1804032,gmina Chłopice,jarosławski,podkarpackie
+1804042,gmina Jarosław,jarosławski,podkarpackie
+1804052,gmina Laszki,jarosławski,podkarpackie
+1804062,gmina Pawłosiów,jarosławski,podkarpackie
+1804073,''gmina Pruchnik'',jarosławski,podkarpackie
+1804082,gmina Radymno,jarosławski,podkarpackie
+1804092,gmina Rokietnica,jarosławski,podkarpackie
+1804102,gmina Roźwienica,jarosławski,podkarpackie
+1804112,gmina Wiązownica,jarosławski,podkarpackie
+1805011,Jasło,jasielski,podkarpackie
+1805022,gmina Brzyska,jasielski,podkarpackie
+1805032,gmina Dębowiec,jasielski,podkarpackie
+1805042,gmina Jasło,jasielski,podkarpackie
+1805053,''gmina Kołaczyce'',jasielski,podkarpackie
+1805062,gmina Krempna,jasielski,podkarpackie
+1805072,gmina Nowy Żmigród,jasielski,podkarpackie
+1805082,gmina Osiek Jasielski,jasielski,podkarpackie
+1805092,gmina Skołyszyn,jasielski,podkarpackie
+1805112,gmina Tarnowiec,jasielski,podkarpackie
+1806012,gmina Cmolas,kolbuszowski,podkarpackie
+1806023,''gmina Kolbuszowa'',kolbuszowski,podkarpackie
+1806032,gmina Majdan Królewski,kolbuszowski,podkarpackie
+1806042,gmina Niwiska,kolbuszowski,podkarpackie
+1806052,gmina Raniżów,kolbuszowski,podkarpackie
+1806062,gmina Dzikowiec,kolbuszowski,podkarpackie
+1807012,gmina Chorkówka,krośnieński,podkarpackie
+1807023,''gmina Dukla'',krośnieński,podkarpackie
+1807033,''gmina Iwonicz-Zdrój'',krośnieński,podkarpackie
+1807043,''gmina Jedlicze'',krośnieński,podkarpackie
+1807052,gmina Korczyna,krośnieński,podkarpackie
+1807062,gmina Krościenko Wyżne,krośnieński,podkarpackie
+1807072,gmina Miejsce Piastowe,krośnieński,podkarpackie
+1807083,''gmina Rymanów'',krośnieński,podkarpackie
+1807092,gmina Wojaszówka,krośnieński,podkarpackie
+1807102,gmina Jaśliska,krośnieński,podkarpackie
+1808011,Leżajsk,leżajski,podkarpackie
+1808022,gmina Grodzisko Dolne,leżajski,podkarpackie
+1808032,gmina Kuryłówka,leżajski,podkarpackie
+1808042,gmina Leżajsk,leżajski,podkarpackie
+1808053,''gmina Nowa Sarzyna'',leżajski,podkarpackie
+1809011,Lubaczów,lubaczowski,podkarpackie
+1809023,''gmina Cieszanów'',lubaczowski,podkarpackie
+1809032,gmina Horyniec-Zdrój,lubaczowski,podkarpackie
+1809042,gmina Lubaczów,lubaczowski,podkarpackie
+1809053,''gmina Narol'',lubaczowski,podkarpackie
+1809063,''gmina Oleszyce'',lubaczowski,podkarpackie
+1809072,gmina Stary Dzików,lubaczowski,podkarpackie
+1809082,gmina Wielkie Oczy,lubaczowski,podkarpackie
+1810011,Łańcut,łańcucki,podkarpackie
+1810022,gmina Białobrzegi,łańcucki,podkarpackie
+1810032,gmina Czarna,łańcucki,podkarpackie
+1810042,gmina Łańcut,łańcucki,podkarpackie
+1810052,gmina Markowa,łańcucki,podkarpackie
+1810062,gmina Rakszawa,łańcucki,podkarpackie
+1810072,gmina Żołynia,łańcucki,podkarpackie
+1811011,Mielec,mielecki,podkarpackie
+1811022,gmina Borowa,mielecki,podkarpackie
+1811032,gmina Czermin,mielecki,podkarpackie
+1811042,gmina Gawłuszowice,mielecki,podkarpackie
+1811052,gmina Mielec,mielecki,podkarpackie
+1811062,gmina Padew Narodowa,mielecki,podkarpackie
+1811073,''gmina Przecław'',mielecki,podkarpackie
+1811083,''gmina Radomyśl Wielki'',mielecki,podkarpackie
+1811092,gmina Tuszów Narodowy,mielecki,podkarpackie
+1811102,gmina Wadowice Górne,mielecki,podkarpackie
+1812012,gmina Harasiuki,niżański,podkarpackie
+1812022,gmina Jarocin,niżański,podkarpackie
+1812032,gmina Jeżowe,niżański,podkarpackie
+1812042,gmina Krzeszów,niżański,podkarpackie
+1812053,''gmina Nisko'',niżański,podkarpackie
+1812063,''gmina Rudnik nad Sanem'',niżański,podkarpackie
+1812073,''gmina Ulanów'',niżański,podkarpackie
+1813012,gmina Bircza,przemyski,podkarpackie
+1813023,''gmina Dubiecko'',przemyski,podkarpackie
+1813032,gmina Fredropol,przemyski,podkarpackie
+1813042,gmina Krasiczyn,przemyski,podkarpackie
+1813052,gmina Krzywcza,przemyski,podkarpackie
+1813062,gmina Medyka,przemyski,podkarpackie
+1813072,gmina Orły,przemyski,podkarpackie
+1813082,gmina Przemyśl,przemyski,podkarpackie
+1813092,gmina Stubno,przemyski,podkarpackie
+1813102,gmina Żurawica,przemyski,podkarpackie
+1814011,Przeworsk,przeworski,podkarpackie
+1814022,gmina Adamówka,przeworski,podkarpackie
+1814032,gmina Gać,przeworski,podkarpackie
+1814042,gmina Jawornik Polski,przeworski,podkarpackie
+1814053,''gmina Kańczuga'',przeworski,podkarpackie
+1814062,gmina Przeworsk,przeworski,podkarpackie
+1814073,''gmina Sieniawa'',przeworski,podkarpackie
+1814082,gmina Tryńcza,przeworski,podkarpackie
+1814092,gmina Zarzecze,przeworski,podkarpackie
+1815012,gmina Iwierzyce,ropczycko-sędziszowski,podkarpackie
+1815022,gmina Ostrów,ropczycko-sędziszowski,podkarpackie
+1815033,''gmina Ropczyce'',ropczycko-sędziszowski,podkarpackie
+1815043,''gmina Sędziszów Małopolski'',ropczycko-sędziszowski,podkarpackie
+1815052,gmina Wielopole Skrzyńskie,ropczycko-sędziszowski,podkarpackie
+1816011,Dynów,rzeszowski,podkarpackie
+1816023,''gmina Błażowa'',rzeszowski,podkarpackie
+1816033,''gmina Boguchwała'',rzeszowski,podkarpackie
+1816042,gmina Chmielnik,rzeszowski,podkarpackie
+1816052,gmina Dynów,rzeszowski,podkarpackie
+1816063,''gmina Głogów Małopolski'',rzeszowski,podkarpackie
+1816072,gmina Hyżne,rzeszowski,podkarpackie
+1816082,gmina Kamień,rzeszowski,podkarpackie
+1816092,gmina Krasne,rzeszowski,podkarpackie
+1816102,gmina Lubenia,rzeszowski,podkarpackie
+1816113,gmina Sokołów Małopolski,rzeszowski,podkarpackie
+1816122,gmina Świlcza,rzeszowski,podkarpackie
+1816132,gmina Trzebownisko,rzeszowski,podkarpackie
+1816143,''gmina Tyczyn'',rzeszowski,podkarpackie
+1817011,Sanok,sanocki,podkarpackie
+1817022,gmina Besko,sanocki,podkarpackie
+1817032,gmina Bukowsko,sanocki,podkarpackie
+1817042,gmina Komańcza,sanocki,podkarpackie
+1817052,gmina Sanok,sanocki,podkarpackie
+1817062,gmina Tyrawa Wołoska,sanocki,podkarpackie
+1817073,''gmina Zagórz'',sanocki,podkarpackie
+1817082,gmina Zarszyn,sanocki,podkarpackie
+1818011,Stalowa Wola,stalowowolski,podkarpackie
+1818022,gmina Bojanów,stalowowolski,podkarpackie
+1818032,gmina Pysznica,stalowowolski,podkarpackie
+1818042,gmina Radomyśl nad Sanem,stalowowolski,podkarpackie
+1818053,''gmina Zaklików'',stalowowolski,podkarpackie
+1818062,gmina Zaleszany,stalowowolski,podkarpackie
+1819012,gmina Czudec,strzyżowski,podkarpackie
+1819022,gmina Frysztak,strzyżowski,podkarpackie
+1819032,gmina Niebylec,strzyżowski,podkarpackie
+1819043,''gmina Strzyżów'',strzyżowski,podkarpackie
+1819052,gmina Wiśniowa,strzyżowski,podkarpackie
+1820013,''gmina Baranów Sandomierski'',tarnobrzeski,podkarpackie
+1820022,gmina Gorzyce,tarnobrzeski,podkarpackie
+1820032,gmina Grębów,tarnobrzeski,podkarpackie
+1820043,''gmina Nowa Dęba'',tarnobrzeski,podkarpackie
+1821012,gmina Baligród,leski,podkarpackie
+1821022,gmina Cisna,leski,podkarpackie
+1821033,gmina Lesko,leski,podkarpackie
+1821042,gmina Olszanica,leski,podkarpackie
+1821052,gmina Solina,leski,podkarpackie
+1861011,Krosno,Krosno,podkarpackie
+1862011,Przemyśl,Przemyśl,podkarpackie
+1863011,Rzeszów,Rzeszów,podkarpackie
+1864011,Tarnobrzeg,Tarnobrzeg,podkarpackie
+2001011,Augustów,augustowski,podlaskie
+2001022,gmina Augustów,augustowski,podlaskie
+2001032,gmina Bargłów Kościelny,augustowski,podlaskie
+2001043,''gmina Lipsk'',augustowski,podlaskie
+2001052,gmina Nowinka,augustowski,podlaskie
+2001062,gmina Płaska,augustowski,podlaskie
+2001072,gmina Sztabin,augustowski,podlaskie
+2002013,''gmina Choroszcz'',białostocki,podlaskie
+2002023,''gmina Czarna Białostocka'',białostocki,podlaskie
+2002032,gmina Dobrzyniewo Duże,białostocki,podlaskie
+2002042,gmina Gródek,białostocki,podlaskie
+2002052,gmina Juchnowiec Kościelny,białostocki,podlaskie
+2002063,''gmina Łapy'',białostocki,podlaskie
+2002073,''gmina Michałowo'',białostocki,podlaskie
+2002082,gmina Poświętne,białostocki,podlaskie
+2002093,''gmina Supraśl'',białostocki,podlaskie
+2002103,''gmina Suraż'',białostocki,podlaskie
+2002112,gmina Turośń Kościelna,białostocki,podlaskie
+2002123,''gmina Tykocin'',białostocki,podlaskie
+2002133,''gmina Wasilków'',białostocki,podlaskie
+2002143,''gmina Zabłudów'',białostocki,podlaskie
+2002152,gmina Zawady,białostocki,podlaskie
+2002162,gmina Grabówka,białostocki,podlaskie
+2003011,Bielsk Podlaski,bielski,podlaskie
+2003021,Brańsk,bielski,podlaskie
+2003032,gmina Bielsk Podlaski,bielski,podlaskie
+2003042,gmina Boćki,bielski,podlaskie
+2003052,gmina Brańsk,bielski,podlaskie
+2003062,gmina Orla,bielski,podlaskie
+2003072,gmina Rudka,bielski,podlaskie
+2003082,gmina Wyszki,bielski,podlaskie
+2004011,Grajewo,grajewski,podlaskie
+2004022,gmina Grajewo,grajewski,podlaskie
+2004032,gmina Radziłów,grajewski,podlaskie
+2004043,''gmina Rajgród'',grajewski,podlaskie
+2004053,''gmina Szczuczyn'',grajewski,podlaskie
+2004062,gmina Wąsosz,grajewski,podlaskie
+2005011,Hajnówka,hajnowski,podlaskie
+2005022,gmina Białowieża,hajnowski,podlaskie
+2005032,gmina Czeremcha,hajnowski,podlaskie
+2005042,gmina Czyże,hajnowski,podlaskie
+2005052,gmina Dubicze Cerkiewne,hajnowski,podlaskie
+2005062,gmina Hajnówka,hajnowski,podlaskie
+2005073,''gmina Kleszczele'',hajnowski,podlaskie
+2005082,gmina Narew,hajnowski,podlaskie
+2005092,gmina Narewka,hajnowski,podlaskie
+2006011,Kolno,kolneński,podlaskie
+2006022,gmina Grabowo,kolneński,podlaskie
+2006032,gmina Kolno,kolneński,podlaskie
+2006042,gmina Mały Płock,kolneński,podlaskie
+2006053,''gmina Stawiski'',kolneński,podlaskie
+2006062,gmina Turośl,kolneński,podlaskie
+2007013,''gmina Jedwabne'',łomżyński,podlaskie
+2007022,gmina Łomża,łomżyński,podlaskie
+2007032,gmina Miastkowo,łomżyński,podlaskie
+2007043,''gmina Nowogród'',łomżyński,podlaskie
+2007052,gmina Piątnica,łomżyński,podlaskie
+2007062,gmina Przytuły,łomżyński,podlaskie
+2007072,gmina Śniadowo,łomżyński,podlaskie
+2007082,gmina Wizna,łomżyński,podlaskie
+2007092,gmina Zbójna,łomżyński,podlaskie
+2008013,''gmina Goniądz'',moniecki,podlaskie
+2008022,gmina Jasionówka,moniecki,podlaskie
+2008032,gmina Jaświły,moniecki,podlaskie
+2008043,''gmina Knyszyn'',moniecki,podlaskie
+2008052,gmina Krypno,moniecki,podlaskie
+2008063,''gmina Mońki'',moniecki,podlaskie
+2008072,gmina Trzcianne,moniecki,podlaskie
+2009011,Sejny,sejneński,podlaskie
+2009022,gmina Giby,sejneński,podlaskie
+2009032,gmina Krasnopol,sejneński,podlaskie
+2009042,gmina Puńsk,sejneński,podlaskie
+2009052,gmina Sejny,sejneński,podlaskie
+2010011,Siemiatycze,siemiatycki,podlaskie
+2010023,''gmina Drohiczyn'',siemiatycki,podlaskie
+2010032,gmina Dziadkowice,siemiatycki,podlaskie
+2010042,gmina Grodzisk,siemiatycki,podlaskie
+2010052,gmina Mielnik,siemiatycki,podlaskie
+2010062,gmina Milejczyce,siemiatycki,podlaskie
+2010072,gmina Nurzec-Stacja,siemiatycki,podlaskie
+2010082,gmina Perlejewo,siemiatycki,podlaskie
+2010092,gmina Siemiatycze,siemiatycki,podlaskie
+2011013,''gmina Dąbrowa Białostocka'',sokólski,podlaskie
+2011022,gmina Janów,sokólski,podlaskie
+2011032,gmina Korycin,sokólski,podlaskie
+2011043,''gmina Krynki'',sokólski,podlaskie
+2011052,gmina Kuźnica,sokólski,podlaskie
+2011062,gmina Nowy Dwór,sokólski,podlaskie
+2011072,gmina Sidra,sokólski,podlaskie
+2011083,''gmina Sokółka'',sokólski,podlaskie
+2011093,''gmina Suchowola'',sokólski,podlaskie
+2011102,gmina Szudziałowo,sokólski,podlaskie
+2012012,gmina Bakałarzewo,suwalski,podlaskie
+2012022,gmina Filipów,suwalski,podlaskie
+2012032,gmina Jeleniewo,suwalski,podlaskie
+2012042,gmina Przerośl,suwalski,podlaskie
+2012052,gmina Raczki,suwalski,podlaskie
+2012062,gmina Rutka-Tartak,suwalski,podlaskie
+2012072,gmina Suwałki,suwalski,podlaskie
+2012082,gmina Szypliszki,suwalski,podlaskie
+2012092,gmina Wiżajny,suwalski,podlaskie
+2013011,Wysokie Mazowieckie,wysokomazowiecki,podlaskie
+2013023,''gmina Ciechanowiec'',wysokomazowiecki,podlaskie
+2013033,''gmina Czyżew'',wysokomazowiecki,podlaskie
+2013042,gmina Klukowo,wysokomazowiecki,podlaskie
+2013052,gmina Kobylin-Borzymy,wysokomazowiecki,podlaskie
+2013062,gmina Kulesze Kościelne,wysokomazowiecki,podlaskie
+2013072,gmina Nowe Piekuty,wysokomazowiecki,podlaskie
+2013082,gmina Sokoły,wysokomazowiecki,podlaskie
+2013093,''gmina Szepietowo'',wysokomazowiecki,podlaskie
+2013102,gmina Wysokie Mazowieckie,wysokomazowiecki,podlaskie
+2014011,Zambrów,zambrowski,podlaskie
+2014022,gmina Kołaki Kościelne,zambrowski,podlaskie
+2014032,gmina Rutki,zambrowski,podlaskie
+2014042,gmina Szumowo,zambrowski,podlaskie
+2014052,gmina Zambrów,zambrowski,podlaskie
+2061011,Białystok,Białystok,podlaskie
+2062011,Łomża,Łomża,podlaskie
+2063011,Suwałki,Suwałki,podlaskie
+2201012,gmina Borzytuchom,bytowski,pomorskie
+2201023,''gmina Bytów'',bytowski,pomorskie
+2201032,gmina Czarna Dąbrówka,bytowski,pomorskie
+2201042,gmina Kołczygłowy,bytowski,pomorskie
+2201052,gmina Lipnica,bytowski,pomorskie
+2201063,''gmina Miastko'',bytowski,pomorskie
+2201072,gmina Parchowo,bytowski,pomorskie
+2201082,gmina Studzienice,bytowski,pomorskie
+2201092,gmina Trzebielino,bytowski,pomorskie
+2201102,gmina Tuchomie,bytowski,pomorskie
+2202011,Chojnice,chojnicki,pomorskie
+2202023,''gmina Brusy'',chojnicki,pomorskie
+2202032,gmina Chojnice,chojnicki,pomorskie
+2202043,''gmina Czersk'',chojnicki,pomorskie
+2202052,gmina Konarzyny,chojnicki,pomorskie
+2203011,Człuchów,człuchowski,pomorskie
+2203023,''gmina Czarne'',człuchowski,pomorskie
+2203032,gmina Człuchów,człuchowski,pomorskie
+2203043,''gmina Debrzno'',człuchowski,pomorskie
+2203052,gmina Koczała,człuchowski,pomorskie
+2203062,gmina Przechlewo,człuchowski,pomorskie
+2203072,gmina Rzeczenica,człuchowski,pomorskie
+2204011,Pruszcz Gdański,gdański,pomorskie
+2204022,gmina Cedry Wielkie,gdański,pomorskie
+2204032,gmina Kolbudy,gdański,pomorskie
+2204042,gmina Pruszcz Gdański,gdański,pomorskie
+2204052,gmina Przywidz,gdański,pomorskie
+2204062,gmina Pszczółki,gdański,pomorskie
+2204072,gmina Suchy Dąb,gdański,pomorskie
+2204082,gmina Trąbki Wielkie,gdański,pomorskie
+2205012,gmina Chmielno,kartuski,pomorskie
+2205023,''gmina Kartuzy'',kartuski,pomorskie
+2205032,gmina Przodkowo,kartuski,pomorskie
+2205042,gmina Sierakowice,kartuski,pomorskie
+2205052,gmina Somonino,kartuski,pomorskie
+2205062,gmina Stężyca,kartuski,pomorskie
+2205072,gmina Sulęczyno,kartuski,pomorskie
+2205083,''gmina Żukowo'',kartuski,pomorskie
+2206011,Kościerzyna,kościerski,pomorskie
+2206022,gmina Dziemiany,kościerski,pomorskie
+2206032,gmina Karsin,kościerski,pomorskie
+2206042,gmina Kościerzyna,kościerski,pomorskie
+2206052,gmina Liniewo,kościerski,pomorskie
+2206062,gmina Lipusz,kościerski,pomorskie
+2206072,gmina Nowa Karczma,kościerski,pomorskie
+2206082,gmina Stara Kiszewa,kościerski,pomorskie
+2207011,Kwidzyn,kwidzyński,pomorskie
+2207022,gmina Gardeja,kwidzyński,pomorskie
+2207032,gmina Kwidzyn,kwidzyński,pomorskie
+2207043,''gmina Prabuty'',kwidzyński,pomorskie
+2207052,gmina Ryjewo,kwidzyński,pomorskie
+2207062,gmina Sadlinki,kwidzyński,pomorskie
+2208011,Lębork,lęborski,pomorskie
+2208021,Łeba,lęborski,pomorskie
+2208032,gmina Cewice,lęborski,pomorskie
+2208042,gmina Nowa Wieś Lęborska,lęborski,pomorskie
+2208052,gmina Wicko,lęborski,pomorskie
+2209011,Malbork,malborski,pomorskie
+2209032,gmina Lichnowy,malborski,pomorskie
+2209042,gmina Malbork,malborski,pomorskie
+2209062,gmina Miłoradz,malborski,pomorskie
+2209073,''gmina Nowy Staw'',malborski,pomorskie
+2209082,gmina Stare Pole,malborski,pomorskie
+2210011,Krynica Morska,nowodworski,pomorskie
+2210023,''gmina Nowy Dwór Gdański'',nowodworski,pomorskie
+2210032,gmina Ostaszewo,nowodworski,pomorskie
+2210042,gmina Stegna,nowodworski,pomorskie
+2210052,gmina Sztutowo,nowodworski,pomorskie
+2211011,Hel,pucki,pomorskie
+2211023,''gmina Jastarnia'',pucki,pomorskie
+2211031,Puck,pucki,pomorskie
+2211043,''Władysławowo'',pucki,pomorskie
+2211052,gmina Kosakowo,pucki,pomorskie
+2211062,gmina Krokowa,pucki,pomorskie
+2211072,gmina Puck,pucki,pomorskie
+2212011,Ustka,słupski,pomorskie
+2212022,gmina Damnica,słupski,pomorskie
+2212032,gmina Dębnica Kaszubska,słupski,pomorskie
+2212042,gmina Główczyce,słupski,pomorskie
+2212053,''gmina Kępice'',słupski,pomorskie
+2212062,gmina Kobylnica,słupski,pomorskie
+2212072,gmina Potęgowo,słupski,pomorskie
+2212082,gmina Redzikowo,słupski,pomorskie
+2212092,gmina Smołdzino,słupski,pomorskie
+2212102,gmina Ustka,słupski,pomorskie
+2213013,''gmina Czarna Woda'',starogardzki,pomorskie
+2213021,Skórcz,starogardzki,pomorskie
+2213031,Starogard Gdański,starogardzki,pomorskie
+2213042,gmina Bobowo,starogardzki,pomorskie
+2213052,gmina Kaliska,starogardzki,pomorskie
+2213062,gmina Lubichowo,starogardzki,pomorskie
+2213072,gmina Osieczna,starogardzki,pomorskie
+2213082,gmina Osiek,starogardzki,pomorskie
+2213093,''gmina Skarszewy'',starogardzki,pomorskie
+2213102,gmina Skórcz,starogardzki,pomorskie
+2213112,gmina Smętowo Graniczne,starogardzki,pomorskie
+2213122,gmina Starogard Gdański,starogardzki,pomorskie
+2213132,gmina Zblewo,starogardzki,pomorskie
+2214011,Tczew,tczewski,pomorskie
+2214023,''gmina Gniew'',tczewski,pomorskie
+2214032,gmina Morzeszczyn,tczewski,pomorskie
+2214043,''gmina Pelplin'',tczewski,pomorskie
+2214052,gmina Subkowy,tczewski,pomorskie
+2214062,gmina Tczew,tczewski,pomorskie
+2215011,Reda,wejherowski,pomorskie
+2215021,Rumia,wejherowski,pomorskie
+2215031,Wejherowo,wejherowski,pomorskie
+2215042,gmina Choczewo,wejherowski,pomorskie
+2215052,gmina Gniewino,wejherowski,pomorskie
+2215062,gmina Linia,wejherowski,pomorskie
+2215072,gmina Luzino,wejherowski,pomorskie
+2215082,gmina Łęczyce,wejherowski,pomorskie
+2215092,gmina Szemud,wejherowski,pomorskie
+2215102,gmina Wejherowo,wejherowski,pomorskie
+2216013,''gmina Dzierzgoń'',sztumski,pomorskie
+2216022,gmina Mikołajki Pomorskie,sztumski,pomorskie
+2216032,gmina Stary Dzierzgoń,sztumski,pomorskie
+2216042,gmina Stary Targ,sztumski,pomorskie
+2216053,''gmina Sztum'',sztumski,pomorskie
+2261011,Gdańsk,Gdańsk,pomorskie
+2262011,Gdynia,Gdynia,pomorskie
+2263011,Słupsk,Słupsk,pomorskie
+2264011,Sopot,Sopot,pomorskie
+2401011,Będzin,będziński,śląskie
+2401021,Czeladź,będziński,śląskie
+2401031,Wojkowice,będziński,śląskie
+2401042,gmina Bobrowniki,będziński,śląskie
+2401052,gmina Mierzęcice,będziński,śląskie
+2401062,gmina Psary,będziński,śląskie
+2401073,''gmina Siewierz'',będziński,śląskie
+2401081,Sławków,będziński,śląskie
+2402011,Szczyrk,bielski,śląskie
+2402022,gmina Bestwina,bielski,śląskie
+2402032,gmina Buczkowice,bielski,śląskie
+2402043,''gmina Czechowice-Dziedzice'',bielski,śląskie
+2402052,gmina Jasienica,bielski,śląskie
+2402062,gmina Jaworze,bielski,śląskie
+2402072,gmina Kozy,bielski,śląskie
+2402082,gmina Porąbka,bielski,śląskie
+2402093,''gmina Wilamowice'',bielski,śląskie
+2402102,gmina Wilkowice,bielski,śląskie
+2403011,Cieszyn,cieszyński,śląskie
+2403021,Ustroń,cieszyński,śląskie
+2403031,Wisła,cieszyński,śląskie
+2403042,gmina Brenna,cieszyński,śląskie
+2403052,gmina Chybie,cieszyński,śląskie
+2403062,gmina Dębowiec,cieszyński,śląskie
+2403072,gmina Goleszów,cieszyński,śląskie
+2403082,gmina Hażlach,cieszyński,śląskie
+2403092,gmina Istebna,cieszyński,śląskie
+2403103,''gmina Skoczów'',cieszyński,śląskie
+2403113,''gmina Strumień'',cieszyński,śląskie
+2403122,gmina Zebrzydowice,cieszyński,śląskie
+2404013,''gmina Blachownia'',częstochowski,śląskie
+2404022,gmina Dąbrowa Zielona,częstochowski,śląskie
+2404032,''gmina Janów'',częstochowski,śląskie
+2404042,gmina Kamienica Polska,częstochowski,śląskie
+2404052,gmina Kłomnice,częstochowski,śląskie
+2404063,''gmina Koniecpol'',częstochowski,śląskie
+2404072,gmina Konopiska,częstochowski,śląskie
+2404082,gmina Kruszyna,częstochowski,śląskie
+2404092,gmina Lelów,częstochowski,śląskie
+2404102,gmina Mstów,częstochowski,śląskie
+2404112,gmina Mykanów,częstochowski,śląskie
+2404122,gmina Olsztyn,częstochowski,śląskie
+2404132,gmina Poczesna,częstochowski,śląskie
+2404142,gmina Przyrów,częstochowski,śląskie
+2404152,gmina Rędziny,częstochowski,śląskie
+2404162,gmina Starcza,częstochowski,śląskie
+2405011,Knurów,gliwicki,śląskie
+2405021,Pyskowice,gliwicki,śląskie
+2405032,gmina Gierałtowice,gliwicki,śląskie
+2405042,gmina Pilchowice,gliwicki,śląskie
+2405052,gmina Rudziniec,gliwicki,śląskie
+2405063,''gmina Sośnicowice'',gliwicki,śląskie
+2405073,''gmina Toszek'',gliwicki,śląskie
+2405082,gmina Wielowieś,gliwicki,śląskie
+2406013,''gmina Kłobuck'',kłobucki,śląskie
+2406023,''gmina Krzepice'',kłobucki,śląskie
+2406032,gmina Lipie,kłobucki,śląskie
+2406042,gmina Miedźno,kłobucki,śląskie
+2406052,gmina Opatów,kłobucki,śląskie
+2406062,gmina Panki,kłobucki,śląskie
+2406072,gmina Popów,kłobucki,śląskie
+2406082,gmina Przystajń,kłobucki,śląskie
+2406092,gmina Wręczyca Wielka,kłobucki,śląskie
+2407011,Lubliniec,lubliniecki,śląskie
+2407022,gmina Boronów,lubliniecki,śląskie
+2407032,gmina Ciasna,lubliniecki,śląskie
+2407042,gmina Herby,lubliniecki,śląskie
+2407052,gmina Kochanowice,lubliniecki,śląskie
+2407062,gmina Koszęcin,lubliniecki,śląskie
+2407072,gmina Pawonków,lubliniecki,śląskie
+2407083,''gmina Woźniki'',lubliniecki,śląskie
+2408011,Łaziska Górne,mikołowski,śląskie
+2408021,Mikołów,mikołowski,śląskie
+2408031,Orzesze,mikołowski,śląskie
+2408042,gmina Ornontowice,mikołowski,śląskie
+2408052,gmina Wyry,mikołowski,śląskie
+2409011,Myszków,myszkowski,śląskie
+2409023,''gmina Koziegłowy'',myszkowski,śląskie
+2409032,gmina Niegowa,myszkowski,śląskie
+2409042,gmina Poraj,myszkowski,śląskie
+2409053,''gmina Żarki'',myszkowski,śląskie
+2410012,gmina Goczałkowice-Zdrój,pszczyński,śląskie
+2410022,gmina Kobiór,pszczyński,śląskie
+2410032,gmina Miedźna,pszczyński,śląskie
+2410042,gmina Pawłowice,pszczyński,śląskie
+2410053,''gmina Pszczyna'',pszczyński,śląskie
+2410062,gmina Suszec,pszczyński,śląskie
+2411011,Racibórz,raciborski,śląskie
+2411022,gmina Kornowac,raciborski,śląskie
+2411033,''gmina Krzanowice'',raciborski,śląskie
+2411042,gmina Krzyżanowice,raciborski,śląskie
+2411053,''gmina Kuźnia Raciborska'',raciborski,śląskie
+2411062,gmina Nędza,raciborski,śląskie
+2411072,gmina Pietrowice Wielkie,raciborski,śląskie
+2411082,gmina Rudnik,raciborski,śląskie
+2412013,''gmina Czerwionka-Leszczyny'',rybnicki,śląskie
+2412022,gmina Gaszowice,rybnicki,śląskie
+2412032,gmina Jejkowice,rybnicki,śląskie
+2412042,gmina Lyski,rybnicki,śląskie
+2412052,gmina Świerklany,rybnicki,śląskie
+2413011,Kalety,tarnogórski,śląskie
+2413021,Miasteczko Śląskie,tarnogórski,śląskie
+2413031,Radzionków,tarnogórski,śląskie
+2413041,Tarnowskie Góry,tarnogórski,śląskie
+2413052,gmina Krupski Młyn,tarnogórski,śląskie
+2413062,gmina Ożarowice,tarnogórski,śląskie
+2413072,gmina Świerklaniec,tarnogórski,śląskie
+2413082,gmina Tworóg,tarnogórski,śląskie
+2413092,gmina Zbrosławice,tarnogórski,śląskie
+2414011,Bieruń,bieruńsko-lędziński,śląskie
+2414021,Imielin,bieruńsko-lędziński,śląskie
+2414031,Lędziny,bieruńsko-lędziński,śląskie
+2414042,gmina Bojszowy,bieruńsko-lędziński,śląskie
+2414052,gmina Chełm Śląski,bieruńsko-lędziński,śląskie
+2415011,Pszów,wodzisławski,śląskie
+2415021,Radlin,wodzisławski,śląskie
+2415031,Rydułtowy,wodzisławski,śląskie
+2415041,Wodzisław Śląski,wodzisławski,śląskie
+2415052,gmina Godów,wodzisławski,śląskie
+2415062,gmina Gorzyce,wodzisławski,śląskie
+2415072,gmina Lubomia,wodzisławski,śląskie
+2415082,gmina Marklowice,wodzisławski,śląskie
+2415092,gmina Mszana,wodzisławski,śląskie
+2416011,Poręba,zawierciański,śląskie
+2416021,Zawiercie,zawierciański,śląskie
+2416032,gmina Irządze,zawierciański,śląskie
+2416042,gmina Kroczyce,zawierciański,śląskie
+2416053,''gmina Łazy'',zawierciański,śląskie
+2416063,''gmina Ogrodzieniec'',zawierciański,śląskie
+2416073,''gmina Pilica'',zawierciański,śląskie
+2416083,''gmina Szczekociny'',zawierciański,śląskie
+2416092,gmina Włodowice,zawierciański,śląskie
+2416102,gmina Żarnowiec,zawierciański,śląskie
+2417011,Żywiec,żywiecki,śląskie
+2417022,gmina Czernichów,żywiecki,śląskie
+2417032,gmina Gilowice,żywiecki,śląskie
+2417042,gmina Jeleśnia,żywiecki,śląskie
+2417052,gmina Koszarawa,żywiecki,śląskie
+2417062,gmina Lipowa,żywiecki,śląskie
+2417072,gmina Łękawica,żywiecki,śląskie
+2417082,gmina Łodygowice,żywiecki,śląskie
+2417092,gmina Milówka,żywiecki,śląskie
+2417102,gmina Radziechowy-Wieprz,żywiecki,śląskie
+2417112,gmina Rajcza,żywiecki,śląskie
+2417122,gmina Ślemień,żywiecki,śląskie
+2417132,gmina Świnna,żywiecki,śląskie
+2417142,gmina Ujsoły,żywiecki,śląskie
+2417152,gmina Węgierska Górka,żywiecki,śląskie
+2461011,Bielsko-Biała,Bielsko-Biała,śląskie
+2462011,Bytom,Bytom,śląskie
+2463011,Chorzów,Chorzów,śląskie
+2464011,Częstochowa,Częstochowa,śląskie
+2465011,Dąbrowa Górnicza,Dąbrowa Górnicza,śląskie
+2466011,Gliwice,Gliwice,śląskie
+2467011,Jastrzębie-Zdrój,Jastrzębie-Zdrój,śląskie
+2468011,Jaworzno,Jaworzno,śląskie
+2469011,Katowice,Katowice,śląskie
+2470011,Mysłowice,Mysłowice,śląskie
+2471011,Piekary Śląskie,Piekary Śląskie,śląskie
+2472011,Ruda Śląska,Ruda Śląska,śląskie
+2473011,Rybnik,Rybnik,śląskie
+2474011,Siemianowice Śląskie,Siemianowice Śląskie,śląskie
+2475011,Sosnowiec,Sosnowiec,śląskie
+2476011,Świętochłowice,Świętochłowice,śląskie
+2477011,Tychy,Tychy,śląskie
+2478011,Zabrze,Zabrze,śląskie
+2479011,Żory,Żory,śląskie
+2601013,''gmina Busko-Zdrój'',buski,świętokrzyskie
+2601022,gmina Gnojno,buski,świętokrzyskie
+2601033,''gmina Nowy Korczyn'',buski,świętokrzyskie
+2601043,''gmina Pacanów'',buski,świętokrzyskie
+2601052,gmina Solec-Zdrój,buski,świętokrzyskie
+2601063,''gmina Stopnica'',buski,świętokrzyskie
+2601072,gmina Tuczępy,buski,świętokrzyskie
+2601083,''gmina Wiślica'',buski,świętokrzyskie
+2602012,gmina Imielno,jędrzejowski,świętokrzyskie
+2602023,''gmina Jędrzejów'',jędrzejowski,świętokrzyskie
+2602033,''gmina Małogoszcz'',jędrzejowski,świętokrzyskie
+2602042,gmina Nagłowice,jędrzejowski,świętokrzyskie
+2602052,gmina Oksa,jędrzejowski,świętokrzyskie
+2602063,''gmina Sędziszów'',jędrzejowski,świętokrzyskie
+2602072,gmina Słupia,jędrzejowski,świętokrzyskie
+2602082,gmina Sobków,jędrzejowski,świętokrzyskie
+2602093,''gmina Wodzisław'',jędrzejowski,świętokrzyskie
+2603012,gmina Bejsce,kazimierski,świętokrzyskie
+2603022,gmina Czarnocin,kazimierski,świętokrzyskie
+2603033,''gmina Kazimierza Wielka'',kazimierski,świętokrzyskie
+2603043,''gmina Opatowiec'',kazimierski,świętokrzyskie
+2603053,''gmina Skalbmierz'',kazimierski,świętokrzyskie
+2604012,gmina Bieliny,kielecki,świętokrzyskie
+2604023,''gmina Bodzentyn'',kielecki,świętokrzyskie
+2604033,''gmina Chęciny'',kielecki,świętokrzyskie
+2604043,''gmina Chmielnik'',kielecki,świętokrzyskie
+2604053,''gmina Daleszyce'',kielecki,świętokrzyskie
+2604062,gmina Górno,kielecki,świętokrzyskie
+2604073,gmina Łagów,kielecki,świętokrzyskie
+2604082,gmina Łopuszno,kielecki,świętokrzyskie
+2604092,gmina Masłów,kielecki,świętokrzyskie
+2604102,gmina Miedziana Góra,kielecki,świętokrzyskie
+2604112,gmina Mniów,kielecki,świętokrzyskie
+2604123,''gmina Morawica'',kielecki,świętokrzyskie
+2604133,''gmina Nowa Słupia'',kielecki,świętokrzyskie
+2604142,gmina Piekoszów,kielecki,świętokrzyskie
+2604153,''gmina Pierzchnica'',kielecki,świętokrzyskie
+2604162,gmina Raków,kielecki,świętokrzyskie
+2604172,"gmina Nowiny<ref group=""uwaga"">Do 31 grudnia 2020 r.: gmina Sitkówka-Nowiny</ref>",kielecki,świętokrzyskie
+2604182,gmina Strawczyn,kielecki,świętokrzyskie
+2604192,gmina Zagnańsk,kielecki,świętokrzyskie
+2605012,gmina Fałków,konecki,świętokrzyskie
+2605022,gmina Gowarczów,konecki,świętokrzyskie
+2605033,''gmina Końskie'',konecki,świętokrzyskie
+2605043,''gmina Radoszyce'',konecki,świętokrzyskie
+2605052,gmina Ruda Maleniecka,konecki,świętokrzyskie
+2605062,gmina Słupia Konecka,konecki,świętokrzyskie
+2605072,gmina Smyków,konecki,świętokrzyskie
+2605083,gmina Stąporków,konecki,świętokrzyskie
+2606012,gmina Baćkowice,opatowski,świętokrzyskie
+2606022,gmina Iwaniska,opatowski,świętokrzyskie
+2606032,gmina Lipnik,opatowski,świętokrzyskie
+2606043,''gmina Opatów'',opatowski,świętokrzyskie
+2606053,''gmina Ożarów'',opatowski,świętokrzyskie
+2606062,gmina Sadowie,opatowski,świętokrzyskie
+2606072,gmina Tarłów,opatowski,świętokrzyskie
+2606082,gmina Wojciechowice,opatowski,świętokrzyskie
+2607011,Ostrowiec Świętokrzyski,ostrowiecki,świętokrzyskie
+2607022,gmina Bałtów,ostrowiecki,świętokrzyskie
+2607032,gmina Bodzechów,ostrowiecki,świętokrzyskie
+2607043,''gmina Ćmielów'',ostrowiecki,świętokrzyskie
+2607053,''gmina Kunów'',ostrowiecki,świętokrzyskie
+2607062,gmina Waśniów,ostrowiecki,świętokrzyskie
+2608013,''gmina Działoszyce'',pińczowski,świętokrzyskie
+2608022,gmina Kije,pińczowski,świętokrzyskie
+2608032,gmina Michałów,pińczowski,świętokrzyskie
+2608043,''gmina Pińczów'',pińczowski,świętokrzyskie
+2608052,gmina Złota,pińczowski,świętokrzyskie
+2609011,Sandomierz,sandomierski,świętokrzyskie
+2609022,gmina Dwikozy,sandomierski,świętokrzyskie
+2609033,''gmina Klimontów'',sandomierski,świętokrzyskie
+2609043,''gmina Koprzywnica'',sandomierski,świętokrzyskie
+2609052,gmina Łoniów,sandomierski,świętokrzyskie
+2609062,gmina Obrazów,sandomierski,świętokrzyskie
+2609072,gmina Samborzec,sandomierski,świętokrzyskie
+2609082,gmina Wilczyce,sandomierski,świętokrzyskie
+2609093,''gmina Zawichost'',sandomierski,świętokrzyskie
+2610011,Skarżysko-Kamienna,skarżyski,świętokrzyskie
+2610022,gmina Bliżyn,skarżyski,świętokrzyskie
+2610032,gmina Łączna,skarżyski,świętokrzyskie
+2610042,gmina Skarżysko Kościelne,skarżyski,świętokrzyskie
+2610053,''gmina Suchedniów'',skarżyski,świętokrzyskie
+2611011,Starachowice,starachowicki,świętokrzyskie
+2611022,gmina Brody,starachowicki,świętokrzyskie
+2611032,gmina Mirzec,starachowicki,świętokrzyskie
+2611042,gmina Pawłów,starachowicki,świętokrzyskie
+2611053,''gmina Wąchock'',starachowicki,świętokrzyskie
+2612012,gmina Bogoria,staszowski,świętokrzyskie
+2612022,gmina Łubnice,staszowski,świętokrzyskie
+2612033,''gmina Oleśnica'',staszowski,świętokrzyskie
+2612043,''gmina Osiek'',staszowski,świętokrzyskie
+2612053,''gmina Połaniec'',staszowski,świętokrzyskie
+2612062,gmina Rytwiany,staszowski,świętokrzyskie
+2612073,''gmina Staszów'',staszowski,świętokrzyskie
+2612083,''gmina Szydłów'',staszowski,świętokrzyskie
+2613012,gmina Kluczewsko,włoszczowski,świętokrzyskie
+2613022,gmina Krasocin,włoszczowski,świętokrzyskie
+2613032,gmina Moskorzew,włoszczowski,świętokrzyskie
+2613042,gmina Radków,włoszczowski,świętokrzyskie
+2613052,gmina Secemin,włoszczowski,świętokrzyskie
+2613063,''gmina Włoszczowa'',włoszczowski,świętokrzyskie
+2661011,Kielce,Kielce,świętokrzyskie
+2801011,Bartoszyce,bartoszycki,warmińsko-mazurskie
+2801021,Górowo Iławeckie,bartoszycki,warmińsko-mazurskie
+2801032,gmina Bartoszyce,bartoszycki,warmińsko-mazurskie
+2801043,''gmina Bisztynek'',bartoszycki,warmińsko-mazurskie
+2801052,gmina Górowo Iławeckie,bartoszycki,warmińsko-mazurskie
+2801063,''gmina Sępopol'',bartoszycki,warmińsko-mazurskie
+2802011,Braniewo,braniewski,warmińsko-mazurskie
+2802022,gmina Braniewo,braniewski,warmińsko-mazurskie
+2802033,''gmina Frombork'',braniewski,warmińsko-mazurskie
+2802042,gmina Lelkowo,braniewski,warmińsko-mazurskie
+2802053,''gmina Pieniężno'',braniewski,warmińsko-mazurskie
+2802062,gmina Płoskinia,braniewski,warmińsko-mazurskie
+2802072,gmina Wilczęta,braniewski,warmińsko-mazurskie
+2803011,Działdowo,działdowski,warmińsko-mazurskie
+2803022,gmina Działdowo,działdowski,warmińsko-mazurskie
+2803032,gmina Iłowo-Osada,działdowski,warmińsko-mazurskie
+2803043,''gmina Lidzbark'',działdowski,warmińsko-mazurskie
+2803052,gmina Płośnica,działdowski,warmińsko-mazurskie
+2803062,gmina Rybno,działdowski,warmińsko-mazurskie
+2804012,gmina Elbląg,elbląski,warmińsko-mazurskie
+2804022,gmina Godkowo,elbląski,warmińsko-mazurskie
+2804032,gmina Gronowo Elbląskie,elbląski,warmińsko-mazurskie
+2804042,gmina Markusy,elbląski,warmińsko-mazurskie
+2804052,gmina Milejewo,elbląski,warmińsko-mazurskie
+2804063,''gmina Młynary'',elbląski,warmińsko-mazurskie
+2804073,''gmina Pasłęk'',elbląski,warmińsko-mazurskie
+2804082,gmina Rychliki,elbląski,warmińsko-mazurskie
+2804093,''gmina Tolkmicko'',elbląski,warmińsko-mazurskie
+2805011,Ełk,ełcki,warmińsko-mazurskie
+2805022,gmina Ełk,ełcki,warmińsko-mazurskie
+2805032,gmina Kalinowo,ełcki,warmińsko-mazurskie
+2805042,gmina Prostki,ełcki,warmińsko-mazurskie
+2805052,gmina Stare Juchy,ełcki,warmińsko-mazurskie
+2806011,Giżycko,giżycki,warmińsko-mazurskie
+2806042,gmina Giżycko,giżycki,warmińsko-mazurskie
+2806052,gmina Kruklanki,giżycki,warmińsko-mazurskie
+2806062,gmina Miłki,giżycki,warmińsko-mazurskie
+2806083,''gmina Ryn'',giżycki,warmińsko-mazurskie
+2806102,gmina Wydminy,giżycki,warmińsko-mazurskie
+2807011,Iława,iławski,warmińsko-mazurskie
+2807021,Lubawa,iławski,warmińsko-mazurskie
+2807032,gmina Iława,iławski,warmińsko-mazurskie
+2807043,''gmina Kisielice'',iławski,warmińsko-mazurskie
+2807052,gmina Lubawa,iławski,warmińsko-mazurskie
+2807063,''gmina Susz'',iławski,warmińsko-mazurskie
+2807073,''gmina Zalewo'',iławski,warmińsko-mazurskie
+2808011,Kętrzyn,kętrzyński,warmińsko-mazurskie
+2808022,gmina Barciany,kętrzyński,warmińsko-mazurskie
+2808032,gmina Kętrzyn,kętrzyński,warmińsko-mazurskie
+2808043,''gmina Korsze'',kętrzyński,warmińsko-mazurskie
+2808053,''gmina Reszel'',kętrzyński,warmińsko-mazurskie
+2808062,gmina Srokowo,kętrzyński,warmińsko-mazurskie
+2809011,Lidzbark Warmiński,lidzbarski,warmińsko-mazurskie
+2809022,gmina Kiwity,lidzbarski,warmińsko-mazurskie
+2809032,gmina Lidzbark Warmiński,lidzbarski,warmińsko-mazurskie
+2809042,gmina Lubomino,lidzbarski,warmińsko-mazurskie
+2809053,''gmina Orneta'',lidzbarski,warmińsko-mazurskie
+2810011,Mrągowo,mrągowski,warmińsko-mazurskie
+2810023,''gmina Mikołajki'',mrągowski,warmińsko-mazurskie
+2810032,gmina Mrągowo,mrągowski,warmińsko-mazurskie
+2810042,gmina Piecki,mrągowski,warmińsko-mazurskie
+2810052,gmina Sorkwity,mrągowski,warmińsko-mazurskie
+2811012,gmina Janowiec Kościelny,nidzicki,warmińsko-mazurskie
+2811022,gmina Janowo,nidzicki,warmińsko-mazurskie
+2811032,gmina Kozłowo,nidzicki,warmińsko-mazurskie
+2811043,''gmina Nidzica'',nidzicki,warmińsko-mazurskie
+2812011,Nowe Miasto Lubawskie,nowomiejski,warmińsko-mazurskie
+2812022,gmina Biskupiec,nowomiejski,warmińsko-mazurskie
+2812032,gmina Grodziczno,nowomiejski,warmińsko-mazurskie
+2812042,gmina Kurzętnik,nowomiejski,warmińsko-mazurskie
+2812052,gmina Bratian,nowomiejski,warmińsko-mazurskie
+2813032,gmina Kowale Oleckie,olecki,warmińsko-mazurskie
+2813043,''gmina Olecko'',olecki,warmińsko-mazurskie
+2813052,gmina Świętajno,olecki,warmińsko-mazurskie
+2813062,gmina Wieliczki,olecki,warmińsko-mazurskie
+2814013,''gmina Barczewo'',olsztyński,warmińsko-mazurskie
+2814023,''gmina Biskupiec'',olsztyński,warmińsko-mazurskie
+2814033,''gmina Dobre Miasto'',olsztyński,warmińsko-mazurskie
+2814042,gmina Dywity,olsztyński,warmińsko-mazurskie
+2814052,gmina Gietrzwałd,olsztyński,warmińsko-mazurskie
+2814063,''gmina Jeziorany'',olsztyński,warmińsko-mazurskie
+2814072,gmina Jonkowo,olsztyński,warmińsko-mazurskie
+2814082,gmina Kolno,olsztyński,warmińsko-mazurskie
+2814093,''gmina Olsztynek'',olsztyński,warmińsko-mazurskie
+2814102,gmina Purda,olsztyński,warmińsko-mazurskie
+2814112,gmina Stawiguda,olsztyński,warmińsko-mazurskie
+2814122,gmina Świątki,olsztyński,warmińsko-mazurskie
+2815011,Ostróda,ostródzki,warmińsko-mazurskie
+2815022,gmina Dąbrówno,ostródzki,warmińsko-mazurskie
+2815032,gmina Grunwald,ostródzki,warmińsko-mazurskie
+2815042,gmina Łukta,ostródzki,warmińsko-mazurskie
+2815052,gmina Małdyty,ostródzki,warmińsko-mazurskie
+2815063,''gmina Miłakowo'',ostródzki,warmińsko-mazurskie
+2815073,''gmina Miłomłyn'',ostródzki,warmińsko-mazurskie
+2815083,''gmina Morąg'',ostródzki,warmińsko-mazurskie
+2815092,gmina Ostróda,ostródzki,warmińsko-mazurskie
+2816013,''gmina Biała Piska'',piski,warmińsko-mazurskie
+2816023,''gmina Orzysz'',piski,warmińsko-mazurskie
+2816033,''gmina Pisz'',piski,warmińsko-mazurskie
+2816043,''gmina Ruciane-Nida'',piski,warmińsko-mazurskie
+2817011,Szczytno,szczycieński,warmińsko-mazurskie
+2817022,gmina Dźwierzuty,szczycieński,warmińsko-mazurskie
+2817032,gmina Jedwabno,szczycieński,warmińsko-mazurskie
+2817043,''gmina Pasym'',szczycieński,warmińsko-mazurskie
+2817052,gmina Rozogi,szczycieński,warmińsko-mazurskie
+2817062,gmina Szczytno,szczycieński,warmińsko-mazurskie
+2817072,gmina Świętajno,szczycieński,warmińsko-mazurskie
+2817083,''gmina Wielbark'',szczycieński,warmińsko-mazurskie
+2818012,gmina Banie Mazurskie,gołdapski,warmińsko-mazurskie
+2818022,gmina Dubeninki,gołdapski,warmińsko-mazurskie
+2818033,''gmina Gołdap'',gołdapski,warmińsko-mazurskie
+2819012,gmina Budry,węgorzewski,warmińsko-mazurskie
+2819022,gmina Pozezdrze,węgorzewski,warmińsko-mazurskie
+2819033,''gmina Węgorzewo'',węgorzewski,warmińsko-mazurskie
+2861011,Elbląg,Elbląg,warmińsko-mazurskie
+2862011,Olsztyn,Olsztyn,warmińsko-mazurskie
+3001011,Chodzież,chodzieski,wielkopolskie
+3001023,''gmina Budzyń'',chodzieski,wielkopolskie
+3001032,gmina Chodzież,chodzieski,wielkopolskie
+3001043,''gmina Margonin'',chodzieski,wielkopolskie
+3001053,''gmina Szamocin'',chodzieski,wielkopolskie
+3002011,Czarnków,czarnkowsko-trzcianecki,wielkopolskie
+3002022,gmina Czarnków,czarnkowsko-trzcianecki,wielkopolskie
+3002032,gmina Drawsko,czarnkowsko-trzcianecki,wielkopolskie
+3002043,''gmina Krzyż Wielkopolski'',czarnkowsko-trzcianecki,wielkopolskie
+3002052,gmina Lubasz,czarnkowsko-trzcianecki,wielkopolskie
+3002062,gmina Połajewo,czarnkowsko-trzcianecki,wielkopolskie
+3002073,''gmina Trzcianka'',czarnkowsko-trzcianecki,wielkopolskie
+3002083,''gmina Wieleń'',czarnkowsko-trzcianecki,wielkopolskie
+3003011,Gniezno,gnieźnieński,wielkopolskie
+3003023,''gmina Czerniejewo'',gnieźnieński,wielkopolskie
+3003032,gmina Gniezno,gnieźnieński,wielkopolskie
+3003042,gmina Kiszkowo,gnieźnieński,wielkopolskie
+3003053,''gmina Kłecko'',gnieźnieński,wielkopolskie
+3003062,gmina Łubowo,gnieźnieński,wielkopolskie
+3003072,gmina Mieleszyn,gnieźnieński,wielkopolskie
+3003082,gmina Niechanowo,gnieźnieński,wielkopolskie
+3003093,''gmina Trzemeszno'',gnieźnieński,wielkopolskie
+3003103,''gmina Witkowo'',gnieźnieński,wielkopolskie
+3004013,''gmina Borek Wielkopolski'',gostyński,wielkopolskie
+3004023,''gmina Gostyń'',gostyński,wielkopolskie
+3004033,''gmina Krobia'',gostyński,wielkopolskie
+3004042,gmina Pępowo,gostyński,wielkopolskie
+3004052,gmina Piaski,gostyński,wielkopolskie
+3004063,''gmina Pogorzela'',gostyński,wielkopolskie
+3004073,''gmina Poniec'',gostyński,wielkopolskie
+3005012,gmina Granowo,grodziski,wielkopolskie
+3005023,''gmina Grodzisk Wielkopolski'',grodziski,wielkopolskie
+3005032,gmina Kamieniec,grodziski,wielkopolskie
+3005043,''gmina Rakoniewice'',grodziski,wielkopolskie
+3005053,''gmina Wielichowo'',grodziski,wielkopolskie
+3006013,''gmina Jaraczewo'',jarociński,wielkopolskie
+3006023,''gmina Jarocin'',jarociński,wielkopolskie
+3006032,gmina Kotlin,jarociński,wielkopolskie
+3006043,''gmina Żerków'',jarociński,wielkopolskie
+3007012,gmina Blizanów,kaliski,wielkopolskie
+3007022,gmina Brzeziny,kaliski,wielkopolskie
+3007032,gmina Ceków-Kolonia,kaliski,wielkopolskie
+3007042,gmina Godziesze Wielkie,kaliski,wielkopolskie
+3007053,''gmina Koźminek'',kaliski,wielkopolskie
+3007062,gmina Lisków,kaliski,wielkopolskie
+3007072,gmina Mycielin,kaliski,wielkopolskie
+3007083,''gmina Opatówek'',kaliski,wielkopolskie
+3007093,''gmina Stawiszyn'',kaliski,wielkopolskie
+3007102,gmina Szczytniki,kaliski,wielkopolskie
+3007112,gmina Żelazków,kaliski,wielkopolskie
+3008012,gmina Baranów,kępiński,wielkopolskie
+3008022,gmina Bralin,kępiński,wielkopolskie
+3008033,''gmina Kępno'',kępiński,wielkopolskie
+3008042,gmina Łęka Opatowska,kępiński,wielkopolskie
+3008052,gmina Perzów,kępiński,wielkopolskie
+3008062,gmina Rychtal,kępiński,wielkopolskie
+3008072,gmina Trzcinica,kępiński,wielkopolskie
+3009011,Koło,kolski,wielkopolskie
+3009022,gmina Babiak,kolski,wielkopolskie
+3009032,gmina Chodów,kolski,wielkopolskie
+3009043,''gmina Dąbie'',kolski,wielkopolskie
+3009052,gmina Grzegorzew,kolski,wielkopolskie
+3009063,''gmina Kłodawa'',kolski,wielkopolskie
+3009072,gmina Koło,kolski,wielkopolskie
+3009082,gmina Kościelec,kolski,wielkopolskie
+3009092,gmina Olszówka,kolski,wielkopolskie
+3009102,gmina Osiek Mały,kolski,wielkopolskie
+3009113,''gmina Przedecz'',kolski,wielkopolskie
+3010013,''gmina Golina'',koniński,wielkopolskie
+3010022,gmina Grodziec,koniński,wielkopolskie
+3010032,gmina Kazimierz Biskupi,koniński,wielkopolskie
+3010043,''gmina Kleczew'',koniński,wielkopolskie
+3010052,gmina Kramsk,koniński,wielkopolskie
+3010062,gmina Krzymów,koniński,wielkopolskie
+3010073,''gmina Rychwał'',koniński,wielkopolskie
+3010082,gmina Rzgów,koniński,wielkopolskie
+3010092,gmina Skulsk,koniński,wielkopolskie
+3010103,''gmina Sompolno'',koniński,wielkopolskie
+3010112,gmina Stare Miasto,koniński,wielkopolskie
+3010123,''gmina Ślesin'',koniński,wielkopolskie
+3010132,gmina Wierzbinek,koniński,wielkopolskie
+3010142,gmina Wilczyn,koniński,wielkopolskie
+3011011,Kościan,kościański,wielkopolskie
+3011023,''gmina Czempiń'',kościański,wielkopolskie
+3011032,gmina Kościan,kościański,wielkopolskie
+3011043,''gmina Krzywiń'',kościański,wielkopolskie
+3011053,''gmina Śmigiel'',kościański,wielkopolskie
+3012011,Sulmierzyce,krotoszyński,wielkopolskie
+3012023,''gmina Kobylin'',krotoszyński,wielkopolskie
+3012033,''gmina Koźmin Wielkopolski'',krotoszyński,wielkopolskie
+3012043,''gmina Krotoszyn'',krotoszyński,wielkopolskie
+3012052,gmina Rozdrażew,krotoszyński,wielkopolskie
+3012063,''gmina Zduny'',krotoszyński,wielkopolskie
+3013012,gmina Krzemieniewo,leszczyński,wielkopolskie
+3013022,gmina Lipno,leszczyński,wielkopolskie
+3013033,''gmina Osieczna'',leszczyński,wielkopolskie
+3013043,''gmina Rydzyna'',leszczyński,wielkopolskie
+3013052,gmina Święciechowa,leszczyński,wielkopolskie
+3013062,gmina Wijewo,leszczyński,wielkopolskie
+3013072,gmina Włoszakowice,leszczyński,wielkopolskie
+3014012,gmina Chrzypsko Wielkie,międzychodzki,wielkopolskie
+3014022,gmina Kwilcz,międzychodzki,wielkopolskie
+3014033,''gmina Międzychód'',międzychodzki,wielkopolskie
+3014043,''gmina Sieraków'',międzychodzki,wielkopolskie
+3015012,gmina Kuślin,nowotomyski,wielkopolskie
+3015023,gmina Lwówek,nowotomyski,wielkopolskie
+3015032,gmina Miedzichowo,nowotomyski,wielkopolskie
+3015043,''gmina Nowy Tomyśl'',nowotomyski,wielkopolskie
+3015053,''gmina Opalenica'',nowotomyski,wielkopolskie
+3015063,''gmina Zbąszyń'',nowotomyski,wielkopolskie
+3016013,''gmina Oborniki'',obornicki,wielkopolskie
+3016023,''gmina Rogoźno'',obornicki,wielkopolskie
+3016032,gmina Ryczywół,obornicki,wielkopolskie
+3017011,Ostrów Wielkopolski,ostrowski,wielkopolskie
+3017023,''gmina Nowe Skalmierzyce'',ostrowski,wielkopolskie
+3017033,''gmina Odolanów'',ostrowski,wielkopolskie
+3017042,gmina Ostrów Wielkopolski,ostrowski,wielkopolskie
+3017052,gmina Przygodzice,ostrowski,wielkopolskie
+3017063,''gmina Raszków'',ostrowski,wielkopolskie
+3017072,gmina Sieroszewice,ostrowski,wielkopolskie
+3017082,gmina Sośnie,ostrowski,wielkopolskie
+3018012,gmina Czajków,ostrzeszowski,wielkopolskie
+3018022,gmina Doruchów,ostrzeszowski,wielkopolskie
+3018033,''gmina Grabów nad Prosną'',ostrzeszowski,wielkopolskie
+3018042,gmina Kobyla Góra,ostrzeszowski,wielkopolskie
+3018052,gmina Kraszewice,ostrzeszowski,wielkopolskie
+3018063,''gmina Mikstat'',ostrzeszowski,wielkopolskie
+3018073,''gmina Ostrzeszów'',ostrzeszowski,wielkopolskie
+3019011,Piła,pilski,wielkopolskie
+3019022,gmina Białośliwie,pilski,wielkopolskie
+3019032,gmina Kaczory,pilski,wielkopolskie
+3019043,''gmina Łobżenica'',pilski,wielkopolskie
+3019052,gmina Miasteczko Krajeńskie,pilski,wielkopolskie
+3019062,gmina Szydłowo,pilski,wielkopolskie
+3019073,''gmina Ujście'',pilski,wielkopolskie
+3019083,''gmina Wyrzysk'',pilski,wielkopolskie
+3019093,''gmina Wysoka'',pilski,wielkopolskie
+3020013,''gmina Chocz'',pleszewski,wielkopolskie
+3020022,gmina Czermin,pleszewski,wielkopolskie
+3020033,''gmina Dobrzyca'',pleszewski,wielkopolskie
+3020042,gmina Gizałki,pleszewski,wielkopolskie
+3020052,gmina Gołuchów,pleszewski,wielkopolskie
+3020063,''gmina Pleszew'',pleszewski,wielkopolskie
+3021011,Luboń,poznański,wielkopolskie
+3021021,Puszczykowo,poznański,wielkopolskie
+3021033,''gmina Buk'',poznański,wielkopolskie
+3021042,gmina Czerwonak,poznański,wielkopolskie
+3021052,gmina Dopiewo,poznański,wielkopolskie
+3021062,gmina Kleszczewo,poznański,wielkopolskie
+3021072,gmina Komorniki,poznański,wielkopolskie
+3021083,''gmina Kostrzyn'',poznański,wielkopolskie
+3021093,''gmina Kórnik'',poznański,wielkopolskie
+3021103,''gmina Mosina'',poznański,wielkopolskie
+3021113,''gmina Murowana Goślina'',poznański,wielkopolskie
+3021123,''gmina Pobiedziska'',poznański,wielkopolskie
+3021132,gmina Rokietnica,poznański,wielkopolskie
+3021143,''gmina Stęszew'',poznański,wielkopolskie
+3021152,gmina Suchy Las,poznański,wielkopolskie
+3021163,''gmina Swarzędz'',poznański,wielkopolskie
+3021172,gmina Tarnowo Podgórne,poznański,wielkopolskie
+3022013,''gmina Bojanowo'',rawicki,wielkopolskie
+3022023,''gmina Jutrosin'',rawicki,wielkopolskie
+3022033,''gmina Miejska Górka'',rawicki,wielkopolskie
+3022042,gmina Pakosław,rawicki,wielkopolskie
+3022053,''gmina Rawicz'',rawicki,wielkopolskie
+3023011,Słupca,słupecki,wielkopolskie
+3023022,gmina Lądek,słupecki,wielkopolskie
+3023032,gmina Orchowo,słupecki,wielkopolskie
+3023042,gmina Ostrowite,słupecki,wielkopolskie
+3023052,gmina Powidz,słupecki,wielkopolskie
+3023062,gmina Słupca,słupecki,wielkopolskie
+3023072,gmina Strzałkowo,słupecki,wielkopolskie
+3023083,''gmina Zagórów'',słupecki,wielkopolskie
+3024011,Obrzycko,szamotulski,wielkopolskie
+3024022,gmina Duszniki,szamotulski,wielkopolskie
+3024032,gmina Kaźmierz,szamotulski,wielkopolskie
+3024042,gmina Obrzycko,szamotulski,wielkopolskie
+3024053,''gmina Ostroróg'',szamotulski,wielkopolskie
+3024063,''gmina Pniewy'',szamotulski,wielkopolskie
+3024073,''gmina Szamotuły'',szamotulski,wielkopolskie
+3024083,''gmina Wronki'',szamotulski,wielkopolskie
+3025012,gmina Dominowo,średzki,wielkopolskie
+3025022,gmina Krzykosy,średzki,wielkopolskie
+3025032,gmina Nowe Miasto nad Wartą,średzki,wielkopolskie
+3025043,''gmina Środa Wielkopolska'',średzki,wielkopolskie
+3025052,gmina Zaniemyśl,średzki,wielkopolskie
+3026012,gmina Brodnica,śremski,wielkopolskie
+3026023,''gmina Dolsk'',śremski,wielkopolskie
+3026033,''gmina Książ Wielkopolski'',śremski,wielkopolskie
+3026043,''gmina Śrem'',śremski,wielkopolskie
+3027011,Turek,turecki,wielkopolskie
+3027022,gmina Brudzew,turecki,wielkopolskie
+3027033,''gmina Dobra'',turecki,wielkopolskie
+3027042,gmina Kawęczyn,turecki,wielkopolskie
+3027052,gmina Malanów,turecki,wielkopolskie
+3027062,gmina Przykona,turecki,wielkopolskie
+3027073,''gmina Tuliszków'',turecki,wielkopolskie
+3027082,gmina Turek,turecki,wielkopolskie
+3027092,gmina Władysławów,turecki,wielkopolskie
+3028011,Wągrowiec,wągrowiecki,wielkopolskie
+3028022,gmina Damasławek,wągrowiecki,wielkopolskie
+3028033,''gmina Gołańcz'',wągrowiecki,wielkopolskie
+3028042,gmina Mieścisko,wągrowiecki,wielkopolskie
+3028053,''gmina Skoki'',wągrowiecki,wielkopolskie
+3028062,gmina Wapno,wągrowiecki,wielkopolskie
+3028072,gmina Wągrowiec,wągrowiecki,wielkopolskie
+3029012,gmina Przemęt,wolsztyński,wielkopolskie
+3029022,gmina Siedlec,wolsztyński,wielkopolskie
+3029033,''gmina Wolsztyn'',wolsztyński,wielkopolskie
+3030012,gmina Kołaczkowo,wrzesiński,wielkopolskie
+3030023,''gmina Miłosław'',wrzesiński,wielkopolskie
+3030033,''gmina Nekla'',wrzesiński,wielkopolskie
+3030043,''gmina Pyzdry'',wrzesiński,wielkopolskie
+3030053,''gmina Września'',wrzesiński,wielkopolskie
+3031011,Złotów,złotowski,wielkopolskie
+3031023,''gmina Jastrowie'',złotowski,wielkopolskie
+3031033,''gmina Krajenka'',złotowski,wielkopolskie
+3031042,gmina Lipka,złotowski,wielkopolskie
+3031053,''gmina Okonek'',złotowski,wielkopolskie
+3031062,gmina Tarnówka,złotowski,wielkopolskie
+3031072,gmina Zakrzewo,złotowski,wielkopolskie
+3031082,gmina Złotów,złotowski,wielkopolskie
+3061011,Kalisz,Kalisz,wielkopolskie
+3062011,Konin,Konin,wielkopolskie
+3063011,Leszno,Leszno,wielkopolskie
+3064011,Poznań,Poznań,wielkopolskie
+3201011,Białogard,białogardzki,zachodniopomorskie
+3201022,gmina Białogard,białogardzki,zachodniopomorskie
+3201033,''gmina Karlino'',białogardzki,zachodniopomorskie
+3201043,''gmina Tychowo'',białogardzki,zachodniopomorskie
+3202012,gmina Bierzwnik,choszczeński,zachodniopomorskie
+3202023,''gmina Choszczno'',choszczeński,zachodniopomorskie
+3202033,''gmina Drawno'',choszczeński,zachodniopomorskie
+3202042,gmina Krzęcin,choszczeński,zachodniopomorskie
+3202053,''gmina Pełczyce'',choszczeński,zachodniopomorskie
+3202063,''gmina Recz'',choszczeński,zachodniopomorskie
+3203013,''gmina Czaplinek'',drawski,zachodniopomorskie
+3203023,''gmina Drawsko Pomorskie'',drawski,zachodniopomorskie
+3203033,''gmina Kalisz Pomorski'',drawski,zachodniopomorskie
+3203052,gmina Wierzchowo,drawski,zachodniopomorskie
+3203063,''gmina Złocieniec'',drawski,zachodniopomorskie
+3204023,''gmina Goleniów'',goleniowski,zachodniopomorskie
+3204033,''gmina Maszewo'',goleniowski,zachodniopomorskie
+3204043,''gmina Nowogard'',goleniowski,zachodniopomorskie
+3204052,gmina Osina,goleniowski,zachodniopomorskie
+3204062,gmina Przybiernów,goleniowski,zachodniopomorskie
+3204073,''gmina Stepnica'',goleniowski,zachodniopomorskie
+3205012,gmina Brojce,gryficki,zachodniopomorskie
+3205023,''gmina Gryfice'',gryficki,zachodniopomorskie
+3205032,gmina Karnice,gryficki,zachodniopomorskie
+3205043,''gmina Płoty'',gryficki,zachodniopomorskie
+3205072,gmina Rewal,gryficki,zachodniopomorskie
+3205083,''gmina Trzebiatów'',gryficki,zachodniopomorskie
+3206012,gmina Banie,gryfiński,zachodniopomorskie
+3206023,''gmina Cedynia'',gryfiński,zachodniopomorskie
+3206033,''gmina Chojna'',gryfiński,zachodniopomorskie
+3206043,''gmina Gryfino'',gryfiński,zachodniopomorskie
+3206053,''gmina Mieszkowice'',gryfiński,zachodniopomorskie
+3206063,''gmina Moryń'',gryfiński,zachodniopomorskie
+3206072,gmina Stare Czarnowo,gryfiński,zachodniopomorskie
+3206083,''gmina Trzcińsko-Zdrój'',gryfiński,zachodniopomorskie
+3206092,gmina Widuchowa,gryfiński,zachodniopomorskie
+3207013,''gmina Dziwnów'',kamieński,zachodniopomorskie
+3207023,''gmina Golczewo'',kamieński,zachodniopomorskie
+3207033,''gmina Kamień Pomorski'',kamieński,zachodniopomorskie
+3207043,''gmina Międzyzdroje'',kamieński,zachodniopomorskie
+3207052,gmina Świerzno,kamieński,zachodniopomorskie
+3207063,''gmina Wolin'',kamieński,zachodniopomorskie
+3208011,Kołobrzeg,kołobrzeski,zachodniopomorskie
+3208022,gmina Dygowo,kołobrzeski,zachodniopomorskie
+3208033,''gmina Gościno'',kołobrzeski,zachodniopomorskie
+3208042,gmina Kołobrzeg,kołobrzeski,zachodniopomorskie
+3208052,gmina Rymań,kołobrzeski,zachodniopomorskie
+3208062,gmina Siemyśl,kołobrzeski,zachodniopomorskie
+3208072,gmina Ustronie Morskie,kołobrzeski,zachodniopomorskie
+3209012,gmina Będzino,koszaliński,zachodniopomorskie
+3209022,gmina Biesiekierz,koszaliński,zachodniopomorskie
+3209033,''gmina Bobolice'',koszaliński,zachodniopomorskie
+3209042,gmina Manowo,koszaliński,zachodniopomorskie
+3209053,''gmina Mielno'',koszaliński,zachodniopomorskie
+3209063,''gmina Polanów'',koszaliński,zachodniopomorskie
+3209073,''gmina Sianów'',koszaliński,zachodniopomorskie
+3209082,gmina Świeszyno,koszaliński,zachodniopomorskie
+3210013,''gmina Barlinek'',myśliborski,zachodniopomorskie
+3210022,gmina Boleszkowice,myśliborski,zachodniopomorskie
+3210033,''gmina Dębno'',myśliborski,zachodniopomorskie
+3210043,''gmina Myślibórz'',myśliborski,zachodniopomorskie
+3210052,gmina Nowogródek Pomorski,myśliborski,zachodniopomorskie
+3211012,gmina Dobra (Szczecińska),policki,zachodniopomorskie
+3211022,gmina Kołbaskowo,policki,zachodniopomorskie
+3211033,''gmina Nowe Warpno'',policki,zachodniopomorskie
+3211043,''gmina Police'',policki,zachodniopomorskie
+3212012,gmina Bielice,pyrzycki,zachodniopomorskie
+3212022,gmina Kozielice,pyrzycki,zachodniopomorskie
+3212033,''gmina Lipiany'',pyrzycki,zachodniopomorskie
+3212042,gmina Przelewice,pyrzycki,zachodniopomorskie
+3212053,''gmina Pyrzyce'',pyrzycki,zachodniopomorskie
+3212062,gmina Warnice,pyrzycki,zachodniopomorskie
+3213011,Darłowo,sławieński,zachodniopomorskie
+3213021,Sławno,sławieński,zachodniopomorskie
+3213032,gmina Darłowo,sławieński,zachodniopomorskie
+3213042,gmina Malechowo,sławieński,zachodniopomorskie
+3213052,gmina Postomino,sławieński,zachodniopomorskie
+3213062,gmina Sławno,sławieński,zachodniopomorskie
+3214011,Stargard,stargardzki,zachodniopomorskie
+3214023,''gmina Chociwel'',stargardzki,zachodniopomorskie
+3214033,''gmina Dobrzany'',stargardzki,zachodniopomorskie
+3214042,gmina Dolice,stargardzki,zachodniopomorskie
+3214053,''gmina Ińsko'',stargardzki,zachodniopomorskie
+3214062,gmina Kobylanka,stargardzki,zachodniopomorskie
+3214082,gmina Marianowo,stargardzki,zachodniopomorskie
+3214092,gmina Stara Dąbrowa,stargardzki,zachodniopomorskie
+3214102,gmina Stargard,stargardzki,zachodniopomorskie
+3214113,''gmina Suchań'',stargardzki,zachodniopomorskie
+3215011,Szczecinek,szczecinecki,zachodniopomorskie
+3215023,''gmina Barwice'',szczecinecki,zachodniopomorskie
+3215033,''gmina Biały Bór'',szczecinecki,zachodniopomorskie
+3215043,''gmina Borne Sulinowo'',szczecinecki,zachodniopomorskie
+3215052,gmina Grzmiąca,szczecinecki,zachodniopomorskie
+3215062,gmina Szczecinek,szczecinecki,zachodniopomorskie
+3216011,Świdwin,świdwiński,zachodniopomorskie
+3216022,gmina Brzeżno,świdwiński,zachodniopomorskie
+3216033,''gmina Połczyn-Zdrój'',świdwiński,zachodniopomorskie
+3216042,gmina Rąbino,świdwiński,zachodniopomorskie
+3216052,gmina Sławoborze,świdwiński,zachodniopomorskie
+3216062,gmina Świdwin,świdwiński,zachodniopomorskie
+3217011,Wałcz,wałecki,zachodniopomorskie
+3217023,''gmina Człopa'',wałecki,zachodniopomorskie
+3217033,''gmina Mirosławiec'',wałecki,zachodniopomorskie
+3217043,''gmina Tuczno'',wałecki,zachodniopomorskie
+3217052,gmina Wałcz,wałecki,zachodniopomorskie
+3218013,''gmina Dobra'',łobeski,zachodniopomorskie
+3218023,''gmina Łobez'',łobeski,zachodniopomorskie
+3218032,gmina Radowo Małe,łobeski,zachodniopomorskie
+3218043,''gmina Resko'',łobeski,zachodniopomorskie
+3218053,''gmina Węgorzyno'',łobeski,zachodniopomorskie
+3261011,Koszalin,Koszalin,zachodniopomorskie
+3262011,Szczecin,Szczecin,zachodniopomorskie
+3263011,Świnoujście,Świnoujście,zachodniopomorskie

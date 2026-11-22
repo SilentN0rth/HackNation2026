@@ -136,3 +136,14 @@ def test_dictionaries(client):
     assert {"Kraje", "Województwo", "RASY_PSOW_UZNAWANYCH_ZA_AGRESYWNE"} <= names
     breeds = client.get("/dictionaries/RASY_PSOW_UZNAWANYCH_ZA_AGRESYWNE").json()
     assert breeds["proposal"] is True and len(breeds["values"]) == 11
+
+
+def test_predefined_dictionaries_are_filled(client):
+    size = lambda name: len(client.get(f"/dictionaries/{name}").json()["values"])  # noqa: E731
+    assert size("Województwo") == 16
+    assert size("Powiat") == 380
+    assert size("Gmina") == 2479
+    assert size("Kraje") >= 190
+    assert size("Numery kierunkowe") >= 200
+    assert client.get("/dictionaries/Kraje").json()["values"][0]["name"] == "Polska"
+    assert client.get("/dictionaries/Numery kierunkowe").json()["values"][0]["name"] == "+48"
