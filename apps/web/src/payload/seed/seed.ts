@@ -1,5 +1,6 @@
 import type { Payload } from "payload";
 import { applications, auditTrail, drafts, prefillData, publishedForms, runMockLinters, statuteChunks, users } from "../../mocks";
+import { FormSchemaSchema } from "../../types/form";
 import type { FormsContext } from "../hooks/forms";
 
 export const SEED_EMAIL = "urzednik@example.gov.pl";
@@ -30,9 +31,16 @@ async function seedUser(payload: Payload): Promise<number> {
   return user.id;
 }
 
-async function findFormId(payload: Payload, slug: string): Promise<number | undefined> {
+async function findFormId(payload: Payload, slug: string, schema: unknown): Promise<number | undefined> {
   const found = await payload.find({ collection: "forms", where: { slug: { equals: slug } }, limit: 1, draft: true, depth: 0 });
-  return found.docs[0]?.id;
+  const existing = found.docs[0];
+  // Formularz demo zapisany przed zmianą kontraktu (np. starym formatem prefill) psuje widok obywatela – odświeżamy jego schemat.
+  // Schemat poprawny względem kontraktu zostaje nietknięty, więc zmiany wprowadzone w panelu nie giną.
+  if (existing && !FormSchemaSchema.safeParse(existing.schema).success) {
+    await payload.update({ collection: "forms", id: existing.id, context, data: { schema: schema as typeof existing.schema } });
+    payload.logger.info(`seed: odświeżono schemat formularza demo „${slug}” (niezgodny z kontraktem)`);
+  }
+  return existing?.id;
 }
 
 async function seedForms(payload: Payload, userId: number) {
@@ -41,7 +49,7 @@ async function seedForms(payload: Payload, userId: number) {
 
   for (const draft of drafts) {
     const slug = draft.schema.id;
-    let id = await findFormId(payload, slug);
+    let id = await findFormId(payload, slug, draft.schema);
     if (!id) {
       const doc = await payload.create({
         collection: "forms",
@@ -66,7 +74,7 @@ async function seedForms(payload: Payload, userId: number) {
 
   for (const form of publishedForms) {
     const slug = form.schema.id;
-    let id = await findFormId(payload, slug);
+    let id = await findFormId(payload, slug, form.schema);
     if (!id) {
       const doc = await payload.create({
         collection: "forms",
