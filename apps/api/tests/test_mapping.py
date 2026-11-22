@@ -46,6 +46,12 @@ def test_edit_and_delete_field(template):
     assert errors(back) == []
 
 
+def test_fields_carry_their_section_title(template):
+    schema = frontend(template)
+    fields = [f for p in schema["pages"] for f in p["fields"]]
+    assert fields and all(f.get("section") for f in fields)
+
+
 def test_fields_follow_grid_position_not_array_order():
     template = json.loads((FIXTURES / "wzorzec_numer_porzadkowy.json").read_text(encoding="utf-8"))
     labels = [f["label"] for p in frontend(template)["pages"] for f in p["fields"]]

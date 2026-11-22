@@ -184,10 +184,11 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
             continue
         fields = []
         for question in tab.get("questions") or []:
+            section_title = ((question.get("field") or {}).get("title") or "").strip()
             for child in sorted(children(question.get("field") or {}), key=lambda c: c.get("y", 0)):
                 field = child.get("field") or {}
                 if field.get("type") == "CONSENT_SECTION":
-                    fields.extend(consent_items(field))
+                    fields.extend({**c, "section": section_title or "Zgody i oświadczenia"} for c in consent_items(field))
                     continue
                 kind = front_type(field)
                 if kind is None:
@@ -198,6 +199,8 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                     "type": kind,
                     "required": "REQUIRED" in (field.get("validation") or []),
                 }
+                if section_title:
+                    item["section"] = section_title
                 if field.get("tooltipMessage"):
                     item["helpText"] = field["tooltipMessage"]
                 options = _options(field)
