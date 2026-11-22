@@ -192,6 +192,10 @@ export const mockApi: Api = {
     return clone(a);
   },
 
+  async uploadAttachment(file) {
+    return `mock-${Date.now()}|${file.name}`;
+  },
+
   async saveApplication(input) {
     await wait(300);
     const existing = input.id ? state.applications.find((a) => a.id === input.id) : undefined;

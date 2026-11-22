@@ -105,6 +105,12 @@ export const httpApi: Api = {
   getPrefill: (formId) => request(PrefillDataSchema, `/prefill?formId=${formId}`, {}, "citizen"),
   listMyApplications: () => request(z.array(ApplicationSchema), "/applications?mine=true", {}, "citizen"),
   getApplication: (id) => request(ApplicationSchema, `/applications/${id}`, {}, "citizen"),
+  async uploadAttachment(file) {
+    const form = new FormData();
+    form.append("file", file);
+    const body = z.object({ id: z.string(), name: z.string() }).parse(await call("/attachments", { method: "POST", body: form }, "citizen"));
+    return `${body.id}|${body.name}`;
+  },
   saveApplication: (app) =>
     app.id
       ? request(ApplicationSchema, `/applications/${app.id}`, { method: "PUT", body: json(app) }, "citizen")

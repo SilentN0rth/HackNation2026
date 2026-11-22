@@ -29,6 +29,8 @@ export interface Api {
   getPrefill(formId: string): Promise<PrefillData>;
   listMyApplications(): Promise<Application[]>;
   getApplication(applicationId: string): Promise<Application>;
+  /** Wysyła załącznik; zwraca wartość pola w formacie „id|nazwa”. Brak metody = zapis samej nazwy pliku. */
+  uploadAttachment?(file: File): Promise<string>;
   saveApplication(app: Omit<Application, "id" | "updatedAt"> & { id?: string }): Promise<Application>;
 }
 

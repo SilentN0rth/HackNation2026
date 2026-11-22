@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 import {
   Checkbox,
   Description,
@@ -24,6 +24,8 @@ interface Props {
   prefilled?: boolean;
   onChange: (value: string | boolean) => void;
   readOnly?: boolean;
+  /** Wysyła plik i zwraca wartość pola; bez tego zapisujemy samą nazwę pliku. */
+  onUpload?: (file: File) => Promise<string>;
 }
 
 const INPUT_TYPE: Partial<Record<Field["type"], string>> = { date: "date", email: "email", phone: "tel" };
@@ -45,7 +47,11 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
   );
 }
 
-export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly }: Props) {
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+
+export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly, onUpload }: Props) {
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const errorId = useId();
   const fileId = useId();
   const str = typeof value === "string" ? value : "";
@@ -168,13 +174,32 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
             disabled={readOnly || field.readOnly}
             aria-invalid={invalid}
             aria-describedby={error ? errorId : undefined}
-            onChange={(e) => onChange(e.target.files?.[0]?.name ?? "")}
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              setUploadError(null);
+              if (!file) return onChange("");
+              if (file.size > MAX_FILE_BYTES) {
+                e.target.value = "";
+                return setUploadError("Plik może mieć najwyżej 10 MB.");
+              }
+              if (!onUpload) return onChange(file.name);
+              setUploading(true);
+              try {
+                onChange(await onUpload(file));
+              } catch (err) {
+                e.target.value = "";
+                setUploadError(err instanceof Error ? err.message : "Nie udało się wysłać pliku.");
+              } finally {
+                setUploading(false);
+              }
+            }}
             className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-accent-foreground"
           />
-          {str && <p className="text-sm text-muted">Wybrany plik: {str}</p>}
-          {error && (
+          {uploading && <p className="text-sm text-muted" role="status">Wysyłanie pliku…</p>}
+          {str && !uploading && <p className="text-sm text-muted">Wybrany plik: {str.split("|").slice(1).join("|") || str}</p>}
+          {(uploadError || error) && (
             <p id={errorId} className="text-sm text-danger" role="alert">
-              {error}
+              {uploadError || error}
             </p>
           )}
         </div>
