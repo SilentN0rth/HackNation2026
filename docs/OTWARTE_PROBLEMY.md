@@ -7,7 +7,7 @@ Stan na 2026-11-22. Kontekst: `docs/PRZEGLAD_POPRAWEK.md` (przegląd i status wd
 2. **Decyzje do potwierdzenia:** pola adresu z `MLPZ` edytowalne (PDF „Dane inicjalne” mówi: tylko do odczytu); `INFO_SECTION` zamiast `TEXT_BLOCK` na stronie końcowej (wzorce organizatora używają `TEXT_BLOCK`).
 
 ## Funkcje, których brakuje
-3. **Upload plików u obywatela:** `FILE_UPLOADER` nie trafia do schematu frontendu (brak typu „plik”), więc pełnomocnictwo i potwierdzenie opłaty nie da się dołączyć. Wymaga typu pola, renderera i zapisu plików.
+3. **Upload plików u obywatela (częściowo):** typ pola `file` jest w schemacie i w UI (wybór pliku, wymagalność, błąd). Wartością jest tylko nazwa pliku. Brakuje wysyłki i zapisu plików na serwerze, limitu 10 MB, listy formatów per pole i liczby plików. Brak też testu e2e.
 4. **Checkboxy „Brak nazwy ulicy” / „Brak numeru lokalu”** (standard adresu). Obecnie te pola są nieobowiązkowe.
 5. **KRS:** standard wymaga wzorca `^\d{10}$`, ale lista walidatorów COI go nie zawiera. Pole ma tylko opis „Wpisz 10 cyfr”.
 6. **Adres:** standard opisuje 4 zależne listy (województwo, powiat, gmina, miejscowość); mamy jedno pole słownikowe. Adres „innej osoby” używa `TERYT_DOWODOWY` (3 poziomy), główny `TERYT_4G_DOWODOWY`. Wzorce organizatora też się różnią (nr 1: 3 poziomy, nr 5: 4). Ujednolicić.
