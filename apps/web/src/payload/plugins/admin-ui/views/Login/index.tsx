@@ -1,6 +1,7 @@
 import type { AdminViewServerProps } from "payload";
 import { getSafeRedirect } from "payload/shared";
 import { redirect } from "next/navigation";
+import { demoLoginEnabled } from "../../../../endpoints/demoLogin";
 import { AuthLayout } from "../../shell/AuthLayout";
 import { LoginForm } from "./LoginForm";
 
@@ -12,7 +13,7 @@ export function LoginView({ initPageResult, searchParams }: AdminViewServerProps
 
   return (
     <AuthLayout title="Logowanie do panelu urzędnika" lead="Zaloguj się kontem służbowym, aby wgrywać formularze, sprawdzać uwagi i publikować e-usługi.">
-      <LoginForm redirectTo={redirectTo} />
+      <LoginForm redirectTo={redirectTo} demo={demoLoginEnabled()} />
     </AuthLayout>
   );
 }

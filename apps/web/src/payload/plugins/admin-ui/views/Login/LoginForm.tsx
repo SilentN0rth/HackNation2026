@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@heroui/react";
 import { useAuth } from "@payloadcms/ui";
 import type { UserWithToken } from "@payloadcms/ui";
 import type { ClientUser } from "payload";
@@ -9,7 +10,7 @@ import { useState } from "react";
 import { FormAlert, SubmitButton, TextInput } from "../../shell/FormBits";
 import { PayloadRestError, useUsersApi } from "../../lib/useUsersApi";
 
-export function LoginForm({ redirectTo }: { redirectTo: string }) {
+export function LoginForm({ redirectTo, demo = false }: { redirectTo: string; demo?: boolean }) {
   const { setUser } = useAuth();
   const { request, adminUrl, adminRoutes } = useUsersApi();
   const router = useRouter();
@@ -18,12 +19,11 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function signIn(path: string, body?: unknown) {
     setBusy(true);
     setError(null);
     try {
-      const data = await request<UserWithToken<ClientUser>>("/login", { body: { email, password } });
+      const data = await request<UserWithToken<ClientUser>>(path, { body });
       setUser(data);
       router.replace(redirectTo);
       router.refresh();
@@ -39,6 +39,11 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
     }
   }
 
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    void signIn("/login", { email, password });
+  }
+
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-6" aria-busy={busy}>
       <FormAlert message={error} />
@@ -50,6 +55,14 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
         </Link>
         <SubmitButton busy={busy}>Zaloguj się</SubmitButton>
       </div>
+      {demo && (
+        <div className="flex flex-col gap-2 border-t border-border pt-6">
+          <Button type="button" variant="secondary" data-testid="demo-login" isDisabled={busy} onPress={() => void signIn("/demo-login")} className="h-11 w-full px-5 text-[15px]">
+            Zaloguj jako urzędnik (demo)
+          </Button>
+          <p className="m-0 text-sm text-ink-3">Wersja demonstracyjna – konto urzędnika bez uprawnień administratora.</p>
+        </div>
+      )}
     </form>
   );
 }

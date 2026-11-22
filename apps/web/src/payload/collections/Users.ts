@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { adminOnly, adminOnlyField, adminOrSelf, loggedIn } from "../access";
+import { demoLoginEndpoint } from "../endpoints/demoLogin";
 
 export function initialsOf(name: string): string {
   return name
@@ -16,6 +17,7 @@ export const Users: CollectionConfig = {
   auth: true,
   admin: { useAsTitle: "name", defaultColumns: ["name", "email", "role"], group: "Administracja" },
   access: { read: loggedIn, create: adminOnly, update: adminOrSelf, delete: adminOnly },
+  endpoints: [demoLoginEndpoint],
   fields: [
     { name: "name", label: "Imię i nazwisko", type: "text", required: true },
     {

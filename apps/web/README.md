@@ -40,6 +40,7 @@ Payload CMS 3 (dane urzędnika w SQLite, plan: `docs/PAYLOAD_PLAN.md`).
 | `PAYLOAD_SECRET_FILE` | – (Docker: `/run/secrets/payload_secret`) | plik z sekretem, gdy `PAYLOAD_SECRET` jest pusty |
 | `FASTAPI_URL` | `http://localhost:8000` | silnik AI wołany przez hooki Payloada po stronie serwera |
 | `SEED_PASSWORD` | `demo1234` (dev) | hasło konta z seeda (administrator `urzednik@example.gov.pl`) |
+| `DEMO_LOGIN` | `false` | `true` – na stronie logowania przycisk „Zaloguj jako urzędnik (demo)”: konto z rolą urzędnika, hasło losowane po stronie serwera |
 | `PAYLOAD_SEED` | – (Docker: `true`) | `true` – konto i dane demo zakładane przy starcie serwera (idempotentnie) |
 | `DATABASE_URL` | `file:data/payload.db` | baza SQLite Payloada |
 | `MEDIA_DIR` | `data/media` | katalog wgranych blankietów |

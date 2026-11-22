@@ -47,6 +47,8 @@ services:
       # Konto i dane demo przy starcie (idempotentnie); PAYLOAD_SEED=false na czystą instalację
       PAYLOAD_SEED: ${PAYLOAD_SEED:-true}
       SEED_PASSWORD: ${SEED_PASSWORD:-demo1234}
+      # Przycisk „Zaloguj jako urzędnik (demo)” na stronie logowania (konto bez uprawnień administratora)
+      DEMO_LOGIN: ${DEMO_LOGIN:-false}
     secrets:
       - payload_secret
     volumes:
