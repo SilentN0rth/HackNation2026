@@ -172,3 +172,47 @@ def test_dictionary_is_not_bound_when_listed_options_are_not_its_values():
     form = run("1. Dane sportowca", "Dyscypliny sportowe", "□ Zespołowa", "□ Indywidualna")
     assert all(f.dictionary is None for f in fields(form))
 
+
+DECLARATION = (
+    "A. ORGAN, DO KTÓREGO SKŁADANA JEST DEKLARACJA",
+    "Nazwa organu",
+    "B. DANE PODMIOTU ZOBOWIĄZANEGO DO ZŁOŻENIA DEKLARACJI",
+    "Nazwisko, imię",
+    "3. PESEL",
+    "NIP/REGON",
+    "Adres zamieszkania",
+    "D. DANE NIERUCHOMOŚCI",
+    "Ulica",
+    "ZABUDOWANEJ BUDYNKIEM MIESZKALNYM",
+    "Numer lokalu",
+    "LOKALE MIESZKALNE NIEZAMIESZKAŁE",
+    "D.2 RAZEM WYSOKOŚĆ OPŁATY",
+    "Kwota opłaty",
+)
+
+
+def section_titles(form: FormIR) -> list[str]:
+    return [s.title for page in form.pages for s in page.sections]
+
+
+def test_numbered_field_label_is_a_field_and_its_section_continues_the_previous_heading():
+    form = run(*DECLARATION)
+    assert "PESEL" not in section_titles(form) and "Pesel" not in section_titles(form)
+    assert "Dane podmiotu zobowiązanego do złożenia deklaracji (ciąg dalszy)" in section_titles(form)
+    assert any("PESEL" in f.validation for f in fields(form))
+
+
+def test_wrapped_caps_line_takes_its_subheading_or_continues_the_previous_section():
+    titles_found = section_titles(run(*DECLARATION))
+    assert titles_found[-3:] == ["Dane nieruchomości", "Dane nieruchomości (ciąg dalszy)", "Razem wysokość opłaty"]
+    assert not any(t.isupper() or "ZABUDOWANEJ" in t or "LOKALE" in t for t in titles_found)
+
+
+def test_unnumbered_caps_heading_before_any_numbered_section_is_kept():
+    form = run("INFORMACJE O KLUBIE", "Nazwa klubu", "1. Dane sportowca", "Nazwisko")
+    assert section_titles(form)[0] == "Informacje o klubie"
+
+
+def test_short_numbered_heading_without_validation_stays_a_section():
+    form = run("1. Wnioskodawca", "Imię", "2. Osiągnięcia sportowe", "Najważniejsze wyniki")
+    assert "Osiągnięcia sportowe" in section_titles(form)

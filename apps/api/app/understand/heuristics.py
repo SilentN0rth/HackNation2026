@@ -12,9 +12,12 @@ from app.understand.text import (
     is_junk_title,
     is_upper,
     normalize_title,
+    plain_heading,
     plain_label,
     sentence_case,
+    short_title,
     starts_with_box,
+    strip_numbering,
 )
 
 SECTION_NUMBER = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[A-H])[.)]\s*(\S.*)$")
@@ -415,10 +418,12 @@ def _attachment_field(builder: Builder, fields: list[FieldIR], hint: re.Match, i
 
 def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR | None:
     rules = catalog()
-    title = plain_label(raw.header) if raw.header else "Szczegóły wniosku"
+    title = plain_heading(raw.header) if raw.header else "Szczegóły wniosku"
     section = SectionIR(title=title or "Szczegóły wniosku")
     if raw.kind in ("skip", "applicant"):
         return None
+    if label := _field_header(raw.header):
+        section.fields.append(builder.classify(label, raw.items[0] if raw.items else None))
     if raw.kind == "legal":
         form.legal_basis.extend(clean(i.text) for i in raw.items if clean(i.text))
         return None
@@ -666,9 +671,12 @@ def _split_heavy(sections: list[SectionIR]) -> list[SectionIR]:
         parts = -(-len(section.fields) // MAX_FIELDS_PER_SECTION)
         size = -(-len(section.fields) // parts)
         cuts = [0] + [_cut_near(section.fields, n * size) for n in range(1, parts)] + [len(section.fields)]
+        # Ciąg dalszy sekcji to jej kolejne części: pierwszą jest sekcja, którą kontynuuje.
+        base, first = (section.title.removesuffix(CONTINUED), 2) if section.title.endswith(CONTINUED) else (section.title, 1)
         for n in range(parts):
             chunk = section.fields[cuts[n] : cuts[n + 1]]
-            result.append(SectionIR(title=f"{section.title} (część {n + 1} z {parts})", fields=chunk, condition=section.condition))
+            title = f"{base} (część {n + first} z {parts + first - 1})"
+            result.append(SectionIR(title=title, fields=chunk, condition=section.condition))
     return result
 
 
@@ -681,7 +689,7 @@ def paginate(sections: list[SectionIR]) -> list[PageIR]:
         size = len(section.fields)
         same = current is not None and current.sections[-1].condition == section.condition
         if current is None or not same or (count and count + size > MAX_FIELDS_PER_PAGE):
-            current = PageIR(title=section.title)
+            current = PageIR(title=_page_title(section.title))
             pages.append(current)
             count = 0
         current.sections.append(section)
@@ -690,8 +698,21 @@ def paginate(sections: list[SectionIR]) -> list[PageIR]:
     for page in pages:
         if is_junk_title(page.title):
             page.title = "Szczegóły wniosku"
+        full = page.sections[0].title
+        if page.title.lower() in used and full.lower() not in used and not is_junk_title(full):
+            page.title = full  # skrócone tytuły dwóch stron się pokrywają, więc rozróżnia je pełny nagłówek sekcji
         page.title = _unique(page.title, used)
     return pages
+
+
+PART_SUFFIX = re.compile(r"\s\((?:ciąg dalszy|część \d+ z \d+)\)$")
+
+
+def _page_title(section_title: str) -> str:
+    """Tytuł strony to krótka wersja nagłówka pierwszej sekcji; dopisek o części zostaje w całości."""
+    suffix = PART_SUFFIX.search(section_title)
+    base = section_title[: suffix.start()] if suffix else section_title
+    return short_title(base) + (suffix.group(0) if suffix else "")
 
 
 VARIANT = re.compile(r"^(?:[IVX]{1,4}[.)]\s*)?wniosek o przyznanie\s+(stypendium|nagrody|wyróżnienia)\b", re.I)
@@ -736,13 +757,47 @@ def _is_container(raw: RawSection, following: RawSection | None) -> bool:
     return bool(parent and child and len(parent[0]) == 1 and len(child[0]) > 1 and child[0][0] == parent[0][0])
 
 
+CONTINUED = " (ciąg dalszy)"
+
+
+def _subheading(raw: RawSection) -> str | None:
+    """Pierwszy podpunkt sekcji pisany kapitalikami z numerem („E.4 RAZEM WYSOKOŚĆ OPŁATY”)."""
+    first = raw.items[0].text if raw.items else ""
+    if is_upper(first) and len(first) <= 90 and strip_numbering(first) != first.strip() and not _label_like(strip_numbering(first)):
+        return plain_heading(first) or None
+    return None
+
+
+def _field_header(header: str) -> str | None:
+    """Numerowana pozycja z samą etykietą pola z walidacją („3. PESEL”), którą wzięto za nagłówek sekcji."""
+    number = _section_number(header)
+    if not number or len(number[1].split()) > 2:
+        return None
+    lowered = number[1].lower()
+    return number[1] if any(rule.validation and rule.pattern.search(lowered) for rule in catalog().fields) else None
+
+
+def _is_fragment(raw: RawSection, numbered_before: bool) -> bool:
+    """Nagłówek, który nie jest tytułem sekcji: etykieta pola z numerem („3. PESEL”) albo zawinięty wiersz kapitalików."""
+    if _section_number(raw.header):
+        return _field_header(raw.header) is not None
+    return numbered_before and (is_upper(raw.header) or bool(LEADING_CAPS.match(raw.header)))
+
+
 def _build_sections(items: list[Item], builder: Builder, form: FormIR) -> list[SectionIR]:
-    sections = []
+    sections: list[SectionIR] = []
     raws = split_sections(items)
+    numbered_before = follows_built = False
     for index, raw in enumerate(raws):
         if _is_container(raw, raws[index + 1] if index + 1 < len(raws) else None):
             continue
         section = build_section(raw, builder, form)
+        if section and _is_fragment(raw, numbered_before):
+            previous = sections[-1].title if follows_built else None
+            continued = previous and (previous if previous.endswith(CONTINUED) else previous + CONTINUED)
+            section.title = _subheading(raw) or continued or section.title
+        numbered_before = numbered_before or bool(_section_number(raw.header))
+        follows_built = section is not None
         if section:
             sections.append(section)
     return sections

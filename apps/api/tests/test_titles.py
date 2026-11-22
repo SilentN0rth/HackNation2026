@@ -84,3 +84,62 @@ def test_junk_page_title_is_replaced():
 
     pages = paginate([SectionIR("Gdynia", [FieldIR("a", "Pole")])])
     assert pages[0].title == "Szczegóły wniosku"
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("F. DANE DO KONTAKTU (pola nieobowiązkowe)", "Dane do kontaktu (pola nieobowiązkowe)"),
+        ("B. DANE PODMIOTU ZOBOWIĄZANEGO DO ZŁOŻENIA DEKLARACJI", "Dane podmiotu zobowiązanego do złożenia deklaracji"),
+        ("3. PESEL", "PESEL"),
+        ("B.1 DANE IDENTYFIKACYJNE W PRZYPADKU NIP/REGON", "Dane identyfikacyjne w przypadku NIP/REGON"),
+        ("Numer Pesel i NIP", "Numer PESEL i NIP"),
+        ("Zaświadczenie z PZS", "Zaświadczenie z PZS"),
+        ("ZAŁĄCZNIK A", "Załącznik A"),
+    ],
+)
+def test_plain_heading_turns_caps_into_sentence_case_and_keeps_acronyms(raw, expected):
+    from app.understand.text import plain_heading
+
+    assert plain_heading(raw) == expected
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Powierzchnia pasa drogowego potrzebna do zajęcia w celu realizacji w/w zakresu robót", "Powierzchnia pasa drogowego potrzebna do zajęcia"),
+        ("Dane adresowe nieruchomości, na której powstają i są gromadzone odpady komunalne", "Dane adresowe nieruchomości"),
+        ("Osoba odpowiedzialna (pełnoletnia) za utrzymanie porządku i bezpieczeństwa", "Osoba odpowiedzialna za utrzymanie porządku i bezpieczeństwa"),
+        ("Dane do kontaktu", "Dane do kontaktu"),
+    ],
+)
+def test_short_title_cuts_on_a_word_boundary_without_dangling_words(raw, expected):
+    from app.understand.text import DANGLING, MAX_PAGE_TITLE, short_title
+
+    title = short_title(raw)
+    assert title == expected
+    assert len(title) <= MAX_PAGE_TITLE and title.split()[-1].lower() not in DANGLING
+
+
+def test_page_title_is_short_but_keeps_the_part_suffix():
+    from app.understand.heuristics import paginate
+    from app.understand.model import Condition
+
+    long = "Powierzchnia pasa drogowego potrzebna do zajęcia w celu realizacji w/w zakresu robót"
+    pages = paginate([SectionIR(long, [FieldIR(str(i), f"Pole {i}") for i in range(20)])])
+    assert [p.title for p in pages] == [
+        "Powierzchnia pasa drogowego potrzebna do zajęcia (część 1 z 2)",
+        "Powierzchnia pasa drogowego potrzebna do zajęcia (część 2 z 2)",
+    ]
+    assert pages[0].sections[0].title == f"{long} (część 1 z 2)"
+    a = "Oświadczenie o wysokości opłaty za gospodarowanie odpadami komunalnymi w zabudowie jednorodzinnej"
+    b = "Oświadczenie o wysokości opłaty za gospodarowanie odpadami komunalnymi w zabudowie wielolokalowej"
+    pages = paginate([SectionIR(a, [FieldIR("1", "x")], Condition("k", "1")), SectionIR(b, [FieldIR("2", "y")], Condition("k", "2"))])
+    assert [p.title for p in pages] == ["Oświadczenie o wysokości opłaty", b]
+
+
+def test_continued_section_split_into_parts_counts_the_section_it_continues():
+    from app.understand.heuristics import paginate
+
+    pages = paginate([SectionIR("Dane nieruchomości (ciąg dalszy)", [FieldIR(str(i), f"Pole {i}") for i in range(20)])])
+    assert [p.title for p in pages] == ["Dane nieruchomości (część 2 z 3)", "Dane nieruchomości (część 3 z 3)"]

@@ -57,6 +57,78 @@ def normalize_title(text: str) -> str:
 
 
 def plain_label(text: str) -> str:
+    return sentence_case(_plain(text))
+
+
+def plain_heading(text: str) -> str:
+    """Nagłówek sekcji: jak etykieta, ale kapitaliki zamienione na zwykły zapis z zachowaniem skrótowców (PESEL, NIP)."""
+    return heading_case(_plain(text))
+
+
+ACRONYMS = {"PESEL", "NIP", "REGON", "KRS", "CEIDG", "VAT", "ZUS", "KRUS", "NFZ", "RODO", "UE", "RP", "PKD", "IBAN", "GUS", "TERYT", "BDO", "PIT", "CIT"}
+ONE_LETTER_WORDS = {"A", "I", "O", "U", "W", "Z"}
+WORD = re.compile(r"[^\W\d_]+")
+
+
+def _shouted(word: str) -> bool:
+    return len(word) >= 2 and word.isupper() and word not in ACRONYMS
+
+
+def heading_case(text: str) -> str:
+    """Kapitaliki (cały tekst albo ciąg kilku słów) na zwykłe litery; skrótowce zostają wielkimi literami."""
+    words = [m.group(0) for m in WORD.finditer(text)]
+    if is_upper(text) or any(_shouted(a) and _shouted(b) for a, b in zip(words, words[1:], strict=False)):
+
+        def lower(match: re.Match) -> str:
+            word = match.group(0)
+            following = WORD.search(text, match.end())
+            joined = word in ONE_LETTER_WORDS and following is not None and _shouted(following.group(0))
+            return word.lower() if _shouted(word) or joined else word
+
+        text = WORD.sub(lower, text)
+    else:
+        text = WORD.sub(lambda m: m.group(0).upper() if m.group(0).istitle() and m.group(0).upper() in ACRONYMS else m.group(0), text)
+    return text[:1].upper() + text[1:] if text else text
+
+
+MAX_PAGE_TITLE = 64
+DANGLING = {
+    "a", "i", "o", "u", "w", "z", "we", "ze", "na", "do", "za", "od", "dla", "przez", "po", "przy", "pod", "nad", "bez",
+    "oraz", "lub", "albo", "ani", "że", "który", "która", "które", "których", "jest", "są", "jako", "wraz", "celu",
+}
+PREPOSITIONS = {"w", "we", "z", "ze", "na", "do", "za", "o", "od", "dla", "przez", "po", "przy", "pod", "nad", "bez", "wraz"}
+
+
+def _trim_dangling(text: str) -> str:
+    words = text.rstrip(" ,;:–-/(").split()
+    while len(words) > 1 and words[-1].lower().strip(",;:") in DANGLING:
+        words.pop()
+    return " ".join(words).rstrip(" ,;:–-/(")
+
+
+def short_title(text: str, limit: int = MAX_PAGE_TITLE) -> str:
+    """Krótki tytuł strony: bez wtrąceń w nawiasach, ucięty na granicy zdania podrzędnego lub przed przyimkiem."""
+    if len(text) <= limit:
+        return text
+    text = SPACES.sub(" ", re.sub(r"\s*\([^()]*\)", "", text)).strip()
+    if len(text) <= limit:
+        return text
+    clause = max((m.start() for m in re.finditer(r",\s|\s[–-]\s|:\s|;\s", text) if 20 <= m.start() <= limit), default=None)
+    if clause is not None:
+        return _trim_dangling(text[:clause])
+    words = text.split()
+    kept: list[str] = []
+    for word in words:
+        if len(" ".join(kept + [word])) > limit:
+            break
+        kept.append(word)
+    cut = max((n for n, w in enumerate(kept) if n >= 3 and w.lower() in PREPOSITIONS), default=None)
+    if cut is not None:
+        kept = kept[:cut]
+    return _trim_dangling(" ".join(kept))
+
+
+def _plain(text: str) -> str:
     text = strip_numbering(clean(text))
     text = re.sub(r"\((?:[^()]*(?:postaw|zaznacz|wypełni|opisz|wpisz|należy)[^()]*)(?:\)|$)", "", text, flags=re.I)
     text = re.sub(r"^[/(]\s*(.*?)\s*[/)]$", r"\1", text)
@@ -65,8 +137,7 @@ def plain_label(text: str) -> str:
     text = text.replace("*", "")
     for pattern, replacement in ABBREVIATIONS:
         text = pattern.sub(replacement, text)
-    text = SPACES.sub(" ", text).strip(" ,:;-–*/")
-    return sentence_case(text)
+    return SPACES.sub(" ", text).strip(" ,:;-–*/")
 
 
 def slug(text: str, limit: int = 60) -> str:
