@@ -94,7 +94,7 @@ Pełna specyfikacja: `GET /docs` (OpenAPI). Błędy w formacie `application/prob
 - **Dziennik decyzji** jest łańcuchem skrótów SHA-256; `GET /audit/verify` wykrywa zmianę historii.
 - **Wnioski** są widoczne tylko dla właściciela (cudzy wniosek zwraca 404), a wysłanego wniosku nie można zmienić (409).
 - **CORS** dopuszcza tylko adresy z `CORS_ORIGINS`, bez ciasteczek (`allow_credentials=False`).
-- **Brak zewnętrznych API.** Model językowy działa lokalnie w Ollamie i jest opcjonalny; strukturę formularza zawsze buduje kod.
+- **Tylko otwarte modele.** Model językowy jest opcjonalny i zawsze otwarty: lokalnie w Ollamie (`qwen2.5:7b`) albo przez Eden AI (`mistral-small`, Apache-2.0), zgodnie z wyjaśnieniem mentora COI. Strukturę formularza zawsze buduje kod, więc rozwiązanie działa też bez modelu, na x86 bez GPU.
 
 ## Wdrożenie
 

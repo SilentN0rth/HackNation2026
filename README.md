@@ -16,7 +16,7 @@ panel urzędnika pod `/official`, przycisk „Zaloguj jako urzędnik (demo)” n
   kontakt, zgody), walidator reguł technicznych i kontrola jakości: RODO, prosty język, dostępność.
 - **Edytor urzędnika** – podgląd tego, co zobaczy obywatel, uwagi do rozpatrzenia przed publikacją, dziennik decyzji.
 - **Model językowy (opcjonalnie)** – poprawia tylko brzmienie etykiet; strukturę zawsze buduje kod, więc wynik jest
-  powtarzalny. Lokalnie przez Ollamę albo przez Eden AI (`LLM_PROVIDER=edenai`, klucz w `EDENAI_API_KEY`).
+  powtarzalny. Zawsze model otwarty: lokalnie przez Ollamę albo przez Eden AI (`LLM_PROVIDER=edenai`, klucz w `EDENAI_API_KEY`), co mentor COI potwierdził jako zgodne z regulaminem.
 
 ## Struktura repozytorium
 

@@ -1,7 +1,7 @@
 # e-Formularze – backend
 
 Usługa REST, która zamienia papierowy formularz urzędowy na konfigurację formularza elektronicznego w formacie JSON COI.
-Przyjmuje pliki PDF, DOC, DOCX, ODS, XLSX, JPG, JPEG i PNG. Działa w całości lokalnie, bez zewnętrznych API.
+Przyjmuje pliki PDF, DOC, DOCX, ODS, XLSX, JPG, JPEG i PNG. Domyślnie działa w całości lokalnie. Opcjonalny model językowy to zawsze model otwarty: lokalnie w Ollamie albo przez Eden AI (Mistral Small, Apache-2.0), co mentor COI potwierdził jako zgodne z regulaminem (model otwarty, możliwy do postawienia na własnej infrastrukturze).
 
 Python 3.14 · FastAPI · SQLite · Tesseract OCR · LibreOffice (konwersja DOC) · opcjonalnie lokalny model językowy przez Ollamę.
 
@@ -21,7 +21,7 @@ Z lokalnym modelem językowym (poprawia brzmienie etykiet pól):
 
 ```bash
 LLM_ENABLED=true docker compose --profile llm up -d
-docker compose exec ollama ollama pull qwen3:4b
+docker compose exec ollama ollama pull qwen2.5:7b
 ```
 
 Model pobierasz raz, przed pokazem. Bez modelu usługa działa w pełni na regułach i zwraca poprawny JSON.
@@ -90,8 +90,8 @@ Wszystkie parametry podajesz w zmiennych środowiskowych (w Dockerze w `docker-c
 | `CONVERTER_TIMEOUT_S` | `90` | Limit czasu OCR i konwersji DOC |
 | `LLM_ENABLED` | `false` | Włączenie lokalnego modelu językowego |
 | `OLLAMA_URL` | `http://ollama:11434` | Adres Ollamy |
-| `LLM_MODEL` | `qwen3:4b` | Model (licencja Apache-2.0) |
-| `LLM_PROVIDER` | `ollama` | `ollama` (lokalnie) albo `edenai` (model przez Eden AI) |
+| `LLM_MODEL` | `qwen2.5:7b` | Model (licencja Apache-2.0) |
+| `LLM_PROVIDER` | `ollama` | `ollama` (lokalnie) albo `edenai` (ten sam typ modelu otwartego przez Eden AI, domyślnie `mistral/mistral-small-2603`) |
 | `EDENAI_API_KEY` | – | Klucz Eden AI, tylko ze zmiennej środowiskowej; bez niego model się nie włączy |
 | `EDENAI_MODEL` | `mistral/mistral-small-2603` | Model w formacie `dostawca/model` |
 | `LLM_TIMEOUT_S` | `60` | Limit czasu odpowiedzi modelu |
@@ -114,9 +114,9 @@ Walidacja pliku przed przetwarzaniem:
 
 - rozszerzenie z listy dozwolonych i zgodność zawartości z rozszerzeniem po sygnaturze pliku (PDF, OLE2 dla DOC, ZIP z `word/`, `xl/` lub `mimetype` ODS, JPEG, PNG) – błąd 415,
 - nazwa do 250 znaków, bez znaków `; : > < / \ | ' * % $` – błąd 422,
-- rozmiar ponad `MAX_UPLOAD_MB` – błąd 413, odczyt przerywany w trakcie przesyłania.
+- rozmiar ponad `MAX_UPLOAD_MB` – błąd 413; za duże żądanie do `/api/v1/convert` jest odrzucane na podstawie nagłówka `Content-Length`, zanim usługa odbierze treść.
 
-Plik istnieje tylko w pamięci na czas żądania. LibreOffice i Tesseract dostają kopię w katalogu tymczasowym, usuwaną zaraz po konwersji. W bazie zostaje wyłącznie nazwa pliku i jego skrót SHA-256.
+Plik istnieje tylko w pamięci na czas żądania. LibreOffice i Tesseract dostają kopię w katalogu tymczasowym, usuwaną zaraz po konwersji. `/api/v1/convert` niczego nie zapisuje. Wersja robocza (`/drafts`) przechowuje nazwę pliku, jego skrót SHA-256 i odczytane etykiety pól, a sam plik nie jest zapisywany. Załączniki obywatela (`/attachments`) są zapisywane na dysku, bo są częścią wniosku, a nie blankietem.
 
 ### Pozostałe ścieżki
 
@@ -210,7 +210,7 @@ Wszystkie zależności są open source i nie wymagają udostępniania kodu (bez 
 - FastAPI, Uvicorn, Pydantic, PyJWT, pdfplumber, python-docx, openpyxl, Pillow, RapidFuzz, PyYAML, httpx, NetworkX – licencje MIT, BSD lub Apache-2.0,
 - odfpy – podwójna licencja, korzystamy z Apache-2.0,
 - Tesseract i pytesseract – Apache-2.0,
-- Ollama – MIT, a model Qwen3 – Apache-2.0,
+- Ollama – MIT, a model Qwen2.5 – Apache-2.0,
 - LibreOffice (MPL-2.0) działa jako osobny program wywoływany z linii poleceń, bez łączenia z naszym kodem.
 
 Aktualną listę licencji zainstalowanych pakietów wypisze `pip-licenses` (jest w `requirements-dev.txt`):
@@ -218,3 +218,10 @@ Aktualną listę licencji zainstalowanych pakietów wypisze `pip-licenses` (jest
 ```bash
 .venv/bin/pip-licenses --from=mixed --order=license --format=markdown
 ```
+
+### Licencje bibliotek z warunkami
+
+- `sharp` (frontend) korzysta z biblioteki libvips na licencji LGPL-3.0. Jest linkowana dynamicznie i niezmieniana, więc nie wymaga udostępnienia kodu projektu.
+- `odfpy` ma trzy licencje do wyboru (Apache-2.0, GPL, LGPL); korzystamy z niej na licencji Apache-2.0.
+- `certifi` jest na licencji MPL-2.0, która obejmuje tylko pliki tej biblioteki; nie modyfikujemy ich.
+- Frontend: Next.js, React, Payload CMS, HeroUI i Tailwind są na licencjach MIT lub Apache-2.0.
