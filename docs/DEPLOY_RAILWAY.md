@@ -31,6 +31,8 @@ Różnice względem compose:
 | `RAILWAY_RUN_UID` | `0` |
 | `LLM_ENABLED` / `LLM_PROVIDER` | `true` / `edenai` |
 | `EDENAI_API_KEY` | klucz zespołu – wpisz sam w panelu Railway, nie w repozytorium |
+| `API_KEY` | losowy, np. `openssl rand -hex 24` – klucz do publicznego `POST /api/v1/convert` (nagłówek `X-API-Key`) |
+| `TOKEN_CLIENT_SECRET` | losowy – `/auth/token` wydaje token tylko klientowi z tym sekretem |
 
 `web` (zmienne `NEXT_PUBLIC_*` są wkompilowane podczas buildu – po zmianie trzeba przebudować usługę):
 
@@ -43,6 +45,7 @@ Różnice względem compose:
 | `PAYLOAD_SECRET` | losowy, np. `openssl rand -base64 48` |
 | `PAYLOAD_SEED` | `true` (konto i dane demo przy starcie) |
 | `SEED_PASSWORD` | silne hasło – strona jest publiczna, `demo1234` nie wystarczy |
+| `TOKEN_CLIENT_SECRET` | `${{api.TOKEN_CLIENT_SECRET}}` – serwer frontu podaje go przy pobieraniu tokenu |
 | `DEMO_LOGIN` | `true` – przycisk „Zaloguj jako urzędnik (demo)” (konto bez uprawnień administratora) |
 | `RAILWAY_RUN_UID` | `0` |
 
@@ -63,3 +66,13 @@ cd ../web && npx @railway/cli up --service web
 `.env` z kluczami nie trafia na serwer.
 
 Po wdrożeniu: panel urzędnika `https://<domena web>/official` (konto `urzednik@example.gov.pl`, hasło z `SEED_PASSWORD`).
+
+## Publiczne REST API pod domeną web
+
+Usługa web przekazuje `/api/v1/*`, `/docs` i `/openapi.json` do API po sieci prywatnej, więc REST API działa pod tą samą domeną co aplikacja:
+
+```bash
+curl -H "X-API-Key: $API_KEY" -F "file=@wniosek.pdf" https://e-formularze.up.railway.app/api/v1/convert
+```
+
+`/auth/token` i ścieżki edytora nie są wystawiane pod domeną web. Bez ważnego klucza `X-API-Key` albo tokenu JWT konwersja zwraca 401.

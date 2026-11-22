@@ -12,6 +12,8 @@ services:
       AUTH_ENABLED: ${AUTH_ENABLED:-true}
       JWT_TTL_MIN: ${JWT_TTL_MIN:-480}
       JWT_SECRET_FILE: /run/secrets/jwt_secret
+      API_KEY: ${API_KEY:-}
+      TOKEN_CLIENT_SECRET: ${TOKEN_CLIENT_SECRET:-}
       CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:5173"]}
       LLM_ENABLED: ${LLM_ENABLED:-false}
       OLLAMA_URL: http://ollama:11434
@@ -44,6 +46,7 @@ services:
     environment:
       # Hooki Payloada wołają silnik AI w sieci compose (nie przez localhost przeglądarki)
       FASTAPI_URL: http://api:8000
+      TOKEN_CLIENT_SECRET: ${TOKEN_CLIENT_SECRET:-}
       # Konto i dane demo przy starcie (idempotentnie); PAYLOAD_SEED=false na czystą instalację
       PAYLOAD_SEED: ${PAYLOAD_SEED:-true}
       SEED_PASSWORD: ${SEED_PASSWORD:-demo1234}
