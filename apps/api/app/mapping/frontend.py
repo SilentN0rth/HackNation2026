@@ -3,7 +3,7 @@ import html
 import re
 
 from app import dictionaries
-from app.coi.builder import flow_for, option_list
+from app.coi.builder import block_html, flow_for, option_list
 from app.coi.jsonata import _escape_name, parse, parse_expr, references, show_query
 from app.coi.walk import children, iter_fields, leaves
 
@@ -25,6 +25,7 @@ FRONT_TO_TYPE = {
     "radio": ("RADIO", None),
     "checkbox": ("CHECKBOX", None),
     "file": ("FILE_UPLOADER", None),
+    "info": ("TEXT_BLOCK", None),
     "pesel": ("TEXT_FIELD", "PESEL"),
     "postalCode": ("TEXT_FIELD", "ZIP_CODE"),
     "email": ("TEXT_FIELD", "EMAIL"),
@@ -65,6 +66,9 @@ def front_type(field: dict) -> str | None:
         if "telefon" in (field.get("techName") or ""):
             return "phone"
         return "text"
+    if kind == "TEXT_BLOCK":
+        # Tylko bloki z własnym tytułem (nagłówki grup). Opisy ze standardów (bez tytułu) zostają poza modelem edytora.
+        return "info" if (field.get("title") or "").strip() else None
     return TYPE_TO_FRONT.get(kind)
 
 
@@ -289,6 +293,8 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
             field["tooltipMessage"] = incoming.get("helpText") or ""
             kind, type_validator = FRONT_TO_TYPE.get(incoming.get("type"), (field.get("type"), None))
             field["type"] = kind
+            if kind == "TEXT_BLOCK":
+                field["description"] = block_html(field.get("title") or "")
             previous = field.get("validation") if isinstance(field.get("validation"), list) else []
             validation = [v for v in previous if v not in TYPE_VALIDATORS and v != "REQUIRED"]
             if incoming.get("required"):

@@ -139,7 +139,15 @@ def _consent_html(text: str) -> str:
     return f"<html><head></head><body><p>{escaped}</p></body></html>"
 
 
+def block_html(text: str) -> str:
+    escaped = " ".join(text.split()).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return f"<html><head></head><body><p><strong>{escaped}</strong></p></body></html>"
+
+
 def _field_from_ir(item: FieldIR, tech_name: str, order: int) -> dict:
+    if item.type == "TEXT_BLOCK":
+        # Nagłówek grupy pól: blok tekstowy, a nie pole do wypełnienia.
+        return make_field("TEXT_BLOCK", tech_name, item.title, description=block_html(item.title), order=order)
     if item.type == "CONSENT_SECTION":
         field = make_field("CONSENT_SECTION", tech_name, "", order=order)
         field["consentSectionConfig"] = {
