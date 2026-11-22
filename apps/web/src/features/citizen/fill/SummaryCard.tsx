@@ -40,7 +40,7 @@ export function SummaryCard({ pages, busy, displayValue, onEdit, onSend }: Props
               </Button>
             </div>
             <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-              {p.fields.map((f) => (
+              {p.fields.filter((f) => f.type !== "info").map((f) => (
                 <div key={f.id} className="contents">
                   <dt className="text-sm text-muted">{f.label}</dt>
                   <dd className="font-medium break-words">{displayValue(f.id)}</dd>

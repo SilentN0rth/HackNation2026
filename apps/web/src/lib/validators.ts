@@ -89,6 +89,7 @@ function fieldValueSchema(field: Field): z.ZodType<string | boolean | undefined>
 }
 
 export function validateField(field: Field, value: string | boolean | undefined): string | null {
+  if (field.type === "info") return null;
   // Pole z rejestru jest tylko do odczytu: gdy źródło nie ma danych, obywatel nie może ich dopisać, więc nie wymagamy wartości.
   if (field.prefill && (value === undefined || value === "")) return null;
   const r = fieldValueSchema(field).safeParse(value);

@@ -13,6 +13,7 @@ export const FIELD_TYPES = [
   "phone",
   "email",
   "file",
+  "info",
 ] as const;
 export const FieldTypeSchema = z.enum(FIELD_TYPES);
 export type FieldType = z.infer<typeof FieldTypeSchema>;

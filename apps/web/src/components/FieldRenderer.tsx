@@ -262,6 +262,13 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
       );
   }
 
+  // Nagłówek grupy pól z formularza: sam tekst, bez wartości do wpisania.
+  if (field.type === "info") {
+    return (
+      <h3 className="mt-6 mb-3 border-b border-border pb-2 text-lg font-semibold text-ink first:mt-0">{field.label}</h3>
+    );
+  }
+
   return (
     <div className="mb-6 flex flex-col gap-2">
       {control}
