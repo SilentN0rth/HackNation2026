@@ -13,7 +13,7 @@ Stan na 2026-11-22. Kontekst: `docs/PRZEGLAD_POPRAWEK.md` (przegląd i status wd
 6. **Adres:** standard opisuje 4 zależne listy (województwo, powiat, gmina, miejscowość); mamy jedno pole słownikowe. Adres „innej osoby” używa `TERYT_DOWODOWY` (3 poziomy), główny `TERYT_4G_DOWODOWY`. Wzorce organizatora też się różnią (nr 1: 3 poziomy, nr 5: 4). Ujednolicić.
 
 ## Jakość konwersji
-7. **Formularze 8 i 9** nadal mają ostrzeżenia: sekcje do 38 pól, strony „Pesel” i „Gdynia”, 2–3 opcje powyżej 120 znaków. Brak pola „rodzaj wniosku” i stron alternatywnych dla nr 9 (3 wnioski w 1). Wymaga podziału semantycznego (prawdopodobnie LLM).
+7. **Formularze 8 i 9 (w większości rozwiązane):** nr 9 ma pytanie „Rodzaj wniosku” i strony widoczne tylko dla wybranego rodzaju (stypendium, nagroda, wyróżnienie), a tytuł obejmuje wszystkie trzy. Duże sekcje są dzielone mechanicznie na części („część 1 z 3”), więc nie zawsze po temacie. W nr 8 zostaje strona o nazwie „Gdynia”, a w nr 9 jedna etykieta ponad 120 znaków. Sekcje z `visibleWhen` ukrywają całą stronę tylko przy jednym prostym warunku. Pola z własnym warunkiem w sekcji wariantu dziedziczą warunek sekcji.
 8. **Tytuły stron generyczne:** „Szczegóły wniosku” i „Kontakt i zgody”, a wzorzec nr 1 ma tematyczne („Informacje o budynku”, „Kontakt z urzędem”).
 9. **Nazwa organu** niepełna w nr 6 („Urząd Miasta i Gminy” bez miejscowości); brak flagi ostrzegawczej.
 10. **Tytuły 8 i 9 skrócone** (brak „za gospodarowanie odpadami komunalnymi”, „nagrody lub wyróżnienia sportowego”).

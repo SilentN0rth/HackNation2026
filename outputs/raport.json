@@ -66,28 +66,22 @@
     "formularz": "8",
     "plik": "Deklaracja o wysokości opłaty.pdf",
     "wynik": "08_deklaracja_o_wysokosci_miesiecznej_oplaty.json",
-    "strony": 10,
+    "strony": 14,
     "bledyCOI": 0,
     "uwagi": 11,
     "jakosc": {
-      "junk-title": 2,
-      "heavy-section": 3,
-      "heavy-page": 2,
-      "long-option": 2
+      "junk-title": 1
     }
   },
   {
     "formularz": "9",
     "plik": "Wniosek o przyznanie stypendium.pdf",
-    "wynik": "09_wniosek_o_przyznanie_stypendium.json",
-    "strony": 10,
+    "wynik": "09_wniosek_o_przyznanie_stypendium_nagrody_lub_wyroznienia_sportowego.json",
+    "strony": 17,
     "bledyCOI": 0,
     "uwagi": 26,
     "jakosc": {
-      "heavy-section": 3,
-      "long-title": 1,
-      "heavy-page": 3,
-      "long-option": 3
+      "long-title": 1
     }
   }
 ]
