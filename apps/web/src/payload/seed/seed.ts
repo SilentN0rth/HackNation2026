@@ -20,6 +20,16 @@ async function seedUser(payload: Payload): Promise<number> {
       await payload.update({ collection: "users", id: existing.id, data: { role: "admin" } });
       payload.logger.info(`seed: ${SEED_EMAIL} ma teraz rolę administratora`);
     }
+    // Baza na wolumenie przeżywa redeploy – bez tego zmiana SEED_PASSWORD nie działałaby na istniejącym koncie,
+    // a nieudane próby logowania zostawiałyby je zablokowane.
+    if (process.env.SEED_PASSWORD) {
+      await payload.update({
+        collection: "users",
+        id: existing.id,
+        data: { password: process.env.SEED_PASSWORD, loginAttempts: 0, lockUntil: null },
+      });
+      payload.logger.info(`seed: hasło ${SEED_EMAIL} zsynchronizowane z SEED_PASSWORD`);
+    }
     return existing.id;
   }
   const { name, initials } = users.official;
