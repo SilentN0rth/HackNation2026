@@ -22,6 +22,7 @@ class Settings(BaseSettings):
 
     cors_origins: list[str] = ["http://localhost:5173"]
     db_path: Path = Path("data/app.db")
+    attachments_dir: Path = Path("data/attachments")
 
     ocr_lang: str = "pol"
     tesseract_cmd: str = "tesseract"

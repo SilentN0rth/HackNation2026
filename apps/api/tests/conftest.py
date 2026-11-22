@@ -8,6 +8,9 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 os.environ.update({"AUTH_ENABLED": "true", "JWT_SECRET": "test-secret-for-pytest-only-0123456789", "DB_PATH": ":memory:", "LLM_ENABLED": "false"})
+import tempfile  # noqa: E402
+
+os.environ.setdefault("ATTACHMENTS_DIR", tempfile.mkdtemp(prefix="attachments-"))
 
 from fastapi.testclient import TestClient  # noqa: E402
 

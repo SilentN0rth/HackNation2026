@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import errors
-from app.api import citizen, convert, drafts, meta
+from app.api import attachments, citizen, convert, drafts, meta
 from app.config import get_settings, jwt_secret
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -37,7 +37,7 @@ def create_app() -> FastAPI:
         allow_headers=["Authorization", "Content-Type"],
     )
     errors.install(app)
-    for module in (meta, convert, drafts, citizen):
+    for module in (meta, convert, drafts, citizen, attachments):
         app.include_router(module.router)
     return app
 
