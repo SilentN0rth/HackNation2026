@@ -40,7 +40,11 @@ async function token(account: Account): Promise<string> {
   if (cached && cached.expires > Date.now() + 30_000) return cached.value;
   const res = await send(
     "/auth/token",
-    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ userId: ACCOUNTS[account] }) },
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...(process.env.TOKEN_CLIENT_SECRET ? { "X-Client-Secret": process.env.TOKEN_CLIENT_SECRET } : {}) },
+      body: JSON.stringify({ userId: ACCOUNTS[account] }),
+    },
     5_000,
   );
   if (!res.ok) throw new FastApiError("Silnik AI odrzucił logowanie konta technicznego.");
