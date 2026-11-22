@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from app.coi.quality import summary  # noqa: E402
 from app.coi.validator import errors  # noqa: E402
 from app.errors import ApiError  # noqa: E402
 from app.pipeline import convert  # noqa: E402
@@ -65,6 +66,7 @@ def main() -> None:
                 "strony": len(result.coi["tabs"]),
                 "bledyCOI": len(errors(result.coi)),
                 "uwagi": len(result.flags),
+                "jakosc": summary(result.coi),
             }
         )
         print(f"{output.name}: {len(result.coi['tabs'])} stron, {len(result.flags)} uwag")

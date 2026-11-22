@@ -1,11 +1,15 @@
 import re
 from dataclasses import asdict, dataclass
 
+from app.coi.jsonata import references
 from app.coi.walk import CHOICE_TYPES, FIELD_TYPES, INPUT_TYPES, SECTION_TYPES, VALIDATORS, children
 
 TECH_NAME = re.compile(r"^[a-z0-9_]+$")
 MAX_TITLE = 255
 GRID_COLUMNS = 3
+SELECT_ONLY_DICTIONARIES = {"Kraje", "Województwo", "Powiat", "Gmina", "Miejscowość", "Numery kierunkowe", "TERYT_4G_DOWODOWY", "TERYT_DOWODOWY"}
+SECTION_STATES = {"SHOW"}
+FIELD_STATES = {"SHOW", "READ_ONLY"}
 
 
 @dataclass
@@ -101,14 +105,44 @@ def validate(coi: dict) -> list[Issue]:
                     issues.append(Issue("options", "error", f"Pole wyboru „{label}” nie ma opcji ani słownika.", tab_title, tech, fid, tab.get("id")))
                 if tab.get("type") == "FINISH" and ftype in INPUT_TYPES:
                     issues.append(Issue("finish-input", "error", f"Strona końcowa nie może zawierać pola do wypełnienia („{label}”).", tab_title, tech, fid, tab.get("id")))
+                elif tab.get("type") == "FINISH" and ftype not in SECTION_TYPES | {"INFO_SECTION"}:
+                    severity = "warning" if ftype == "TEXT_BLOCK" else "error"  # wzorce organizatora używają TEXT_BLOCK
+                    issues.append(Issue("finish-type", severity, f"Na stronie końcowej reguły dopuszczają tylko sekcję informacyjną (INFO_SECTION), a pole „{label}” ma typ {ftype}.", tab_title, tech, fid, tab.get("id")))
+                if item.get("dictionaryName") in SELECT_ONLY_DICTIONARIES and ftype != "SELECT":
+                    issues.append(Issue("dictionary", "error", f"Słownik „{item['dictionaryName']}” można podpiąć tylko do listy rozwijanej („{label}”).", tab_title, tech, fid, tab.get("id")))
+                allowed = SECTION_STATES if ftype in SECTION_TYPES else FIELD_STATES
+                for state in item.get("states") or []:
+                    if state.get("type") not in allowed or not (state.get("query") or "").strip():
+                        issues.append(Issue("state", "error", f"Pole „{label}” ma niepoprawny stan dynamiczny.", tab_title, tech, fid, tab.get("id")))
+            if field.get("type") in SECTION_TYPES:
+                if not (field.get("title") or "").strip():
+                    issues.append(Issue("section-title", "error", "Sekcja nie ma nazwy.", tab_title, field.get("techName"), field.get("id"), tab.get("id")))
+                if not children(field):
+                    issues.append(Issue("empty-section", "error", f"Sekcja „{field.get('title') or field.get('techName')}” nie zawiera pól.", tab_title, field.get("techName"), field.get("id"), tab.get("id")))
             for child in children(field):
                 _grid(child, tab, child.get("field") or {}, issues)
                 if (child.get("field") or {}).get("type") in SECTION_TYPES:
                     issues.append(Issue("nested-section", "error", "Sekcji nie wolno zagnieżdżać.", tab_title, child["field"].get("techName"), child["field"].get("id"), tab.get("id")))
 
-    for link in (coi.get("flow") or {}).get("links") or []:
+    links = (coi.get("flow") or {}).get("links") or []
+    for link in links:
         if link.get("source") not in tab_ids or link.get("target") not in tab_ids:
             issues.append(Issue("flow", "error", "Przejście między stronami wskazuje nieistniejącą stronę."))
+    sources, targets = {link.get("source") for link in links}, {link.get("target") for link in links}
+    for position, tab in enumerate(tabs):
+        title_ = tab.get("title", "")
+        if position > 0 and tab.get("id") not in targets:
+            issues.append(Issue("flow", "error", f"Do strony „{title_}” nie prowadzi żadne przejście.", title_, tab_id=tab.get("id")))
+        if tab.get("type") != "FINISH" and tab.get("id") not in sources:
+            issues.append(Issue("flow", "error", f"Ze strony „{title_}” nie wychodzi żadne przejście.", title_, tab_id=tab.get("id")))
+    known = {(t.get("title"), q["field"].get("techName"), c["field"].get("techName")) for t in tabs for q in t.get("questions") or [] for c in children(q.get("field") or {})}
+    for tab in tabs:
+        for question in tab.get("questions") or []:
+            for item in [question.get("field") or {}, *[c.get("field") or {} for c in children(question.get("field") or {})]]:
+                for state in item.get("states") or []:
+                    for ref in references(state.get("query") or ""):
+                        if (ref.tab, ref.section, ref.field) not in known:
+                            issues.append(Issue("state-ref", "error", f"Warunek pola „{item.get('title') or item.get('techName')}” wskazuje nieistniejące pole „{ref.field}”.", tab.get("title"), item.get("techName"), item.get("id"), tab.get("id")))
     return issues
 
 
