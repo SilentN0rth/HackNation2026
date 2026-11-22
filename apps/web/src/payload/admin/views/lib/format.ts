@@ -1,11 +1,14 @@
-export const formatDateTime = (iso: string) =>
-  new Date(iso).toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+// Stała strefa urzędu: serwer (np. UTC na hostingu) i przeglądarka muszą wyrenderować ten sam tekst, inaczej hydratacja się rozjeżdża.
+export const TIME_ZONE = "Europe/Warsaw";
 
-export const formatTime = (iso: string) => new Date(iso).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
+export const formatDateTime = (iso: string) =>
+  new Date(iso).toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: TIME_ZONE });
+
+export const formatTime = (iso: string) => new Date(iso).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit", timeZone: TIME_ZONE });
 
 export function dayKey(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  // en-CA daje format RRRR-MM-DD
+  return new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: TIME_ZONE }).format(new Date(iso));
 }
 
 export function dayLabel(key: string, now = new Date()): string {

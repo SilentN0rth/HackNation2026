@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { formatDateTime, formatTime, plural } from "./lib/format";
+import { TIME_ZONE, formatDateTime, formatTime, plural } from "./lib/format";
 import { AUDIT_LABELS, type AiStatus, type AuditItem, type FormStatus } from "./lib/types";
 import { auditUrl, editorUrl, formsListUrl, uploadUrl } from "./routes";
 import { ArrowLink, Eyebrow, FormStatusDot, OpenFlags, PrimaryLink, RowLink, SectionTitle, StatusDot, ViewRoot } from "./ui/bits";
@@ -24,7 +24,7 @@ export type DashboardData = {
 };
 
 function greeting(now = new Date()) {
-  const h = now.getHours();
+  const h = Number(new Intl.DateTimeFormat("pl-PL", { hour: "numeric", hourCycle: "h23", timeZone: TIME_ZONE }).format(now));
   return h < 5 || h >= 18 ? "Dobry wieczór" : "Dzień dobry";
 }
 
