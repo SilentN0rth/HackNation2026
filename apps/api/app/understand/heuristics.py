@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from app.extract.ir import Document
 from app.understand.catalog import any_match, catalog, rewrite
 from app.understand.model import Condition, FieldIR, FormIR, PageIR, SectionIR
-from app.understand.text import clean, fold, is_upper, plain_label, sentence_case, starts_with_box
+from app.understand.text import clean, fold, is_upper, normalize_title, plain_label, sentence_case, starts_with_box
 
 SECTION_NUMBER = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[A-H])[.)]\s*(\S.*)$")
 NUMBER_ONLY = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[a-hA-H])[.)]?\s*$")
@@ -150,7 +150,7 @@ def _title_and_issuer(items: list[Item]) -> tuple[str | None, str | None, set[in
         elif issuer is None and (inline := ISSUER_INLINE.search(text)):
             issuer = inline.group(1)
     if title:
-        title = sentence_case(re.sub(r"\s+", " ", title.replace("*", ""))).rstrip(".")
+        title = normalize_title(title)
     if issuer:
         issuer = " ".join(w if not w.isupper() or len(w) < 3 else w.capitalize() for w in issuer.split())
     return title, issuer, used
@@ -185,6 +185,21 @@ def _kind(header: str) -> str:
     return "content"
 
 
+LABEL_ONLY = {"tak", "nie", "tak nie", "tak / nie", "tak/nie"}
+CONSENT_START = re.compile(
+    r"^\s*(wyrażam\s+zgodę|oświadczam|oświadczamy|zapoznał|informacje\s+na\s+temat\s+ochrony\s+danych|klauzula\s+informacyjna)", re.I
+)
+
+
+def _label_like(text: str) -> bool:
+    """Krótka etykieta pola (PESEL, NIP, TAK NIE), która nie otwiera nowej sekcji, nawet gdy jest pisana wielkimi literami."""
+    folded = fold(text).strip(" :.")
+    if folded in LABEL_ONLY:
+        return True
+    lowered = text.lower()
+    return len(text.split()) <= 2 and any(rule.pattern.search(lowered) for rule in catalog().fields)
+
+
 def split_sections(items: list[Item]) -> list[RawSection]:
     sections: list[RawSection] = []
     current = RawSection(header="", kind="content", page=1)
@@ -200,6 +215,8 @@ def split_sections(items: list[Item]) -> list[RawSection]:
                 is_section = True
             elif plausible and len(parts) >= 2 and parts[0] == top:
                 is_section = True
+        elif _label_like(item.text):
+            pass
         elif (item.heading and not item.cell and len(item.text) <= 90) or (
             is_upper(item.text) and sum(c.isalpha() for c in item.text) >= 6 and len(item.text) <= 90 and not item.text.endswith("?")
         ):
@@ -290,6 +307,18 @@ def _match_option(text: str, options: list[str]) -> str:
     return best
 
 
+def _consent_field(builder: Builder, consents: list[tuple[str, Item]]) -> FieldIR:
+    return FieldIR(
+        key=builder.key(),
+        title="",
+        type="CONSENT_SECTION",
+        required=False,
+        options=[label for label, _ in consents],
+        source=consents[0][1].text,
+        page=consents[0][1].page,
+    )
+
+
 def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR | None:
     rules = catalog()
     title = plain_label(raw.header) if raw.header else "Szczegóły wniosku"
@@ -309,20 +338,10 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             )
         return section if section.fields else None
     if raw.kind == "statements":
-        for item in raw.items:
-            label = plain_label(item.text)
-            if len(label) < 8 or (label.endswith(")") and "(" not in label):
-                continue
-            section.fields.append(
-                FieldIR(
-                    key=builder.key(),
-                    title=label,
-                    type="CHECKBOX",
-                    options=["Potwierdzam"],
-                    source=item.text,
-                    page=item.page,
-                )
-            )
+        consents = [(plain_label(i.text), i) for i in raw.items]
+        consents = [(label, i) for label, i in consents if len(label) >= 8 and not (label.endswith(")") and "(" not in label)]
+        if consents:
+            section.fields.append(_consent_field(builder, consents))
         return section if section.fields else None
 
     choice = any_match(rules.choice_hints, raw.header)
@@ -344,6 +363,7 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             items = options + items
 
     attachments_mode = False
+    consent_items: list[tuple[str, Item]] = []
     preamble = not raw.header
     index = 0
     while index < len(items):
@@ -352,6 +372,9 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
         text = item.text
         if ATTACHMENTS_LINE.match(text) and len(text) < 40:
             attachments_mode = True
+            continue
+        if CONSENT_START.match(text) and len(text) >= 20 and not attachments_mode:
+            consent_items.append((plain_label(text), item))
             continue
         enumerated = ENUMERATED.match(text)
         if attachments_mode:
@@ -367,7 +390,12 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
         if not item.option and not enumerated and index < len(items) and is_option(items[index]) and len(text) <= MAX_LABEL:
             start = index
             options: list[str] = []
-            while index < len(items) and is_option(items[index]) and not ATTACHMENTS_LINE.match(items[index].text):
+            while (
+                index < len(items)
+                and is_option(items[index])
+                and len(items[index].text) <= MAX_LABEL
+                and not ATTACHMENTS_LINE.match(items[index].text)
+            ):
                 match = ENUMERATED.match(items[index].text)
                 value = match.group(1) if match else items[index].text
                 if plain_label(value):
@@ -431,10 +459,8 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
         if SENTENCE.search(text) and len(text) > 50 and not text.lower().startswith("oświadczam"):
             continue
         if len(text) > MAX_LABEL:
-            if text.lower().startswith("oświadczam"):
-                section.fields.append(
-                    FieldIR(key=builder.key(), title=plain_label(text), type="CHECKBOX", options=["Potwierdzam"], source=text, page=item.page)
-                )
+            if CONSENT_START.match(text):
+                consent_items.append((plain_label(text), item))
             continue
         if YES_NO_TAIL.search(text):
             field_ir = builder.radio(YES_NO_TAIL.sub("", text), ["Tak", "Nie"], text, item.page)
@@ -450,6 +476,8 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             field_ir.condition = pending
         section.fields.append(field_ir)
 
+    if consent_items:
+        section.fields.append(_consent_field(builder, consent_items))
     if not section.fields and (describe or raw.header):
         if describe or raw.items == []:
             field_ir = builder.classify(raw.header)
