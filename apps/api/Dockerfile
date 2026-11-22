@@ -14,6 +14,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     HOME=/tmp \
     DB_PATH=/data/app.db \
+    ATTACHMENTS_DIR=/data/attachments \
     SOFFICE_CMD=soffice \
     TESSERACT_CMD=tesseract
 WORKDIR /app
@@ -23,5 +24,6 @@ COPY data/dictionaries.json data/prefill_demo.json ./data/
 USER app
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD wget -qO- http://127.0.0.1:8000/health || exit 1
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-server-header"]
+    CMD wget -qO- "http://127.0.0.1:${PORT:-8000}/health" || exit 1
+# PORT i HOST nadpisuje hosting (Railway: PORT z platformy, HOST=:: dla sieci prywatnej IPv6); domyślnie jak w compose.
+CMD ["sh", "-c", "exec uvicorn app.main:app --host \"${HOST:-0.0.0.0}\" --port \"${PORT:-8000}\" --no-server-header"]
