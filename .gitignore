@@ -19,3 +19,6 @@ node_modules/
 
 # Worktree agentów Claude Code
 .claude/worktrees/
+
+# wgrane załączniki obywateli
+apps/api/data/attachments/
