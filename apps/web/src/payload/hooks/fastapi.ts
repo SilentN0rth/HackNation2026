@@ -74,7 +74,8 @@ export type GeneratedDraft = { draftId: string; schema: FormSchema; flags: LintF
 export async function generateDraft(file: { data: Uint8Array; name: string; mimeType: string }): Promise<GeneratedDraft> {
   const body = new FormData();
   body.append("file", new Blob([new Uint8Array(file.data)], { type: file.mimeType }), file.name);
-  const { draftId } = await call(z.object({ draftId: z.string() }), "/drafts", { method: "POST", body }, { timeoutMs: 180_000 });
+  const ready = file.name.toLowerCase().endsWith(".json");
+  const { draftId } = await call(z.object({ draftId: z.string() }), ready ? "/coi/import" : "/drafts", { method: "POST", body }, { timeoutMs: 180_000 });
   const draft = await call(FormDraftSchema, `/drafts/${draftId}`);
   const flags = await lintDraft(draftId);
   const coi = await call(z.unknown(), `/drafts/${draftId}/coi`);

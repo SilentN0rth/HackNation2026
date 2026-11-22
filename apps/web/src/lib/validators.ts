@@ -61,7 +61,7 @@ export function validateField(field: Field, value: string | boolean | undefined)
   return r.success ? null : (r.error.issues[0]?.message ?? "Niepoprawna wartość.");
 }
 
-export const ACCEPTED_EXTENSIONS = [".pdf", ".doc", ".docx", ".ods", ".xlsx", ".jpg", ".jpeg", ".png"];
+export const ACCEPTED_EXTENSIONS = [".pdf", ".doc", ".docx", ".ods", ".xlsx", ".jpg", ".jpeg", ".png", ".json"];
 const FORBIDDEN_CHARS = /[;:></\\|'*%$]/;
 export const MAX_FILE_MB = 20; // backend ma własny, konfigurowalny limit – to tylko podpowiedź w UI
 

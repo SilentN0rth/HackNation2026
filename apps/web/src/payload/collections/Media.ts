@@ -14,6 +14,7 @@ export const SOURCE_MIME_TYPES = [
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   "image/jpeg",
   "image/png",
+  "application/json", // gotowy plik COI importowany bez generowania
 ];
 
 export const Media: CollectionConfig = {
