@@ -8,6 +8,7 @@ from app.understand.text import (
     LEADER,
     clean,
     fold,
+    is_junk_title,
     is_upper,
     normalize_title,
     plain_label,
@@ -543,6 +544,8 @@ def paginate(sections: list[SectionIR]) -> list[PageIR]:
         count += size
     used = set(RESERVED_PAGE_TITLES)
     for page in pages:
+        if is_junk_title(page.title):
+            page.title = "Szczegóły wniosku"
         page.title = _unique(page.title, used)
     return pages
 

@@ -5,12 +5,11 @@ from collections import Counter
 
 from app.coi.validator import Issue
 from app.coi.walk import INPUT_TYPES, SECTION_TYPES, children
+from app.understand.text import is_junk_title
 
 MAX_LABEL = 120
 MAX_FIELDS_PER_PAGE = 25
 MAX_FIELDS_PER_SECTION = 15
-KNOWN_SHORT_TITLES = {"dane", "zgody", "zgoda", "kontakt", "adres", "opis", "załączniki"}
-JUNK_TITLES = {"tak nie", "tak", "nie", "tak / nie"}
 VALIDATOR_BY_LABEL = (
     (re.compile(r"\bpesel\b", re.I), "PESEL", {"TEXT_FIELD"}),
     (re.compile(r"^nip$", re.I), "NIP", {"TEXT_FIELD"}),
@@ -72,8 +71,7 @@ def quality(coi: dict) -> list[Issue]:
         issues.append(Issue("long-title", "warning", "Tytuł formularza powinien być jak najkrótszy."))
     for tab in coi.get("tabs") or []:
         title = (tab.get("title") or "").strip()
-        words = title.split()
-        if title.lower() in JUNK_TITLES or (len(words) == 1 and len(title) <= 6 and title.lower() not in KNOWN_SHORT_TITLES):
+        if is_junk_title(title):
             issues.append(_issue("junk-title", f"Tytuł strony „{title}” wygląda na fragment papierowego formularza.", tab, {}))
         count = 0
         for question in tab.get("questions") or []:

@@ -81,3 +81,14 @@ def slug(text: str, limit: int = 60) -> str:
 def fold(text: str) -> str:
     text = text.translate(TRANSLIT)
     return unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii").lower()
+
+
+KNOWN_SHORT_TITLES = {"dane", "zgody", "zgoda", "kontakt", "adres", "opis", "załączniki"}
+JUNK_TITLES = {"tak nie", "tak", "nie", "tak / nie"}
+
+
+def is_junk_title(title: str) -> bool:
+    """Tytuł strony, który wygląda na fragment papierowego formularza (jedno krótkie słowo, „tak nie”)."""
+    title = title.strip()
+    words = title.split()
+    return title.lower() in JUNK_TITLES or (len(words) == 1 and len(title) <= 6 and title.lower() not in KNOWN_SHORT_TITLES)

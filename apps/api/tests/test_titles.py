@@ -70,3 +70,17 @@ def test_organ_form_stays_valid_and_unique():
     assert [i for i in validate(coi) if i.severity == "error"] == []
     names = [i.field["techName"] for i in iter_fields(coi)]
     assert len(names) == len(set(names))
+
+
+@pytest.mark.parametrize(("title", "junk"), [("Gdynia", True), ("Tak nie", True), ("Pesel", True), ("Dane", False), ("Dane sportowca", False), ("Adres nieruchomości", False)])
+def test_junk_title_detection(title, junk):
+    from app.understand.text import is_junk_title
+
+    assert is_junk_title(title) is junk
+
+
+def test_junk_page_title_is_replaced():
+    from app.understand.heuristics import paginate
+
+    pages = paginate([SectionIR("Gdynia", [FieldIR("a", "Pole")])])
+    assert pages[0].title == "Szczegóły wniosku"
