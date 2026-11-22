@@ -10,7 +10,7 @@ from fastapi.responses import StreamingResponse
 
 from app.errors import ApiError
 from app.pipeline import convert
-from app.security import Official
+from app.security import Converter
 from app.uploads import read_upload
 
 router = APIRouter(prefix="/api/v1", tags=["Konwersja"])
@@ -26,7 +26,7 @@ MAX_BATCH = 20
     ),
 )
 async def convert_file(
-    user: Official,
+    user: Converter,
     file: Annotated[UploadFile, File(description="Blankiet formularza")],
     issuer: Annotated[str | None, Form(description="Nazwa urzędu, gdy nie da się jej odczytać z pliku")] = None,
     include: Annotated[str | None, Query(description="meta, flags")] = None,
@@ -58,7 +58,7 @@ async def convert_file(
     description="Przyjmuje do 20 plików i zwraca archiwum ZIP z plikami JSON COI oraz raportem.",
     response_class=StreamingResponse,
 )
-async def convert_batch(user: Official, files: Annotated[list[UploadFile], File(description="Blankiety formularzy")]) -> StreamingResponse:
+async def convert_batch(user: Converter, files: Annotated[list[UploadFile], File(description="Blankiety formularzy")]) -> StreamingResponse:
     if not files:
         raise ApiError(422, "Nie przesłano żadnego pliku.")
     if len(files) > MAX_BATCH:

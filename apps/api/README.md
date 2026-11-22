@@ -118,6 +118,14 @@ Walidacja pliku przed przetwarzaniem:
 
 Plik istnieje tylko w pamięci na czas żądania. LibreOffice i Tesseract dostają kopię w katalogu tymczasowym, usuwaną zaraz po konwersji. `/api/v1/convert` niczego nie zapisuje. Wersja robocza (`/drafts`) przechowuje nazwę pliku, jego skrót SHA-256 i odczytane etykiety pól, a sam plik nie jest zapisywany. Załączniki obywatela (`/attachments`) są zapisywane na dysku, bo są częścią wniosku, a nie blankietem.
 
+Dostęp: token JWT (`Authorization: Bearer …`) albo klucz `X-API-Key`, jeśli ustawiono `API_KEY`. Wdrożenie publiczne udostępnia konwersję pod adresem aplikacji, a `/auth/token` wydaje tokeny tylko klientowi z nagłówkiem `X-Client-Secret` (zmienna `TOKEN_CLIENT_SECRET`):
+
+```bash
+curl -H "X-API-Key: <klucz>" -F "file=@wniosek.pdf" https://e-formularze.up.railway.app/api/v1/convert
+```
+
+Opis OpenAPI: https://e-formularze.up.railway.app/docs
+
 ### Pozostałe ścieżki
 
 | Metoda i ścieżka | Rola | Opis |

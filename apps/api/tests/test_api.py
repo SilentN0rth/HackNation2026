@@ -156,3 +156,33 @@ def test_predefined_dictionaries_are_filled(client):
     assert size("Numery kierunkowe") >= 200
     assert client.get("/dictionaries/Kraje").json()["values"][0]["name"] == "Polska"
     assert client.get("/dictionaries/Numery kierunkowe").json()["values"][0]["name"] == "+48"
+
+
+def test_convert_accepts_api_key(client, monkeypatch):
+    from pydantic import SecretStr
+
+    from app.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "api_key", SecretStr("klucz-testowy"))
+    name, data = sample("2", ".pdf")
+    ok = client.post("/api/v1/convert", headers={"X-API-Key": "klucz-testowy"}, files={"file": (name, data)})
+    bad = client.post("/api/v1/convert", headers={"X-API-Key": "zly"}, files={"file": (name, data)})
+    assert ok.status_code == 200 and "tabs" in ok.json()
+    assert bad.status_code == 401
+
+
+def test_api_key_disabled_when_not_configured(client):
+    name, data = sample("2", ".pdf")
+    response = client.post("/api/v1/convert", headers={"X-API-Key": "cokolwiek"}, files={"file": (name, data)})
+    assert response.status_code == 401
+
+
+def test_token_requires_client_secret_when_configured(client, monkeypatch):
+    from pydantic import SecretStr
+
+    from app.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "token_client_secret", SecretStr("sekret-frontu"))
+    assert client.post("/auth/token", json={"userId": "u-urzednik"}).status_code == 401
+    ok = client.post("/auth/token", json={"userId": "u-urzednik"}, headers={"X-Client-Secret": "sekret-frontu"})
+    assert ok.status_code == 200

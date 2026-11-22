@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Header, Query
 from pydantic import BaseModel
 
 from app import dictionaries
@@ -8,7 +8,7 @@ from app.config import get_settings
 from app.errors import ApiError
 from app.extract.doc import converter_available
 from app.extract.image import ocr_available
-from app.security import USERS, AnyUser, Role, issue_token
+from app.security import USERS, AnyUser, Role, issue_token, secret_matches
 from app.understand import llm
 
 router = APIRouter(tags=["System"])
@@ -39,7 +39,10 @@ def health() -> dict:
 
 
 @router.post("/auth/token", response_model=TokenResponse, summary="Token JWT dla konta demonstracyjnego")
-def token(body: TokenRequest) -> TokenResponse:
+def token(body: TokenRequest, x_client_secret: Annotated[str | None, Header()] = None) -> TokenResponse:
+    expected = get_settings().token_client_secret.get_secret_value()
+    if expected and not secret_matches(x_client_secret, expected):
+        raise ApiError(401, "Token wydaje tylko zaufany klient. Brak lub zły nagłówek X-Client-Secret.")
     user = USERS.get(body.userId)
     if user is None:
         raise ApiError(404, "Nie ma takiego użytkownika.")

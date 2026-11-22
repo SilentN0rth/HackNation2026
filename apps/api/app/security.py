@@ -1,10 +1,11 @@
+import hmac
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Annotated, Literal
 
 import jwt
 from fastapi import Depends, Query
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import get_settings, jwt_secret
 from app.errors import ApiError
@@ -33,6 +34,11 @@ USERS: dict[str, User] = {
 DEFAULT_BY_ROLE: dict[str, User] = {u.role: u for u in USERS.values()}
 
 bearer = HTTPBearer(auto_error=False)
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+
+def secret_matches(given: str | None, expected: str) -> bool:
+    return bool(expected) and given is not None and hmac.compare_digest(given.encode(), expected.encode())
 
 
 def issue_token(user: User) -> tuple[str, int]:
@@ -95,6 +101,18 @@ def require_role(role: Role):
     return dependency
 
 
+def require_converter(
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
+    api_key: Annotated[str | None, Depends(api_key_header)],
+) -> User:
+    if api_key is not None:
+        if not secret_matches(api_key, get_settings().api_key.get_secret_value()):
+            raise ApiError(401, "Nieprawidłowy klucz API.")
+        return DEFAULT_BY_ROLE["official"]
+    return require_role("official")(credentials)
+
+
 Official = Annotated[User, Depends(require_role("official"))]
+Converter = Annotated[User, Depends(require_converter)]
 Citizen = Annotated[User, Depends(require_role("citizen"))]
 AnyUser = Annotated[User, Depends(current_user)]

@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_ttl_min: int = 480
     jwt_issuer: str = "e-formularze"
+    api_key: SecretStr = SecretStr("")
+    token_client_secret: SecretStr = SecretStr("")
 
     cors_origins: list[str] = ["http://localhost:5173"]
     db_path: Path = Path("data/app.db")
