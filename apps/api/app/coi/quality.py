@@ -18,6 +18,9 @@ VALIDATOR_BY_LABEL = (
     (re.compile(r"e-?mail", re.I), "EMAIL", {"TEXT_FIELD"}),
     (re.compile(r"^kod pocztowy$", re.I), "ZIP_CODE", {"TEXT_FIELD"}),
 )
+GENERIC_ORGAN = re.compile(r"^(urząd|wójt|burmistrz|prezydent|starosta|gminy?|miasta?|i|miejski|miejskiego|powiatowy)(\s+(urząd|wójt|burmistrz|prezydent|starosta|gminy?|miasta?|i|miejski|miejskiego|powiatowy))*$", re.I)
+GENDERED = re.compile(r"\b(zapoznałem|zapoznałam|oświadczam, że (?:jestem|byłem|byłam)|zobowiązuję się, że będę)\b|\b\w+(?:łem|łam)\b(?=\s+się\b)", re.I)
+PARTICIPLE = re.compile(r"\b\w{3,}ąc\b", re.I)
 HREF = re.compile(r'href="([^"]*)"')
 
 
@@ -48,7 +51,14 @@ def _field_checks(tab: dict, item: dict, out: list[Issue]) -> None:
         foreign = "zagranica" in (item.get("techName") or "")  # adresy zagraniczne: kod pocztowy bez walidacji kształtu
         if ftype in types and pattern.search(item.get("title") or "") and validator not in validation and not item.get("readOnly") and not (foreign and validator == "ZIP_CODE"):
             out.append(_issue("missing-validator", f"Pole „{label}” powinno mieć walidator {validator}.", tab, item))
+    if item.get("techName") in ("nazwa_urzedu", "nazwa_organu") and GENERIC_ORGAN.match((item.get("defaultValue") or "").strip()):
+        out.append(_issue("organ-name", "Nazwa urzędu nie zawiera nazwy własnej (miejscowości); uzupełnij ją przed publikacją.", tab, item))
     for consent in (item.get("consentSectionConfig") or {}).get("consents") or []:
+        plain = re.sub(r"<[^>]+>", " ", consent.get("description") or "")
+        if GENDERED.search(plain):
+            out.append(_issue("language-gender", "Treść zgody wskazuje płeć (np. „zapoznałem się”); użyj formy neutralnej: „zapoznaję się”.", tab, item))
+        if PARTICIPLE.search(plain):
+            out.append(_issue("language-participle", "Treść zawiera imiesłów na „-ąc”; standardy zalecają prostsze zdania.", tab, item))
         for href in HREF.findall(consent.get("description") or ""):
             if not re.match(r"https?://", href):
                 out.append(_issue("consent-link", f"Odnośnik w zgodzie („{href.strip()}”) nie jest adresem URL.", tab, item))

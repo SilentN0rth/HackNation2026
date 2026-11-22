@@ -147,3 +147,34 @@ def test_renaming_page_keeps_section_states_valid(coi):
     assert errors(back) == []
     section = next(q["field"] for q in back["tabs"][0]["questions"] if q["field"]["techName"] == "dane_podmiotu")
     assert "Dane wnioskodawcy" in section["states"][0]["query"] and "'Dane' in title" not in section["states"][0]["query"]
+
+
+# --- język i organ ----------------------------------------------------------------------------------
+
+
+def set_consent(coi: dict, html: str) -> None:
+    consent = next(i.field for i in leaves(coi) if i.field["type"] == "CONSENT_SECTION")
+    consent["consentSectionConfig"]["consents"][0]["description"] = html
+
+
+@pytest.mark.parametrize("text", ["<p>Zapoznałem się z regulaminem.</p>", "<p>Ja, zapoznałam się z klauzulą.</p>"])
+def test_gendered_consent_is_flagged(coi, text):
+    set_consent(coi, text)
+    assert "language-gender" in codes(quality(coi))
+
+
+def test_neutral_consent_is_not_flagged(coi):
+    set_consent(coi, "<p>Zapoznaję się z regulaminem.</p>")
+    assert not {"language-gender", "language-participle"} & codes(quality(coi))
+
+
+def test_participle_is_flagged(coi):
+    set_consent(coi, "<p>Wnioskując o zwrot, potwierdzam dane.</p>")
+    assert "language-participle" in codes(quality(coi))
+
+
+@pytest.mark.parametrize(("name", "flagged"), [("Urząd Miasta i Gminy", True), ("Wójt Gminy", True), ("Urząd Gminy Ulan-Majorat", False)])
+def test_organ_name_needs_a_proper_noun(coi, name, flagged):
+    organ = next(i.field for i in leaves(coi) if i.field["techName"] in ("nazwa_urzedu", "nazwa_organu"))
+    organ["defaultValue"] = name
+    assert ("organ-name" in codes(quality(coi))) is flagged

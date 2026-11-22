@@ -116,3 +116,16 @@ def test_editor_roundtrip_keeps_consent_sections(with_consents):
     back, _ = from_frontend(coi, meta, schema)
     assert errors(back) == []
     assert sum(1 for i in leaves(back) if i.field["type"] == "CONSENT_SECTION") == 2
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Oświadczam, że zapoznałem się z regulaminem", "Oświadczam, że zapoznaję się z regulaminem"),
+        ("Zapoznałam się z klauzulą", "Zapoznaję się z klauzulą"),
+        ("Zapoznałem/am się z warunkami", "Zapoznaję się z warunkami"),
+        ("Zgoda bez zmian", "Zgoda bez zmian"),
+    ],
+)
+def test_consents_are_neutral_and_in_present_tense(raw, expected):
+    assert builder.neutral(raw) == expected

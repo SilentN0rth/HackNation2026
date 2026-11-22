@@ -137,6 +137,19 @@ def section_visibility(coi: dict) -> dict[str, dict]:
     return result
 
 
+def _read_only_condition(field: dict, index: dict) -> dict | None:
+    """Stan READ_ONLY powiązany z polem wyboru (np. „Brak nazwy ulicy”): pole blokuje się po zaznaczeniu."""
+    for state in field.get("states") or []:
+        if state.get("type") != "READ_ONLY":
+            continue
+        tree = parse_expr(state.get("query", ""))
+        if tree and tree[0] == "atom":
+            target = index.get((tree[1].tab, tree[1].section, tree[1].field))
+            if target and target.get("type") == "CHECKBOX":
+                return {"fieldId": target["id"], "equals": True}
+    return None
+
+
 def _page_condition(tab: dict, index: dict) -> dict | None:
     """Warunek widoczności całej strony, gdy wszystkie jej sekcje mają ten sam prosty warunek SHOW."""
     found = []
@@ -197,6 +210,9 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                 if field["id"] in conds:
                     target, value, negated = conds[field["id"]]
                     item["visibleIf"] = {"fieldId": target, "equals": value, **({"negate": True} if negated else {})}
+                lock = _read_only_condition(field, index_all)
+                if lock:
+                    item["readOnlyIf"] = lock
                 if field["id"] in section_conds:
                     item["visibleWhen"] = section_conds[field["id"]]
                 default = field.get("defaultValue")

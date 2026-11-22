@@ -110,4 +110,4 @@ def test_citizen_sees_only_chosen_variant_pages(form):
 
 def test_generated_variant_form_has_no_heavy_or_long_warnings(form):
     coi = builder.build(form)[0]
-    assert {i.code for i in quality(coi)} - {"junk-title"} == set()
+    assert {i.code for i in quality(coi)} - {"junk-title", "organ-name"} == set()

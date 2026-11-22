@@ -90,6 +90,7 @@ def test_only_intended_fields_were_added(pair):
     ours, reference = pair
     extra = {key for key in titled(ours) if key not in titled(reference)}
     allowed = {("twoje_dane", "Numer PESEL"), ("dane_innej_osoby", "Numer PESEL"), ("dane_podmiotu", "REGON"), ("dane_podmiotu", "Numer KRS")}
+    extra = {key for key in extra if not key[1].startswith("Brak ")}  # checkboxy „Brak nazwy ulicy / numeru lokalu” ze standardu adresu
     assert extra <= allowed, extra - allowed
 
 

@@ -95,6 +95,8 @@ export const FieldSchema = z.object({
   legalBasis: LegalBasisSchema.optional(),
   defaultValue: z.string().optional(),
   readOnly: z.boolean().optional(),
+  /** Pole blokuje się, gdy wskazane pole wyboru jest zaznaczone (np. „Brak nazwy ulicy”). */
+  readOnlyIf: ConditionSchema.optional(),
 });
 export type Field = z.infer<typeof FieldSchema>;
 

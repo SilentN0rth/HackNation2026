@@ -15,6 +15,12 @@ function evaluate(expr: ConditionExpr | undefined, values: Values): boolean {
   return isVisible(expr, values);
 }
 
+/** Czy pole jest zablokowane przez zaznaczone pole wyboru (readOnlyIf). */
+export function isLocked(field: { readOnlyIf?: Condition }, values: Values): boolean {
+  const cond = field.readOnlyIf;
+  return Boolean(cond) && isVisible(cond, values);
+}
+
 export function visiblePages(schema: FormSchema, values: Values): FormPage[] {
   return schema.pages
     .filter((p) => isVisible(p.visibleIf, values))

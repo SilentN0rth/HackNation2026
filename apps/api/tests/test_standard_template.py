@@ -197,3 +197,25 @@ def test_editor_roundtrip_keeps_upload_type(citizen):
     back, _ = from_frontend(coi, {}, schema)
     kinds = {i.field["techName"]: i.field["type"] for i in leaves(back)}
     assert kinds["plik_dokumentu_z_pelnomocnictwem"] == "FILE_UPLOADER"
+
+
+@pytest.mark.parametrize(
+    ("target", "checkbox"),
+    [("ulica", "brak_nazwy_ulicy_zamieszkania"), ("numer_lokalu", "brak_numeru_lokalu_zamieszkania"), ("ulica_siedziba", "brak_nazwy_ulicy_siedziby")],
+)
+def test_address_has_lock_checkboxes(built, target, checkbox):
+    by_tech = fields(built)
+    assert by_tech[checkbox]["type"] == "CHECKBOX"
+    states = [s for s in by_tech[target]["states"] if s["type"] == "READ_ONLY"]
+    assert len(states) == 1 and checkbox in states[0]["query"]
+
+
+def test_citizen_locks_street_when_box_is_checked(citizen):
+    _, schema, by_tech = citizen
+    street = next(f for p in schema["pages"] for f in p["fields"] if f["id"] == by_tech["ulica"])
+    assert street["readOnlyIf"] == {"fieldId": by_tech["brak_nazwy_ulicy_zamieszkania"], "equals": True}
+
+
+def test_address_dictionary_is_the_same_for_every_address(built):
+    names = {f["dictionaryName"] for f in fields(built).values() if f.get("dictionaryName", "").startswith("TERYT")}
+    assert names == {"TERYT_4G_DOWODOWY"}

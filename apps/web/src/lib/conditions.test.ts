@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Field, FormSchema } from "@/types";
-import { visiblePages } from "./conditions";
+import { isLocked, visiblePages } from "./conditions";
 
 const field = (id: string, visibleIf?: Field["visibleIf"]): Field => ({ id, label: id, type: "text", required: false, visibleIf });
 
@@ -85,5 +85,17 @@ describe("visiblePages z visibleWhen", () => {
   it("puste grupy: allOf pokazuje, anyOf ukrywa", () => {
     expect(shown(make({ allOf: [] }), {})).toBe(true);
     expect(shown(make({ anyOf: [] }), {})).toBe(false);
+  });
+});
+
+describe("isLocked", () => {
+  const f = { readOnlyIf: { fieldId: "brak", equals: true } };
+  it("blokuje pole po zaznaczeniu pola wyboru", () => {
+    expect(isLocked(f, { brak: true })).toBe(true);
+    expect(isLocked(f, { brak: false })).toBe(false);
+    expect(isLocked(f, {})).toBe(false);
+  });
+  it("bez warunku nigdy nie blokuje", () => {
+    expect(isLocked({}, { brak: true })).toBe(false);
   });
 });

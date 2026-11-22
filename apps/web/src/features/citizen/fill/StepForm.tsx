@@ -1,7 +1,7 @@
 import { Alert, Button, Card } from "@heroui/react";
 import { api } from "@/api";
 import { FieldRenderer } from "@/components/FieldRenderer";
-import type { Values } from "@/lib/conditions";
+import { isLocked, type Values } from "@/lib/conditions";
 import type { FormPage } from "@/types";
 
 interface Props {
@@ -46,6 +46,7 @@ export function StepForm({ page, values, errors, prefilled, step, busy, savedAt,
               value={values[f.id]}
               error={errors[f.id] || null}
               prefilled={prefilled.has(f.id)}
+              readOnly={isLocked(f, values)}
               onChange={(v) => onChange(f.id, v)}
               onUpload={api.uploadAttachment ? (file) => api.uploadAttachment!(file) : undefined}
             />

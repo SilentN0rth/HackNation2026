@@ -242,7 +242,7 @@
                 {
                     "x": 0,
                     "y": 9,
-                    "rows": 10,
+                    "rows": 12,
                     "cols": 3,
                     "field": {
                         "id": "daf23e57-fdcc-44cf-a2c0-4cff5c6e5f92",
@@ -305,6 +305,10 @@
                                         {
                                             "type": "SHOW",
                                             "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_zamieszkania' in field.techName].field.repeatingSectionGrid['kraj' in field.techName].field.__userAnswer)"
+                                        },
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak nazwy ulicy\" in tabs['Dane' in title].questions['adres_zamieszkania' in field.techName].field.repeatingSectionGrid['brak_nazwy_ulicy_zamieszkania' in field.techName].field.__userAnswer)"
                                         }
                                     ],
                                     "questionOrder": 6,
@@ -488,8 +492,70 @@
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.apartment",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
-                                    "states": [],
+                                    "states": [
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak numeru lokalu\" in tabs['Dane' in title].questions['adres_zamieszkania' in field.techName].field.repeatingSectionGrid['brak_numeru_lokalu_zamieszkania' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
                                     "questionOrder": 8,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 9,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "486196c8-5cdf-40a9-a3cc-e4453c328d89",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_nazwy_ulicy_zamieszkania",
+                                    "title": "Brak nazwy ulicy",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak nazwy ulicy",
+                                            "name": "Brak nazwy ulicy",
+                                            "techName": "brak_nazwy_ulicy_zamieszkania"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [
+                                        {
+                                            "type": "SHOW",
+                                            "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_zamieszkania' in field.techName].field.repeatingSectionGrid['kraj' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
+                                    "questionOrder": 9,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 10,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "98fb9d6f-aaf1-4083-8145-949b53cd41b6",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_numeru_lokalu_zamieszkania",
+                                    "title": "Brak numeru lokalu",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak numeru lokalu",
+                                            "name": "Brak numeru lokalu",
+                                            "techName": "brak_numeru_lokalu_zamieszkania"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [],
+                                    "questionOrder": 10,
                                     "tooltipMessage": ""
                                 }
                             }
@@ -501,7 +567,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 19,
+                    "y": 21,
                     "rows": 5,
                     "cols": 3,
                     "field": {
@@ -615,8 +681,8 @@
                 },
                 {
                     "x": 0,
-                    "y": 24,
-                    "rows": 10,
+                    "y": 26,
+                    "rows": 12,
                     "cols": 3,
                     "field": {
                         "id": "f89e7e4a-b352-417f-ba19-8c462995d49b",
@@ -784,6 +850,10 @@
                                         {
                                             "type": "SHOW",
                                             "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_siedziby' in field.techName].field.repeatingSectionGrid['kraj_siedziba' in field.techName].field.__userAnswer)"
+                                        },
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak nazwy ulicy\" in tabs['Dane' in title].questions['adres_siedziby' in field.techName].field.repeatingSectionGrid['brak_nazwy_ulicy_siedziby' in field.techName].field.__userAnswer)"
                                         }
                                     ],
                                     "questionOrder": 6,
@@ -827,7 +897,12 @@
                                     "validation": [],
                                     "readOnly": false,
                                     "repeatingSectionGrid": [],
-                                    "states": [],
+                                    "states": [
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak numeru lokalu\" in tabs['Dane' in title].questions['adres_siedziby' in field.techName].field.repeatingSectionGrid['brak_numeru_lokalu_siedziby' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
                                     "questionOrder": 8,
                                     "tooltipMessage": ""
                                 }
@@ -859,6 +934,63 @@
                                     "questionOrder": 0,
                                     "tooltipMessage": ""
                                 }
+                            },
+                            {
+                                "x": 0,
+                                "y": 9,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "9e7d8893-6d7b-4f10-a486-2d3bacb632e2",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_nazwy_ulicy_siedziby",
+                                    "title": "Brak nazwy ulicy",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak nazwy ulicy",
+                                            "name": "Brak nazwy ulicy",
+                                            "techName": "brak_nazwy_ulicy_siedziby"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [
+                                        {
+                                            "type": "SHOW",
+                                            "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_siedziby' in field.techName].field.repeatingSectionGrid['kraj_siedziba' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
+                                    "questionOrder": 9,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 10,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "45d9c990-9aaa-4564-bbf3-1497ed45edc9",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_numeru_lokalu_siedziby",
+                                    "title": "Brak numeru lokalu",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak numeru lokalu",
+                                            "name": "Brak numeru lokalu",
+                                            "techName": "brak_numeru_lokalu_siedziby"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [],
+                                    "questionOrder": 10,
+                                    "tooltipMessage": ""
+                                }
                             }
                         ],
                         "states": [
@@ -873,7 +1005,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 34,
+                    "y": 38,
                     "rows": 2,
                     "cols": 3,
                     "field": {
@@ -921,7 +1053,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 36,
+                    "y": 40,
                     "rows": 4,
                     "cols": 3,
                     "field": {
@@ -1014,8 +1146,8 @@
                 },
                 {
                     "x": 0,
-                    "y": 40,
-                    "rows": 10,
+                    "y": 44,
+                    "rows": 12,
                     "cols": 3,
                     "field": {
                         "id": "7699f1c0-548b-4f82-95b9-022bd3961f37",
@@ -1089,7 +1221,12 @@
                                     "validation": [],
                                     "readOnly": false,
                                     "repeatingSectionGrid": [],
-                                    "states": [],
+                                    "states": [
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak numeru lokalu\" in tabs['Dane' in title].questions['adres_zamieszkania_osoby_ktorej_jestes_pelnomocnikiem' in field.techName].field.repeatingSectionGrid['brak_numeru_lokalu_zamieszkania_inna_osoba' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
                                     "questionOrder": 8,
                                     "tooltipMessage": ""
                                 }
@@ -1156,9 +1293,9 @@
                                     "id": "71beeb40-51fa-4150-9f9d-a20c69ccc048",
                                     "type": "SELECT",
                                     "techName": "wojewodztwo_inna_osoba",
-                                    "title": "TERYT_DOWODOWY",
+                                    "title": "TERYT_4G_DOWODOWY",
                                     "description": "",
-                                    "dictionaryName": "TERYT_DOWODOWY",
+                                    "dictionaryName": "TERYT_4G_DOWODOWY",
                                     "options": [],
                                     "validation": [
                                         "REQUIRED"
@@ -1250,9 +1387,70 @@
                                         {
                                             "type": "SHOW",
                                             "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_zamieszkania_osoby_ktorej_jestes_pelnomocnikiem' in field.techName].field.repeatingSectionGrid['kraj_inna_osoba' in field.techName].field.__userAnswer)"
+                                        },
+                                        {
+                                            "type": "READ_ONLY",
+                                            "query": "(\"Brak nazwy ulicy\" in tabs['Dane' in title].questions['adres_zamieszkania_osoby_ktorej_jestes_pelnomocnikiem' in field.techName].field.repeatingSectionGrid['brak_nazwy_ulicy_zamieszkania_inna_osoba' in field.techName].field.__userAnswer)"
                                         }
                                     ],
                                     "questionOrder": 6,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 9,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "93801642-61d3-431b-890a-41bb0410eca1",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_nazwy_ulicy_zamieszkania_inna_osoba",
+                                    "title": "Brak nazwy ulicy",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak nazwy ulicy",
+                                            "name": "Brak nazwy ulicy",
+                                            "techName": "brak_nazwy_ulicy_zamieszkania_inna_osoba"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [
+                                        {
+                                            "type": "SHOW",
+                                            "query": "(\"Polska\" in tabs['Dane' in title].questions['adres_zamieszkania_osoby_ktorej_jestes_pelnomocnikiem' in field.techName].field.repeatingSectionGrid['kraj_inna_osoba' in field.techName].field.__userAnswer)"
+                                        }
+                                    ],
+                                    "questionOrder": 9,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 10,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "629ed382-48bc-4c2d-ac71-a4daa21717b3",
+                                    "type": "CHECKBOX",
+                                    "techName": "brak_numeru_lokalu_zamieszkania_inna_osoba",
+                                    "title": "Brak numeru lokalu",
+                                    "description": "",
+                                    "options": [
+                                        {
+                                            "id": "Brak numeru lokalu",
+                                            "name": "Brak numeru lokalu",
+                                            "techName": "brak_numeru_lokalu_zamieszkania_inna_osoba"
+                                        }
+                                    ],
+                                    "validation": [],
+                                    "readOnly": false,
+                                    "repeatingSectionGrid": [],
+                                    "states": [],
+                                    "questionOrder": 10,
                                     "tooltipMessage": ""
                                 }
                             }
@@ -1269,7 +1467,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 50,
+                    "y": 56,
                     "rows": 2,
                     "cols": 3,
                     "field": {
@@ -1317,7 +1515,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 52,
+                    "y": 58,
                     "rows": 4,
                     "cols": 3,
                     "field": {
@@ -1428,7 +1626,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 56,
+                    "y": 62,
                     "rows": 3,
                     "cols": 3,
                     "field": {

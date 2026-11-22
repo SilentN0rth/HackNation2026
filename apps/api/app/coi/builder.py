@@ -1,5 +1,6 @@
 import copy
 import json
+import re
 import uuid
 from functools import lru_cache
 from pathlib import Path
@@ -119,7 +120,21 @@ def option_list(values: list[str]) -> list[dict]:
     return result
 
 
+NEUTRAL = [
+    (re.compile(r"\bzapoznał(?:em|am)(?:/(?:am|em|łam|łem))?\s+się\b", re.I), "zapoznaję się"),
+    (re.compile(r"\bzapoznał(?:em|am)\b", re.I), "znam"),
+]
+
+
+def neutral(text: str) -> str:
+    """Zgody w czasie teraźniejszym i bez wskazywania płci, jak w standardach."""
+    for pattern, replacement in NEUTRAL:
+        text = pattern.sub(lambda m, r=replacement: r.capitalize() if m.group(0)[0].isupper() else r, text)
+    return text
+
+
 def _consent_html(text: str) -> str:
+    text = neutral(text)
     escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     return f"<html><head></head><body><p>{escaped}</p></body></html>"
 
