@@ -51,6 +51,8 @@ def _field_checks(tab: dict, item: dict, out: list[Issue]) -> None:
         foreign = "zagranica" in (item.get("techName") or "")  # adresy zagraniczne: kod pocztowy bez walidacji kształtu
         if ftype in types and pattern.search(item.get("title") or "") and validator not in validation and not item.get("readOnly") and not (foreign and validator == "ZIP_CODE"):
             out.append(_issue("missing-validator", f"Pole „{label}” powinno mieć walidator {validator}.", tab, item))
+    if item.get("defaultValueType") == "EXTERNAL_SYSTEM" and not item.get("readOnly"):
+        out.append(_issue("external-not-readonly", f"Pole „{label}” jest zasilane z rejestru, więc musi być tylko do odczytu.", tab, item))
     if item.get("techName") in ("nazwa_urzedu", "nazwa_organu") and GENERIC_ORGAN.match((item.get("defaultValue") or "").strip()):
         out.append(_issue("organ-name", "Nazwa urzędu nie zawiera nazwy własnej (miejscowości); uzupełnij ją przed publikacją.", tab, item))
     for consent in (item.get("consentSectionConfig") or {}).get("consents") or []:

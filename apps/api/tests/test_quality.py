@@ -178,3 +178,10 @@ def test_organ_name_needs_a_proper_noun(coi, name, flagged):
     organ = next(i.field for i in leaves(coi) if i.field["techName"] in ("nazwa_urzedu", "nazwa_organu"))
     organ["defaultValue"] = name
     assert ("organ-name" in codes(quality(coi))) is flagged
+
+
+def test_register_fields_must_be_read_only(coi):
+    external = [i.field for i in leaves(coi) if i.field.get("defaultValueType") == "EXTERNAL_SYSTEM"]
+    assert external and all(f["readOnly"] for f in external)
+    external[0]["readOnly"] = False
+    assert "external-not-readonly" in codes(quality(coi))

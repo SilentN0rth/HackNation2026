@@ -270,7 +270,7 @@
                                         "REQUIRED",
                                         "ZIP_CODE"
                                     ],
-                                    "readOnly": false,
+                                    "readOnly": true,
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.postCode",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
@@ -297,7 +297,7 @@
                                     "description": "",
                                     "options": [],
                                     "validation": [],
-                                    "readOnly": false,
+                                    "readOnly": true,
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.street",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
@@ -361,7 +361,7 @@
                                     "validation": [
                                         "REQUIRED"
                                     ],
-                                    "readOnly": false,
+                                    "readOnly": true,
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.building",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
@@ -488,7 +488,7 @@
                                     "description": "",
                                     "options": [],
                                     "validation": [],
-                                    "readOnly": false,
+                                    "readOnly": true,
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.apartment",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
@@ -1933,7 +1933,7 @@
                 {
                     "x": 0,
                     "y": 0,
-                    "rows": 3,
+                    "rows": 4,
                     "cols": 3,
                     "field": {
                         "id": "c17ec6d7-5f8b-4685-8bed-f1f3addfa01a",
@@ -1951,17 +1951,21 @@
                                 "rows": 1,
                                 "cols": 3,
                                 "field": {
-                                    "id": "09b435ac-0e4b-4570-9aff-36f143a8999d",
-                                    "type": "TEXT_FIELD",
-                                    "techName": "numer_telefonu",
-                                    "title": "Numer telefonu",
+                                    "id": "f9a6a0fa-6f5c-4dd3-bcde-f544d08d29eb",
+                                    "type": "SELECT",
+                                    "techName": "numer_kierunkowy",
+                                    "title": "Numer kierunkowy",
                                     "description": "",
+                                    "dictionaryName": "Numery kierunkowe",
                                     "options": [],
+                                    "multiLevelTree": false,
                                     "validation": [],
+                                    "searchEnabled": true,
                                     "readOnly": false,
                                     "repeatingSectionGrid": [],
-                                    "defaultValue": "MLPZ.phoneNumber",
-                                    "defaultValueType": "EXTERNAL_SYSTEM",
+                                    "defaultValue": [
+                                        "+48"
+                                    ],
                                     "states": [],
                                     "questionOrder": 0,
                                     "tooltipMessage": ""
@@ -1970,6 +1974,28 @@
                             {
                                 "x": 0,
                                 "y": 1,
+                                "rows": 1,
+                                "cols": 3,
+                                "field": {
+                                    "id": "09b435ac-0e4b-4570-9aff-36f143a8999d",
+                                    "type": "TEXT_FIELD",
+                                    "techName": "numer_telefonu",
+                                    "title": "Numer telefonu",
+                                    "description": "",
+                                    "options": [],
+                                    "validation": [],
+                                    "readOnly": true,
+                                    "repeatingSectionGrid": [],
+                                    "defaultValue": "MLPZ.phoneNumber",
+                                    "defaultValueType": "EXTERNAL_SYSTEM",
+                                    "states": [],
+                                    "questionOrder": 1,
+                                    "tooltipMessage": ""
+                                }
+                            },
+                            {
+                                "x": 0,
+                                "y": 2,
                                 "rows": 1,
                                 "cols": 3,
                                 "field": {
@@ -1982,12 +2008,12 @@
                                     "validation": [
                                         "EMAIL"
                                     ],
-                                    "readOnly": false,
+                                    "readOnly": true,
                                     "repeatingSectionGrid": [],
                                     "defaultValue": "MLPZ.email",
                                     "defaultValueType": "EXTERNAL_SYSTEM",
                                     "states": [],
-                                    "questionOrder": 1,
+                                    "questionOrder": 2,
                                     "tooltipMessage": ""
                                 }
                             }
@@ -1999,7 +2025,7 @@
                 },
                 {
                     "x": 0,
-                    "y": 3,
+                    "y": 4,
                     "rows": 2,
                     "cols": 3,
                     "field": {

@@ -4,7 +4,7 @@ import pytest
 
 from app.coi import builder
 from app.coi.jsonata import parse_expr, show_query
-from app.coi.validator import validate
+from app.coi.validator import errors, validate
 from app.coi.walk import iter_fields, leaves
 from app.config import get_settings
 from app.mapping.frontend import _condition, section_visibility, to_frontend
@@ -219,3 +219,9 @@ def test_citizen_locks_street_when_box_is_checked(citizen):
 def test_address_dictionary_is_the_same_for_every_address(built):
     names = {f["dictionaryName"] for f in fields(built).values() if f.get("dictionaryName", "").startswith("TERYT")}
     assert names == {"TERYT_4G_DOWODOWY"}
+
+
+def test_phone_has_country_code_dictionary(built):
+    prefix = fields(built)["numer_kierunkowy"]
+    assert prefix["type"] == "SELECT" and prefix["dictionaryName"] == "Numery kierunkowe" and prefix["defaultValue"] == ["+48"]
+    assert errors(built) == []
