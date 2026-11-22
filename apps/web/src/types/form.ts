@@ -55,6 +55,12 @@ export const ConditionSchema = z.object({
 });
 export type Condition = z.infer<typeof ConditionSchema>;
 
+/** Warunek złożony (z sekcji COI): wszystkie (`allOf`) albo którykolwiek (`anyOf`) z warunków. */
+export type ConditionExpr = Condition | { allOf: ConditionExpr[] } | { anyOf: ConditionExpr[] };
+export const ConditionExprSchema: z.ZodType<ConditionExpr> = z.lazy(() =>
+  z.union([ConditionSchema, z.object({ allOf: z.array(ConditionExprSchema) }), z.object({ anyOf: z.array(ConditionExprSchema) })]),
+);
+
 export const FieldValidationSchema = z.object({
   minLength: z.number().optional(),
   maxLength: z.number().optional(),
@@ -83,6 +89,8 @@ export const FieldSchema = z.object({
   /** Skąd i pod jakim kluczem pobrać wartość z rejestrów (makieta). */
   prefill: z.object({ source: PrefillSourceSchema, key: z.string() }).optional(),
   visibleIf: ConditionSchema.optional(),
+  /** Widoczność wynikająca z sekcji, w której jest pole; działa razem z `visibleIf`. */
+  visibleWhen: ConditionExprSchema.optional(),
   legalBasis: LegalBasisSchema.optional(),
   defaultValue: z.string().optional(),
   readOnly: z.boolean().optional(),

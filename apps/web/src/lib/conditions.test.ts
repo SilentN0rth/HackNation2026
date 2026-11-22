@@ -44,3 +44,46 @@ describe("visiblePages", () => {
     expect(schema.pages[0].fields).toHaveLength(3);
   });
 });
+
+describe("visiblePages z visibleWhen", () => {
+  const kto = { fieldId: "kto", equals: "podmiot" };
+  const jako = { fieldId: "jako", equals: "pelnomocnik" };
+  const make = (visibleWhen: Field["visibleWhen"], visibleIf?: Field["visibleIf"]): FormSchema => ({
+    ...schema,
+    pages: [{ id: "p", title: "P", fields: [field("kto"), field("jako"), { ...field("x", visibleIf), visibleWhen }] }],
+  });
+  const shown = (s: FormSchema, values: Record<string, string | boolean>) =>
+    visiblePages(s, values)[0].fields.map((f) => f.id).includes("x");
+
+  it("allOf wymaga wszystkich warunków", () => {
+    const s = make({ allOf: [kto, jako] });
+    expect(shown(s, { kto: "podmiot" })).toBe(false);
+    expect(shown(s, { kto: "podmiot", jako: "pelnomocnik" })).toBe(true);
+  });
+  it("anyOf wystarcza jeden warunek", () => {
+    const s = make({ anyOf: [kto, jako] });
+    expect(shown(s, {})).toBe(false);
+    expect(shown(s, { jako: "pelnomocnik" })).toBe(true);
+  });
+  it("obsługuje zagnieżdżenie (A lub (B i C))", () => {
+    const s = make({ anyOf: [{ fieldId: "kto", equals: "inna" }, { allOf: [kto, jako] }] });
+    expect(shown(s, { kto: "inna" })).toBe(true);
+    expect(shown(s, { kto: "podmiot" })).toBe(false);
+    expect(shown(s, { kto: "podmiot", jako: "pelnomocnik" })).toBe(true);
+  });
+  it("negate działa wewnątrz grupy", () => {
+    const s = make({ allOf: [{ ...kto, negate: true }] });
+    expect(shown(s, {})).toBe(true);
+    expect(shown(s, { kto: "podmiot" })).toBe(false);
+  });
+  it("łączy visibleIf z visibleWhen (oba muszą być spełnione)", () => {
+    const s = make(kto, { fieldId: "jako", equals: "pelnomocnik" });
+    expect(shown(s, { kto: "podmiot" })).toBe(false);
+    expect(shown(s, { jako: "pelnomocnik" })).toBe(false);
+    expect(shown(s, { kto: "podmiot", jako: "pelnomocnik" })).toBe(true);
+  });
+  it("puste grupy: allOf pokazuje, anyOf ukrywa", () => {
+    expect(shown(make({ allOf: [] }), {})).toBe(true);
+    expect(shown(make({ anyOf: [] }), {})).toBe(false);
+  });
+});
