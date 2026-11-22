@@ -1,26 +1,26 @@
 # Otwarte problemy (do późniejszego opracowania)
 
-Stan na 2026-11-22. Kontekst: `docs/PRZEGLAD_POPRAWEK.md` (przegląd i status wdrożenia).
+Stan na 2026-11-22. Kontekst: `docs/PRZEGLAD_POPRAWEK.md`.
 
-## Blokery i decyzje
-1. **Push branchu `fix/coi-standards-and-quality` zablokowany** przez system uprawnień. Wypchnąć ręcznie: `git push -u origin fix/coi-standards-and-quality`, potem PR.
-2. **Decyzje do potwierdzenia:** pola adresu z `MLPZ` edytowalne (PDF „Dane inicjalne” mówi: tylko do odczytu); `INFO_SECTION` zamiast `TEXT_BLOCK` na stronie końcowej (wzorce organizatora używają `TEXT_BLOCK`).
+## Do zrobienia ręcznie lub decyzje
+1. **Push branchu** `fix/coi-standards-and-quality` zablokowany przez uprawnienia: `git push -u origin fix/coi-standards-and-quality`, potem PR.
+2. **Przyjęte decyzje (do potwierdzenia):** pola adresu z `MLPZ` zostają edytowalne (PDF „Dane inicjalne” mówi: tylko do odczytu, standardy: użytkownik poprawia dane); `INFO_SECTION` zamiast `TEXT_BLOCK` na stronie końcowej (wzorce używają `TEXT_BLOCK`, w walidatorze to ostrzeżenie).
 
-## Funkcje, których brakuje
-3. **Upload plików u obywatela (prawie gotowe):** endpoint `POST /attachments` (limit 10 MB, PDF/JPG/PNG/XML, kontrola sygnatury, tylko własne pliki), pole `file` wysyła plik i zapisuje „id|nazwa”. Domyślny backend aplikacji to Payload (`payloadApi`), który nie ma `uploadAttachment`, więc tam zapisuje się tylko nazwa pliku. Brakuje też limitu liczby plików i listy formatów per pole oraz testu e2e.
-4. **Checkboxy „Brak nazwy ulicy” / „Brak numeru lokalu”** (standard adresu). Obecnie te pola są nieobowiązkowe.
-5. **KRS:** standard wymaga wzorca `^\d{10}$`, ale lista walidatorów COI go nie zawiera. Pole ma tylko opis „Wpisz 10 cyfr”.
-6. **Adres:** standard opisuje 4 zależne listy (województwo, powiat, gmina, miejscowość); mamy jedno pole słownikowe. Adres „innej osoby” używa `TERYT_DOWODOWY` (3 poziomy), główny `TERYT_4G_DOWODOWY`. Wzorce organizatora też się różnią (nr 1: 3 poziomy, nr 5: 4). Ujednolicić.
+## Funkcje
+3. **Upload w Payloadzie:** domyślny backend (`payloadApi`) zapisuje tylko nazwę pliku. Pełna wysyłka działa przy FastAPI (`POST /attachments`) i w mocku. Brak też limitu liczby plików i listy formatów per pole.
+4. **KRS:** lista walidatorów COI nie zawiera wzorca `^\d{10}$`; pole ma tylko opis „Wpisz 10 cyfr”.
+5. **Adres:** jedno pole słownikowe `TERYT_4G_DOWODOWY` zamiast czterech zależnych list (województwo, powiat, gmina, miejscowość). Wszystkie adresy używają już tego samego słownika.
 
 ## Jakość konwersji
-7. **Formularze 8 i 9 (w większości rozwiązane):** nr 9 ma pytanie „Rodzaj wniosku” i strony widoczne tylko dla wybranego rodzaju (stypendium, nagroda, wyróżnienie), a tytuł obejmuje wszystkie trzy. Duże sekcje są dzielone mechanicznie na części („część 1 z 3”), więc nie zawsze po temacie. W nr 8 zostaje strona o nazwie „Gdynia”, a w nr 9 jedna etykieta ponad 120 znaków. Sekcje z `visibleWhen` ukrywają całą stronę tylko przy jednym prostym warunku. Pola z własnym warunkiem w sekcji wariantu dziedziczą warunek sekcji.
-8. **Tytuły stron generyczne:** „Szczegóły wniosku” i „Kontakt i zgody”, a wzorzec nr 1 ma tematyczne („Informacje o budynku”, „Kontakt z urzędem”).
-9. **Nazwa organu** niepełna w nr 6 („Urząd Miasta i Gminy” bez miejscowości); brak flagi ostrzegawczej.
-10. **Tytuły 8 i 9 skrócone** (brak „za gospodarowanie odpadami komunalnymi”, „nagrody lub wyróżnienia sportowego”).
-11. **Pliki:** nazwy i tytuły uploadów różnią się od wzorca nr 1 (nasze zgodne ze standardami).
+6. **Formularz 8:** strona „Gdynia” (nazwa z papieru); duże sekcje są dzielone mechanicznie na części, nie tematycznie.
+7. **Formularz 9:** jedna etykieta powyżej 120 znaków.
+8. **Formularz 6:** nazwa urzędu bez miejscowości („Urząd Miasta i Gminy”); ostrzeżenie `organ-name` w raporcie. Źródło nie podaje nazwy.
+9. **Tytuły stron** generyczne („Szczegóły wniosku”, „Kontakt i zgody”), a wzorzec ma tematyczne.
+10. **Tytuły 8 i 9** bez pełnego opisu usługi (nr 8).
+11. Pola w sekcji wariantu z własnym warunkiem dziedziczą warunek sekcji; strona jest ukrywana tylko przy jednym prostym warunku.
 
-## Niesprawdzone / do zrobienia
-12. Testy e2e (Playwright) i ręczne przejście ścieżek „Swoim / Innej osoby / Osoby prawnej (Pełnomocnik, Reprezentant)” w przeglądarce.
+## Niesprawdzone
+12. Testy e2e (Playwright) i ręczne przejście ścieżek w przeglądarce (Swoim / Innej osoby / Osoby prawnej: Pełnomocnik, Reprezentant; wybór rodzaju wniosku w nr 9; checkboxy „Brak…”).
 13. Walidacja pełnym JSON Schema z materiałów organizatora.
-14. Lint językowy i WCAG dla treści formularzy, słownik „Numery kierunkowe” przy telefonach, propozycje nowych słowników.
-15. Skrypt `check:outputs` w CI (walidator + jakość + porównanie ze wzorcami).
+14. Lint WCAG treści, słownik „Numery kierunkowe” przy telefonach, propozycje nowych słowników.
+15. Skrypt `check:outputs` w CI.

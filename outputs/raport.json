@@ -5,7 +5,7 @@
     "wynik": "01_wniosek_o_ustalenie_numeru_porzadkowego.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0,
+    "uwagi": 6,
     "jakosc": {}
   },
   {
@@ -14,7 +14,7 @@
     "wynik": "02_wniosek_o_zwrot_oplaty_skarbowej.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 1,
+    "uwagi": 7,
     "jakosc": {}
   },
   {
@@ -23,7 +23,7 @@
     "wynik": "03_wniosek_o_wydanie_zaswiadczenia.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0,
+    "uwagi": 6,
     "jakosc": {}
   },
   {
@@ -32,7 +32,7 @@
     "wynik": "04_wniosek_o_wynajecie_uzyczenie_swietlicy_wiejskiej.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0,
+    "uwagi": 6,
     "jakosc": {}
   },
   {
@@ -41,7 +41,7 @@
     "wynik": "05_wniosek_o_stwierdzenie_nadplaty_podatku.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 0,
+    "uwagi": 6,
     "jakosc": {}
   },
   {
@@ -50,8 +50,10 @@
     "wynik": "06_wniosek_o_wydanie_zezwolenia_na_zajecie_pasa_drogowego_w_celu.json",
     "strony": 5,
     "bledyCOI": 0,
-    "uwagi": 0,
-    "jakosc": {}
+    "uwagi": 6,
+    "jakosc": {
+      "organ-name": 1
+    }
   },
   {
     "formularz": "7",
@@ -59,7 +61,7 @@
     "wynik": "07_wniosek_o_wydanie_zezwolenia_na_hodowanie_lub_utrzymywanie_psow_ras.json",
     "strony": 4,
     "bledyCOI": 0,
-    "uwagi": 1,
+    "uwagi": 7,
     "jakosc": {}
   },
   {
@@ -68,7 +70,7 @@
     "wynik": "08_deklaracja_o_wysokosci_miesiecznej_oplaty.json",
     "strony": 14,
     "bledyCOI": 0,
-    "uwagi": 11,
+    "uwagi": 17,
     "jakosc": {
       "junk-title": 1
     }
@@ -79,7 +81,7 @@
     "wynik": "09_wniosek_o_przyznanie_stypendium_nagrody_lub_wyroznienia_sportowego.json",
     "strony": 17,
     "bledyCOI": 0,
-    "uwagi": 26,
+    "uwagi": 32,
     "jakosc": {
       "long-title": 1
     }
