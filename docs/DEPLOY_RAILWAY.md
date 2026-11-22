@@ -13,7 +13,7 @@ Różnice względem compose:
 
 - **Sekrety** – zamiast plików z `secrets/` zmienne `JWT_SECRET` (api) i `PAYLOAD_SECRET` (web).
 - **Port** – Railway podaje `PORT`; API czyta go w `CMD`, Next.js (`server.js`) też.
-- **Sieć prywatna** – `web` woła API pod `api.railway.internal:8000` (IPv4 działa). Nie ustawiaj `HOST=::`: uvicorn otwiera wtedy
+- **Sieć prywatna** – `web` woła API pod `api.railway.internal:8080` (IPv4 działa). Nie ustawiaj `HOST=::`: uvicorn otwiera wtedy
   gniazdo tylko IPv6 i publiczna domena zwraca 502.
 - **`VOLUME`** – Railway odrzuca tę instrukcję w Dockerfile, wolumeny podpina się w ustawieniach usługi.
 - **Wolumeny** – Railway montuje je jako `root`, a obrazy działają jako zwykły użytkownik, więc `RAILWAY_RUN_UID=0`.
@@ -25,7 +25,7 @@ Różnice względem compose:
 
 | Zmienna | Wartość |
 | --- | --- |
-| `PORT` | `8000` (potrzebne do odwołania `${{api.PORT}}` w usłudze web) |
+| `PORT` | `8080` – musi być ustawione jawnie: port nadany automatycznie przez Railway nie trafia do odwołania `${{api.PORT}}` w usłudze web (wtedy `FASTAPI_URL` kończy się na `:`) |
 | `JWT_SECRET` | losowy, np. `openssl rand -base64 48` |
 | `CORS_ORIGINS` | `["https://${{web.RAILWAY_PUBLIC_DOMAIN}}"]` |
 | `RAILWAY_RUN_UID` | `0` |
@@ -58,9 +58,12 @@ npx @railway/cli add --service api
 npx @railway/cli add --service web
 # zmienne z tabel powyżej: railway variables --service <usługa> --set "KLUCZ=wartość"
 # wolumeny: api → /data, web → /app/data; domeny: railway domain --service <usługa>
-cd apps/api && npx @railway/cli up --service api
-cd ../web && npx @railway/cli up --service web
+npx @railway/cli up ./apps/api --path-as-root --service api
+npx @railway/cli up ./apps/web --path-as-root --service web
 ```
+
+Bez `--path-as-root` CLI wysyła cały katalog projektu (niezależnie od bieżącego katalogu), Railway nie widzi wtedy
+`Dockerfile` ani `railway.json` i buduje Railpackiem – build kończy się błędem „No start command detected”.
 
 `railway up` wysyła katalog z pominięciem plików z `.gitignore`, a obraz buduje się z `.dockerignore` – lokalny
 `.env` z kluczami nie trafia na serwer.
