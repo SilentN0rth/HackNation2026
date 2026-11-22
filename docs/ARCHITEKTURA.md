@@ -20,7 +20,7 @@ flowchart LR
         L --> S[("store/ – SQLite<br/>wersje, uwagi, dziennik, wnioski")]
         M["mapping/frontend.py<br/>COI ⇄ model edytora"]
     end
-    O["Ollama (opcjonalnie)<br/>qwen3:4b"]
+    O["Ollama (opcjonalnie)<br/>qwen2.5:7b"]
     W -- "REST + JWT (Bearer)" --> API
     N -. "LLM_ENABLED=true:<br/>tylko brzmienie etykiet" .-> O
 ```
