@@ -5,7 +5,6 @@ import { NavLinks, RoleSwitch, UserName } from "./HeaderNav";
 
 function Wordmark() {
   return (
-    // Nazwa dostępna = widoczny tekst (WCAG 2.5.3): sygnet „e” jest ozdobą, czytnik słyszy „e-Formularze”.
     <Link href="/" className="press flex items-center gap-2.5" title="Strona główna">
       <span aria-hidden className="grid size-7 place-items-center rounded-[5px] bg-accent text-[15px] font-bold text-white">
         e

@@ -16,11 +16,9 @@ type InputProps = {
   hint?: ReactNode;
   autoFocus?: boolean;
   maxLength?: number;
-  /** id inputa – na ekranie logowania zgodne z Payloadem (#field-email), z którego korzystają testy e2e. */
   inputId?: string;
 };
 
-/** Pole tekstowe w stylu formularzy obywatela (FieldRenderer). */
 export function TextInput({ name, label, type = "text", required, error, hint, value, onChange, autoComplete, autoFocus, maxLength, inputId }: InputProps) {
   return (
     <TextField
@@ -47,7 +45,6 @@ export function TextInput({ name, label, type = "text", required, error, hint, v
   );
 }
 
-/** Komunikat błędu całego formularza – ogłaszany czytnikom ekranu. */
 export function FormAlert({ message, tone = "danger" }: { message?: string | null; tone?: "danger" | "success" }) {
   return (
     <AnimatePresence initial={false}>

@@ -1,10 +1,3 @@
-/**
- * Korzeń widoku dokumentu (admin.components.views.edit.root) dla kolekcji i globali (serwer).
- * Payload nie rysuje wtedy własnego nagłówka ani zakładek – rozdzielamy podwidoki sami:
- *   /            → edycja (EditView) albo edit.default innego agenta,
- *   /versions    → lista wersji,  /versions/:id → różnice + przywracanie,  /api → podgląd JSON,
- *   /<ścieżka>   → widok z edit.<klucz>.path (np. edytor formularza agenta E) przez RenderServerComponent.
- */
 import type { DocumentViewServerProps, PayloadComponent, SanitizedCollectionConfig, SanitizedGlobalConfig } from "payload";
 import { RenderServerComponent } from "@payloadcms/ui/elements/RenderServerComponent";
 import { notFound } from "next/navigation";
@@ -41,7 +34,6 @@ export async function DocumentRoot(props: DocumentViewServerProps) {
   const drafts = Boolean(entity.versions && typeof entity.versions === "object" && entity.versions.drafts);
   const hasVersions = Boolean(entity.versions) && Boolean(perm?.readVersions) && Boolean(id || global);
 
-  // Nagłówek wspólny dla wszystkich podwidoków.
   const data = (doc ?? {}) as Record<string, unknown>;
   const fields = namedFields(entity.fields);
   const useAsTitle = collection?.admin?.useAsTitle ?? "id";
@@ -99,7 +91,6 @@ export async function DocumentRoot(props: DocumentViewServerProps) {
       </DocumentShell>
     ) : null;
 
-  // Podwidoki
   if (rest.length === 0) {
     if (views.default?.Component) return renderCustom(views.default, "edit");
     return (

@@ -24,11 +24,9 @@ export type ShellData = {
   previewHref: string | null;
 };
 
-/** Wspólna oprawa dokumentu: okruszki, tytuł, status, zakładki (Edycja / Wersje / API / widoki innych agentów). */
 export function DocumentShell({ data, active, children, bare }: { data: ShellData; active: string; children: ReactNode; bare?: boolean }) {
   const { setStepNav } = useStepNav();
   useEffect(() => {
-    // Okruszki dla nagłówka panelu (agent B) – bez pierwszego „Panel”.
     setStepNav(data.crumbs.slice(1).map((c) => ({ label: c.label, url: c.href })));
   }, [data.crumbs, setStepNav]);
 

@@ -24,7 +24,6 @@ interface Props {
   prefilled?: boolean;
   onChange: (value: string | boolean) => void;
   readOnly?: boolean;
-  /** Wysyła plik i zwraca wartość pola; bez tego zapisujemy samą nazwę pliku. */
   onUpload?: (file: File) => Promise<string>;
 }
 

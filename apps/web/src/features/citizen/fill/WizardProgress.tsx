@@ -10,7 +10,6 @@ interface Props {
   totalSteps: number;
 }
 
-/** Pasek postępu kreatora: strony formularza + podsumowanie. */
 export function WizardProgress({ pages, step, phase, currentNo, totalSteps }: Props) {
   return (
     <nav aria-label="Postęp wypełniania" className="mb-10">

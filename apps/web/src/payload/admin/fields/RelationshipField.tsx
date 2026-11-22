@@ -18,7 +18,6 @@ type Option = Ref & { key: string; label: string };
 
 const keyOf = (r: Ref) => `${r.slug}::${r.id}`;
 
-/** Wartość z formularza Payloada → lista referencji (id, { relationTo, value } albo dokument z depth>0). */
 function toRefs(value: unknown, slugs: string[], poly: boolean): Ref[] {
   const list = Array.isArray(value) ? value : value == null || value === "" ? [] : [value];
   return list.flatMap((v): Ref[] => {
@@ -35,7 +34,6 @@ function toRefs(value: unknown, slugs: string[], poly: boolean): Ref[] {
 
 const fromRef = (r: Ref, poly: boolean): Id | PolyValue => (poly ? { relationTo: r.slug, value: r.id } : r.id);
 
-/** Relacja – HeroUI ComboBox z wyszukiwaniem po REST (useAsTitle), hasMany jako chipy. */
 export function RelationshipField(props: PanelFieldProps) {
   const field = props.field as RelClientField;
   const slugs = useMemo(() => (Array.isArray(field.relationTo) ? field.relationTo : [field.relationTo]), [field.relationTo]);
@@ -55,7 +53,6 @@ export function RelationshipField(props: PanelFieldProps) {
   const [open, setOpen] = useState(false);
   const typed = useRef(false);
 
-  // Etykiety wybranych dokumentów (np. po wczytaniu formularza – w stanie są tylko id).
   const missing = refs.filter((r) => !(keyOf(r) in labels));
   const missingKey = missing.map(keyOf).join(",");
   useEffect(() => {
@@ -76,7 +73,6 @@ export function RelationshipField(props: PanelFieldProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [missingKey]);
 
-  // Wyszukiwanie z opóźnieniem 200 ms.
   useEffect(() => {
     if (!open || f.readOnly) return;
     const ctrl = new AbortController();
@@ -108,7 +104,6 @@ export function RelationshipField(props: PanelFieldProps) {
   const single = !multiple ? refs[0] : undefined;
   const singleLabel = single ? labels[keyOf(single)] ?? "" : "";
 
-  // Pojedyncza relacja: w polu tekstowym widać tytuł wybranego dokumentu.
   useEffect(() => {
     if (!multiple && !typed.current) setSearch(singleLabel);
   }, [singleLabel, multiple]);

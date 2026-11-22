@@ -1,10 +1,3 @@
-/**
- * Fragment: KOLEKCJE (agent C). Edytuje tylko agent C.
- * Każda kolekcja dostaje własny widok listy (HeroUI) i własny korzeń widoku dokumentu (edit.root),
- * który obsługuje edycję, wersje, różnice wersji i API, a widoki dodane przez innych agentów
- * (edit.default, edit.<zakładka> z `path`) renderuje przez RenderServerComponent.
- * Kształt: PanelFragment z ./types.ts.
- */
 import type { CollectionSlug, GlobalSlug, PanelFragment } from "./types";
 
 const LIST = "@/payload/admin/collections/ListView#ListView";

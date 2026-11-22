@@ -5,7 +5,6 @@ import { api } from "@/api";
 import { ErrorBox } from "@/components/Feedback";
 import { useAsync } from "@/lib/useAsync";
 
-/** JSON w formacie COI – pobierany, gdy zakładka jest otwarta, i od nowa po każdym zapisie szkicu. */
 export function CoiJsonPanel({ draftId, fileName, updatedAt }: { draftId: string; fileName: string; updatedAt: string }) {
   const { data: coi, error } = useAsync(() => api.getCoiJson(draftId), [draftId, updatedAt]);
 

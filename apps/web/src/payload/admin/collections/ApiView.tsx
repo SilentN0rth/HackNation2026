@@ -5,7 +5,6 @@ import { toast } from "@payloadcms/ui";
 import type { ShellData } from "./DocumentShell";
 import { Icon, SectionLabel } from "./ui";
 
-/** Podgląd dokumentu w REST API Payloada (zamiast natywnego widoku API). */
 export function ApiView({ shell, doc }: { shell: ShellData; doc: Record<string, unknown> }) {
   const url = shell.kind === "collection" ? `${shell.apiRoute}/${shell.slug}/${shell.id}` : `${shell.apiRoute}/globals/${shell.slug}`;
   const json = JSON.stringify(doc, null, 2);

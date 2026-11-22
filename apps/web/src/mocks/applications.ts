@@ -1,6 +1,5 @@
 import type { Application } from "../types";
 
-/** MOCK: wnioski obywatela („Twoje sprawy”). Docelowo: GET /applications?mine=true */
 export const applications: Application[] = [
   {
     id: "app-001",

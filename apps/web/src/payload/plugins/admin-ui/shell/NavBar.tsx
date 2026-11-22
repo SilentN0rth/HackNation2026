@@ -19,9 +19,7 @@ type Props = {
 
 const trim = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
 
-/** Link z aria-current – styl .nav-link (podkreślenie akcentem) jak w nagłówku strony publicznej. */
 function NavLink({ href, exact, children, className = "" }: { href: string; exact?: boolean; children: ReactNode; className?: string }) {
-  // formatAdminURL zwraca „/official/” dla pulpitu, a usePathname „/official” – porównujemy bez końcowego „/”.
   const path = trim(usePathname());
   const target = trim(href);
   const active = exact ? path === target : path === target || path.startsWith(`${target}/`);

@@ -1,7 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { anyone, loggedIn } from "../access";
 
-/** Wnioski obywateli. Obywatel nie loguje się do Payloada (makieta węzła krajowego), stąd publiczny zapis. */
 export const Applications: CollectionConfig = {
   slug: "applications",
   labels: { singular: "Wniosek", plural: "Wnioski" },

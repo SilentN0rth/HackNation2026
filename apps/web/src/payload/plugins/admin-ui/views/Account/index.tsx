@@ -4,7 +4,6 @@ import { heading } from "../../theme";
 import { AccountForms } from "./AccountForms";
 import { AccountStepNav } from "./AccountStepNav";
 
-/** Konto (/official/account): dane profilu, zmiana hasła i preferencje panelu. */
 export function AccountView({ initPageResult }: AdminViewServerProps) {
   const { req } = initPageResult;
   const { config } = req.payload;

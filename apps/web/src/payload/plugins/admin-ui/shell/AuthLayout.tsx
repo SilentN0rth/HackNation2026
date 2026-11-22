@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Wordmark } from "./Logo";
 
-/** Układ ekranów bez zalogowania (logowanie, pierwsze konto, hasło): jak strona główna, bez kart i cieni. */
 export function AuthLayout({ title, lead, children, aside }: { title: string; lead?: ReactNode; children: ReactNode; aside?: ReactNode }) {
   return (
     <div className="ef-ui ef-auth flex min-h-dvh flex-col bg-white text-ink">

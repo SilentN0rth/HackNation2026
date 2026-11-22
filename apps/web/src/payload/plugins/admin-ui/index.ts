@@ -1,25 +1,13 @@
-/**
- * Plugin panelu urzędnika (/official): własny shell, logowanie i konto w stylu strony głównej.
- * Logika zostaje Payloadowa (useAuth, endpointy /users/*), podmieniamy tylko widoki i komponenty.
- *
- * Plugin DOKŁADA komponenty do admin.components – tablice są sklejane, a widoki i grafiki ustawiane
- * tylko wtedy, gdy konfiguracja (np. fragmenty C/D/E) nie zdefiniowała ich wcześniej.
- */
 import type { AdminViewConfig, Config, Plugin } from "payload";
 
 const DIR = "@/payload/plugins/admin-ui";
 
 export type AdminUiOptions = {
-  /** Wyłączenie pluginu bez zmiany konfiguracji (np. do porównania z natywnym panelem). */
   enabled?: boolean;
 };
 
 type Views = Record<string, AdminViewConfig>;
 
-/**
- * Widoki logowania i konta – klucze zgodne z wbudowanymi widokami Payloada.
- * /reset/:token ma w Payloadzie stałą trasę bez możliwości podmiany – stylujemy go w theme/admin.css.
- */
 const VIEWS: Views = {
   login: { Component: `${DIR}/views/Login#LoginView` },
   createFirstUser: { Component: `${DIR}/views/CreateFirstUser#CreateFirstUserView` },
@@ -41,10 +29,8 @@ export const adminUiPlugin =
       ...config,
       admin: {
         ...admin,
-        // Strona publiczna nie ma ciemnego motywu – panel też zawsze jasny (inaczej Payload bierze motyw z systemu).
         theme: admin.theme ?? "light",
         avatar: admin.avatar ?? { Component: `${DIR}/shell/Avatar#Avatar` },
-        // Pasek zapisu dokumentu jest przyklejony do dołu ekranu – toasty u góry go nie zasłaniają (zwłaszcza na telefonie).
         toast: { position: "top-right", ...admin.toast },
         meta: {
           titleSuffix: " · e-Formularze",

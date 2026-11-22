@@ -1,6 +1,5 @@
 import type { AuditEntry } from "../types";
 
-/** MOCK: historia decyzji. Docelowo: GET /audit?draftId=… */
 export const auditTrail: AuditEntry[] = [
   {
     id: "a-1",

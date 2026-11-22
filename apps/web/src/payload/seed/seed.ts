@@ -1,7 +1,3 @@
-/**
- * Seed danych demonstracyjnych z src/mocks (CLI: `npm run payload:seed`, w Dockerze: PAYLOAD_SEED=true przy starcie).
- * Idempotentny – uruchomiony ponownie niczego nie dubluje (użytkownik po e-mailu, formularze po slug, przepisy po chunkId, wnioski tylko do pustej kolekcji, rejestr gdy pusty).
- */
 import type { Payload } from "payload";
 import { applications, auditTrail, drafts, prefillData, publishedForms, runMockLinters, statuteChunks, users } from "../../mocks";
 import type { FormsContext } from "../hooks/forms";
@@ -15,7 +11,6 @@ function seedPassword(): string {
   return "demo1234";
 }
 
-/** Konto demo jest administratorem – na pokazie da się dodać kolejnych urzędników. */
 async function seedUser(payload: Payload): Promise<number> {
   const found = await payload.find({ collection: "users", where: { email: { equals: SEED_EMAIL } }, limit: 1 });
   const existing = found.docs[0];
@@ -40,7 +35,6 @@ async function findFormId(payload: Payload, slug: string): Promise<number | unde
   return found.docs[0]?.id;
 }
 
-/** Zwraca mapę „id z makiet” → id w Payloadzie oraz listę formularzy utworzonych w tym przebiegu. */
 async function seedForms(payload: Payload, userId: number) {
   const ids = new Map<string, number>();
   const created = new Set<number>();

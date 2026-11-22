@@ -1,4 +1,3 @@
-/** Hooki kolekcji forms: generowanie schematu przez FastAPI, publikacja, dziennik decyzji. */
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { APIError, type CollectionAfterChangeHook, type CollectionBeforeChangeHook, type CollectionBeforeValidateHook, type PayloadRequest } from "payload";
@@ -7,7 +6,6 @@ import type { FormSchema, LintFlag } from "../../types";
 import { writeAudit } from "./audit";
 import { FastApiError, generateDraft } from "./fastapi";
 
-/** Flagi w req.context, którymi można wyłączyć efekty uboczne (np. seed). */
 export type FormsContext = { skipAI?: boolean; skipAudit?: boolean };
 
 type FormData = {
@@ -37,7 +35,6 @@ async function loadSource(req: PayloadRequest, id: number) {
   return { data, name: media.filename, mimeType: media.mimeType ?? "application/octet-stream" };
 }
 
-/** Wypełnia schemat, flagi i JSON COI z FastAPI, gdy formularz dostał plik źródłowy, a nie ma jeszcze schematu. */
 export async function fillFromSource(req: PayloadRequest, data: FormData): Promise<FormData> {
   const sourceId = idOf(data.source);
   if (!sourceId) return data;
@@ -55,7 +52,6 @@ export async function fillFromSource(req: PayloadRequest, data: FormData): Promi
       aiError: null,
     };
   } catch (e) {
-    // Fail soft: formularz zapisuje się bez schematu, a panel pokazuje błąd i pozwala ponowić.
     const message = e instanceof Error ? e.message : String(e);
     req.payload.logger.warn(`forms: generowanie schematu nie powiodło się – ${message}`);
     return { ...data, title: data.title || "Nowy formularz", aiStatus: "error", aiError: message };

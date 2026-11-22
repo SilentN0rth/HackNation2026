@@ -11,7 +11,6 @@ interface Props {
   onResolve: (flagId: string, action: "fixed" | "rejected", justification?: string) => void;
 }
 
-/** Panel lintera: liczniki otwartych uwag, podpowiedź o publikacji i karty uwag. */
 export function LintPanel({ flags, busy, onSelectField, onResolve }: Props) {
   const open = countOpen(flags);
   return (

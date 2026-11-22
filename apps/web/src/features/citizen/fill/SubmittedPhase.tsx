@@ -3,7 +3,6 @@ import type { RefObject } from "react";
 import { Check, primaryLink } from "@/components/Feedback";
 import type { Application } from "@/types";
 
-/** Potwierdzenie wysłania wniosku z numerem UPO. */
 export function SubmittedPhase({ sent, headingRef }: { sent: Application; headingRef: RefObject<HTMLHeadingElement | null> }) {
   return (
     <section className="max-w-2xl" role="status">

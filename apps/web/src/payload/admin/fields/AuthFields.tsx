@@ -7,10 +7,6 @@ import { useCallback, useState } from "react";
 import { FieldShell, PanelError, PanelLabel } from "./shared/parts";
 import { fieldId } from "./shared/usePanelField";
 
-/**
- * Powtórzenie hasła (konto / tworzenie użytkownika) – porównuje z polem `password` w formularzu Payloada.
- * Dla shellu i widoku konta (agenci B/C); ścieżki jak w natywnym ConfirmPasswordField.
- */
 export function ConfirmPasswordField({ path = "confirm-password", passwordPath = "password", disabled }: { path?: string; passwordPath?: string; disabled?: boolean }) {
   const password = useFormFields(([fields]) => fields?.[passwordPath]?.value as string | undefined);
   const [reveal, setReveal] = useState(false);

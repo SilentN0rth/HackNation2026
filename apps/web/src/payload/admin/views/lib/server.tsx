@@ -1,4 +1,3 @@
-/** Wspólne dla serwerowych widoków panelu: szablon z nawigacją, wymóg zalogowania, mapowanie dokumentów. */
 import { DefaultTemplate } from "@payloadcms/next/templates";
 import { redirect } from "next/navigation";
 import type { AdminViewServerProps } from "payload";
@@ -6,7 +5,6 @@ import type { ReactNode } from "react";
 import type { FormSchema, LintFlag } from "@/types";
 import type { AuditItem, FormDoc } from "./types";
 
-/** Własne widoki z `path` Payload renderuje bez szablonu – owijamy je w DefaultTemplate (nawigacja agenta B). */
 export function PanelPage({ props, children }: { props: AdminViewServerProps; children: ReactNode }) {
   const { initPageResult, params, searchParams } = props;
   const { req, locale, permissions, visibleEntities } = initPageResult;
@@ -31,7 +29,6 @@ export function PanelPage({ props, children }: { props: AdminViewServerProps; ch
   );
 }
 
-/** Kontener treści widoku: te same marginesy co strona główna. */
 export const Gutter = ({ children }: { children: ReactNode }) => (
   <div className="panel-view mx-auto w-full max-w-[1200px] px-4 pt-8 pb-24 sm:px-8 sm:pt-12">{children}</div>
 );

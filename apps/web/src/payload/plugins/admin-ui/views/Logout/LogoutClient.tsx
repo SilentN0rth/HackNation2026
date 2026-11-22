@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { primaryLink } from "../../theme";
 
-/** Wylogowanie przez Payloada (useAuth().logOut → POST /users/logout), potem link do logowania. */
 export function LogoutClient({ loginHref }: { loginHref: string }) {
   const { logOut } = useAuth();
   const [done, setDone] = useState(false);

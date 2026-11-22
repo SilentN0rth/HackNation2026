@@ -5,7 +5,6 @@ import { loggedIn } from "../access";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Blankiety, które przyjmuje silnik AI (zgodnie z /api/v1/convert w FastAPI). */
 export const SOURCE_MIME_TYPES = [
   "application/pdf",
   "application/msword",
@@ -23,7 +22,6 @@ export const Media: CollectionConfig = {
   admin: { group: "Formularze", defaultColumns: ["filename", "mimeType", "filesize", "createdAt"] },
   access: { read: loggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
   upload: {
-    // W Dockerze MEDIA_DIR wskazuje wolumen (ścieżka względna do pliku nie działa w buildzie standalone).
     staticDir: process.env.MEDIA_DIR || path.resolve(dirname, "../../../data/media"),
     mimeTypes: SOURCE_MIME_TYPES,
   },

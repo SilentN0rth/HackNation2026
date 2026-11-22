@@ -1,21 +1,6 @@
 import type { FormDraft, LegalBasis } from "../types";
 import { MOCK_ACT } from "./statute";
 
-/**
- * MOCK: wersja robocza wygenerowana przez AI ze skanu formularza
- * „Wniosek o przyznanie dodatku mieszkaniowego”.
- *
- * Celowo zawiera błędy, które pokazujemy na demo (każdy wykrywa inny linter):
- *  1. lokal_liczba_pokoi      – cytat, którego NIE MA w ustawie   → exact-match (halucynacja)
- *  2. wn_telefon              – cytat prawdziwy, ale o adresie     → citation-relevance
- *  3. wn_nr_dowodu            – dana nadmiarowa                    → gdpr
- *  4. lokal_rodzaj_ogrzewania – warunek wskazuje nieistniejące pole → static-graph
- *  5. lokal_media             – pytanie wielokrotnie złożone       → wcag
- *  6. wn_email                – brak podstawy prawnej              → exact-match (ostrzeżenie)
- *
- * Docelowo: GET /drafts/{id}
- */
-
 const basis = (unit: string, quote: string, chunkId: string): LegalBasis => ({
   act: MOCK_ACT,
   unit,

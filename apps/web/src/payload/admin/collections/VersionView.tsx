@@ -11,7 +11,6 @@ import { useRise } from "./motion";
 import { SectionLabel, StatusChip } from "./ui";
 import type { DiffRow, VersionRow } from "./versions";
 
-/** Jedna wersja: różnice pól względem poprzedniej wersji i przywrócenie. */
 export function VersionView({ shell, version, diff, compareLabel }: { shell: ShellData; version: VersionRow; diff: DiffRow[]; compareLabel: string }) {
   const { item, list, layout } = useRise();
   const router = useRouter();

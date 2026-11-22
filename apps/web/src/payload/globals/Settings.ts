@@ -1,7 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { loggedIn } from "../access";
 
-/** Preferencje panelu urzędnika (agent B podpina je pod motyw i shell). */
 export const Settings: GlobalConfig = {
   slug: "settings",
   label: "Preferencje",

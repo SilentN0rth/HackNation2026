@@ -1,7 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { loggedIn } from "../access";
 
-/** Dane „z rejestrów” do prefillu (makieta mObywatel / CEIDG). Obywatel czyta je przez /api/payload/prefill. */
 export const Registry: GlobalConfig = {
   slug: "registry",
   label: "Rejestry (demo)",

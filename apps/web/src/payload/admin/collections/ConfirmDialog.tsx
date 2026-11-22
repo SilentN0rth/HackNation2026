@@ -3,7 +3,6 @@
 import { AlertDialog, Button } from "@heroui/react";
 import type { ReactNode } from "react";
 
-/** Potwierdzenie operacji (usuwanie, publikacja, przywracanie wersji) – HeroUI AlertDialog. */
 export function ConfirmDialog({
   isOpen,
   onOpenChange,

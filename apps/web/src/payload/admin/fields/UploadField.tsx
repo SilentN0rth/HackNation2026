@@ -22,7 +22,6 @@ const formatSize = (bytes?: number) => {
 
 const extOf = (name?: string) => (name?.split(".").pop() ?? "").toUpperCase().slice(0, 4);
 
-/** Wgrywa plik przez REST Payloada (ta sama walidacja mime i hooki co natywny upload), z postępem. */
 function uploadFile(url: string, file: File, onProgress: (p: number) => void): Promise<MediaDoc> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -47,7 +46,6 @@ function uploadFile(url: string, file: File, onProgress: (p: number) => void): P
   });
 }
 
-/** Plik – strefa upuszczania, podgląd wybranego pliku i wybór z biblioteki (kolekcja upload). */
 export function UploadField(props: PanelFieldProps) {
   const field = props.field as UploadClientField;
   const slug = field.relationTo;
@@ -63,7 +61,6 @@ export function UploadField(props: PanelFieldProps) {
   const currentId = f.value && typeof f.value === "object" ? f.value.id : f.value;
 
   const [loaded, setDoc] = useState<MediaDoc | null>(null);
-  // Podgląd tylko dla bieżącej wartości – po usunięciu/zmianie stary dokument znika bez efektu.
   const doc = loaded && currentId != null && String(loaded.id) === String(currentId) ? loaded : null;
   const [dragging, setDragging] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);

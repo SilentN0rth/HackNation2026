@@ -7,10 +7,6 @@ import { NavBar, type NavGroup } from "./NavBar";
 
 type Props = ServerProps & { visibleEntities?: VisibleEntities };
 
-/**
- * Nawigacja panelu (admin.components.Nav): poziomy pasek jak na stronie publicznej zamiast bocznego menu.
- * Pozycje liczone tak jak w domyślnej nawigacji Payloada (widoczne kolekcje i globale, grupy z admin.group).
- */
 export function Nav(props: Props) {
   const { payload, permissions, i18n, user, visibleEntities, params, searchParams, locale } = props;
   if (!payload?.config || !user) return null;

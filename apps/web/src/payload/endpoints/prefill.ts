@@ -1,4 +1,3 @@
-/** GET /api/payload/prefill?formId=… – dane z rejestrów (global registry), wyłącznie te klucze, których formularz używa. */
 import type { Endpoint } from "payload";
 import { FormSchemaSchema, PrefillDataSchema } from "../../types";
 
@@ -10,7 +9,6 @@ export const prefillEndpoint: Endpoint = {
     const data = PrefillDataSchema.safeParse(registry.prefill);
     if (!data.success) return Response.json({});
 
-    // Minimalizacja danych (RODO): oddajemy tylko klucze z pól opublikowanego formularza.
     const formId = typeof req.query.formId === "string" ? req.query.formId : "";
     const form = formId
       ? await req.payload.findByID({ collection: "forms", id: formId, req, overrideAccess: false, depth: 0 }).catch(() => null)

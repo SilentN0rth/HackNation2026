@@ -29,10 +29,6 @@ function summary(value: unknown) {
   return typeof value;
 }
 
-/**
- * Edytor kodu (JSON lub tekst w danym języku): monospace JetBrains Mono, numer wierszy,
- * dla JSON – walidacja na żywo i blokada zapisu przy błędzie, zwijany panel.
- */
 function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code" }) {
   const field = props.field as CodeClientField;
   const localError = useRef<string | undefined>(undefined);
@@ -48,7 +44,6 @@ function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code
   const [openState, setOpen] = useState<boolean | null>(null);
   const lastSynced = useRef(external);
 
-  // Zmiana wartości z zewnątrz (reset formularza, wczytanie wersji) – nadpisz tekst, jeśli to nie nasza edycja.
   useEffect(() => {
     if (external !== lastSynced.current) {
       lastSynced.current = external;
@@ -74,7 +69,6 @@ function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code
     } else {
       setParseError(result.error);
       localError.current = result.error;
-      // Oznacz formularz jako zmieniony, ale nie nadpisuj ostatniej poprawnej wartości.
       f.setValue(f.value);
     }
   };
@@ -86,7 +80,6 @@ function CodeEditor({ mode, ...props }: PanelFieldProps & { mode: "json" | "code
 
   const lines = Math.max(1, text.split("\n").length);
   const rows = Math.max(lines + 1, 6);
-  // Domyślnie rozwinięty krótki, edytowalny JSON; długie schematy i pola tylko do odczytu – zwinięte.
   const open = openState ?? (!f.readOnly && lines <= 40);
   const shownError = parseError ?? f.error;
   const language = mode === "json" ? "JSON" : (field.admin?.language ?? "kod").toUpperCase();

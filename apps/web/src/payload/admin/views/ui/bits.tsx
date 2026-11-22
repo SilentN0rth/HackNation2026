@@ -1,6 +1,5 @@
 "use client";
 
-/** Wspólne klocki widoków panelu na HeroUI: nagłówki jak na stronie głównej, linki-wiersze, statusy, komunikaty. */
 import { Alert, Link, RouterProvider } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
@@ -11,13 +10,11 @@ import { primaryLink } from "@/payload/plugins/admin-ui/theme";
 import { uiScope } from "../motion";
 import { Rise, Stagger } from "./motion";
 
-/** HeroUI Link/Button z href nawigują routerem Next (bez przeładowania panelu). */
 export function PanelRouter({ children }: { children: ReactNode }) {
   const router = useRouter();
   return <RouterProvider navigate={(href) => router.push(href)}>{children}</RouterProvider>;
 }
 
-/** Korzeń każdego widoku: klasa ef-ui (preflight pluginu) + router dla HeroUI. */
 export function ViewRoot({ children, className = "", testId }: { children: ReactNode; className?: string; testId?: string }) {
   return (
     <PanelRouter>
@@ -46,12 +43,10 @@ export const UploadIcon = ({ className = "size-5" }: { className?: string }) => 
   </svg>
 );
 
-/** Etykieta nad nagłówkiem: wersaliki w kolorze akcentu. */
 export const Eyebrow = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
   <p className={`m-0 text-sm font-semibold tracking-wide text-accent uppercase ${className}`}>{children}</p>
 );
 
-/** Nagłówek sekcji z cienką kreską ink nad listą. */
 export function SectionTitle({ id, title, aside }: { id?: string; title: ReactNode; aside?: ReactNode }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
@@ -63,7 +58,6 @@ export function SectionTitle({ id, title, aside }: { id?: string; title: ReactNo
   );
 }
 
-/** Nagłówek widoku jak w HomeView: eyebrow, duży ciasny tytuł, opis i akcje. */
 export function PageHeader({
   eyebrow,
   title,
@@ -123,7 +117,6 @@ export function PageHeader({
   );
 }
 
-/** Wiersz-link jak na stronie głównej: tytuł zmienia kolor, strzałka przesuwa się przy najechaniu. */
 export function RowLink({ href, title, text, meta, className = "" }: { href: string; title: ReactNode; text?: ReactNode; meta?: ReactNode; className?: string }) {
   return (
     <Link href={href} className={`group flex w-full items-center gap-6 py-5 text-inherit no-underline ${className}`}>
@@ -137,7 +130,6 @@ export function RowLink({ href, title, text, meta, className = "" }: { href: str
   );
 }
 
-/** Link tekstowy w kolorze akcentu ze strzałką (.link-arrow). */
 export function ArrowLink({ href, children, className = "" }: { href: string; children: ReactNode; className?: string }) {
   return (
     <Link href={href} className={`group inline-flex items-center gap-1.5 font-semibold text-accent no-underline ${className}`}>
@@ -147,7 +139,6 @@ export function ArrowLink({ href, children, className = "" }: { href: string; ch
   );
 }
 
-/** Główne wezwanie do działania – HeroUI Link wyglądający jak przycisk primary ze strony głównej. */
 export function PrimaryLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <Link href={href} className={`${primaryLink} no-underline`}>
@@ -196,7 +187,6 @@ export function OpenFlags({ errors, warnings, infos, showZero = false }: { error
   );
 }
 
-/** Komunikat błędu (HeroUI Alert) – opcjonalnie z akcjami, np. „Spróbuj ponownie”. */
 export function Notice({ title = "Coś poszło nie tak", message, status = "danger", children }: { title?: string; message: ReactNode; status?: "danger" | "warning" | "success" | "accent"; children?: ReactNode }) {
   return (
     <Alert status={status} role="alert" className="rounded-[10px]">

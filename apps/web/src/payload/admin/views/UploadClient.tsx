@@ -53,7 +53,6 @@ function UploadInner() {
     ticker.current = null;
   }
 
-  /** Silnik AI pracuje w jednym żądaniu – kroki 2–5 przesuwamy w czasie, ostatni czeka na odpowiedź. */
   function startTicker(from: number) {
     stopTicker();
     let step = from;
@@ -64,7 +63,6 @@ function UploadInner() {
     }, 900);
   }
 
-  /** Czeka, aż hook skończy (aiStatus ready/error) – przy synchronicznym hooku wraca od razu. */
   async function settle(form: FormResult): Promise<FormResult> {
     let current = form;
     for (let i = 0; i < 80 && current.aiStatus !== "ready" && current.aiStatus !== "error"; i++) {

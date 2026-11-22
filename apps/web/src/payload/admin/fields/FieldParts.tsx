@@ -6,10 +6,6 @@ import { PanelError } from "./shared/parts";
 import { useText } from "./shared/usePanelField";
 import "./fields.css";
 
-/**
- * Samodzielne komponenty Label / Description / Error w stylu panelu – dla pól, których nie zastępujemy
- * w całości (np. richText, blocks, join), rejestrowane przez fields.byType.<typ>.Label/Description/Error.
- */
 type PartProps = { field?: ClientField & { label?: StaticLabel | false; required?: boolean; admin?: { description?: StaticDescription } }; path?: string; label?: StaticLabel; required?: boolean };
 
 export function FieldLabel({ field, path, label, required }: PartProps) {

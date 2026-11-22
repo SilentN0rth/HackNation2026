@@ -5,11 +5,9 @@ import { anyone, loggedIn } from "../access";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Maksymalny rozmiar załącznika do wniosku (standardy formularzy: 10 MB). */
 export const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
 export const ATTACHMENT_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "application/xml", "text/xml"];
 
-/** Załączniki obywateli (pełnomocnictwo, potwierdzenie opłaty). Obywatel nie loguje się, więc zapis jest publiczny, ale ograniczony typem i rozmiarem. */
 export const Attachments: CollectionConfig = {
   slug: "attachments",
   labels: { singular: "Załącznik", plural: "Załączniki" },

@@ -5,7 +5,6 @@ import { useCallback, useMemo } from "react";
 
 export type DocLike = { id: number | string; [key: string]: unknown };
 
-/** REST Payloada (np. /api/payload) z ciasteczkiem sesji – te same uprawnienia co panel. */
 export function usePayloadApi() {
   const { config, getEntityConfig } = useConfig();
   const base = `${config.serverURL ?? ""}${config.routes.api}`;
@@ -14,7 +13,6 @@ export function usePayloadApi() {
     (slug: string) => {
       const entity = getEntityConfig({ collectionSlug: slug }) as { admin?: { useAsTitle?: string }; upload?: unknown } | undefined;
       const useAsTitle = entity?.admin?.useAsTitle;
-      // Payload domyślnie ustawia useAsTitle = "id"; dla plików czytelniejsza jest nazwa pliku.
       if (useAsTitle && useAsTitle !== "id") return useAsTitle;
       return entity?.upload ? "filename" : "id";
     },
@@ -44,7 +42,6 @@ export function usePayloadApi() {
     [base, titleField],
   );
 
-  // Stabilna referencja – obiekt trafia do zależności efektów (wyszukiwanie), nowy co render = pętla zapytań.
   return useMemo(() => ({ base, find, titleField, labelOf }), [base, find, titleField, labelOf]);
 }
 

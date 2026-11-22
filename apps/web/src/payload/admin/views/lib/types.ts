@@ -1,4 +1,3 @@
-/** Kształty danych przekazywanych z komponentów serwerowych (Local API) do klienckich widoków panelu. */
 import type { AuditAction, FormSchema, LintFlag } from "@/types";
 
 export type FormStatus = "draft" | "in_review" | "published";

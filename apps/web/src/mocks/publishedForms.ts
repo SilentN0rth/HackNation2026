@@ -1,12 +1,5 @@
 import type { PublishedForm } from "../types";
 
-/**
- * MOCK: formularze już opublikowane – lista usług po stronie obywatela.
- * Po kliknięciu „Zatwierdź i opublikuj” w edytorze dochodzi tu kolejny formularz.
- *
- * Podstawa prawna tego formularza jest fikcyjna (lokalny regulamin – przykład).
- * Docelowo: GET /forms
- */
 const LOCAL_ACT = "Regulamin utrzymania czystości i porządku w gminie (przykład)";
 
 export const publishedForms: PublishedForm[] = [

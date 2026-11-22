@@ -68,7 +68,6 @@ export const mockApi: Api = {
       onProgress?.(s);
       await wait(s === "generate" ? 1200 : 500);
     }
-    // Każdy wgrany plik „daje” ten sam przykładowy formularz – podmieńcie na backend.
     const template = clone(mocks.drafts[0]);
     const draft: FormDraft = {
       ...template,

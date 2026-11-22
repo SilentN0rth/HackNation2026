@@ -18,7 +18,6 @@ interface Props {
   onResolve: (flagId: string, action: "fixed" | "rejected", justification?: string) => void;
 }
 
-/** Panel kontroli jakości: liczniki, ponowne uruchomienie linterów i karty uwag (przestawiają się płynnie po rozstrzygnięciu). */
 export function LintPanel({ flags, busy, linting, canLint, onLint, onSelectField, onResolve }: Props) {
   const reduce = useReducedMotion();
   const open = countOpen(flags);

@@ -17,7 +17,6 @@ export type PanelFieldProps = {
   readOnly?: boolean;
 };
 
-/** Tłumaczy etykietę/opis Payloada (string albo { pl: … }) – niezależnie od lokalizacji. */
 export function useText() {
   const { i18n } = useTranslation();
   return useCallback(
@@ -33,11 +32,6 @@ export function useText() {
 
 export const isEmpty = (v: unknown) => v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
 
-/**
- * Wspólne spięcie z logiką pola Payloada: wartość, błędy z walidacji (klient + serwer), required,
- * readOnly (uprawnienia, admin.readOnly, blokada formularza), etykieta i opis.
- * `extraValidate` – walidacja kliencka uruchamiana przed zapisem (np. niepoprawny JSON).
- */
 export function usePanelField<T = unknown>(props: PanelFieldProps, extraValidate?: (value: T) => string | true) {
   const field = props.field as AnyClientField;
   const text = useText();
@@ -72,5 +66,4 @@ export function usePanelField<T = unknown>(props: PanelFieldProps, extraValidate
   return { ...state, ...meta, error, invalid: Boolean(error) };
 }
 
-/** id DOM pola – jak w Payloadzie (field-<ścieżka>), używane w testach i przez scrollToID Payloada. */
 export const fieldId = (path: string) => `field-${path.replace(/\./g, "__")}`;

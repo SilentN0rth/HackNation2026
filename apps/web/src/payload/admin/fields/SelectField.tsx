@@ -16,7 +16,6 @@ function useOptions(field: OptionsField) {
   );
 }
 
-/** Pole tylko do odczytu: zamiast wyszarzonej kontrolki – czytelny tekst w polu readonly. */
 export function ReadOnlyValue({ id, label, description, value }: { id: string; label?: string; description?: string; value: string }) {
   return (
     <TextField isReadOnly value={value} className="flex flex-col gap-1.5">
@@ -27,7 +26,6 @@ export function ReadOnlyValue({ id, label, description, value }: { id: string; l
   );
 }
 
-/** Lista wyboru – HeroUI Select (pojedynczy lub wielokrotny wybór dla hasMany). */
 export function SelectField(props: PanelFieldProps) {
   const field = props.field as OptionsField;
   const options = useOptions(field);
@@ -85,7 +83,6 @@ export function SelectField(props: PanelFieldProps) {
   );
 }
 
-/** Segmenty (HeroUI ToggleButtonGroup) – dla krótkich list, np. status formularza czy motyw. */
 export function SegmentedSelectField(props: PanelFieldProps) {
   const field = props.field as OptionsField;
   const options = useOptions(field);
@@ -124,7 +121,6 @@ export function SegmentedSelectField(props: PanelFieldProps) {
   );
 }
 
-/** Pole radio – HeroUI RadioGroup. */
 export function RadioField(props: PanelFieldProps) {
   const field = props.field as OptionsField;
   const options = useOptions(field);

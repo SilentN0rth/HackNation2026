@@ -1,2 +1,1 @@
-/* Ładowane po CSS Payloada. Motyw panelu (Tailwind v4 + HeroUI) żyje w pluginie: src/payload/plugins/admin-ui/theme/admin.css. */
 @import "../../payload/plugins/admin-ui/theme/admin.css";

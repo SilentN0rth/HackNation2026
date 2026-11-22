@@ -1,15 +1,5 @@
 import type { StatuteChunk } from "../types";
 
-/**
- * MOCK: fragmenty ustawy po chunkowaniu (jedna jednostka redakcyjna = jeden chunk).
- *
- * ⚠️ To NIE jest oryginalny tekst ustawy. Zdania są uproszczoną parafrazą
- * napisaną na potrzeby demo, a numery jednostek są poglądowe.
- * Przed prezentacją podmieńcie `text` i `unit` na dosłowny tekst z ISAP
- * (i zaktualizujcie cytaty w formDraft.ts), inaczej jury złapie różnicę.
- *
- * Docelowo te dane zwraca backend: GET /statutes/{actId}/chunks
- */
 export const MOCK_ACT = "Ustawa z dnia 21 czerwca 2001 r. o dodatkach mieszkaniowych";
 
 export const statuteChunks: StatuteChunk[] = [

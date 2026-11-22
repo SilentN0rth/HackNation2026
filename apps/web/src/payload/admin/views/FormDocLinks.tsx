@@ -5,10 +5,6 @@ import { uiScope } from "./motion";
 import { editorUrl, uploadUrl } from "./routes";
 import { ArrowLink, PanelRouter } from "./ui/bits";
 
-/**
- * collections.forms edit.beforeDocumentControls: przy tworzeniu – skrót do wgrania pliku,
- * przy istniejącym formularzu – do edytora struktury.
- */
 export function FormDocLinks() {
   const { id } = useDocumentInfo();
   return (

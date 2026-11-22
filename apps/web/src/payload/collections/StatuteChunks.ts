@@ -1,7 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { anyone, loggedIn } from "../access";
 
-/** Fragmenty ustaw (jednostki redakcyjne) – podstawy prawne pól. */
 export const StatuteChunks: CollectionConfig = {
   slug: "statute-chunks",
   labels: { singular: "Fragment przepisu", plural: "Podstawy prawne" },

@@ -1,14 +1,6 @@
 import type { Field, FormSchema, LintFlag, StatuteChunk } from "../types";
 import { llmLintFlags } from "./lintFlags";
 
-/**
- * MOCK backendu linterów. Dwa lintery „kodowe” liczymy naprawdę, w przeglądarce,
- * tą samą logiką, którą będzie miał backend (warto ją przenieść 1:1 do Pythona):
- *   - exact-match: czy cytat występuje w tekście ustawy
- *   - static-graph: odwołania warunków do nieistniejących / późniejszych pól
- * Flagi LLM bierzemy ze stałej listy (lintFlags.ts).
- */
-
 const normalize = (s: string) =>
   s
     .toLowerCase()
@@ -55,7 +47,6 @@ function exactMatchFlags(schema: FormSchema, chunks: StatuteChunk[]): LintFlag[]
 
 function staticGraphFlags(schema: FormSchema): LintFlag[] {
   const flags: LintFlag[] = [];
-  // pozycja każdego pola w kolejności wypełniania
   const order = new Map<string, number>();
   let i = 0;
   for (const p of schema.pages) for (const f of p.fields) order.set(f.id, i++);
@@ -95,9 +86,6 @@ function staticGraphFlags(schema: FormSchema): LintFlag[] {
   return flags;
 }
 
-/**
- * @param previous poprzednie flagi – przenosimy z nich rozstrzygnięcia urzędnika
- */
 export function runMockLinters(schema: FormSchema, chunks: StatuteChunk[], previous: LintFlag[] = []): LintFlag[] {
   const fieldIds = new Set(schema.pages.flatMap((p) => p.fields.map((f) => f.id)));
   const resolutions = new Map(previous.map((f) => [f.id, f.resolution]));

@@ -8,7 +8,6 @@ interface Props {
   onSelect: (fieldId: string) => void;
 }
 
-/** Lista stron i pól formularza z kropką przy polach z otwartymi uwagami. */
 export function StructureNav({ pages, selectedId, flagsFor, onSelect }: Props) {
   return (
     <Card className="h-fit lg:sticky lg:top-20">

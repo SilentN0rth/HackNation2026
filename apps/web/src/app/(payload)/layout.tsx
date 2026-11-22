@@ -1,4 +1,3 @@
-/* Szablon Payloada (@payloadcms/next) – zmieniaj tylko importy CSS. */
 import config from "@payload-config";
 import "@payloadcms/next/css";
 import type { ServerFunctionClient } from "payload";

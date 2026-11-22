@@ -19,13 +19,8 @@ import {
   type User,
 } from "../types";
 
-/**
- * Api na REST Payloada (/api/payload). Obywatel czyta opublikowane formularze i zapisuje wnioski bez logowania;
- * metody urzędnika korzystają z ciasteczka sesji panelu (/official).
- */
 const BASE = "/api/payload";
 
-/** Obywatel nie loguje się do Payloada – konto demonstracyjne (makieta węzła krajowego). */
 const DEMO_CITIZEN: User = { id: "u-citizen", name: "Jan Kowalski", role: "citizen", initials: "JK" };
 
 const ErrorsSchema = z.object({ errors: z.array(z.object({ message: z.string() })) }).partial();
@@ -61,7 +56,6 @@ const json = (body: unknown) => JSON.stringify(body);
 const docOf = (body: unknown) => ((body as { doc?: Doc }).doc ?? body) as Doc;
 const relId = (value: unknown) => String(typeof value === "object" && value !== null ? (value as { id: unknown }).id : (value ?? ""));
 
-/** Dokument Payloada po stronie klienta – kształt sprawdza Zod przy mapowaniu. */
 type Doc = Record<string, unknown> & { id: number | string };
 
 function parse<S extends z.ZodType>(schema: S, value: unknown, what: string): z.infer<S> {
@@ -194,7 +188,6 @@ export const payloadApi: Api = {
       body.append("_payload", json({ alt: file.name }));
       const media = docOf(await call("/media", { method: "POST", body }));
       const form = docOf(await call("/forms", { method: "POST", body: json({ source: media.id }) }, { draft: true, depth: 0 }));
-      // Formularz zapisuje się także przy awarii silnika AI – wtedy zgłaszamy błąd, a panel pozwala ponowić.
       if (form.aiStatus === "error") throw new Error(String(form.aiError ?? "Silnik AI niedostępny."));
       onProgress?.("done");
       return { draftId: String(form.id) };

@@ -1,4 +1,3 @@
-/** Pulpit panelu (admin.components.views.dashboard): dane z Local API, widok w DashboardClient. */
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { InitPageResult } from "payload";
@@ -9,10 +8,6 @@ import { auditUrl, formsListUrl } from "./routes";
 
 const START: Record<string, string> = { forms: formsListUrl(), "audit-log": auditUrl() };
 
-/**
- * Widok startowy z preferencji (global settings.defaultView): zaraz po zalogowaniu pulpit przekierowuje
- * do formularzy albo dziennika. Link „Pulpit” w nawigacji nadal otwiera pulpit.
- */
 async function startRedirect(initPageResult: InitPageResult) {
   const { req } = initPageResult;
   const referer = (await headers()).get("referer");

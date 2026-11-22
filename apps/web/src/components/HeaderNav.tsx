@@ -22,7 +22,6 @@ function useRole(): Role {
   return usePathname().startsWith("/citizen") ? "citizen" : "official";
 }
 
-/** Nawigacja dla bieżącej roli; `aria-current="page"` przy dokładnym dopasowaniu ścieżki. */
 export function NavLinks({ label, className, linkClassName }: { label: string; className: string; linkClassName: string }) {
   const pathname = usePathname();
   const role = useRole();

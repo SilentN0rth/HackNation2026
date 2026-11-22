@@ -30,7 +30,6 @@ export const Forms: CollectionConfig = {
   },
   versions: { drafts: true, maxPerDoc: 50 },
   access: {
-    // Obywatel (bez logowania) widzi tylko opublikowane e-usługi.
     read: ({ req }) => (req.user ? true : { status: { equals: "published" } }),
     create: loggedIn,
     update: loggedIn,
@@ -80,7 +79,6 @@ export const Forms: CollectionConfig = {
       virtual: true,
       admin: { readOnly: true, description: "Wyliczany przy odczycie – eksport do systemu COI." },
       hooks: {
-        // Oryginalny JSON COI z FastAPI, a bez niego – schemat edytora (brak adaptera po stronie web).
         afterRead: [({ siblingData }) => siblingData.coiSource ?? siblingData.schema ?? null],
       },
     },
@@ -102,7 +100,6 @@ export const Forms: CollectionConfig = {
     { name: "version", label: "Wersja", type: "number", defaultValue: 0, admin: { position: "sidebar", readOnly: true } },
     { name: "publishedAt", label: "Opublikowano", type: "date", admin: { position: "sidebar", readOnly: true } },
     { name: "publishedBy", label: "Opublikował(a)", type: "relationship", relationTo: "users", admin: { position: "sidebar", readOnly: true } },
-    // Kopia nazwiska dla obywatela – kolekcja users nie jest publiczna.
     { name: "publishedByName", type: "text", admin: { hidden: true } },
   ],
 };

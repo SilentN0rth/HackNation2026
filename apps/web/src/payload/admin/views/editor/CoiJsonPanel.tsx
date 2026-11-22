@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { docOf, errorText, rest } from "../lib/rest";
 import { Notice } from "../ui/bits";
 
-/** JSON COI (wirtualne pole coiJson) – pobierany przy otwarciu zakładki i po każdym zapisie. */
 export function CoiJsonPanel({ formId, fileName, revision }: { formId: number; fileName: string; revision: string }) {
   const [coi, setCoi] = useState<unknown>(undefined);
   const [error, setError] = useState<string | null>(null);

@@ -8,7 +8,6 @@ import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelF
 
 type NumberClientField = ClientField & { min?: number; max?: number; admin?: { step?: number } };
 
-/** Liczba – HeroUI NumberField (stepper, polski format), cyfry w JetBrains Mono. */
 export function NumberField(props: PanelFieldProps) {
   const field = props.field as NumberClientField;
   const { min, max } = field;
@@ -54,7 +53,6 @@ export function NumberField(props: PanelFieldProps) {
   );
 }
 
-/** Punkt geograficzny [długość, szerokość] – dwa pola liczbowe. */
 export function PointField(props: PanelFieldProps) {
   const f = usePanelField<[number, number] | null>(props);
   const id = fieldId(f.path);

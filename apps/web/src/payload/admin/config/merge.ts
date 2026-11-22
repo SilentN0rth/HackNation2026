@@ -1,11 +1,9 @@
-/** Sklejanie fragmentów panelu (etap 0 – agenci nie edytują tego pliku). Kontrakt: types.ts. */
 import type { CollectionConfig, Field, GlobalConfig } from "payload";
 import type { FieldComponents, PanelFragment } from "./types";
 
 type Plain = Record<string, unknown>;
 
 const isPlain = (v: unknown): v is Plain => typeof v === "object" && v !== null && !Array.isArray(v);
-// { path: "…" } to pojedynczy komponent Payloada – nie łączymy go pole po polu.
 const isComponent = (v: unknown) => isPlain(v) && typeof v.path === "string";
 
 export function mergeDeep<T>(base: T, extra: unknown): T {

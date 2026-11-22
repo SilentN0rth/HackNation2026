@@ -9,7 +9,6 @@ interface Props {
   onSend: () => void;
 }
 
-/** Podsumowanie wszystkich odpowiedzi przed podpisem i wysłaniem. */
 export function SummaryCard({ pages, busy, displayValue, onEdit, onSend }: Props) {
   return (
     <Card>

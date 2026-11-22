@@ -1,4 +1,3 @@
-/** Endpointy kolekcji forms: /api/payload/forms/:id/lint i /api/payload/forms/:id/generate. */
 import type { Endpoint, PayloadHandler, PayloadRequest } from "payload";
 import type { FormSchema, LintFlag } from "../../types";
 import { writeAudit } from "../hooks/audit";
@@ -16,7 +15,6 @@ async function loadForm(req: PayloadRequest) {
   return { form };
 }
 
-/** Rozstrzygnięcia przetrwają ponowne uruchomienie linterów (deterministyczne id flag). */
 function keepResolutions(next: LintFlag[], previous: LintFlag[]): LintFlag[] {
   const resolved = new Map(previous.filter((f) => f.resolution).map((f) => [f.id, f.resolution]));
   return next.map((f) => (resolved.has(f.id) ? { ...f, resolution: resolved.get(f.id) } : f));

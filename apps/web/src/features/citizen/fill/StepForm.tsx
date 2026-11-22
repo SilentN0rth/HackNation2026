@@ -18,7 +18,6 @@ interface Props {
   onNext: () => void;
 }
 
-/** Jedna strona formularza z walidacją przy „Dalej”. */
 export function StepForm({ page, values, errors, prefilled, step, busy, savedAt, onChange, onBack, onSaveDraft, onNext }: Props) {
   return (
     <Card>

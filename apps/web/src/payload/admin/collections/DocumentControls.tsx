@@ -11,7 +11,6 @@ import { duration, ease, useSlideUp } from "./motion";
 
 type Kind = "save" | "draft" | "publish";
 
-/** Pasek akcji dokumentu (sticky, motion): zapis, wersja robocza, publikacja, wycofanie, duplikat, usunięcie. */
 export function DocumentControls({ shell, drafts, operation }: { shell: ShellData; drafts: boolean; operation: "create" | "update" }) {
   const { submit } = useForm();
   const modified = useFormModified();

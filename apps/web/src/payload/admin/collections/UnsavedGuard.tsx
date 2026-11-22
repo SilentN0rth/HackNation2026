@@ -5,10 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ConfirmDialog } from "./ConfirmDialog";
 
-/**
- * Strażnik niezapisanych zmian (zamiast natywnego LeaveWithoutSaving Payloada):
- * zamknięcie karty → okno przeglądarki, kliknięcie linku w panelu → HeroUI AlertDialog.
- */
 export function UnsavedGuard() {
   const modified = useFormModified();
   const processing = useFormProcessing();

@@ -1,17 +1,8 @@
-/**
- * Fragment: POLA (agent D). Edytuje tylko agent D.
- * Każdy typ pola używany w kolekcjach/globalach dostaje własny komponent HeroUI (src/payload/admin/fields).
- * byPath – pola wymagające innej kontrolki niż domyślna dla typu (segmenty, przełącznik).
- * Komórek list (Cell) tu nie ma – należą do widoku listy (agent C).
- * Pole email/hasło z `auth` dokłada Payload po sklejeniu fragmentów, więc logowanie (agent B) zostaje nietknięte.
- * Kształt: PanelFragment z ./types.ts (FieldComponentMap).
- */
 import type { FieldComponents, FieldType, PanelFragment } from "./types";
 
 const F = "@/payload/admin/fields";
 const field = (file: string, name: string): FieldComponents => ({ Field: `${F}/${file}#${name}` });
 
-/** Pola z natywnym edytorem – podmieniamy tylko etykietę, opis i błąd. */
 const parts: FieldComponents = {
   Label: `${F}/FieldParts#FieldLabel`,
   Description: `${F}/FieldParts#FieldDescription`,

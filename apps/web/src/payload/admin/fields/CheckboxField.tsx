@@ -4,7 +4,6 @@ import { Checkbox, Switch } from "@heroui/react";
 import { FieldShell, PanelDescription, PanelError } from "./shared/parts";
 import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelField";
 
-/** Pole wyboru – HeroUI Checkbox z etykietą i opisem obok kontrolki. */
 export function CheckboxField(props: PanelFieldProps) {
   const f = usePanelField<boolean | null>(props);
   const id = fieldId(f.path);
@@ -34,7 +33,6 @@ export function CheckboxField(props: PanelFieldProps) {
   );
 }
 
-/** Przełącznik – HeroUI Switch, dla ustawień typu włącz/wyłącz (np. settings.animations). */
 export function SwitchField(props: PanelFieldProps) {
   const f = usePanelField<boolean | null>(props);
   const id = fieldId(f.path);

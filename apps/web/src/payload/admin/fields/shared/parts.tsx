@@ -8,7 +8,6 @@ import "@fontsource-variable/jetbrains-mono";
 import "../fields.css";
 import { useFieldMotion } from "./useFieldMotion";
 
-/** Etykieta jak w formularzu obywatela: font-medium, „(nieobowiązkowe)” dla pól opcjonalnych. */
 export function PanelLabel({ children, required, readOnly, htmlFor, elementType }: { children?: ReactNode; required?: boolean; readOnly?: boolean; htmlFor?: string; elementType?: string }) {
   if (!children) return null;
   return (
@@ -25,7 +24,6 @@ export function PanelDescription({ children }: { children?: ReactNode }) {
   return <Description className="text-sm leading-relaxed text-(--ink-3)">{children}</Description>;
 }
 
-/** Błąd walidacji – wjeżdża wysokością i przezroczystością (motion), ogłaszany przez czytniki ekranu. */
 export function PanelError({ message, id }: { message?: string; id?: string }) {
   const motionFor = useFieldMotion();
   return (
@@ -51,7 +49,6 @@ export function PanelError({ message, id }: { message?: string; id?: string }) {
   );
 }
 
-/** Kontener pola: klasa pf-field (tokeny + font), szerokość z admin.width, data-path dla testów. */
 export function FieldShell({ path, type, children, style, className, invalid }: { path: string; type: string; children: ReactNode; style?: CSSProperties; className?: string; invalid?: boolean }) {
   return (
     <div

@@ -4,7 +4,6 @@ import { useConfig } from "@payloadcms/ui";
 import { formatAdminURL } from "payload/shared";
 import { useCallback } from "react";
 
-/** Błąd REST Payloada: komunikat ogólny i błędy przypisane do pól (path → message). */
 export class PayloadRestError extends Error {
   constructor(
     message: string,
@@ -26,7 +25,6 @@ async function parseError(res: Response): Promise<PayloadRestError> {
   return new PayloadRestError(first?.message ?? "Nie udało się połączyć z serwerem. Spróbuj ponownie.", fields, res.status);
 }
 
-/** Wywołania endpointów kolekcji użytkowników (login, first-register, forgot-password, logout, me…). */
 export function useUsersApi() {
   const {
     config: {
@@ -50,7 +48,6 @@ export function useUsersApi() {
     [apiRoute, serverURL, userSlug],
   );
 
-  /** Adres widoku panelu, np. adminUrl("/forgot"). */
   const adminUrl = useCallback(
     (path: `/${string}` | "" = "") => formatAdminURL({ adminRoute, path: path || "/", serverURL }),
     [adminRoute, serverURL],

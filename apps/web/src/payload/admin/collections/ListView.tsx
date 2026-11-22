@@ -1,7 +1,3 @@
-/**
- * Widok listy dowolnej kolekcji (serwer). Payload podaje dane (renderListView → ListQueryProvider),
- * tu zamieniamy je na serializowalne wiersze, a UI rysuje klient na HeroUI (ListClient).
- */
 import type { ListViewServerProps } from "payload";
 import { formatDate } from "@/lib/format";
 import { viewConfig } from "./config";

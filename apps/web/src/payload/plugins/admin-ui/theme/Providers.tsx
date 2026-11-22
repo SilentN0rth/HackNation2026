@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { formatAdminURL } from "payload/shared";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
-/** Preferencje z globala „settings” (gęstość, animacje). Motyw panelu jest zawsze jasny – jak strona publiczna. */
 export type PanelSettings = { density: "comfortable" | "compact"; animations: boolean; defaultView: "dashboard" | "forms" | "audit-log" };
 
 const DEFAULTS: PanelSettings = { density: "comfortable", animations: true, defaultView: "dashboard" };
@@ -14,17 +13,14 @@ const DEFAULTS: PanelSettings = { density: "comfortable", animations: true, defa
 type Ctx = { settings: PanelSettings; save: (patch: Partial<PanelSettings>) => Promise<void> };
 const SettingsContext = createContext<Ctx>({ settings: DEFAULTS, save: async () => undefined });
 
-/** Odczyt i zapis preferencji panelu (global settings) z dowolnego komponentu. */
 export const usePanelSettings = () => useContext(SettingsContext);
 
-/** admin.components.providers – MotionConfig + preferencje jako atrybuty <html> (data-density). */
 export function Providers({ children }: { children?: ReactNode }) {
   const { user } = useAuth();
   const {
     config: { serverURL, routes, admin },
   } = useConfig();
   const pathname = usePathname();
-  // Na widokach wylogowania sesja właśnie się kończy – zapytanie o preferencje dostałoby 403.
   const loggingOut = [admin.routes.logout, admin.routes.inactivity].some((r) => r && pathname.endsWith(r));
   const [settings, setSettings] = useState<PanelSettings>(DEFAULTS);
   const endpoint = formatAdminURL({ apiRoute: routes.api, path: "/globals/settings", serverURL });

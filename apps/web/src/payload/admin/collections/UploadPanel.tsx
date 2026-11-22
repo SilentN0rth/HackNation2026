@@ -27,7 +27,6 @@ const validate = (value: unknown) => {
   return true;
 };
 
-/** Plik dokumentu w kolekcji upload: podgląd zapisanego pliku i strefa upuszczania (pole formularza `file`). */
 export function UploadPanel({ isCreate, data }: { isCreate: boolean; data?: Record<string, unknown> }) {
   const { value, setValue, errorMessage, showError } = useField<File | null>({ path: "file", validate: isCreate ? validate : undefined });
   const input = useRef<HTMLInputElement>(null);

@@ -4,7 +4,6 @@ import { Link } from "@heroui/react";
 import type { CellValue, ColumnDef } from "./types";
 import { StatusChip } from "./ui";
 
-/** Miniatura pliku: obraz albo chip z rozszerzeniem (jak lista formatów na stronie głównej). */
 export function Thumb({ src, ext, size = "sm" }: { src?: string; ext?: string; size?: "sm" | "lg" }) {
   const box = size === "lg" ? "aspect-[4/3] w-full" : "size-9 shrink-0";
   if (src && !src.startsWith("mime:")) {

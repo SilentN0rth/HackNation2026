@@ -1,23 +1,14 @@
-/** Konfiguracja widoków kolekcji (wspólna dla serwera i klienta – same dane, bez funkcji). */
-
 export type Tone = "neutral" | "accent" | "success" | "warning" | "danger";
 export type ListMode = "table" | "timeline" | "grid";
 
 export type CollectionViewConfig = {
-  /** Opis pod nagłówkiem listy. */
   description: string;
-  /** Pole select pokazywane jako chip statusu (w liście i nagłówku dokumentu). */
   statusField?: string;
   tones?: Record<string, Tone>;
-  /** Tryby listy – pierwszy jest domyślny. */
   modes?: ListMode[];
-  /** Akcja masowa „Opublikuj” (formularze). */
   bulkPublish?: boolean;
-  /** Tylko do odczytu – bez tworzenia, zaznaczania i usuwania (dziennik decyzji). */
   readOnly?: boolean;
-  /** Pola select, po których można filtrować. */
   filters?: string[];
-  /** Grupa w okruszkach. */
   group?: string;
 };
 

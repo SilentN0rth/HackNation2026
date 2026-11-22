@@ -6,13 +6,11 @@ import { uiScope } from "./motion";
 import { PANEL_VIEWS, type PanelView } from "./routes";
 import { PanelRouter } from "./ui/bits";
 
-/** Pulpit i kolekcje (formularze, dziennik) ma już nawigacja pluginu – tu tylko widoki bez kolekcji. */
 const OWN: PanelView["key"][] = ["upload"];
 
 const isActive = (v: PanelView, pathname: string) =>
   v.key === "dashboard" ? pathname === v.path || pathname === `${v.path}/` : v.match.some((m) => pathname.startsWith(m));
 
-/** admin.components.beforeNavLinks – linki do widoków agenta E w poziomej nawigacji. */
 export function NavLinks() {
   const pathname = usePathname() ?? "";
   return (

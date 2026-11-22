@@ -9,7 +9,6 @@ import type { Tone } from "./config";
 import { useRise } from "./motion";
 import "./collections.css";
 
-/** Korzeń każdego widoku kolekcji: tokeny strony, router Next dla linków HeroUI, polska lokalizacja. */
 export function ViewRoot({ children, testId }: { children: ReactNode; testId?: string }) {
   const router = useRouter();
   return (
@@ -41,7 +40,6 @@ export function Crumbs({ items }: { items: Crumb[] }) {
   );
 }
 
-/** Nagłówek strony jak PageHeader na stronie głównej: duży tytuł, opis, akcje. */
 export function PageHeader({
   eyebrow,
   title,
@@ -49,7 +47,6 @@ export function PageHeader({
   actions,
   meta,
 }: {
-  /** Okruszki trafiają do step-nav Payloada (pasek pod nawigacją), nie do nagłówka. */
   crumbs?: Crumb[];
   eyebrow?: ReactNode;
   title: ReactNode;
@@ -110,7 +107,6 @@ const DOT: Record<Tone, string> = {
   danger: "bg-danger",
 };
 
-/** Chip statusu (HeroUI) z kropką w tonie – jak StatusDot na stronie. */
 export function StatusChip({ label, tone = "neutral" }: { label: string; tone?: Tone }) {
   return (
     <Chip size="sm" variant="soft" color={CHIP_COLOR[tone]} className="gap-1.5 whitespace-nowrap">
@@ -187,7 +183,6 @@ export function ErrorBlock({ message }: { message: string }) {
   );
 }
 
-/** Etykieta sekcji: wersaliki w kolorze akcentu (jak „Generator formularzy”). */
 export const SectionLabel = ({ children }: { children: ReactNode }) => (
   <p className="text-sm font-semibold tracking-wide text-accent uppercase">{children}</p>
 );

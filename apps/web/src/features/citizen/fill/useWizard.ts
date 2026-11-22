@@ -7,7 +7,6 @@ import type { Application, PublishedForm } from "@/types";
 
 export type Phase = "consent" | "steps" | "summary" | "sent";
 
-/** Stan kreatora wniosku: krok, wartości, walidacja strony, zgoda na prefill i zapis. */
 export function useWizard(form: PublishedForm, app: Application | null) {
   const needsPrefill = form.schema.pages.some((p) => p.fields.some((f) => f.prefill));
   const [phase, setPhase] = useState<Phase>(app || !needsPrefill ? "steps" : "consent");

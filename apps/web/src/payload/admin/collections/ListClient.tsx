@@ -29,7 +29,6 @@ import { ArrowRight, EmptyBlock, Icon, PageHeader, StatusChip, ViewRoot } from "
 
 type Where = Record<string, unknown>;
 
-/** Aktualne wartości filtrów (pole → wartość) z `where` Payloada. */
 function filtersFromWhere(where: unknown): Record<string, string> {
   const out: Record<string, string> = {};
   const visit = (w: unknown) => {
@@ -55,7 +54,6 @@ function idsQuery(ids: (string | number)[]) {
   return ids.map((id, i) => `where[id][in][${i}]=${encodeURIComponent(String(id))}`).join("&");
 }
 
-/** Lista kolekcji: wyszukiwanie, filtry, kolumny, sortowanie, paginacja, zaznaczanie i akcje masowe. */
 export function ListClient({ data }: { data: ListViewData }) {
   const router = useRouter();
   const { query, handleSearchChange, handleSortChange, handlePageChange, handlePerPageChange, handleWhereChange, refineListData } = useListQuery();
@@ -65,13 +63,11 @@ export function ListClient({ data }: { data: ListViewData }) {
   const cfg = data.config;
   const modes: ListMode[] = cfg.modes ?? ["table"];
 
-  // Układ listy zapamiętany w przeglądarce (useSyncExternalStore – bez rozjazdu hydratacji).
   const modeKey = `hn-list-mode:${data.slug}`;
   const saved = useSyncExternalStore(subscribeMode, () => readMode(modeKey), () => null);
   const mode: ListMode = saved && modes.includes(saved as ListMode) ? (saved as ListMode) : modes[0]!;
   const changeMode = (m: ListMode) => writeMode(modeKey, m);
 
-  // Wyszukiwanie z opóźnieniem – Payload przeładowuje dane po zmianie parametru `search`.
   const [search, setSearch] = useState(typeof query.search === "string" ? query.search : "");
   const currentSearch = typeof query.search === "string" ? query.search : "";
   useEffect(() => {
@@ -96,7 +92,6 @@ export function ListClient({ data }: { data: ListViewData }) {
     ? { column: sort.replace(/^-/, ""), direction: sort.startsWith("-") ? "descending" : "ascending" }
     : undefined;
 
-  // Zaznaczenie (tylko na bieżącej stronie).
   const [picked, setSelected] = useState<Set<string | number>>(new Set());
   const [removing, setRemoving] = useState<Set<string | number>>(new Set());
   const rowIds = useMemo(() => data.rows.map((r) => r.id), [data.rows]);
@@ -126,7 +121,6 @@ export function ListClient({ data }: { data: ListViewData }) {
       if (failed.length || !res.ok) toast.error(failed[0]?.message ?? json.message ?? "Operacja nie powiodła się.");
       setConfirm(null);
       setSelected(new Set());
-      // Krótka pauza, żeby usuwane wiersze zdążyły zniknąć (layout animation pozostałych).
       setTimeout(() => {
         router.refresh();
         setRemoving(new Set());
@@ -141,7 +135,6 @@ export function ListClient({ data }: { data: ListViewData }) {
   const crumbs = [{ label: "Panel", href: data.adminRoute }, { label: data.plural }];
   const { setStepNav } = useStepNav();
   useEffect(() => {
-    // Okruszki w pasku panelu (agent B), tak jak w widoku dokumentu.
     setStepNav([{ label: data.plural }]);
   }, [data.plural, setStepNav]);
   const hasQuery = Boolean(search) || Object.values(filters).some(Boolean);
@@ -520,7 +513,6 @@ const writeMode = (key: string, value: string) => {
   try {
     window.localStorage.setItem(key, value);
   } catch {
-    /* brak dostępu do localStorage */
   }
   modeListeners.forEach((cb) => cb());
 };
@@ -556,7 +548,6 @@ function pages(page: number, total: number): (number | "…")[] {
   return out;
 }
 
-/** Oś czasu dziennika decyzji – kto, kiedy, co. */
 function Timeline({ rows }: { rows: ListRow[] }) {
   const { item, list } = useRise();
   return (
@@ -590,7 +581,6 @@ function Timeline({ rows }: { rows: ListRow[] }) {
   );
 }
 
-/** Kafelek pliku w siatce (miniatura albo chip formatu). */
 function GridTile({ row, selectable, selected, onToggle }: { row: ListRow; selectable: boolean; selected: boolean; onToggle: (v: boolean) => void }) {
   return (
     <div

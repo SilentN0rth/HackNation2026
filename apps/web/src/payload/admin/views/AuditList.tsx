@@ -1,4 +1,3 @@
-/** Widok listy kolekcji audit-log (/official/collections/audit-log): oś czasu decyzji zamiast tabeli. */
 import type { Payload, TypedUser } from "payload";
 import { AuditClient } from "./AuditClient";
 import { Gutter, toAuditItem, toFormDoc } from "./lib/server";

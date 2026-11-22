@@ -1,5 +1,3 @@
-/** Wywołania REST Payloada (/api/payload) z widoków panelu – sesja z ciasteczka panelu. */
-
 const BASE = "/api/payload";
 
 type Query = Record<string, string | number | boolean | undefined>;
@@ -34,7 +32,6 @@ export async function rest<T = unknown>(path: string, init: RequestInit = {}, qu
   return body as T;
 }
 
-/** PATCH/POST zwracają { doc }, endpointy własne – sam dokument. */
 export const docOf = <T>(body: unknown): T => ((body as { doc?: T }).doc ?? body) as T;
 
 export const errorText = (e: unknown) => (e instanceof Error ? e.message : String(e));

@@ -1,4 +1,3 @@
-/* Szablon Payloada (@payloadcms/next). */
 import type { Metadata } from "next";
 import config from "@payload-config";
 import { generatePageMetadata, RootPage } from "@payloadcms/next/views";

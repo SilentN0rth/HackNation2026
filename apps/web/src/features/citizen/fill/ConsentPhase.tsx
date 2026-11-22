@@ -10,7 +10,6 @@ interface Props {
   onAnswer: (agree: boolean) => void;
 }
 
-/** Pytanie o zgodę na uzupełnienie danych z rejestrów (mObywatel). */
 export function ConsentPhase({ formTitle, headingRef, busy, actionError, onAnswer }: Props) {
   return (
     <section className="max-w-2xl">

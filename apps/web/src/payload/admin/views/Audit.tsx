@@ -1,4 +1,3 @@
-/** Widok /official/audit – dziennik decyzji (ta sama oś czasu co widok listy kolekcji audit-log). */
 import type { AdminViewServerProps } from "payload";
 import { AuditList } from "./AuditList";
 import { PanelPage } from "./lib/server";

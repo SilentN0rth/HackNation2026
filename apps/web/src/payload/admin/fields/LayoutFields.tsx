@@ -30,7 +30,6 @@ type WithFields = ClientField & {
 
 const childPerms = (p: Perms) => (p === true || p === false || p === undefined ? p : ((p as { fields?: Perms }).fields ?? p)) as never;
 
-/** Liczba błędów w polach pod daną ścieżką – do znaczników przy grupach, zakładkach i wierszach. */
 function useErrorCount(prefix: string) {
   const submitted = useFormSubmitted();
   return useFormFields(([fields]) =>
@@ -47,7 +46,6 @@ function ErrorBadge({ count }: { count: number }) {
   );
 }
 
-/** Nagłówek sekcji jak na stronie głównej: border-t border-ink, semibold, ciasny tracking. */
 function SectionHeading({ children, aside }: { children: ReactNode; aside?: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 border-t border-(--ink) pt-3">
@@ -57,7 +55,6 @@ function SectionHeading({ children, aside }: { children: ReactNode; aside?: Reac
   );
 }
 
-/** Grupa – nagłówek sekcji i pola zagnieżdżone (nazwana grupa tworzy obiekt w danych). */
 export function GroupField(props: LayoutProps) {
   const field = props.field as WithFields;
   const text = useText();
@@ -82,7 +79,6 @@ export function GroupField(props: LayoutProps) {
   );
 }
 
-/** Wiersz – pola obok siebie (na telefonie jedno pod drugim). */
 export function RowField(props: LayoutProps) {
   const field = props.field as WithFields;
   return (
@@ -101,7 +97,6 @@ export function RowField(props: LayoutProps) {
   );
 }
 
-/** Sekcja zwijana – nagłówek z przyciskiem, treść wysuwana animacją wysokości. */
 export function CollapsibleField(props: LayoutProps) {
   const field = props.field as WithFields;
   const text = useText();
@@ -166,7 +161,6 @@ function TabLabel({ tab, parentPath, index }: { tab: TabConfig; parentPath: stri
   );
 }
 
-/** Zakładki – HeroUI Tabs (podkreślenie w kolorze akcentu jak na stronie głównej). */
 export function TabsField(props: LayoutProps) {
   const field = props.field as ClientField & { tabs: TabConfig[] };
   const text = useText();
@@ -237,7 +231,6 @@ export function TabsField(props: LayoutProps) {
 
 type ArrayClientField = WithFields & { labels?: { singular?: StaticLabel; plural?: StaticLabel }; minRows?: number; maxRows?: number; required?: boolean };
 
-/** Tablica – wiersze z dodawaniem, usuwaniem i zmianą kolejności (logika wierszy z formularza Payloada). */
 export function ArrayField(props: LayoutProps) {
   const field = props.field as ArrayClientField;
   const text = useText();

@@ -8,7 +8,6 @@ import { useRise } from "./motion";
 import { ArrowRight, EmptyBlock, StatusChip } from "./ui";
 import type { VersionList } from "./versions";
 
-/** Historia wersji dokumentu – wiersze jak lista linków na stronie głównej. */
 export function VersionsView({ shell, versions }: { shell: ShellData; versions: VersionList }) {
   const { item, list } = useRise();
   const router = useRouter();

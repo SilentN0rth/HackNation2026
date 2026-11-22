@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * Edycja dokumentu (kolekcja albo global). Logika jak w DefaultEditView Payloada: Form + getFormState
- * (warunki, walidacja po stronie serwera) + onSuccess (przekierowanie po utworzeniu, odświeżenie danych).
- * Pola renderuje RenderFields – komponenty pól HeroUI agenta D podpinają się przez admin.components.Field.
- */
 import {
   Form,
   OperationProvider,
@@ -50,7 +45,6 @@ export function EditView({ shell, drafts }: { shell: ShellData; drafts: boolean 
 
   const { main, side } = useMemo(() => {
     const fields = (entity?.fields ?? []) as ClientField[];
-    // Puste miejsca (null) zachowują indeksy pól, jak w DocumentFields Payloada.
     return {
       main: fields.map((f) => (fieldIsSidebar(f) ? null : f)) as ClientField[],
       side: fields.map((f) => (fieldIsSidebar(f) ? f : null)) as ClientField[],
@@ -111,7 +105,6 @@ export function EditView({ shell, drafts }: { shell: ShellData; drafts: boolean 
         skipValidation: true,
       }).catch(() => null);
       if (res?.state && isUpload) delete res.state.file;
-      // Nagłówek, licznik wersji i meta są renderowane na serwerze.
       router.refresh();
       return res?.state;
     },

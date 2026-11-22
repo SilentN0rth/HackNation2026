@@ -1,4 +1,3 @@
-/** Widok /official/forms/:id/editor – edytor formularza na danych Payloada (Local API przy wejściu, REST przy zmianach). */
 import type { AdminViewServerProps } from "payload";
 import type { StatuteChunk } from "@/types";
 import { EditorClient } from "./editor/EditorClient";

@@ -1,9 +1,3 @@
-/**
- * Konfiguracja Payload CMS (panel urzędnika pod /official, REST pod /api/payload).
- * Etap 0 – agenci NIE edytują tego pliku. Widoki panelu zmienia się we fragmentach
- * src/payload/admin/config/{collections,fields,views}.ts (kontrakt: admin/config/types.ts), a shell, logowanie,
- * konto i motyw dokłada plugin src/payload/plugins/admin-ui.
- */
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -28,10 +22,8 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function payloadSecret(): string {
   if (process.env.PAYLOAD_SECRET) return process.env.PAYLOAD_SECRET;
-  // Docker secrets: plik montowany w /run/secrets (docker-compose.yml, scripts/make-secrets.sh).
   const file = process.env.PAYLOAD_SECRET_FILE;
   if (file && existsSync(file)) return readFileSync(file, "utf8").trim();
-  // Fallback tylko lokalnie i na czas `next build` (bez połączenia z bazą); produkcja wymaga sekretu.
   if (process.env.NODE_ENV !== "production" || process.env.NEXT_PHASE === "phase-production-build") {
     return "dev-only-payload-secret-change-me";
   }
@@ -57,8 +49,6 @@ export default buildConfig({
   editor: lexicalEditor(),
   db: sqliteAdapter({
     client: { url: process.env.DATABASE_URL || `file:${path.resolve(dirname, "../data/payload.db")}` },
-    // Lokalnie schemat synchronizuje „push”; produkcja (NODE_ENV=production) uruchamia migracje przy starcie.
-    // Po zmianie kolekcji: `npm run payload migrate:create <nazwa>`.
     prodMigrations: migrations,
   }),
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
@@ -66,7 +56,6 @@ export default buildConfig({
   sharp,
   telemetry: false,
   plugins: [adminUiPlugin()],
-  // Kontener demo (PAYLOAD_SEED=true) zakłada konto i dane demonstracyjne przy starcie; seed jest idempotentny.
   async onInit(payload) {
     if (process.env.PAYLOAD_SEED === "true") await seed(payload);
   },

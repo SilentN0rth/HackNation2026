@@ -1,16 +1,5 @@
 import type { LintFlag } from "../types";
 
-/**
- * MOCK: flagi z linterów opartych na LLM (trafność cytatu, RODO, WCAG).
- * Na prawdziwym backendzie przychodzą z POST /drafts/{id}/lint.
- *
- * Flagi z linterów „kodowych” (exact-match, static-graph) NIE są tu wpisane –
- * liczy je na żywo src/mocks/mockLinters.ts, żeby edycja w edytorze
- * od razu zmieniała wynik (fajne na demo).
- *
- * Id flagi = `${linter}:${fieldId}` – dzięki temu rozstrzygnięcie urzędnika
- * nie ginie po ponownym uruchomieniu linterów.
- */
 export const llmLintFlags: LintFlag[] = [
   {
     id: "citation-relevance:wn_telefon",

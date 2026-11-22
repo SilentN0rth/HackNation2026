@@ -13,7 +13,6 @@ interface Props {
   onAdd: (pageId: string) => void;
 }
 
-/** Strony i pola formularza: kropka przy polach z otwartymi uwagami, wskaźnik zaznaczenia przesuwa się między polami. */
 export function StructureNav({ pages, selectedId, flagsFor, onSelect, onAdd }: Props) {
   const reduce = useReducedMotion();
   const layoutTransition = reduce ? { duration: 0 } : { duration: 0.3, ease };

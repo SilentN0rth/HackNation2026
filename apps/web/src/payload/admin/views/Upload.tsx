@@ -1,4 +1,3 @@
-/** Widok /official/upload – nowy formularz z pliku. */
 import type { AdminViewServerProps } from "payload";
 import { Gutter, PanelPage } from "./lib/server";
 import { UploadClient } from "./UploadClient";

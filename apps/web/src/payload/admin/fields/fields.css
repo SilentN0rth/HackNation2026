@@ -1,8 +1,3 @@
-/*
- * Pola panelu (agent D). Tokeny 1:1 ze strony głównej (src/styles.css), ale z zerową specyficznością
- * (:where), żeby motyw agenta B (admin.css) mógł je nadpisać. Ładowane bez warstwy – wygrywają z
- * domyślnym motywem HeroUI (@layer theme) i CSS Payloada (@layer payload-default).
- */
 :where(html:not([data-theme="dark"])) {
   --ink: #0d0e0e;
   --ink-2: #363739;
@@ -48,7 +43,6 @@
   min-width: 0;
 }
 
-/* Odstępy jak w formularzu obywatela – Payload daje .field-type własny margines, ujednolicamy go. */
 .render-fields > .pf-field {
   margin-bottom: 1.5rem;
 }
@@ -61,7 +55,6 @@
   outline-offset: 3px;
 }
 
-/* Kontrolki tylko do odczytu – wyszarzone tło, jak pola zablokowane na stronie obywatela. */
 .pf-field :is(.input, .textarea)[readonly],
 .pf-field [data-readonly] :is(.input, .textarea, .select__trigger, .combo-box__input-group, .number-field__group, .date-input-group) {
   background: var(--surface-secondary);
@@ -105,7 +98,6 @@
   font-weight: 500;
 }
 
-/* Segmenty (np. status formularza). */
 .pf-field .toggle-button-group {
   border-radius: 6px;
   box-shadow: inset 0 0 0 1px var(--field-border);
@@ -122,7 +114,6 @@
   color: #fff;
 }
 
-/* Zakładki jak na stronie głównej. */
 .pf-field .tabs__list-container {
   background: transparent;
   border-radius: 0;
@@ -155,7 +146,6 @@
   border-radius: 9999px;
 }
 
-/* Popovery (portal poza .pf-field). */
 .pf-popover {
   border-radius: 10px;
 }
@@ -178,10 +168,6 @@
   }
 }
 
-/*
- * Minimalny preflight pól (do czasu scalenia z pluginem B, który daje .ef-ui). W @layer base –
- * niżej niż komponenty HeroUI, więc ich obramowania i odstępy wygrywają.
- */
 @layer base {
   :where(.pf-field, .pf-popover),
   :where(.pf-field, .pf-popover) *,

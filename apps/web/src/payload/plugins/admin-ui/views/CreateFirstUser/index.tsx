@@ -7,7 +7,6 @@ export async function CreateFirstUserView({ initPageResult }: AdminViewServerPro
   const { req } = initPageResult;
   const { config } = req.payload;
   const { totalDocs } = await req.payload.count({ collection: config.admin.user as "users", overrideAccess: true });
-  // Konto administratora zakłada się tylko raz – potem obowiązuje zwykłe logowanie.
   if (totalDocs > 0) redirect(`${config.routes.admin}${config.admin.routes.login}`);
 
   return (

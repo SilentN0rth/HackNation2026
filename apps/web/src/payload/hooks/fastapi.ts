@@ -1,10 +1,8 @@
-/** Most do silnika AI (FastAPI, apps/api): generowanie schematu z blankietu i lintery. Tylko po stronie serwera. */
 import { z } from "zod";
 import { FormDraftSchema, LintFlagSchema, type FormSchema, type LintFlag } from "../../types";
 
 export const FASTAPI_URL = (process.env.FASTAPI_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
-/** Konto demonstracyjne urzędnika w FastAPI (app/security.py). */
 const ACCOUNTS = { official: "u-urzednik" } as const;
 type Account = keyof typeof ACCOUNTS;
 
@@ -73,7 +71,6 @@ async function call<S extends z.ZodType>(
 
 export type GeneratedDraft = { draftId: string; schema: FormSchema; flags: LintFlag[]; coi: unknown };
 
-/** POST /drafts (plik) → GET /drafts/{id} (schemat edytora) → POST /drafts/{id}/lint → GET /drafts/{id}/coi. */
 export async function generateDraft(file: { data: Uint8Array; name: string; mimeType: string }): Promise<GeneratedDraft> {
   const body = new FormData();
   body.append("file", new Blob([new Uint8Array(file.data)], { type: file.mimeType }), file.name);
@@ -84,7 +81,6 @@ export async function generateDraft(file: { data: Uint8Array; name: string; mime
   return { draftId, schema: draft.schema, flags, coi };
 }
 
-/** Wysyła bieżący schemat do FastAPI (PUT /drafts/{id}) i uruchamia lintery. */
 export async function relintDraft(draftId: string, schema?: FormSchema | null): Promise<{ flags: LintFlag[]; coi: unknown }> {
   if (schema) await call(z.unknown(), `/drafts/${draftId}`, { method: "PUT", body: JSON.stringify({ schema }) });
   const flags = await lintDraft(draftId);

@@ -1,10 +1,6 @@
 import type { FormDraft } from "../types";
 import { formDraft } from "./formDraft";
 
-/**
- * MOCK: lista wersji roboczych na dashboardzie urzędnika.
- * Docelowo: GET /drafts
- */
 export const drafts: FormDraft[] = [
   formDraft,
   {

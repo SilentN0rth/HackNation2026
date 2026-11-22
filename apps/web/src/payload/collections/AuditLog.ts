@@ -12,7 +12,6 @@ export const AUDIT_ACTION_LABELS: Record<AuditAction, string> = {
   published: "Publikacja",
 };
 
-/** Dziennik decyzji – tylko do odczytu; wpisy tworzą hooki (src/payload/hooks/audit.ts). */
 export const AuditLog: CollectionConfig = {
   slug: "audit-log",
   labels: { singular: "Wpis dziennika", plural: "Dziennik decyzji" },

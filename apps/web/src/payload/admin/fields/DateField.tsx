@@ -8,7 +8,6 @@ import { fieldId, usePanelField, type PanelFieldProps } from "./shared/usePanelF
 
 type DateClientField = ClientField & { admin?: { date?: { pickerAppearance?: "dayAndTime" | "dayOnly" | "timeOnly" | "monthOnly" } } };
 
-/** ISO z Payloada → wartość DatePickera (data albo data z godziną w strefie lokalnej). */
 function toPickerValue(iso: unknown, dayOnly: boolean): CalendarDate | ZonedDateTime | null {
   if (typeof iso !== "string" || !iso) return null;
   try {
@@ -19,14 +18,12 @@ function toPickerValue(iso: unknown, dayOnly: boolean): CalendarDate | ZonedDate
   }
 }
 
-/** Data bez godziny zapisujemy jako południe UTC – bez przesunięcia o dzień w innych strefach. */
 function toIso(value: CalendarDate | ZonedDateTime | null, dayOnly: boolean): string | null {
   if (!value) return null;
   if (dayOnly || !("hour" in value)) return new Date(Date.UTC(value.year, value.month - 1, value.day, 12)).toISOString();
   return value.toDate().toISOString();
 }
 
-/** Data – HeroUI DatePicker (segmenty + kalendarz w popoverze), polski format. */
 export function DateField(props: PanelFieldProps) {
   const field = props.field as DateClientField;
   const dayOnly = (field.admin?.date?.pickerAppearance ?? "dayAndTime") !== "dayAndTime";

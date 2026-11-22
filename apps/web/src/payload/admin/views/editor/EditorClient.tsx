@@ -23,7 +23,6 @@ type Busy = null | "save" | "lint" | "resolve" | "publish" | "generate";
 
 type Raw = Partial<FormDoc> & { id: number; schema?: FormSchema | null; lintFlags?: LintFlag[] | null };
 
-/** Aktualizacja stanu z odpowiedzi REST (kształt jak toFormDoc, bez relacji). */
 function merge(prev: FormDoc, raw: Raw): FormDoc {
   return {
     ...prev,
@@ -284,7 +283,6 @@ export function EditorClient({ initial, chunks, userName }: { initial: FormDoc; 
   );
 }
 
-/** Wejście zawartości zakładki (zmiana zakładki albo wybranego pola). */
 function TabMotion({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <motion.div key={id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease }}>

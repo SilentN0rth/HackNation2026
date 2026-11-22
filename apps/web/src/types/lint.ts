@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-/** Pięć linterów z architektury (Panel Lintera). */
 export const LinterIdSchema = z.enum([
   "exact-match", // czy cytat istnieje w ustawie (kod, bez LLM)
   "citation-relevance", // czy cytat uzasadnia pole (LLM)
@@ -15,7 +14,6 @@ export type Severity = z.infer<typeof SeveritySchema>;
 
 export const FlagResolutionSchema = z.object({
   action: z.enum(["fixed", "rejected"]),
-  /** Wymagane przy „rejected” – trafia do Audit Trail. */
   justification: z.string().optional(),
   by: z.string(),
   at: z.string(),
@@ -23,7 +21,6 @@ export const FlagResolutionSchema = z.object({
 export type FlagResolution = z.infer<typeof FlagResolutionSchema>;
 
 export const LintFlagSchema = z.object({
-  /** Deterministyczne id, np. „exact-match:lokal_liczba_pokoi”, żeby rozstrzygnięcie przetrwało ponowne uruchomienie linterów. */
   id: z.string(),
   linter: LinterIdSchema,
   severity: SeveritySchema,
@@ -31,7 +28,6 @@ export const LintFlagSchema = z.object({
   fieldId: z.string().optional(),
   title: z.string(),
   message: z.string(),
-  /** Np. fragment ustawy albo cytat, którego nie znaleziono. */
   evidence: z.string().optional(),
   suggestion: z.string().optional(),
   resolution: FlagResolutionSchema.optional(),

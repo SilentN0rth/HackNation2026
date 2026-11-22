@@ -7,7 +7,6 @@ import { useState } from "react";
 import { duration, ease } from "./motion";
 import { SectionLabel } from "./ui";
 
-/** Hasło konta (kolekcja auth) – zastępuje natywny panel Auth Payloada. Pola formularza: password, confirm-password. */
 export function AuthPanel({ isCreate, readOnly }: { isCreate: boolean; readOnly: boolean }) {
   const [open, setOpen] = useState(isCreate);
   return (

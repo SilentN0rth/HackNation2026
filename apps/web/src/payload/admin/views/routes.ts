@@ -1,14 +1,5 @@
-/**
- * Adresy widoków domenowych panelu (agent E). Bez importów serwerowych – można używać w nawigacji (agent B)
- * i w komponentach klienckich.
- *
- * Uwaga: widoki /official/upload i /official/audit są osiągalne dopiero po usunięciu z next.config starych
- * przekierowań tych adresów do widoków kolekcji. Dziennik podmienia też widok listy kolekcji audit-log.
- */
-
 export const ADMIN_ROUTE = "/official";
 
-/** Ścieżki względem routes.admin – tak, jak wpisuje się je w admin.components.views.<klucz>.path. */
 export const VIEW_PATHS = {
   upload: "/upload",
   editor: "/forms/:id/editor",
@@ -26,15 +17,12 @@ export type PanelViewIcon = "home" | "upload" | "forms" | "history";
 
 export type PanelView = {
   key: "dashboard" | "upload" | "forms" | "audit";
-  /** Pełny adres (z /official). */
   path: string;
   label: string;
   icon: PanelViewIcon;
-  /** Aktywny, gdy pathname zaczyna się od któregoś z prefiksów (dashboard: tylko dokładnie). */
   match: string[];
 };
 
-/** Linki do widoków agenta E dla nawigacji panelu (agent B renderuje je w Nav). */
 export const PANEL_VIEWS: PanelView[] = [
   { key: "dashboard", path: panelUrl(), label: "Pulpit", icon: "home", match: [] },
   { key: "upload", path: uploadUrl(), label: "Nowy z pliku", icon: "upload", match: [uploadUrl()] },

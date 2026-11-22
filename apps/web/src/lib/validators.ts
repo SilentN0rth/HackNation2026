@@ -1,14 +1,6 @@
 import { z } from "zod";
 import type { Field } from "../types";
 
-/**
- * Walidacja oparta na Zod. Komunikaty prostym językiem (WCAG 3.3.1 / 3.3.3).
- *
- * fieldValueSchema(field) buduje schemat dla jednego pola formularza obywatela
- * z jego typu, `required` i `validation` – ten sam schemat można zbudować na backendzie
- * z tego samego JSON-a, więc reguły nie rozjeżdżają się między warstwami.
- */
-
 function isValidPesel(value: string): boolean {
   if (!/^\d{11}$/.test(value)) return false;
   const w = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
@@ -24,7 +16,6 @@ const PATTERNS: Partial<Record<Field["type"], { re: RegExp; message: string }>> 
   email: { re: z.regexes.email, message: "Wpisz poprawny adres e-mail." },
 };
 
-/** Schemat dla niepustej wartości tekstowej pola (pustość obsługuje fieldValueSchema). */
 function textSchema(field: Field): z.ZodType<string> {
   const v = field.validation ?? {};
   let s = z.string();
@@ -63,13 +54,10 @@ function fieldValueSchema(field: Field): z.ZodType<string | boolean | undefined>
   });
 }
 
-/** Zwraca pierwszy komunikat błędu albo null. */
 export function validateField(field: Field, value: string | boolean | undefined): string | null {
   const r = fieldValueSchema(field).safeParse(value);
   return r.success ? null : (r.error.issues[0]?.message ?? "Niepoprawna wartość.");
 }
-
-/* ---------- walidacja pliku po stronie przeglądarki (zasady z treści zadania COI) ---------- */
 
 export const ACCEPTED_EXTENSIONS = [".pdf", ".doc", ".docx", ".ods", ".xlsx", ".jpg", ".jpeg", ".png"];
 const FORBIDDEN_CHARS = /[;:></\\|'*%$]/;

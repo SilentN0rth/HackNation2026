@@ -1,4 +1,3 @@
-/** Dane wersji dokumentu (serwer): lista, pojedyncza wersja i różnice pól. */
 import type { Payload, SanitizedCollectionConfig, SanitizedGlobalConfig, TypedUser } from "payload";
 import { formatDate } from "@/lib/format";
 import type { Tone } from "./config";
@@ -50,7 +49,6 @@ export async function loadVersion(
       : await payload.findGlobalVersionByID({ ...common, slug: entity.slug as never }).catch(() => null)
   ) as Raw | null;
   if (!version) return null;
-  // Porównujemy z poprzednią wersją (starszą); dla pierwszej – z pustym dokumentem.
   const where = { updatedAt: { less_than: version.updatedAt ?? version.createdAt } };
   const prevArgs = { limit: 1, sort: "-updatedAt", user, overrideAccess: false, depth: 0 } as const;
   const prev =

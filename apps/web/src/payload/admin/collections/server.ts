@@ -1,4 +1,3 @@
-/** Pomocniki serwerowe widoków kolekcji: etykiety, pola, relacje, formatowanie komórek. */
 import type { Field, Payload, PayloadRequest, TypedUser } from "payload";
 import { formatDate } from "@/lib/format";
 import { viewConfig, type Tone } from "./config";
@@ -6,7 +5,6 @@ import type { CellValue, ColumnDef, ColumnKind } from "./types";
 
 type LabelLike = unknown;
 
-/** Etykieta Payloada (string | { pl } | funkcja) → tekst. */
 export function labelText(label: LabelLike, fallback: string): string {
   if (typeof label === "string") return label;
   if (label && typeof label === "object") {
@@ -25,7 +23,6 @@ export type NamedField = Field & {
   admin?: { hidden?: boolean; position?: string; disableListColumn?: boolean };
 };
 
-/** Pola najwyższego poziomu z nazwą (bez ukrytych) – kandydaci na kolumny i różnice wersji. */
 export function namedFields(fields: Field[]): NamedField[] {
   const out: NamedField[] = [];
   for (const f of fields) {
@@ -98,7 +95,6 @@ export function buildColumns(
   const activeSet = new Set(
     prefs?.length ? prefs.filter((p) => p.active).map((p) => p.accessor) : (defaults ?? unique.filter((n) => n !== "id").slice(0, 4)),
   );
-  // Kolejność: najpierw z preferencji / defaultColumns, potem reszta.
   const ordered = [...(prefs?.map((p) => p.accessor) ?? defaults ?? []), ...unique].filter((n, i, a) => unique.includes(n) && a.indexOf(n) === i);
   return ordered.map((name) => {
     const field = byName.get(name);
@@ -141,7 +137,6 @@ export type RelationMap = Map<string, Ref>;
 const idOf = (v: unknown): string | number | null =>
   v == null ? null : typeof v === "object" ? ((v as { id?: string | number }).id ?? null) : (v as string | number);
 
-/** Rozwiązuje tytuły powiązanych dokumentów jednym zapytaniem na kolekcję. */
 export async function resolveRelations(
   payload: Payload,
   user: TypedUser | null | undefined,
@@ -193,7 +188,6 @@ function stringify(v: unknown): string {
   return s.length > 80 ? `${s.slice(0, 77)}…` : s;
 }
 
-/** Wartość komórki gotowa do wyświetlenia w HeroUI. */
 export function cellValue(
   col: ColumnDef,
   doc: Record<string, unknown>,

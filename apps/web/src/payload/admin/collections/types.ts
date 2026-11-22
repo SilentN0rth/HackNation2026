@@ -1,4 +1,3 @@
-/** Serializowalne dane przekazywane z widoków serwerowych do klienckich (HeroUI). */
 import type { CollectionViewConfig, Tone } from "./config";
 
 export type ColumnKind = "text" | "status" | "date" | "number" | "relation" | "upload" | "boolean" | "json" | "filesize" | "mime" | "email" | "id";
@@ -13,11 +12,8 @@ export type ListRow = {
   href: string;
   cells: Record<string, CellValue>;
   status?: { label: string; tone: Tone };
-  /** Wpis osi czasu (dziennik decyzji). */
   timeline?: { actor: string; initials: string; date: string; details: string; link?: { label: string; href: string } };
-  /** Kafelek siatki (pliki). */
   file?: { thumb?: string; mime: string; ext: string; size: string; date: string; url?: string };
-  /** Podgląd dla obywatela (opublikowane formularze). */
   previewHref?: string;
 };
 
