@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from app.coi.validator import errors
+from app.coi.validator import errors, validate
 from tests.conftest import FIXTURES
 
 TEMPLATES = sorted(FIXTURES.glob("wzorzec_*.json"))
@@ -63,3 +63,30 @@ def test_duplicate_tech_name(template):
     grid.append(copy.deepcopy(grid[0]))
     grid[-1]["field"]["id"] = "inny-id"
     assert "tech-name" in codes(broken)
+
+
+def _first_leaf(coi: dict, ftype: str) -> dict:
+    for tab in coi["tabs"]:
+        for question in tab["questions"]:
+            for cell in question["field"].get("repeatingSectionGrid") or []:
+                if cell["field"]["type"] == ftype:
+                    return cell["field"]
+    pytest.skip(f"wzorzec nie ma pola {ftype}")
+
+
+def test_input_without_required_attribute(template):
+    broken = copy.deepcopy(template)
+    del _first_leaf(broken, "TEXT_FIELD")["validation"]
+    assert "required-attr" in {i.code for i in validate(broken)}  # wzorzec organizatora też pomija ten klucz, więc to ostrzeżenie
+
+
+def test_info_section_needs_description(template):
+    broken = copy.deepcopy(template)
+    _first_leaf(broken, "INFO_SECTION")["description"] = ""
+    assert "info-section" in codes(broken)
+
+
+def test_consent_needs_required_flag(template):
+    broken = copy.deepcopy(template)
+    _first_leaf(broken, "CONSENT_SECTION")["consentSectionConfig"] = {"consents": [{"description": "Zgoda"}]}
+    assert "consent" in codes(broken)

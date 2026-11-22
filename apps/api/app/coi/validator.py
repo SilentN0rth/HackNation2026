@@ -96,6 +96,17 @@ def validate(coi: dict) -> list[Issue]:
                 unknown = [v for v in item.get("validation") or [] if v not in VALIDATORS]
                 if unknown:
                     issues.append(Issue("validation", "error", f"Pole „{label}” ma nieznane walidatory: {', '.join(map(str, unknown))}.", tab_title, tech, fid, tab.get("id")))
+                if ftype in INPUT_TYPES and not isinstance(item.get("validation"), list):
+                    issues.append(Issue("required-attr", "warning", f"Pole „{label}” nie ma określonej obligatoryjności (lista validation).", tab_title, tech, fid, tab.get("id")))
+                format_only = [v for v in item.get("validation") or [] if v in VALIDATORS and v != "REQUIRED"]
+                if format_only and ftype != "TEXT_FIELD":
+                    issues.append(Issue("validation", "warning", f"Walidator {', '.join(format_only)} ma sens tylko w polu tekstowym („{label}”).", tab_title, tech, fid, tab.get("id")))
+                if ftype == "INFO_SECTION" and not (item.get("description") or "").strip():
+                    issues.append(Issue("info-section", "error", f"Sekcja informacyjna „{label}” nie ma opisu.", tab_title, tech, fid, tab.get("id")))
+                if ftype == "CONSENT_SECTION":
+                    consents = (item.get("consentSectionConfig") or {}).get("consents")
+                    if not consents or any(not (c.get("description") or "").strip() or not isinstance(c.get("required"), bool) for c in consents):
+                        issues.append(Issue("consent", "error", f"Sekcja zgód „{label}” musi mieć zgody z opisem i znacznikiem required.", tab_title, tech, fid, tab.get("id")))
                 if item.get("dictionaryName"):
                     if ftype not in CHOICE_TYPES:
                         issues.append(Issue("dictionary", "error", f"Słownik można podpiąć tylko do listy, pola jednokrotnego lub wielokrotnego wyboru („{label}”).", tab_title, tech, fid, tab.get("id")))

@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 
 from tests.conftest import FIXTURES
 
@@ -58,3 +59,22 @@ def test_outputs_match_import_schema(path):
 def test_validator_detects_wrong_types():
     broken = {"title": 5, "tabs": [{"id": "a", "title": "t", "type": "MAIN", "questions": "nie lista"}], "flow": {"links": []}}
     assert len(problems_of(broken)) == 2
+
+
+def strict_errors(document: dict) -> list[str]:
+    validator = Draft202012Validator(SCHEMA)
+    return [f"$.{'.'.join(str(p) for p in e.absolute_path)}: {e.message}" for e in validator.iter_errors(document)]
+
+
+@pytest.mark.parametrize("fixture", ["wzorzec_numer_porzadkowy.json", "wzorzec_nadplata.json"])
+def test_organizer_references_pass_strict_json_schema(fixture):
+    assert strict_errors(json.loads((FIXTURES / fixture).read_text(encoding="utf-8"))) == []
+
+
+@pytest.mark.parametrize("path", OUTPUTS, ids=lambda p: p.name[:2])
+def test_outputs_pass_strict_json_schema(path):
+    assert strict_errors(json.loads(path.read_text(encoding="utf-8"))) == []
+
+
+def test_strict_validation_detects_wrong_types():
+    assert strict_errors({"title": 5, "tabs": [{"id": "a", "questions": "nie lista"}]})
