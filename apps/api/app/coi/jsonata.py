@@ -52,3 +52,79 @@ def references(query: str) -> list[Reference]:
         Reference(m.group("value").replace('\\"', '"'), m.group("tab"), m.group("section"), m.group("field"))
         for m in ATOM.finditer(query)
     ]
+
+
+TOKEN = re.compile(
+    r"(?P<atom>" + ATOM.pattern + r")|(?P<not>\$not\()|(?P<open>\()|(?P<close>\))|(?P<and>\band\b)|(?P<or>\bor\b)|(?P<space>\s+)"
+)
+
+
+def _tokens(query: str) -> list[tuple[str, re.Match]] | None:
+    result: list[tuple[str, re.Match]] = []
+    pos = 0
+    while pos < len(query):
+        match = TOKEN.match(query, pos)
+        if not match:
+            return None
+        kind = match.lastgroup
+        if kind == "atom":
+            result.append(("atom", match))
+        elif kind != "space":
+            result.append((kind, match))
+        pos = match.end()
+    return result
+
+
+def parse_expr(query: str):
+    """Rozbiera zapytanie SHOW z `and`, `or`, nawiasami i `$not(...)` na drzewo.
+
+    Węzły: ("atom", Reference), ("not", node), ("and", [node, ...]), ("or", [node, ...]).
+    Zwraca None, gdy zapytanie ma inną składnię niż odwołania do odpowiedzi.
+    """
+    tokens = _tokens(query)
+    if not tokens:
+        return None
+    pos = 0
+
+    def peek() -> str | None:
+        return tokens[pos][0] if pos < len(tokens) else None
+
+    def take() -> tuple[str, re.Match]:
+        nonlocal pos
+        pos += 1
+        return tokens[pos - 1]
+
+    def parse_or():
+        nodes = [parse_and()]
+        while peek() == "or":
+            take()
+            nodes.append(parse_and())
+        return nodes[0] if len(nodes) == 1 else ("or", nodes)
+
+    def parse_and():
+        nodes = [parse_unary()]
+        while peek() == "and":
+            take()
+            nodes.append(parse_unary())
+        return nodes[0] if len(nodes) == 1 else ("and", nodes)
+
+    def parse_unary():
+        kind = peek()
+        if kind == "atom":
+            m = take()[1]
+            value = m.group("value").replace('\\"', '"').replace("\\\\", "\\")
+            return ("atom", Reference(value, m.group("tab"), m.group("section"), m.group("field")))
+        if kind in ("open", "not"):
+            take()
+            inner = parse_or()
+            if peek() != "close":
+                raise ValueError("brak nawiasu zamykającego")
+            take()
+            return ("not", inner) if kind == "not" else inner
+        raise ValueError("nieoczekiwany token")
+
+    try:
+        tree = parse_or()
+    except ValueError:
+        return None
+    return tree if pos == len(tokens) else None

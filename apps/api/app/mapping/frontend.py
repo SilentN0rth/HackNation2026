@@ -1,9 +1,11 @@
 import copy
+import html
+import re
 
 from app import dictionaries
 from app.coi.builder import flow_for, option_list
-from app.coi.jsonata import parse, references, show_query
-from app.coi.walk import children, leaves
+from app.coi.jsonata import _escape_name, parse, parse_expr, references, show_query
+from app.coi.walk import children, iter_fields, leaves
 
 TYPE_TO_FRONT = {
     "TEXTAREA": "textarea",
@@ -31,6 +33,21 @@ LABELS = {
     "TERYT_DOWODOWY": "Województwo, powiat i gmina",
     "TERYT_4G_DOWODOWY": "Województwo, powiat, gmina i miejscowość",
 }
+
+
+def consent_text(description: str) -> str:
+    """Treść zgody bez znaczników HTML (frontend pokazuje zwykły tekst)."""
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", description or "")).split())
+
+
+def consent_items(field: dict) -> list[dict]:
+    """Sekcja zgód COI -> osobne, wymagane pola wyboru dla obywatela (id = id sekcji + numer zgody)."""
+    config = field.get("consentSectionConfig") or {}
+    return [
+        {"id": f"{field['id']}#{index}", "label": consent_text(c.get("description", "")), "type": "checkbox", "required": bool(c.get("required"))}
+        for index, c in enumerate(config.get("consents") or [])
+        if consent_text(c.get("description", ""))
+    ]
 
 
 def front_type(field: dict) -> str | None:
@@ -71,6 +88,53 @@ def conditions(coi: dict) -> dict[str, tuple[str, str, bool]]:
     return result
 
 
+def _condition(node, index: dict, negate: bool = False) -> dict | None:
+    """Zamienia drzewo z `parse_expr` na warunek frontendu (atom, allOf, anyOf)."""
+    kind = node[0]
+    if kind == "atom":
+        ref = node[1]
+        target = index.get((ref.tab, ref.section, ref.field))
+        if not target:
+            return None
+        return {"fieldId": target["id"], "equals": ref.value, **({"negate": True} if negate else {})}
+    if kind == "not":
+        return _condition(node[1], index, not negate)
+    parts = [_condition(child, index, negate) for child in node[1]]
+    all_of = (kind == "and") != negate
+    if any(part is None for part in parts):
+        if all_of:
+            parts = [part for part in parts if part is not None]
+        else:
+            return None
+    if not parts:
+        return None
+    return parts[0] if len(parts) == 1 else {"allOf" if all_of else "anyOf": parts}
+
+
+def section_visibility(coi: dict) -> dict[str, dict]:
+    """Warunki widoczności całych sekcji, przypisane każdemu polu w sekcji (id pola -> warunek)."""
+    index = _index(coi)
+    result: dict[str, dict] = {}
+    for located in iter_fields(coi):
+        if located.section is not None:
+            continue
+        section = located.field
+        parts = []
+        for state in section.get("states") or []:
+            if state.get("type") != "SHOW":
+                continue
+            tree = parse_expr(state.get("query", ""))
+            cond = _condition(tree, index) if tree else None
+            if cond:
+                parts.append(cond)
+        if not parts:
+            continue
+        cond = parts[0] if len(parts) == 1 else {"allOf": parts}
+        for child in children(section):
+            result[child["field"]["id"]] = cond
+    return result
+
+
 def _options(field: dict) -> list[dict] | None:
     if field.get("dictionaryName"):
         entry = dictionaries.get(field["dictionaryName"])
@@ -82,6 +146,7 @@ def _options(field: dict) -> list[dict] | None:
 
 def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: str, source_file: str) -> dict:
     conds = conditions(coi)
+    section_conds = section_visibility(coi)
     pages = []
     for tab in coi.get("tabs", []):
         if tab.get("type") == "FINISH":
@@ -90,6 +155,9 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
         for question in tab.get("questions") or []:
             for child in children(question.get("field") or {}):
                 field = child.get("field") or {}
+                if field.get("type") == "CONSENT_SECTION":
+                    fields.extend(consent_items(field))
+                    continue
                 kind = front_type(field)
                 if kind is None:
                     continue
@@ -111,6 +179,8 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                 if field["id"] in conds:
                     target, value, negated = conds[field["id"]]
                     item["visibleIf"] = {"fieldId": target, "equals": value, **({"negate": True} if negated else {})}
+                if field["id"] in section_conds:
+                    item["visibleWhen"] = section_conds[field["id"]]
                 default = field.get("defaultValue")
                 if field.get("defaultValueType") != "EXTERNAL_SYSTEM" and default:
                     item["defaultValue"] = default[0] if isinstance(default, list) else str(default)
@@ -149,6 +219,7 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
     initial = dict(conds)
     original = set(conds)
     renamed = False
+    renames: dict[str, str] = {}
     known = exposed_ids(coi)
     cells = {item.field["id"]: item for item in leaves(coi)}
     tabs_by_id = {tab["id"]: tab for tab in coi.get("tabs", [])}
@@ -160,6 +231,7 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
         new_title = (page.get("title") or "").strip()
         if tab and new_title and new_title != tab.get("title") and new_title not in titles:
             titles.discard(tab.get("title"))
+            renames[tab.get("title")] = new_title
             tab["title"] = new_title
             renamed = True
             titles.add(new_title)
@@ -240,4 +312,9 @@ def from_frontend(coi: dict, meta: dict, schema: dict) -> tuple[dict, dict]:
             tab_title, section_tech, field_tech = location[cond[0]]
             states.append({"type": "SHOW", "query": show_query(cond[1], tab_title, section_tech, field_tech, cond[2])})
         field["states"] = states
+    for old_title, new_title in renames.items():
+        before, after = f"tabs['{_escape_name(old_title)}' in title]", f"tabs['{_escape_name(new_title)}' in title]"
+        for located in iter_fields(coi):
+            for state in located.field.get("states") or []:
+                state["query"] = (state.get("query") or "").replace(before, after)
     return coi, meta
