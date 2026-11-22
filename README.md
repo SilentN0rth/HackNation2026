@@ -1,5 +1,7 @@
 # e-Formularze – HackNation 2026, wyzwanie COI
 
+**Prezentacja:** [docs/prezentacja.pdf](docs/prezentacja.pdf) · **Film:** [docs/film.mp4](docs/film.mp4) · **Demo:** https://e-formularze.up.railway.app
+
 Zamiana papierowych formularzy urzędowych na formularze elektroniczne w formacie JSON COI. Urzędnik wgrywa blankiet,
 poprawia wynik w edytorze i publikuje e-usługę, a obywatel wypełnia ją krok po kroku.
 
