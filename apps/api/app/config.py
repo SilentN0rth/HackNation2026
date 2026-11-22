@@ -2,6 +2,7 @@ import secrets
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -31,8 +32,13 @@ class Settings(BaseSettings):
 
     llm_enabled: bool = False
     ollama_url: str = "http://ollama:11434"
-    llm_model: str = "qwen3:4b"
+    llm_model: str = "qwen2.5:7b"
     llm_timeout_s: float = 60
+    # "ollama" – lokalny model, "edenai" – model przez Eden AI (klucz tylko ze zmiennej EDENAI_API_KEY)
+    llm_provider: str = "ollama"
+    edenai_api_key: SecretStr = SecretStr("")
+    edenai_url: str = "https://api.edenai.run/v3"
+    edenai_model: str = "mistral/mistral-small-2603"
 
     default_issuer: str = "Urząd Gminy"
     clause_url: str = ""

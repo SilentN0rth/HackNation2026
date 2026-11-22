@@ -15,7 +15,10 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:5173"]}
       LLM_ENABLED: ${LLM_ENABLED:-false}
       OLLAMA_URL: http://ollama:11434
-      LLM_MODEL: ${LLM_MODEL:-qwen3:4b}
+      LLM_MODEL: ${LLM_MODEL:-qwen2.5:7b}
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      EDENAI_API_KEY: ${EDENAI_API_KEY:-}
+      EDENAI_MODEL: ${EDENAI_MODEL:-mistral/mistral-small-2603}
     secrets:
       - jwt_secret
     read_only: true

@@ -91,6 +91,9 @@ Wszystkie parametry podajesz w zmiennych środowiskowych (w Dockerze w `docker-c
 | `LLM_ENABLED` | `false` | Włączenie lokalnego modelu językowego |
 | `OLLAMA_URL` | `http://ollama:11434` | Adres Ollamy |
 | `LLM_MODEL` | `qwen3:4b` | Model (licencja Apache-2.0) |
+| `LLM_PROVIDER` | `ollama` | `ollama` (lokalnie) albo `edenai` (model przez Eden AI) |
+| `EDENAI_API_KEY` | – | Klucz Eden AI, tylko ze zmiennej środowiskowej; bez niego model się nie włączy |
+| `EDENAI_MODEL` | `mistral/mistral-small-2603` | Model w formacie `dostawca/model` |
 | `LLM_TIMEOUT_S` | `60` | Limit czasu odpowiedzi modelu |
 | `DEFAULT_ISSUER` | `Urząd Gminy` | Nazwa urzędu, gdy nie da się jej odczytać z pliku |
 
