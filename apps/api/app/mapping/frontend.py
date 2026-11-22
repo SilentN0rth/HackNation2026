@@ -14,6 +14,7 @@ TYPE_TO_FRONT = {
     "SELECT": "select",
     "RADIO": "radio",
     "CHECKBOX": "checkbox",
+    "FILE_UPLOADER": "file",
 }
 FRONT_TO_TYPE = {
     "text": ("TEXT_FIELD", None),
@@ -23,6 +24,7 @@ FRONT_TO_TYPE = {
     "select": ("SELECT", None),
     "radio": ("RADIO", None),
     "checkbox": ("CHECKBOX", None),
+    "file": ("FILE_UPLOADER", None),
     "pesel": ("TEXT_FIELD", "PESEL"),
     "postalCode": ("TEXT_FIELD", "ZIP_CODE"),
     "email": ("TEXT_FIELD", "EMAIL"),

@@ -180,3 +180,20 @@ def test_every_option_has_id_name_and_tech_name(built):
     for item in leaves(built):
         for option in item.field.get("options") or []:
             assert option["id"] and option["name"] and option["techName"], item.field["techName"]
+
+
+def test_citizen_gets_upload_fields_as_file_type(citizen):
+    _, schema, by_tech = citizen
+    fields = {f["id"]: f for p in schema["pages"] for f in p["fields"]}
+    upload = fields[by_tech["plik_dokumentu_z_pelnomocnictwem"]]
+    assert upload["type"] == "file" and upload["required"] is True
+
+
+def test_editor_roundtrip_keeps_upload_type(citizen):
+    from app.mapping.frontend import from_frontend
+
+    coi, _, by_tech = citizen
+    schema = to_frontend(coi, {}, schema_id="s", version=1, issuer="U", source_file="x.pdf")
+    back, _ = from_frontend(coi, {}, schema)
+    kinds = {i.field["techName"]: i.field["type"] for i in leaves(back)}
+    assert kinds["plik_dokumentu_z_pelnomocnictwem"] == "FILE_UPLOADER"
