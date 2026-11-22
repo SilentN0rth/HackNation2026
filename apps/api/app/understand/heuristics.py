@@ -50,6 +50,9 @@ ISSUER_INLINE = re.compile(r"((?:Urząd (?:Miasta i Gminy|Miasta|Gminy|Miejski w
 BLANK_CUE = re.compile(r"\b(w kwocie|kwotę|w wysokości)\s*$", re.I)
 SENTENCE = re.compile(r"[a-ząćęłńóśźż]{3,}.*[.;]$")
 LEADING_CAPS = re.compile(r"^[A-ZĄĆĘŁŃÓŚŹŻ]{4,}(?: [A-ZĄĆĘŁŃÓŚŹŻ]{4,})+\b")
+SIGNATURE_COLUMN = re.compile(r"^(.+?)\s+(?:czytelny\s+)?podpis\b(?!an)", re.I)
+PARENT_ONLY = re.compile(r"^ja,?\s+niżej\s+podpisan\w*\s*$", re.I)
+PARENT_GAP = re.compile(r"^ja,?\s+niżej\s+podpisan\w*\s*\(([^)]+)\)\s*", re.I)
 ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10, "XI": 11, "XII": 12}
 
 
@@ -88,6 +91,19 @@ def _split_compound(text: str) -> list[str]:
     return ([head] if head else []) + [p for p in parts if p]
 
 
+def _signature_left(text: str) -> str | None:
+    """„Data sporządzenia wniosku   Podpis i pieczątka” – lewa kolumna to etykieta pola, prawa (podpis) odpada.
+    Tylko pełna etykieta: bez numeru pozycji czy nawiasu na początku i bez urwanego spójnika na końcu."""
+    column = SIGNATURE_COLUMN.match(text)
+    if not column:
+        return None
+    left = column.group(1).strip()
+    words = left.split()
+    if not left[:1].isalpha() or words[-1].lower() in {"i", "oraz", "albo", "lub", "a"} or sum(len(w) >= 3 for w in words) < 2:
+        return None
+    return left
+
+
 def prepare(doc: Document) -> list[Item]:
     rules = catalog()
     items: list[Item] = []
@@ -109,6 +125,8 @@ def prepare(doc: Document) -> list[Item]:
         if pending_number:
             text = pending_number + text
             pending_number = ""
+        if left := _signature_left(text):
+            text = left
         if any_match(rules.skip_lines, text):
             continue
         if items and items[-1].text == text:
@@ -200,7 +218,7 @@ def _kind(header: str) -> str:
 
 LABEL_ONLY = {"tak", "nie", "tak nie", "tak / nie", "tak/nie"}
 CONSENT_START = re.compile(
-    r"^\s*(wyrażam\s+zgodę|oświadczam|oświadczamy|zapoznał|informacje\s+na\s+temat\s+ochrony\s+danych|klauzula\s+informacyjna)", re.I
+    r"^\s*(wyrażam\s+zgodę|oświadczam|oświadczamy|zapoznał|ja,?\s+niżej\s+podpisan|informacje\s+na\s+temat\s+ochrony\s+danych|klauzula\s+informacyjna)", re.I
 )
 
 
@@ -217,23 +235,30 @@ def split_sections(items: list[Item]) -> list[RawSection]:
     sections: list[RawSection] = []
     current = RawSection(header="", kind="content", page=1)
     top: int | None = None
+    list_items: set[str] = set()  # treść numerowanych pozycji, które nie otworzyły sekcji (1., 2., 3. …)
     for item in items:
         number = _section_number(item.text)
         is_section = False
         if number:
             parts, rest = number
             plausible = len(rest) <= 180 and not rest.rstrip().endswith(".")
-            if plausible and len(parts) == 1 and (top is None or parts[0] == top + 1):
+            repeated = len(parts) == 1 and fold(rest) in list_items
+            if len(parts) == 1 and not (plausible and (top is None or parts[0] == top + 1)):
+                list_items.add(fold(rest))
+            if repeated:
+                pass
+            elif plausible and len(parts) == 1 and (top is None or parts[0] == top + 1):
                 top = parts[0]
                 is_section = True
             elif plausible and len(parts) >= 2 and parts[0] == top:
                 is_section = True
         elif _label_like(item.text):
             pass
-        elif (item.heading and not item.cell and len(item.text) <= 90) or (
-            is_upper(item.text) and sum(c.isalpha() for c in item.text) >= 6 and len(item.text) <= 90 and not item.text.endswith("?")
-        ):
+        elif is_upper(item.text) and sum(c.isalpha() for c in item.text) >= 6 and len(item.text) <= 90 and not item.text.endswith("?"):
             is_section = True
+        elif item.heading and not item.cell and len(item.text) <= 90:
+            # W formularzu z numerowanymi sekcjami pogrubiony podtytuł bez numeru to grupa pól wewnątrz sekcji.
+            is_section = top is None
         elif LEADING_CAPS.match(item.text):
             is_section = True
         if is_section:
@@ -274,6 +299,8 @@ class Builder:
         for rule in self.rules.fields:
             if not rule.pattern.search(lowered):
                 continue
+            if rule.dictionary and OTHER_OPTION.match(lowered):
+                continue  # „Inna dyscyplina” to opis własny, a nie wybór ze słownika
             if rule.type and field_ir.type == "TEXT_FIELD" and field_ir.dictionary is None:
                 field_ir.type = rule.type
             for v in rule.validation:
@@ -310,11 +337,15 @@ class Builder:
         )
 
 
+def _stems(text: str) -> set[str]:
+    return {w[:4] for w in re.findall(r"[a-z]{4,}", fold(text))}
+
+
 def _match_option(text: str, options: list[str]) -> str:
-    words = set(re.findall(r"[a-z]{4,}", fold(text)))
+    words = _stems(text)
     best, score = options[-1], 0
     for option in options:
-        overlap = len(words & set(re.findall(r"[a-z]{4,}", fold(option))))
+        overlap = len(words & _stems(option))
         if overlap > score:
             best, score = option, overlap
     return best
@@ -329,6 +360,43 @@ def _consent_field(builder: Builder, consents: list[tuple[str, Item]]) -> FieldI
         options=[label for label, _ in consents],
         source=consents[0][1].text,
         page=consents[0][1].page,
+    )
+
+
+OTHER_OPTION = re.compile(r"^\s*inn(?:a|e|y)\b")
+ATTACH_HINT = re.compile(r"^do wniosku (należy|można) (?:dołączyć|załączyć)\s+(\S.*)$", re.I)
+
+
+def _words(text: str) -> set[str]:
+    return set(re.findall(r"[a-z]{5,}", fold(text)))
+
+
+def _heading_of_prompt(text: str, following: Item | None) -> bool:
+    """„Opinia macierzystego klubu” nad „Opinia macierzystego klubu, potwierdzająca …” – nagłówek nad poleceniem, nie osobne pole."""
+    if following is None or following.option or ATTACH_HINT.match(following.text) or len(text.split()) > 6 or "?" in text:
+        return False
+    if fold(following.text).strip(" :") == fold(text).strip(" :"):
+        return False  # ta sama nazwa dwa razy to jedno pole, nie nagłówek
+    head, prompt = _words(text), _words(following.text)
+    return len(following.text) > len(text) and len(head) >= 2 and len(head & prompt) >= 2
+
+
+def _attachment_field(builder: Builder, fields: list[FieldIR], hint: re.Match, item: Item) -> FieldIR:
+    """Zdanie „Do wniosku należy dołączyć …” to pole na plik. Krótki nagłówek tuż przed nim (np. „Wymagane zaświadczenia”)
+    sam staje się polem na plik (tylko przy „należy”); w pozostałych przypadkach dodajemy osobne, nieobowiązkowe pole."""
+    required = hint.group(1).lower() == "należy"
+    what = hint.group(2).strip()
+    previous = fields[-1] if fields else None
+    if required and previous and previous.type == "TEXT_FIELD" and len(previous.title.split()) <= 8 and _words(previous.title) & _words(what):
+        fields.pop()
+        previous.type, previous.required, previous.tooltip = "FILE_UPLOADER", required, item.text[:300]
+        return previous
+    title = re.split(r"\s+wraz\s+z\b|\s*\(|[.,;]", what, maxsplit=1)[0].strip()
+    title = title[:1].upper() + title[1:]
+    if len(title) > 90:
+        title = title[:87].rsplit(" ", 1)[0] + "…"
+    return FieldIR(
+        key=builder.key(), title=title, type="FILE_UPLOADER", required=False, tooltip=item.text[:300], source=item.text, page=item.page
     )
 
 
@@ -375,9 +443,21 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
         else:
             items = options + items
 
+    if not choice and raw.header:
+        lead: list[Item] = []
+        for candidate in items:
+            if not (candidate.option and len(candidate.text) <= 60):
+                break
+            lead.append(candidate)
+        if len(lead) >= 2 and not any(GROUP_START.match(plain_label(o.text)) for o in lead):
+            last_choice = builder.radio(section.title, [o.text for o in lead], raw.header, raw.page)
+            section.fields.append(last_choice)
+            items = items[len(lead) :]
+
     attachments_mode = False
     consent_items: list[tuple[str, Item]] = []
     preamble = not raw.header
+    prompt: Item | None = None  # polecenie pod nagłówkiem – zostaje polem, nawet gdy wygląda na zdanie
     index = 0
     while index < len(items):
         item = items[index]
@@ -386,10 +466,18 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
         if ATTACHMENTS_LINE.match(text) and len(text) < 40:
             attachments_mode = True
             continue
-        if CONSENT_START.match(text) and len(text) >= 20 and not attachments_mode:
-            consent_items.append((plain_label(text), item))
-            continue
         enumerated = ENUMERATED.match(text)
+        core = enumerated.group(1) if enumerated else text
+        if PARENT_ONLY.match(core):
+            continue  # sam początek „Ja niżej podpisany” – pole na dane rodzica powstaje z „(rodzic/opiekun prawny)”
+        if CONSENT_START.match(core) and len(core) >= 20 and not attachments_mode:
+            if parent := PARENT_GAP.match(core):
+                # Luka na dane osoby składającej zgodę staje się osobnym polem, a zgoda zaczyna się od „Wyrażam zgodę”.
+                section.fields.append(builder.classify(parent.group(1), item))
+                core = core[parent.end() :]
+                core = core[:1].upper() + core[1:]
+            consent_items.append((plain_label(core), item))
+            continue
         if attachments_mode:
             label = plain_label(enumerated.group(1) if enumerated else text)
             if label and len(label) <= MAX_LABEL:
@@ -398,7 +486,10 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
                 )
             continue
         def is_option(candidate: Item) -> bool:
-            return candidate.option or bool(ENUMERATED.match(candidate.text))
+            numbered = ENUMERATED.match(candidate.text)
+            if numbered and CONSENT_START.match(numbered.group(1)):
+                return False  # „1) Wyrażam zgodę…” to zgoda, nie opcja wyboru
+            return candidate.option or bool(numbered)
 
         if not item.option and not enumerated and index < len(items) and is_option(items[index]) and len(text) <= MAX_LABEL:
             start = index
@@ -430,6 +521,10 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
                             break
                     trimmed.append(label)
                 last_choice = builder.radio(text, trimmed, text, item.page)
+                if pending:
+                    last_choice.condition = pending
+                same = fold(last_choice.title).strip(" :")
+                section.fields[:] = [f for f in section.fields if fold(f.title).strip(" :") != same]
                 section.fields.append(last_choice)
                 for extra in follow:
                     extra.condition = Condition(last_choice.key, extra.condition.equals)
@@ -467,13 +562,32 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             if last_choice and last_choice.options:
                 pending = Condition(last_choice.key, _match_option(text, last_choice.options))
             continue
-        if INSTRUCTION.match(text) and len(text) > 40:
+        if item is prompt:
+            pass
+        elif INSTRUCTION.match(text) and len(text) > 40:
             continue
-        if SENTENCE.search(text) and len(text) > 50 and not text.lower().startswith("oświadczam"):
+        if hint := ATTACH_HINT.match(text):
+            attachment = _attachment_field(builder, section.fields, hint, item)
+            if pending and attachment.condition is None:
+                attachment.condition = pending
+            section.fields.append(attachment)
+            continue
+        if SENTENCE.search(text) and len(text) > 50 and not text.lower().startswith("oświadczam") and item is not prompt:
             continue
         if len(text) > MAX_LABEL:
             if CONSENT_START.match(text):
                 consent_items.append((plain_label(text), item))
+            continue
+        following = items[index] if index < len(items) else None
+        if _heading_of_prompt(text, following) or (
+            GROUP_START.match(plain_label(text)) and not item.blank and following and not following.option and len(following.text) <= 60
+        ):
+            if _heading_of_prompt(text, following):
+                prompt = following
+            block = FieldIR(key=builder.key(), title=plain_label(text).rstrip(":"), type="TEXT_BLOCK", required=False, source=text, page=item.page)
+            if pending:
+                block.condition = pending
+            section.fields.append(block)
             continue
         if YES_NO_TAIL.search(text):
             field_ir = builder.radio(YES_NO_TAIL.sub("", text), ["Tak", "Nie"], text, item.page)
@@ -487,6 +601,9 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             continue
         if pending:
             field_ir.condition = pending
+        if field_ir.dictionary:
+            # Nagłówek i właściwa lista o tej samej nazwie („Dyscypliny sportowe”) to jedno pole.
+            section.fields[:] = [f for f in section.fields if f.dictionary != field_ir.dictionary]
         section.fields.append(field_ir)
 
     if consent_items:
@@ -513,6 +630,19 @@ def _unique(title: str, used: set[str]) -> str:
 MAX_FIELDS_PER_SECTION = 14
 
 
+GROUP_START = re.compile(r"^Dane\b")
+
+
+def _cut_near(fields: list[FieldIR], ideal: int, window: int = 3) -> int:
+    """Miejsce cięcia najbliżej `ideal`, ale przed nagłówkiem grupy („Dane pełnomocnika…”), żeby nie rozdzielać jej pól."""
+    starts = [
+        i
+        for i in range(max(1, ideal - window), min(len(fields) - 1, ideal + window) + 1)
+        if GROUP_START.match(fields[i].title) and fields[i].type in ("TEXT_FIELD", "TEXT_BLOCK")
+    ]
+    return min(starts, key=lambda i: abs(i - ideal)) if starts else ideal
+
+
 def _split_heavy(sections: list[SectionIR]) -> list[SectionIR]:
     """Sekcje z bardzo wieloma polami dzielimy na części, żeby formularz dało się przejść bez przewijania ściany pól."""
     result: list[SectionIR] = []
@@ -522,8 +652,9 @@ def _split_heavy(sections: list[SectionIR]) -> list[SectionIR]:
             continue
         parts = -(-len(section.fields) // MAX_FIELDS_PER_SECTION)
         size = -(-len(section.fields) // parts)
+        cuts = [0] + [_cut_near(section.fields, n * size) for n in range(1, parts)] + [len(section.fields)]
         for n in range(parts):
-            chunk = section.fields[n * size : (n + 1) * size]
+            chunk = section.fields[cuts[n] : cuts[n + 1]]
             result.append(SectionIR(title=f"{section.title} (część {n + 1} z {parts})", fields=chunk, condition=section.condition))
     return result
 
@@ -575,13 +706,29 @@ def _split_variants(items: list[Item], skip: set[int]) -> tuple[list[Item], list
     blocks = []
     for n, start in enumerate(starts):
         end = starts[n + 1] if n + 1 < len(starts) else len(items)
-        blocks.append((kinds[n], [x for k, x in enumerate(items[start + 1 : end], start + 1) if k not in skip]))
+        # Linia zużyta jako organ lub tytuł (np. „Prezydent Miasta”) należy do wstępu, a w blokach jest zwykłą treścią.
+        body = list(items[start + 1 : end])
+        # Złamany tytuł („… Rady Miasta” / „Zgierza”): reszta tytułu nie jest polem.
+        if body and len(body[0].text.split()) <= 2 and any(items[i].text.endswith(body[0].text) for i in found):
+            body = body[1:]
+        blocks.append((kinds[n], body))
     return common, blocks, re.sub(r"^[IVX]{1,4}[.)]\s*", "", items[starts[0]].text)
+
+
+def _is_container(raw: RawSection, following: RawSection | None) -> bool:
+    """Nagłówek bez treści, po którym idą podpunkty (np. „5. Zgody” przed „5.1 …”), nie jest polem do wypełnienia."""
+    if raw.items or following is None:
+        return False
+    parent, child = _section_number(raw.header), _section_number(following.header)
+    return bool(parent and child and len(parent[0]) == 1 and len(child[0]) > 1 and child[0][0] == parent[0][0])
 
 
 def _build_sections(items: list[Item], builder: Builder, form: FormIR) -> list[SectionIR]:
     sections = []
-    for raw in split_sections(items):
+    raws = split_sections(items)
+    for index, raw in enumerate(raws):
+        if _is_container(raw, raws[index + 1] if index + 1 < len(raws) else None):
+            continue
         section = build_section(raw, builder, form)
         if section:
             sections.append(section)

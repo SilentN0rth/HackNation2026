@@ -24,7 +24,7 @@ pomijane_linie:
   - "^(tak|nie)$"
   - "^\\W*$"
   - "^\\d{1,2}\\)?$"
-  - "podpis"
+  - "podpis(?!an)"
   - ",\\s*dnia\\s*$"
   - "^\\d{2}-\\d{3}\\s"
   - "^(ul\\.|ulica)\\s"
@@ -86,6 +86,7 @@ wskazowki_opisu:
 
 warunki:
   - "^(jeśli|jeżeli|w przypadku)"
+  - "^należy wypełnić.*w przypadku"
 
 wydawcy:
   - "^(urząd|wójt|burmistrz|prezydent|starost|marszałek|rada|zarząd|dyrektor|kierownik)\\b"
