@@ -27,7 +27,7 @@ export const publishedForms: PublishedForm[] = [
               label: "Imię i nazwisko",
               type: "text",
               required: true,
-              prefill: { source: "mObywatel", key: "person.fullName" },
+              prefill: { source: "MLPZ", key: "MLPZ.name" },
               legalBasis: { act: LOCAL_ACT, unit: "§ 4 ust. 1", quote: "zgłoszenie zawiera imię i nazwisko" },
             },
             {
@@ -35,7 +35,7 @@ export const publishedForms: PublishedForm[] = [
               label: "Adres odbioru",
               type: "text",
               required: true,
-              prefill: { source: "mObywatel", key: "address.street" },
+              prefill: { source: "MLPZ", key: "MLPZ.street" },
               legalBasis: { act: LOCAL_ACT, unit: "§ 4 ust. 1", quote: "adres nieruchomości" },
             },
             {

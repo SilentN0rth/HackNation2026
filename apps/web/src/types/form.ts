@@ -53,7 +53,7 @@ export const FieldValidationSchema = z.object({
 });
 export type FieldValidation = z.infer<typeof FieldValidationSchema>;
 
-export const PrefillSourceSchema = z.enum(["mObywatel", "CEIDG", "KRS"]);
+export const PrefillSourceSchema = z.enum(["PESEL", "PESEL_ADDRESS", "MLPZ"]);
 export type PrefillSource = z.infer<typeof PrefillSourceSchema>;
 
 export const FieldSchema = z.object({

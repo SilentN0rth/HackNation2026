@@ -12,7 +12,7 @@ export const Registry: GlobalConfig = {
       label: "Dane do prefillu",
       type: "json",
       defaultValue: {},
-      admin: { description: "Klucz → wartość, np. person.fullName. Klucze odpowiadają Field.prefill.key." },
+      admin: { description: "Klucz ŹRÓDŁO.atrybut → wartość, np. PESEL.name. Źródła: PESEL, PESEL_ADDRESS, MLPZ. Brak klucza lub pusta wartość = pole zostaje puste." },
     },
   ],
 };

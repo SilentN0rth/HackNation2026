@@ -140,7 +140,7 @@ async function seedApplications(payload: Payload, ids: Map<string, number>) {
 async function seedRegistry(payload: Payload) {
   const registry = await payload.findGlobal({ slug: "registry" });
   const current = registry.prefill;
-  if (current && typeof current === "object" && Object.keys(current).length > 0) return;
+  if (current && typeof current === "object" && "PESEL.pesel" in current) return; // starsze klucze (person.*) zastępujemy katalogiem ŹRÓDŁO.atrybut
   await payload.updateGlobal({ slug: "registry", data: { prefill: prefillData } });
 }
 

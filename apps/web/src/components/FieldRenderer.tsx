@@ -40,7 +40,7 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
       {field.label}
       {!field.required && <span className="text-sm font-normal text-muted">(nieobowiązkowe)</span>}
       {prefilled && (
-        <span className="text-sm font-normal text-success">pobrane z {field.prefill?.source}</span>
+        <span className="text-sm font-normal text-success">dane z rejestru: {field.prefill?.source}</span>
       )}
     </Label>
   );

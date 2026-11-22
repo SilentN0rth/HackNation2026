@@ -31,7 +31,7 @@ export const formDraft: FormDraft = {
             label: "Imię",
             type: "text",
             required: true,
-            prefill: { source: "mObywatel", key: "person.firstName" },
+            prefill: { source: "PESEL", key: "PESEL.name" },
             legalBasis: basis("art. 7 ust. 2", "imię i nazwisko wnioskodawcy", "dm-art7-ust2"),
           },
           {
@@ -39,7 +39,7 @@ export const formDraft: FormDraft = {
             label: "Nazwisko",
             type: "text",
             required: true,
-            prefill: { source: "mObywatel", key: "person.lastName" },
+            prefill: { source: "PESEL", key: "PESEL.surname" },
             legalBasis: basis("art. 7 ust. 2", "imię i nazwisko wnioskodawcy", "dm-art7-ust2"),
           },
           {
@@ -47,7 +47,7 @@ export const formDraft: FormDraft = {
             label: "Numer PESEL",
             type: "pesel",
             required: true,
-            prefill: { source: "mObywatel", key: "person.pesel" },
+            prefill: { source: "PESEL", key: "PESEL.pesel" },
             legalBasis: basis("art. 7 ust. 2", "numer PESEL", "dm-art7-ust2"),
           },
           {
@@ -83,7 +83,7 @@ export const formDraft: FormDraft = {
             label: "Ulica i numer",
             type: "text",
             required: true,
-            prefill: { source: "mObywatel", key: "address.street" },
+            prefill: { source: "MLPZ", key: "MLPZ.street" },
             legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
           },
           {
@@ -91,7 +91,7 @@ export const formDraft: FormDraft = {
             label: "Kod pocztowy",
             type: "postalCode",
             required: true,
-            prefill: { source: "mObywatel", key: "address.postalCode" },
+            prefill: { source: "MLPZ", key: "MLPZ.postCode" },
             legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
           },
           {
@@ -99,7 +99,7 @@ export const formDraft: FormDraft = {
             label: "Miejscowość",
             type: "text",
             required: true,
-            prefill: { source: "mObywatel", key: "address.city" },
+            prefill: { source: "MLPZ", key: "MLPZ.place" },
             legalBasis: basis("art. 7 ust. 2", "adres zamieszkania", "dm-art7-ust2"),
           },
           {
