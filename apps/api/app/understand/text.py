@@ -44,6 +44,18 @@ def sentence_case(text: str) -> str:
     return text[:1].upper() + text[1:] if text else text
 
 
+TITLE_WORDS = {"wniosek", "zgłoszenie", "deklaracja", "oświadczenie", "zawiadomienie", "podanie", "informacja", "karta"}
+
+
+def normalize_title(text: str) -> str:
+    """Tytuł usługi: pojedyncze spacje, zwykły zapis zdania, pierwsze słowo bez kapitalików, bez kropki na końcu."""
+    text = sentence_case(SPACES.sub(" ", text.replace("*", "")).strip())
+    head, _, rest = text.partition(" ")
+    if rest and head.isupper() and head.lower() in TITLE_WORDS and not is_upper(rest):
+        text = f"{head.capitalize()} {rest}"
+    return text.rstrip(". ")
+
+
 def plain_label(text: str) -> str:
     text = strip_numbering(clean(text))
     text = re.sub(r"\((?:[^()]*(?:postaw|zaznacz|wypełni|opisz|wpisz|należy)[^()]*)(?:\)|$)", "", text, flags=re.I)

@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     llm_timeout_s: float = 60
 
     default_issuer: str = "Urząd Gminy"
+    clause_url: str = ""
 
     @property
     def max_upload_bytes(self) -> int:

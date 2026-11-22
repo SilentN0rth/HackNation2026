@@ -15,12 +15,34 @@ DATA_TAB = "Dane"
 CONTACT_TAB = "Kontakt i zgody"
 FINISH_TAB = "Strona końcowa"
 ISSUER_FIELDS = {"nazwa_urzedu", "nazwa_organu"}
+ORGAN_PREFIXES = ("wójt", "prezydent", "burmistrz", "starosta", "marszałek", "wojewoda", "dyrektor", "rada", "zarząd")
+CLAUSE_PLACEHOLDER = "{{CLAUSE_LINK}}"
+CLAUSE_TEXT = "klauzulą informacyjną"
 NO_REQUIRED = {"TEXT_BLOCK", "INFO_SECTION", "CONSENT_SECTION", "SECTION", "REPEATING_SECTION"}
 
 
 @lru_cache
 def _template() -> dict:
     return json.loads(TEMPLATE.read_text(encoding="utf-8"))
+
+
+def clause_link(url: str) -> str:
+    """Odnośnik do klauzuli informacyjnej; bez adresu zostaje sam tekst (nie wstawiamy martwego linku)."""
+    if not url:
+        return f"{CLAUSE_TEXT} urzędu"
+    safe = url.replace('"', "%22")
+    return (
+        f'<a href="{safe}" target="_blank" rel="noopener noreferrer" '
+        f'aria-label="Link otwiera się w nowej karcie">{CLAUSE_TEXT}</a>'
+    )
+
+
+def _apply_clause(tabs: list[dict], url: str) -> None:
+    link = clause_link(url)
+    for item in iter_fields({"tabs": tabs}):
+        config = item.field.get("consentSectionConfig") or {}
+        for consent in config.get("consents") or []:
+            consent["description"] = (consent.get("description") or "").replace(CLAUSE_PLACEHOLDER, link)
 
 
 def new_id() -> str:
@@ -46,8 +68,8 @@ def make_field(
         "id": new_id(),
         "type": type_,
         "techName": tech_name,
-        "title": title,
-        "description": description,
+        "title": " ".join(title.split()),
+        "description": description.strip(),
         "options": options or [],
         "validation": validation or [],
         "readOnly": read_only,
@@ -84,7 +106,7 @@ def option_list(values: list[str]) -> list[dict]:
     seen: set[str] = set()
     result = []
     for value in values:
-        value = value.replace('"', "”").strip()
+        value = " ".join(value.replace('"', "”").split())
         if not value or value in seen:
             continue
         seen.add(value)
@@ -97,7 +119,20 @@ def option_list(values: list[str]) -> list[dict]:
     return result
 
 
+def _consent_html(text: str) -> str:
+    escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return f"<html><head></head><body><p>{escaped}</p></body></html>"
+
+
 def _field_from_ir(item: FieldIR, tech_name: str, order: int) -> dict:
+    if item.type == "CONSENT_SECTION":
+        field = make_field("CONSENT_SECTION", tech_name, "", order=order)
+        field["consentSectionConfig"] = {
+            "consents": [{"description": _consent_html(text), "required": True} for text in item.options],
+            "selectAllEnabled": len(item.options) > 1,
+            "files": [],
+        }
+        return field
     validation = []
     if item.required and item.type not in NO_REQUIRED:
         validation.append("REQUIRED")
@@ -139,10 +174,16 @@ def build(form: FormIR, issuer: str | None = None) -> tuple[dict, dict]:
     by_title = {tab["title"]: tab for tab in template["tabs"]}
     data_tab, contact_tab, finish_tab = by_title[DATA_TAB], by_title[CONTACT_TAB], by_title[FINISH_TAB]
     issuer_name = issuer or form.issuer or get_settings().default_issuer
+    is_organ = issuer_name.lower().startswith(ORGAN_PREFIXES)
     for item in iter_fields({"tabs": [data_tab]}):
         if item.field.get("techName") in ISSUER_FIELDS:
             item.field["defaultValue"] = issuer_name
+            if is_organ:
+                item.field.update(techName="nazwa_organu", title="Nazwa organu")
+                item.section["title"] = "Organ, do którego jest składany wniosek"
+                item.section["techName"] = "organ_do_ktorego_jest_skladany_wniosek"
 
+    _apply_clause([data_tab, contact_tab, finish_tab], get_settings().clause_url)
     reserved = {item.field["techName"] for item in iter_fields({"tabs": [data_tab, contact_tab, finish_tab]})}
     names = Names(reserved)
     tabs_by_key: dict[str, tuple[dict, dict, dict]] = {}
@@ -164,7 +205,7 @@ def build(form: FormIR, issuer: str | None = None) -> tuple[dict, dict]:
             section_field = make_field("SECTION", names.take(section.title), section.title, order=section_order)
             children: list[dict] = []
             for order, item in enumerate(section.fields):
-                field = _field_from_ir(item, names.take(item.title), order)
+                field = _field_from_ir(item, names.take(item.title or ("zgoda" if item.type == "CONSENT_SECTION" else "pole")), order)
                 children.append(cell(field, order))
                 tabs_by_key[item.key] = (tab, section_field, field)
                 meta[field["id"]] = {
