@@ -58,6 +58,15 @@ def test_convert_rejects_large_file(client, official, monkeypatch):
     assert response.status_code == 413
 
 
+def test_convert_rejects_oversized_request_before_reading_body(client, monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "max_upload_mb", 0.001)
+    response = client.post("/api/v1/convert", files={"file": ("wniosek.pdf", b"%PDF-1.7" + b"0" * 200_000)})
+    assert response.status_code == 413
+    assert response.headers["content-type"] == "application/problem+json"
+
+
 def test_batch(client, official):
     files = [("files", sample(n, ".pdf")) for n in ("1", "2")] + [("files", ("zly.txt", b"abc"))]
     response = client.post("/api/v1/convert/batch", headers=official, files=files)

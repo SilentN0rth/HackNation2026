@@ -7,6 +7,9 @@ from app import errors
 from app.api import attachments, citizen, convert, drafts, meta
 from app.config import get_settings, jwt_secret
 
+CONVERT_PATH = "/api/v1/convert"
+MULTIPART_SLACK = 64 * 1024
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
 DESCRIPTION = """
@@ -16,6 +19,21 @@ na konfigurację formularza elektronicznego w formacie JSON COI.
 Najważniejszy punkt: `POST /api/v1/convert`. Pozostałe ścieżki obsługują edytor urzędnika,
 kontrolę jakości, dziennik decyzji i podgląd e-usługi dla obywatela.
 """
+
+
+class ConvertBodyLimit:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "http" and scope["path"] == CONVERT_PATH:
+            length = dict(scope["headers"]).get(b"content-length", b"")
+            settings = get_settings()
+            if length.isdigit() and int(length) > settings.max_upload_bytes + MULTIPART_SLACK:
+                response = errors.problem(413, f"Plik jest większy niż {settings.max_upload_mb:g} MB.", instance=CONVERT_PATH)
+                await response(scope, receive, send)
+                return
+        await self.app(scope, receive, send)
 
 
 def create_app() -> FastAPI:
@@ -29,6 +47,7 @@ def create_app() -> FastAPI:
         docs_url="/docs",
         redoc_url=None,
     )
+    app.add_middleware(ConvertBodyLimit)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
