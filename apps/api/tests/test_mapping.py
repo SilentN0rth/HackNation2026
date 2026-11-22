@@ -44,3 +44,9 @@ def test_edit_and_delete_field(template):
     assert "REQUIRED" in titles[page["fields"][0]["id"]]["validation"]
     assert removed["id"] not in titles
     assert errors(back) == []
+
+
+def test_fields_follow_grid_position_not_array_order():
+    template = json.loads((FIXTURES / "wzorzec_numer_porzadkowy.json").read_text(encoding="utf-8"))
+    labels = [f["label"] for p in frontend(template)["pages"] for f in p["fields"]]
+    assert labels.index("Wybierz, w czyim imieniu wnioskujesz") < labels.index("Wybierz, jako kto wnioskujesz")

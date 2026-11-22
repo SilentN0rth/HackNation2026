@@ -184,7 +184,7 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
             continue
         fields = []
         for question in tab.get("questions") or []:
-            for child in children(question.get("field") or {}):
+            for child in sorted(children(question.get("field") or {}), key=lambda c: c.get("y", 0)):
                 field = child.get("field") or {}
                 if field.get("type") == "CONSENT_SECTION":
                     fields.extend(consent_items(field))
