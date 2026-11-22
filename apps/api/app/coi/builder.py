@@ -188,6 +188,7 @@ def build(form: FormIR, issuer: str | None = None) -> tuple[dict, dict]:
     names = Names(reserved)
     tabs_by_key: dict[str, tuple[dict, dict, dict]] = {}
     pending: list[tuple[FieldIR, dict]] = []
+    section_conditions: list[tuple] = []
     meta: dict[str, dict] = {}
     middle: list[dict] = []
     used_tab_titles = {DATA_TAB.lower(), CONTACT_TAB.lower(), FINISH_TAB.lower()}
@@ -217,6 +218,8 @@ def build(form: FormIR, issuer: str | None = None) -> tuple[dict, dict]:
                 if item.condition:
                     pending.append((item, field))
             section_field["repeatingSectionGrid"] = children
+            if section.condition:
+                section_conditions.append((section.condition, tab, section_field))
             rows = max(2, len(children) + 1)
             tab["questions"].append(cell(section_field, y, rows))
             y += rows
@@ -235,6 +238,13 @@ def build(form: FormIR, issuer: str | None = None) -> tuple[dict, dict]:
         )
         meta[field["id"]]["condition"] = {"fieldId": target_field["id"], "equals": item.condition.equals}
 
+    for condition, _tab, section_field in section_conditions:
+        target = tabs_by_key.get(condition.field_key)
+        if target:
+            target_tab, target_section, target_field = target
+            section_field["states"].append(
+                {"type": "SHOW", "query": show_query(condition.equals, target_tab["title"], target_section["techName"], target_field["techName"])}
+            )
     tabs = [data_tab, *middle, contact_tab, finish_tab]
     _refresh_ids([data_tab, contact_tab, finish_tab])
     coi = {"title": form.title[:255], "tabs": tabs, "flow": flow_for(tabs)}

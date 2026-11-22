@@ -137,6 +137,21 @@ def section_visibility(coi: dict) -> dict[str, dict]:
     return result
 
 
+def _page_condition(tab: dict, index: dict) -> dict | None:
+    """Warunek widoczności całej strony, gdy wszystkie jej sekcje mają ten sam prosty warunek SHOW."""
+    found = []
+    for question in tab.get("questions") or []:
+        states = [x for x in (question.get("field") or {}).get("states") or [] if x.get("type") == "SHOW"]
+        tree = parse_expr(states[0].get("query", "")) if len(states) == 1 else None
+        if not tree or tree[0] != "atom":
+            return None
+        cond = _condition(tree, index)
+        if not cond or "negate" in cond:
+            return None
+        found.append(cond)
+    return found[0] if found and all(c == found[0] for c in found) else None
+
+
 def _options(field: dict) -> list[dict] | None:
     if field.get("dictionaryName"):
         entry = dictionaries.get(field["dictionaryName"])
@@ -149,6 +164,7 @@ def _options(field: dict) -> list[dict] | None:
 def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: str, source_file: str) -> dict:
     conds = conditions(coi)
     section_conds = section_visibility(coi)
+    index_all = _index(coi)
     pages = []
     for tab in coi.get("tabs", []):
         if tab.get("type") == "FINISH":
@@ -193,7 +209,11 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                     item["legalBasis"] = legal
                 fields.append(item)
         if fields:
-            pages.append({"id": tab["id"], "title": tab.get("title", ""), "fields": fields})
+            page = {"id": tab["id"], "title": tab.get("title", ""), "fields": fields}
+            shared = _page_condition(tab, index_all)
+            if shared:
+                page["visibleIf"] = shared
+            pages.append(page)
     return {
         "id": schema_id,
         "version": version,

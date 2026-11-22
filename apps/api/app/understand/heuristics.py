@@ -4,7 +4,16 @@ from dataclasses import dataclass, field
 from app.extract.ir import Document
 from app.understand.catalog import any_match, catalog, rewrite
 from app.understand.model import Condition, FieldIR, FormIR, PageIR, SectionIR
-from app.understand.text import clean, fold, is_upper, normalize_title, plain_label, sentence_case, starts_with_box
+from app.understand.text import (
+    LEADER,
+    clean,
+    fold,
+    is_upper,
+    normalize_title,
+    plain_label,
+    sentence_case,
+    starts_with_box,
+)
 
 SECTION_NUMBER = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[A-H])[.)]\s*(\S.*)$")
 NUMBER_ONLY = re.compile(r"^\s*(\d{1,2}(?:\.\d{1,2})*|[IVXLC]{1,5}|[a-hA-H])[.)]?\s*$")
@@ -51,6 +60,7 @@ class Item:
     cell: bool = False
     date: bool = False
     option: bool = False
+    blank: bool = False  # w źródle jest linia do wypełnienia (kropki, wielokropek)
 
 
 @dataclass
@@ -91,6 +101,7 @@ def prepare(doc: Document) -> list[Item]:
             pending_number = "" if raw.endswith(")") else raw.rstrip(".") + ". "
             continue
         option = starts_with_box(raw)
+        blank = bool(LEADER.search(raw))
         text = clean(raw)
         if not text:
             continue
@@ -117,10 +128,11 @@ def prepare(doc: Document) -> list[Item]:
         )
         if joinable and len(previous.text) + len(text) < 400:
             previous.text = f"{previous.text} {text}"
+            previous.blank = previous.blank or blank
             continue
         for chunk in FIELD_NUMBER_SPLIT.split(text) if len(text) < 160 else [text]:
             for part in _split_compound(chunk):
-                items.append(Item(part, line.page, line.heading, line.cell, option=option))
+                items.append(Item(part, line.page, line.heading, line.cell, option=option, blank=blank))
     return items
 
 
@@ -393,7 +405,7 @@ def build_section(raw: RawSection, builder: Builder, form: FormIR) -> SectionIR 
             while (
                 index < len(items)
                 and is_option(items[index])
-                and len(items[index].text) <= MAX_LABEL
+                and len(items[index].text) <= 120
                 and not ATTACHMENTS_LINE.match(items[index].text)
             ):
                 match = ENUMERATED.match(items[index].text)
@@ -497,13 +509,33 @@ def _unique(title: str, used: set[str]) -> str:
     return candidate
 
 
+MAX_FIELDS_PER_SECTION = 14
+
+
+def _split_heavy(sections: list[SectionIR]) -> list[SectionIR]:
+    """Sekcje z bardzo wieloma polami dzielimy na części, żeby formularz dało się przejść bez przewijania ściany pól."""
+    result: list[SectionIR] = []
+    for section in sections:
+        if len(section.fields) <= MAX_FIELDS_PER_SECTION:
+            result.append(section)
+            continue
+        parts = -(-len(section.fields) // MAX_FIELDS_PER_SECTION)
+        size = -(-len(section.fields) // parts)
+        for n in range(parts):
+            chunk = section.fields[n * size : (n + 1) * size]
+            result.append(SectionIR(title=f"{section.title} (część {n + 1} z {parts})", fields=chunk, condition=section.condition))
+    return result
+
+
 def paginate(sections: list[SectionIR]) -> list[PageIR]:
+    sections = _split_heavy(sections)
     pages: list[PageIR] = []
     current: PageIR | None = None
     count = 0
     for section in sections:
         size = len(section.fields)
-        if current is None or (count and count + size > MAX_FIELDS_PER_PAGE):
+        same = current is not None and current.sections[-1].condition == section.condition
+        if current is None or not same or (count and count + size > MAX_FIELDS_PER_PAGE):
             current = PageIR(title=section.title)
             pages.append(current)
             count = 0
@@ -515,10 +547,48 @@ def paginate(sections: list[SectionIR]) -> list[PageIR]:
     return pages
 
 
+VARIANT = re.compile(r"^(?:[IVX]{1,4}[.)]\s*)?wniosek o przyznanie\s+(stypendium|nagrody|wyróżnienia)\b", re.I)
+PREAMBLE = re.compile(r"^(załącznik\s+nr|(?:nr|numer)\s+\d|z\s+dnia|rodzaje\s+wniosków|prezydenta|burmistrza|wójta)(?:\b|\d)", re.I)
+VARIANT_LABELS = {"stypendium": "Stypendium sportowe", "nagrody": "Nagroda sportowa", "wyróżnienia": "Wyróżnienie sportowe"}
+VARIANT_SHORT = {"stypendium": "Stypendium", "nagrody": "Nagroda", "wyróżnienia": "Wyróżnienie"}
+
+
+def _split_variants(items: list[Item], skip: set[int]) -> tuple[list[Item], list[tuple[str, list[Item]]], str] | None:
+    """Formularz łączący kilka wniosków: spis na początku, potem bloki z nagłówkami „Wniosek o przyznanie …”.
+
+    Spis to nagłówki leżące tuż obok siebie; początek bloku to nagłówek, po którym długo nie ma kolejnego.
+    """
+    found = [i for i, item in enumerate(items) if VARIANT.match(item.text)]
+    starts = [i for n, i in enumerate(found) if n + 1 == len(found) or found[n + 1] - i >= 10]
+    kinds = [VARIANT.match(items[i].text).group(1).lower() for i in starts]
+    if len(starts) < 2 or len(set(kinds)) < 2:
+        return None
+    index_lines = {i for i in found if i not in starts and i < starts[0]}
+    common = [
+        item
+        for i, item in enumerate(items[: starts[0]])
+        if i not in index_lines and i not in skip and not PREAMBLE.match(item.text)
+    ]
+    blocks = []
+    for n, start in enumerate(starts):
+        end = starts[n + 1] if n + 1 < len(starts) else len(items)
+        blocks.append((kinds[n], [x for k, x in enumerate(items[start + 1 : end], start + 1) if k not in skip]))
+    return common, blocks, re.sub(r"^[IVX]{1,4}[.)]\s*", "", items[starts[0]].text)
+
+
+def _build_sections(items: list[Item], builder: Builder, form: FormIR) -> list[SectionIR]:
+    sections = []
+    for raw in split_sections(items):
+        section = build_section(raw, builder, form)
+        if section:
+            sections.append(section)
+    return sections
+
+
 def understand(doc: Document, filename: str = "") -> FormIR:
     items = prepare(doc)
     title, issuer, used = _title_and_issuer(items)
-    items = [item for index, item in enumerate(items) if index not in used]
+    all_items, items = items, [item for index, item in enumerate(items) if index not in used]
     form = FormIR(
         title=title or sentence_case(filename.rsplit(".", 1)[0]) or "Wniosek",
         issuer=issuer,
@@ -526,11 +596,25 @@ def understand(doc: Document, filename: str = "") -> FormIR:
         ocr_confidence=doc.ocr_confidence,
     )
     builder = Builder()
-    sections: list[SectionIR] = []
-    for raw in split_sections(items):
-        section = build_section(raw, builder, form)
-        if section:
-            sections.append(section)
+    variants = _split_variants(all_items, used)
+    if variants:
+        common, blocks, heading = variants
+        kinds_found = list(dict.fromkeys(kind for kind, _ in blocks))
+        match = re.match(r"^(Wniosek o przyznanie)\s+\S+\s+(\S+\s+.*)$", heading)
+        if match and len(kinds_found) > 1:
+            names = kinds_found
+            form.title = f"{match.group(1)} {', '.join(names[:-1])} lub {names[-1]} {match.group(2)}"
+        sections = _build_sections(common, builder, form)
+        kinds = list(dict.fromkeys(kind for kind, _ in blocks))
+        choice = builder.radio("Rodzaj wniosku", [VARIANT_LABELS[k] for k in kinds], "Rodzaje wniosków", 1)
+        sections.insert(min(1, len(sections)), SectionIR(title="Rodzaj wniosku", fields=[choice]))
+        for kind, block in blocks:
+            for section in _build_sections(block, builder, form):
+                section.title = f"{VARIANT_SHORT[kind]}: {section.title}"
+                section.condition = Condition(choice.key, VARIANT_LABELS[kind])
+                sections.append(section)
+    else:
+        sections = _build_sections(items, builder, form)
     if not sections:
         form.warnings.append("Nie rozpoznano pól specyficznych dla wniosku. Dodano pole opisowe do uzupełnienia.")
         sections = [

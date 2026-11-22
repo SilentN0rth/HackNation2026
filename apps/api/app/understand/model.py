@@ -27,6 +27,7 @@ class FieldIR:
 class SectionIR:
     title: str
     fields: list[FieldIR] = field(default_factory=list)
+    condition: Condition | None = None  # sekcja widoczna tylko po wyborze w polu field_key
 
 
 @dataclass
