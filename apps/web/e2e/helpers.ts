@@ -16,8 +16,10 @@ export async function login(page: Page, user: { email: string; password: string 
   await page.locator("#field-email").fill(user.email);
   await page.locator("#field-password").fill(user.password);
   await page.locator('form button[type="submit"]').click();
-  await page.waitForURL((url) => url.pathname === "/official" || url.pathname === "/official/");
-  await expect(page.locator(".dashboard, [class*=dashboard]").first()).toBeVisible();
+  // zaraz po logowaniu pulpit może przekierować do widoku z settings.defaultView – wchodzimy na pulpit wprost
+  await page.waitForURL((url) => url.pathname.startsWith("/official") && !url.pathname.startsWith("/official/login"), { timeout: 60_000 });
+  await page.goto("/official");
+  await expect(page.getByTestId("panel-dashboard")).toBeVisible();
 }
 
 /** Zrzut całej strony do e2e/__screens__/<projekt>/<nazwa>.png (desktop / mobile). */
