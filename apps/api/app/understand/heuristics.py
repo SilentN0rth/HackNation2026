@@ -1,6 +1,7 @@
 import re
 from dataclasses import dataclass, field
 
+from app import dictionaries
 from app.extract.ir import Document
 from app.understand.catalog import any_match, catalog, rewrite
 from app.understand.model import Condition, FieldIR, FormIR, PageIR, SectionIR
@@ -326,15 +327,27 @@ class Builder:
             if value and value not in clean_options:
                 clean_options.append(value)
         kind = "RADIO" if len(clean_options) <= 5 else "SELECT"
+        dictionary = self.dictionary_for(title, clean_options)
         return FieldIR(
             key=self.key(),
             title=rewrite(plain_label(title))[0],
-            type=kind,
+            type=dictionary[1] if dictionary else kind,
             required=required,
-            options=clean_options,
+            options=[] if dictionary else clean_options,
+            dictionary=dictionary[0] if dictionary else None,
             source=source,
             page=page,
         )
+
+    def dictionary_for(self, title: str, options: list[str]) -> tuple[str, str] | None:
+        """Lista wypisana na papierze, której wartości są w słowniku pasującym do etykiety, korzysta ze słownika."""
+        lowered = plain_label(title).lower()
+        if OTHER_OPTION.match(lowered):
+            return None
+        for rule in self.rules.fields:
+            if rule.dictionary and rule.pattern.search(lowered) and dictionaries.covers(rule.dictionary, options):
+                return rule.dictionary, rule.type or "SELECT"
+        return None
 
 
 def _stems(text: str) -> set[str]:

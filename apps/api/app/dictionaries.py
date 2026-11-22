@@ -49,6 +49,21 @@ def get(name: str) -> dict | None:
     }
 
 
+def _covered(option: str, values: set[str]) -> bool:
+    option = fold(option)
+    return option in values or any(v.startswith(option + " ") or option.startswith(v + " ") for v in values)
+
+
+def covers(name: str, options: list[str]) -> bool:
+    """Opcje z papieru to w większości wartości słownika (dokładnie albo jako ogólniejsza lub węższa nazwa)."""
+    item = load().get(name)
+    if not item or not options:
+        return False
+    values = {fold(v) for v in item["wartosci"]}
+    matched = sum(_covered(o, values) for o in options)
+    return matched >= 2 and matched * 2 >= len(options)
+
+
 def suggest(title: str, options: list[str]) -> str | None:
     lowered = title.lower()
     for keyword, name in KEYWORDS.items():

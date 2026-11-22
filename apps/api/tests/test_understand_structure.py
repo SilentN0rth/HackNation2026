@@ -126,3 +126,49 @@ def test_wrapped_variant_heading_leaves_no_stray_field():
         lines += [f"Wniosek o przyznanie {kind} sportowego Rady Miasta", "Zgierza", "1. Wnioskodawca"]
         lines += [f"Pole numer {i}" for i in range(8)]
     assert "Zgierza" not in titles(run(*lines))
+
+
+def test_listed_disciplines_bind_to_the_proposed_dictionary_instead_of_hardcoded_options():
+    form = run(
+        "1. Dane sportowca",
+        "Rodzaj dyscypliny",
+        "□ Zespołowa",
+        "□ Indywidualna",
+        "Dyscypliny sportowe",
+        "□ Piłka nożna",
+        "□ Koszykówka",
+        "□ Unihokej",
+        "□ Hokej",
+        "□ Szachy",
+        "□ Sporty walki",
+        "Inna dyscyplina",
+    )
+    found = {f.title: f for f in fields(form)}
+    disciplines = found["Dyscypliny sportowe"]
+    assert (disciplines.type, disciplines.dictionary, disciplines.options) == ("SELECT", "DYSCYPLINY_SPORTOWE", [])
+    kind = found["Rodzaj dyscypliny"]
+    assert kind.dictionary is None and kind.options == ["Zespołowa", "Indywidualna"]
+    assert found["Inna dyscyplina"].dictionary is None
+
+
+def test_bound_dictionary_field_is_valid_coi():
+    from app.coi import builder
+    from app.coi.validator import errors
+
+    form = run("1. Dane sportowca", "Dyscypliny sportowe", "□ Piłka nożna", "□ Koszykówka", "□ Judo")
+    coi, _ = builder.build(form, "Urząd")
+    leaves = __import__("app.coi.walk", fromlist=["leaves"]).leaves
+    field = next(i.field for i in leaves(coi) if i.field.get("dictionaryName") == "DYSCYPLINY_SPORTOWE")
+    assert field["type"] == "SELECT" and field["options"] == []
+    assert errors(coi) == []
+
+
+def test_dictionary_is_not_bound_when_listed_options_are_not_its_values():
+    from app.dictionaries import covers
+
+    assert covers("DYSCYPLINY_SPORTOWE", ["Piłka nożna", "Hokej", "Narciarstwo klasyczne"])
+    assert not covers("DYSCYPLINY_SPORTOWE", ["Zespołowa", "Indywidualna – inna", "Indywidualna – lekkoatletyka"])
+    assert not covers("DYSCYPLINY_SPORTOWE", ["Piłka nożna"])
+    form = run("1. Dane sportowca", "Dyscypliny sportowe", "□ Zespołowa", "□ Indywidualna")
+    assert all(f.dictionary is None for f in fields(form))
+
