@@ -48,18 +48,18 @@ export function NavBar({ home, account, logout, userName, groups, before, after 
           </Link>
         </div>
       </div>
-      <nav aria-label="Panel urzędnika" className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl items-stretch gap-6 overflow-x-auto px-5 text-[15px] font-medium sm:px-8">
-          <NavLink href={home} exact className="flex items-center py-3">
+      <nav aria-label="Panel urzędnika" className="nav-strip bg-accent">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-stretch gap-x-5 px-5 text-[13px] font-medium sm:px-8">
+          <NavLink href={home} exact className="flex items-center py-2.5">
             Pulpit
           </NavLink>
           {before}
           {groups.map((g) => (
             <Fragment key={g.label}>
-              <span aria-hidden className="my-3 w-px shrink-0 bg-border" />
+              <span aria-hidden className="my-2.5 w-px shrink-0 bg-white/25" />
               <span className="sr-only">{g.label}:</span>
               {g.links.map((l) => (
-                <NavLink key={l.href} href={l.href} className="flex items-center py-3">
+                <NavLink key={l.href} href={l.href} className="flex items-center py-2.5">
                   {l.label}
                 </NavLink>
               ))}

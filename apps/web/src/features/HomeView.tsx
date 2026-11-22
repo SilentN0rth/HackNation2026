@@ -38,7 +38,6 @@ export function HomeView() {
     <div className="flex flex-col gap-24 sm:gap-32">
       <section className="grid gap-12 pt-4 lg:grid-cols-[1.25fr_1fr] lg:items-end">
         <div>
-          <p className="rise mb-5 text-sm font-semibold tracking-wide text-accent uppercase">Generator formularzy</p>
           <h1
             className="rise text-[2.75rem] leading-[1.04] font-semibold tracking-[-0.035em] text-balance text-ink sm:text-6xl lg:text-[4.25rem]"
             style={{ "--i": 1 } as React.CSSProperties}
