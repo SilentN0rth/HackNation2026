@@ -15,6 +15,7 @@ const FIELD_TYPE_LABELS: Record<FieldType, string> = {
   postalCode: "Kod pocztowy",
   phone: "Telefon",
   email: "E-mail",
+  file: "Załącznik",
 };
 
 interface FieldEditorProps {

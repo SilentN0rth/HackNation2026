@@ -47,6 +47,7 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
 
 export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly }: Props) {
   const errorId = useId();
+  const fileId = useId();
   const str = typeof value === "string" ? value : "";
   const invalid = Boolean(error);
   const common = {
@@ -141,6 +142,36 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
               {help}
             </Checkbox.Content>
           </Checkbox>
+          {error && (
+            <p id={errorId} className="text-sm text-danger" role="alert">
+              {error}
+            </p>
+          )}
+        </div>
+      );
+      break;
+
+    case "file":
+      control = (
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor={fileId} className="font-medium">
+            {field.label}
+            {!field.required && <span className="ml-2 text-sm font-normal text-muted">(nieobowiązkowe)</span>}
+          </label>
+          {help}
+          <input
+            id={fileId}
+            name={field.id}
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png,.xml"
+            required={field.required}
+            disabled={readOnly || field.readOnly}
+            aria-invalid={invalid}
+            aria-describedby={error ? errorId : undefined}
+            onChange={(e) => onChange(e.target.files?.[0]?.name ?? "")}
+            className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-accent-foreground"
+          />
+          {str && <p className="text-sm text-muted">Wybrany plik: {str}</p>}
           {error && (
             <p id={errorId} className="text-sm text-danger" role="alert">
               {error}
