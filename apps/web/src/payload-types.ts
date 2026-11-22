@@ -600,7 +600,7 @@ export interface Setting {
 export interface Registry {
   id: number;
   /**
-   * Klucz → wartość, np. person.fullName. Klucze odpowiadają Field.prefill.key.
+   * Klucz ŹRÓDŁO.atrybut → wartość, np. PESEL.name. Źródła: PESEL, PESEL_ADDRESS, MLPZ. Brak klucza lub pusta wartość = pole zostaje puste.
    */
   prefill?:
     | {
