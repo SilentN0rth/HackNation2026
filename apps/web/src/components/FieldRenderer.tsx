@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import {
   Checkbox,
+  ComboBox,
   Description,
   Disclosure,
   FieldError,
@@ -15,6 +16,7 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { citizenFileFormats, citizenFileHint, validateCitizenFile } from "@/lib/validators";
 import type { Field } from "@/types";
 
 interface Props {
@@ -46,13 +48,12 @@ function FieldLabel({ field, prefilled }: { field: Field; prefilled?: boolean })
   );
 }
 
-const MAX_FILE_BYTES = 10 * 1024 * 1024;
-
 export function FieldRenderer({ field, value, error, prefilled, onChange, readOnly, onUpload }: Props) {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const errorId = useId();
   const fileId = useId();
+  const hintId = useId();
   const str = typeof value === "string" ? value : "";
   const invalid = Boolean(error);
   const common = {
@@ -65,8 +66,14 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
   const help = field.helpText && <Description>{field.helpText}</Description>;
   const err = <FieldError>{error}</FieldError>;
 
+  const options = field.options ?? [];
+  // Lista bez wartości (np. słownik, którego nie mamy) nie może blokować wymaganego pola – wpisujemy tekst.
+  const kind = field.type === "select" && options.length === 0 ? "text" : field.type;
+  // Standard: powyżej 15 opcji lista rozwijana ma wyszukiwarkę.
+  const searchable = kind === "select" && options.length > 15;
+
   let control: React.ReactNode;
-  switch (field.type) {
+  switch (kind) {
     case "textarea":
       control = (
         <TextField {...common} value={str} onChange={onChange} className="flex flex-col gap-1.5">
@@ -79,7 +86,33 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
       break;
 
     case "select":
-      control = (
+      control = searchable ? (
+        <ComboBox
+          {...common}
+          selectedKey={str || null}
+          onSelectionChange={(key) => onChange(key == null ? "" : String(key))}
+          menuTrigger="focus"
+          className="flex flex-col gap-1.5"
+        >
+          <FieldLabel field={field} prefilled={prefilled} />
+          {help}
+          <ComboBox.InputGroup>
+            <Input placeholder="Zacznij pisać, aby wyszukać" />
+            <ComboBox.Trigger />
+          </ComboBox.InputGroup>
+          {err}
+          <ComboBox.Popover>
+            <ListBox renderEmptyState={() => <p className="px-3 py-2 text-sm text-muted">Brak wyników</p>}>
+              {options.map((o) => (
+                <ListBox.Item key={o.value} id={o.value} textValue={o.label}>
+                  {o.label}
+                  <ListBox.ItemIndicator />
+                </ListBox.Item>
+              ))}
+            </ListBox>
+          </ComboBox.Popover>
+        </ComboBox>
+      ) : (
         <Select
           {...common}
           value={str || null}
@@ -96,7 +129,7 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
           {err}
           <Select.Popover>
             <ListBox>
-              {(field.options ?? []).map((o) => (
+              {options.map((o) => (
                 <ListBox.Item key={o.value} id={o.value} textValue={o.label}>
                   {o.label}
                   <ListBox.ItemIndicator />
@@ -164,22 +197,27 @@ export function FieldRenderer({ field, value, error, prefilled, onChange, readOn
             {!field.required && <span className="ml-2 text-sm font-normal text-muted">(nieobowiązkowe)</span>}
           </label>
           {help}
+          <p id={hintId} className="text-sm text-muted">
+            {citizenFileHint(field)}
+          </p>
           <input
             id={fileId}
             name={field.id}
             type="file"
-            accept=".pdf,.jpg,.jpeg,.png,.xml"
+            accept={citizenFileFormats(field).map((f) => `.${f}`).join(",")}
             required={field.required}
             disabled={readOnly || field.readOnly}
             aria-invalid={invalid}
-            aria-describedby={error ? errorId : undefined}
+            aria-describedby={error || uploadError ? `${hintId} ${errorId}` : hintId}
             onChange={async (e) => {
               const file = e.target.files?.[0];
               setUploadError(null);
               if (!file) return onChange("");
-              if (file.size > MAX_FILE_BYTES) {
+              const fileError = validateCitizenFile(field, file);
+              if (fileError) {
                 e.target.value = "";
-                return setUploadError("Plik może mieć najwyżej 10 MB.");
+                onChange("");
+                return setUploadError(fileError);
               }
               if (!onUpload) return onChange(file.name);
               setUploading(true);
