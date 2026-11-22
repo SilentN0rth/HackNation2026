@@ -185,3 +185,36 @@ def test_register_fields_must_be_read_only(coi):
     assert external and all(f["readOnly"] for f in external)
     external[0]["readOnly"] = False
     assert "external-not-readonly" in codes(quality(coi))
+
+
+@pytest.mark.parametrize(
+    ("value", "flagged"),
+    [
+        ("PESEL.name", False),
+        ("PESEL_ADDRESS.permanentAddressStreet", False),
+        ("MLPZ.descriptiveOrganizationName", False),
+        ("PESEL.postCode", True),
+        ("CEIDG.name", True),
+        ("PESEL", True),
+        ("PESEL.name.surname", True),
+    ],
+)
+def test_register_source_must_come_from_the_catalog(coi, value, flagged):
+    external = next(i.field for i in leaves(coi) if i.field.get("defaultValueType") == "EXTERNAL_SYSTEM")
+    external["defaultValue"] = value
+    assert ("external-bad-source" in codes(quality(coi))) is flagged
+
+
+def test_catalog_matches_the_initial_data_document():
+    from app.coi import initial_data
+
+    assert {s: len(a) for s, a in initial_data.ATTRIBUTES.items()} == {"PESEL": 16, "PESEL_ADDRESS": 18, "MLPZ": 17}
+
+
+def test_demo_prefill_covers_every_attribute():
+    import json
+
+    from app.api.citizen import PREFILL
+    from app.coi import initial_data
+
+    assert set(json.loads(PREFILL.read_text(encoding="utf-8"))) == set(initial_data.all_keys())

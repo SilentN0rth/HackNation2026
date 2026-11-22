@@ -206,7 +206,8 @@ def to_frontend(coi: dict, meta: dict, *, schema_id: str, version: int, issuer: 
                 if field.get("dictionaryName"):
                     item["dictionaryId"] = field["dictionaryName"]
                 if field.get("defaultValueType") == "EXTERNAL_SYSTEM" and isinstance(field.get("defaultValue"), str):
-                    item["prefill"] = {"source": "mObywatel", "key": field["defaultValue"]}
+                    item["prefill"] = {"source": field["defaultValue"].split(".")[0], "key": field["defaultValue"]}
+                    item["readOnly"] = True
                 if field["id"] in conds:
                     target, value, negated = conds[field["id"]]
                     item["visibleIf"] = {"fieldId": target, "equals": value, **({"negate": True} if negated else {})}
