@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 32">
+  <rect width="32" height="32" rx="8" fill="#fff"/>
+  <path d="M11.8 7.6h5.4l4.2 4.2v10.6a2 2 0 0 1-2 2h-7.6a2 2 0 0 1-2-2V9.6a2 2 0 0 1 2-2Z" fill="#21519f"/>
+  <rect x="12.9" y="14.1" width="6.2" height="1.9" rx="0.95" fill="#fff"/>
+  <rect x="12.9" y="17.4" width="4.2" height="1.9" rx="0.95" fill="#fff"/>
+  <text x="44" y="22.5" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="19" font-weight="600" letter-spacing="-0.2" fill="#fff">e-Formularze</text>
+</svg>

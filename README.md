@@ -8,7 +8,7 @@ Monorepo:
 | --- | --- |
 | `apps/api/` | Usługa REST (Python 3.14, FastAPI): `POST /api/v1/convert` i edytor wersji roboczych. Instrukcja w `apps/api/README.md` |
 | `apps/web/` | Aplikacja dla urzędnika i e-usługa dla obywatela (Next.js 16, HeroUI, Tailwind, Zod, PWA). Instrukcja w `apps/web/README.md` |
-| `packages/brand/` | Logo, ikony i generator znaku |
+| `packages/brand/` | Logo i ikony |
 | `docs/` | Architektura (`docs/ARCHITEKTURA.md`) |
 | `outputs/` | Wynikowe pliki JSON dla formularzy z wyzwania i raport |
 | `data-pdf/` | Materiały i przykładowe formularze od organizatorów |
