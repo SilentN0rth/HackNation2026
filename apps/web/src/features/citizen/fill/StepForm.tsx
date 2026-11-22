@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Alert, Button, Card } from "@heroui/react";
 import { api } from "@/api";
 import { FieldRenderer } from "@/components/FieldRenderer";
@@ -18,7 +19,19 @@ interface Props {
   onNext: () => void;
 }
 
-export function StepForm({ page, values, errors, prefilled, step, busy, savedAt, onChange, onBack, onSaveDraft, onNext }: Props) {
+export function StepForm({
+  page,
+  values,
+  errors,
+  prefilled,
+  step,
+  busy,
+  savedAt,
+  onChange,
+  onBack,
+  onSaveDraft,
+  onNext,
+}: Props) {
   return (
     <Card>
       <form
@@ -29,26 +42,40 @@ export function StepForm({ page, values, errors, prefilled, step, busy, savedAt,
         }}
       >
         <Card.Content className="pt-2">
-          {page.description && <p className="mb-4 text-muted">{page.description}</p>}
+          {page.description && (
+            <p className="mb-4 text-muted">{page.description}</p>
+          )}
           {Object.values(errors).some(Boolean) && (
             <Alert status="danger" className="mb-6">
               <Alert.Indicator />
               <Alert.Content>
-                <Alert.Title>Popraw zaznaczone pola, żeby przejść dalej.</Alert.Title>
+                <Alert.Title>
+                  Popraw zaznaczone pola, żeby przejść dalej.
+                </Alert.Title>
               </Alert.Content>
             </Alert>
           )}
-          {page.fields.map((f) => (
-            <FieldRenderer
-              key={f.id}
-              field={f}
-              value={values[f.id]}
-              error={errors[f.id] || null}
-              prefilled={prefilled.has(f.id)}
-              readOnly={Boolean(f.prefill) || isLocked(f, values)}
-              onChange={(v) => onChange(f.id, v)}
-              onUpload={api.uploadAttachment ? (file) => api.uploadAttachment!(file) : undefined}
-            />
+          {page.fields.map((f, i) => (
+            <Fragment key={f.id}>
+              {f.section && f.section !== page.fields[i - 1]?.section && (
+                <h2 className="mt-8 mb-4 border-b border-border pb-2 text-xl font-semibold text-ink first:mt-0">
+                  {f.section}
+                </h2>
+              )}
+              <FieldRenderer
+                field={f}
+                value={values[f.id]}
+                error={errors[f.id] || null}
+                prefilled={prefilled.has(f.id)}
+                readOnly={Boolean(f.prefill) || isLocked(f, values)}
+                onChange={(v) => onChange(f.id, v)}
+                onUpload={
+                  api.uploadAttachment
+                    ? (file) => api.uploadAttachment!(file)
+                    : undefined
+                }
+              />
+            </Fragment>
           ))}
         </Card.Content>
         <Card.Footer className="flex flex-wrap items-center gap-2">

@@ -61,6 +61,8 @@ export const FieldSchema = z.object({
   label: z.string(),
   type: FieldTypeSchema,
   required: z.boolean(),
+  /** Tytuł sekcji tematycznej, w której pole stoi (np. „Podmiot wniosku”); sąsiednie pola z tym samym tytułem tworzą sekcję. */
+  section: z.string().optional(),
   helpText: z.string().optional(),
   placeholder: z.string().optional(),
   options: z.array(OptionSchema).optional(),
